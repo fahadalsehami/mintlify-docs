@@ -3,14 +3,9 @@ title: "PATCH /api/patients/{id}"
 description: "Update a patient"
 ---
 
-## `PATCH /api/patients/{id}`
 
-Update specific fields. Only fields in the body are updated. PHI changes generate a separate audit event.
-
-### Example
-
-```bash
-curl -X PATCH https://api.medera.ai/api/patients/{id} \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+PATCH /api/patients/{patientId}
+```
+
+Partial update. PHI changes generate a separate `phi_audit_logs` entry per field.

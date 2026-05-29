@@ -1,16 +1,19 @@
 ---
-title: "POST /api/auth/register"
-description: "Register a new user (Clerk webhook handler)"
+title: "Register a new user"
+description: "Clerk-mediated registration"
 ---
 
-## `POST /api/auth/register`
 
-Register a new user. Rate-limited to 10 requests / 15 minutes per IP. New users default to the inviting organization.
+End-user registration is handled by Clerk on the frontend (`<SignUp />`). After sign-up, Clerk sends a `user.created` webhook to:
 
-### Example
+```
+POST /api/clerk-webhooks
+```
 
-```bash
-curl -X POST https://api.medera.ai/api/auth/register \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+`clerkUserSyncService` reflects the user into Medera's `users` table under the inviting organization. Backend route helpers:
+
+```
+POST /api/auth/register         # rate limited 10 req / 15 min
+POST /api/auth/forgot-password  # rate limited 10 req / 15 min
+POST /api/auth/login            # rate limited 10 req / 15 min
 ```

@@ -1,11 +1,10 @@
 ---
 title: "Documentation Modes"
-description: "Differences between documentation modes"
+description: "Real-time vs. async generation"
 ---
 
 
-| Mode | Use case | Latency | Recommended |
-| :--- | :--- | :--- | :--- |
-| `realtime` | In-encounter drafting | Sub-second per section | Visit Scribe |
-| `batch` | Post-visit assembly | Seconds | Async ambient |
-| `regen` | Re-generate from facts | Seconds | Template change, late edits |
+| Mode | Use | Endpoint |
+| :--- | :--- | :--- |
+| Real-time | In-encounter drafting | `/api/clinical/chunk` then `/api/therapy/generate-soap-note` |
+| Async / Batch | Post-visit assembly | `/api/therapy/analyze-session` → `/api/therapy/generate-soap-note-enhanced` |

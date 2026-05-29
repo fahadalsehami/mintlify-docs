@@ -3,14 +3,14 @@ title: "GET /api/agent-workflows/executions/{id}"
 description: "Get an execution"
 ---
 
-## `GET /api/agent-workflows/executions/{id}`
 
-Get a workflow execution trace.
-
-### Example
-
-```bash
-curl -X GET https://api.medera.ai/api/agent-workflows/executions/{id} \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+GET /api/agent-workflows/{id}/executions               # list
+GET /api/agent-workflows/executions/{executionId}      # get
+GET /api/agent-workflows/executions/{executionId}/sync-status  # EHR sync status
+POST /api/agent-workflows/executions/{executionId}/resume      # resume paused (after approval)
+GET /api/agent-workflows/executions/{executionId}/approvals    # pending approvals
+GET /api/agent-workflows/queue/stats                            # Bull queue stats
+```
+
+Returns the `execution_trace[]` with per-node start / complete / error entries plus state snapshots.

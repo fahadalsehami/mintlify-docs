@@ -1,75 +1,62 @@
 ---
 title: "Quickstart — Authentication"
-description: "Exchange client credentials for an access token"
+description: "Get an access token in 60 seconds"
 ---
 
 
-This 60-second quickstart shows how to exchange your client credentials for an access token.
+## Option 1 — Clerk JWT (end-user)
 
-## Prerequisites
+End-user sign-in is handled by Clerk on the frontend. After sign-in, the Clerk JWT is automatically attached to every request the frontend makes.
 
-- A `client_id` / `client_secret` pair from the [Medera Console](https://app.medera.ai)
-- `curl` or any HTTP client
+```typescript
+import { useAuth } from '@clerk/clerk-react';
 
-## Get a token
+const { getToken } = useAuth();
+const token = await getToken();
 
-```bash
-curl -X POST https://auth.medera.ai/oauth/token \
-  -H "Content-Type: application/json" \
-  -d '{
-    "grant_type": "client_credentials",
-    "client_id": "<CLIENT_ID>",
-    "client_secret": "<CLIENT_SECRET>",
-    "audience": "api.medera.ai",
-    "scope": "patients:read sessions:write"
-  }'
-```
-
-Response:
-
-```json
-{
-  "access_token": "eyJhbGciOi...",
-  "token_type": "Bearer",
-  "expires_in": 3600,
-  "scope": "patients:read sessions:write"
-}
-```
-
-## Use the token
-
-```bash
-curl https://api.medera.ai/api/patients?limit=10 \
-  -H "Authorization: Bearer eyJhbGciOi..."
-```
-
-## In the SDKs
-
-```javascript
-import { MederaAuth, MederaClient } from '@medera/sdk';
-
-const auth = new MederaAuth({
-  clientId: process.env.MEDERA_CLIENT_ID,
-  clientSecret: process.env.MEDERA_CLIENT_SECRET,
-  audience: 'api.medera.ai',
+const res = await fetch('https://api.medera.ai/api/patients', {
+  headers: { 'Authorization': `Bearer ${token}` },
 });
+```
 
-const client = new MederaClient({ auth });
+## Option 2 — Developer API Key (server-to-server)
 
-const patients = await client.patients.list({ limit: 10 });
+For backend integrations and batch jobs, use a Developer API Key created in the Console under **Settings → Developer API Keys**.
+
+```bash
+curl https://api.medera.ai/api/agent-workflows \
+  -H "X-API-Key: $MEDERA_API_KEY"
+```
+
+API keys support the following scopes:
+
+| Scope | Allows |
+| :--- | :--- |
+| `read:data` | Read non-PHI resources (workflows, deployments, templates) |
+| `write:data` | Create / update non-PHI resources |
+| `execute:agents` | Trigger agent / workflow executions |
+| `read:phi` | Read PHI (patients, sessions) — requires active BAA |
+| `write:phi` | Write PHI — requires active BAA |
+| `admin` | Admin operations (separate issuer) |
+
+## Option 3 — Internal service-to-service
+
+The AI Services (port 8000) and backend (port 3001) communicate using a tenant-scoped `X-Service-Key` header. This is for internal use; do not expose to clients.
+
+## SDK setup
+
+```typescript
+import { MederaClient } from '@medera/sdk';
+
+const client = new MederaClient({
+  apiKey: process.env.MEDERA_API_KEY!,
+  // or:
+  // accessToken: clerkJwt,
+});
 ```
 
 ```python
-from medera import MederaAuth, MederaClient
+from medera import MederaClient
 
-auth = MederaAuth(
-    client_id=os.environ["MEDERA_CLIENT_ID"],
-    client_secret=os.environ["MEDERA_CLIENT_SECRET"],
-    audience="api.medera.ai",
-)
-
-client = MederaClient(auth=auth)
-patients = client.patients.list(limit=10)
+client = MederaClient(api_key=os.environ["MEDERA_API_KEY"])
 ```
-
-The SDKs automatically refresh the token before it expires.

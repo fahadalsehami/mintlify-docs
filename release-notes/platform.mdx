@@ -1,18 +1,46 @@
 ---
 title: "Platform Release Notes"
-description: "Backend and runtime updates"
+description: "Backend + runtime updates"
 ---
 
 
-## May 28, 2026
-- Multi-tenant: added FORCE ROW LEVEL SECURITY completeness sweep on all RLS-enabled tables
-- Audit: GIN indexes on JSONB columns for faster audit queries
-- Performance: dynamic FK index detection and creation
+## 2026-03-02 — RLS + audit hardening
 
-## May 7, 2026
-- Agent Builder Canvas: split AgentConfigPanel into 150-line orchestrator + 15 config subcomponents
-- Workflow engine: 5 concurrent workers, exponential retry, immutable WORM event store
+- **Migration 158** — FORCE ROW LEVEL SECURITY completeness sweep
+- **Migration 157** — GIN indexes (`jsonb_path_ops`) on JSONB columns
+- **Migration 156** — JSONB `defaultTo()` audit (prevents double-stringified defaults)
+- **Migration 155** — Dynamic FK index detection
+- **Migration 154** — Standardized RLS on 12 tables — 4-policy `has_tenant_access()`
 
-## Apr 16, 2026
-- Patient model PHI handling: AES-256-GCM on SSN, insurance, address; hashed phone and email
-- Security: hardcoded service keys removed; auth rate limiting added
+## 2026-03-02 — Workflow engine + deployments
+
+- 19-file workflow engine totaling 7,180 lines
+- `WorkflowExecutor` (471 L), `ExecutionContext` (354 L), `WorkflowQueue` (285 L) — Bull on Redis DB 2, 5 concurrent workers, 3-attempt retry with 5 s exponential backoff
+- Graceful sync fallback if Redis unavailable
+- Real-time Socket.IO events: `workflow:execution:started`, `workflow:node:executing`, `workflow:node:completed`, `workflow:ehr-sync`, `workflow:execution:paused/completed/failed`
+
+## 2026-03-02 — Sandbox-first deployment platform
+
+- Sandbox URLs: `https://sandbox.medera.info/{org}/{agent}-v{ver}` with 72-hour `auto_expire_at`
+- Production URLs: `https://agents.medera.info/{org}/{agent}`
+- Migration 138 — `agent_deployments` table with 12 statuses
+- Migration 140 — `deployment_audit_log` (WORM) — migration 145 fixed FK from RESTRICT → SET NULL for WORM compat
+- Migration 144 — `deployment_preview_access` (token-based sandbox sharing)
+- Migration 148 — `deployment_metrics` (time-bucketed)
+- Migration 149 — `deployment_alerts` (threshold-based)
+- Migration 152 — Auto-rollback config + alert resolution
+
+## 2026-02-10 — Security fixes
+
+- Hardcoded service keys removed (4 files, 17 occurrences)
+- Hardcoded DB credentials removed from `templates.js` and `notifications.js`
+- Auth rate limiting added (10 req / 15 min)
+- PII `console.log` statements purged
+- Patient PHI fields (SSN, insurance, address) encrypted AES-256-GCM
+- Phone + email hashed for search
+
+## 2026-03-02 — Mock AI safety
+
+- 6 methods that returned fabricated clinical data replaced with `unavailable` status (`confidence: 0.0`, `requires_human_review: True`)
+- Crisis detection: all `crisis_detected=False` changed to `None`; `escalation_required` defaults to `True`
+- 11 bare `except Exception` clauses fixed with proper logging across 9 files

@@ -1,16 +1,19 @@
 ---
-title: "POST /api/multimodal/analyze-audio"
-description: "Analyze audio for vocal acoustics"
+title: "POST /api/multimodal-therapy/analyze-audio-only"
+description: "Audio-only multimodal analysis"
 ---
 
-## `POST /api/multimodal/analyze-audio`
 
-Analyze uploaded audio for vocal prosody, voice quality, and clinical markers.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/multimodal/analyze-audio \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/multimodal-therapy/analyze-audio-only
+```
+
+### Body (multipart/form-data)
+
+| Field | Type |
+| :--- | :--- |
+| `session_id` | string |
+| `audio_file` | file |
+| `analysis_type` | string (optional) |
+
+Returns `VocalFeatures` payload + clinical markers.

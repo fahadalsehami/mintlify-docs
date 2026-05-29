@@ -1,18 +1,21 @@
 ---
 title: "Webhook Events"
-description: "Available webhook events"
+description: "Available events"
 ---
 
 
-| Event | Description |
+| Event | Notes |
 | :--- | :--- |
-| `session.created` | Session created |
+| `intake.started` | Vapi call started |
+| `intake.screener.completed` | Screener score available |
+| `intake.crisis.detected` | C-SSRS crisis-language detection |
+| `intake.summary.ready` | Handoff packet ready |
+| `intake.completed` | Vapi call ended |
+| `session.created` | Clinical session created |
 | `session.transcript.ready` | Transcript completed |
-| `session.note.signed` | Note signed |
-| `intake.started` | Intake call started |
-| `intake.crisis.detected` | Crisis-language detected |
-| `intake.summary.ready` | Intake handoff packet ready |
-| `intake.completed` | Intake call completed |
+| `session.note.signed` | Note signed by clinician |
 | `pa.state.changed` | PA workflow state transition |
-| `workflow.execution.completed` | Workflow execution completed |
-| `code.suggestion.posted` | Code suggestion posted to EHR |
+| `workflow.execution.completed` | Canvas execution finished |
+| `code.suggestion.posted` | Code posted to EHR |
+| `deployment.alert.triggered` | Deployment alert fired |
+| `deployment.rolled_back` | Auto-rollback triggered |

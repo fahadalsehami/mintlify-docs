@@ -1,16 +1,26 @@
 ---
 title: "Guardrails"
-description: "HIPAA and 42 CFR Part 2 guardrails at runtime"
+description: "HIPAA + 42 CFR Part 2 enforcement in the canvas"
 ---
 
 
-The Canvas ships first-class guardrail nodes that enforce compliance at runtime:
+The `guardrails` node is a first-class node type backed by `GuardrailsNodeRunner`. It runs synchronously and routes to either a `pass` or `fail` output.
+
+## Available rules
 
 | Rule | Check |
 | :--- | :--- |
-| `phi_minimum_necessary` | Ensure only the minimum necessary PHI is propagated |
+| `hipaa_minimum_necessary` | Drop fields not required for the declared purpose |
 | `substance_use_42cfr2` | Block disclosure of SUD data without explicit consent |
-| `crisis_no_gating` | Bypass agent gating on detected crisis language |
-| `no_offline_phi` | Block writes of PHI to external sinks without consent |
+| `suicide_language` | Detect crisis language via the C-SSRS-aligned classifier |
+| `pii_scrubbing` | Strip identifiers from outbound payloads |
+| `phi_egress_block` | Block PHI in payloads to non-BAA endpoints |
+| `cdi_documentation_quality` | Block sign-off when documentation falls below the configured threshold |
 
-Guardrail failures terminate the workflow with an `error` output, not a `false` branch — the workflow cannot continue with the rule unenforced.
+## How failure routes
+
+When a rule fails, the runner returns `success(payload, "fail")`. The workflow then takes the `fail` branch. Crisis-language detection is special: the executor immediately invokes the configured Crisis Response Agent and emits `workflow:execution:paused` — agent gating cannot proceed.
+
+## Configuration
+
+Guardrails configuration lives on the deployment (`agent_deployments.guardrails_config`) and is snapshotted at deploy time — drift between deployed and current draft is detected at the next publish.

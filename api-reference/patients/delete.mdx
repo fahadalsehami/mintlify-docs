@@ -1,16 +1,18 @@
 ---
 title: "DELETE /api/patients/{id}"
-description: "Delete (soft) a patient"
+description: "Soft delete a patient"
 ---
 
-## `DELETE /api/patients/{id}`
 
-Soft-delete a patient. PHI is tombstoned but retained in the audit log per HIPAA 6-year retention.
+```
+DELETE /api/patients/{patientId}
+```
 
-### Example
+Soft delete. PHI is tombstoned but retained in the audit log per HIPAA 6-year retention.
 
-```bash
-curl -X DELETE https://api.medera.ai/api/patients/{id} \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+## FHIR adapter
+
+```
+GET  /api/patients/{patientId}/fhir
+POST /api/patients/{patientId}/ehr-sync
 ```

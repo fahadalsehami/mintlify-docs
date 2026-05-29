@@ -1,29 +1,26 @@
 ---
 title: "Advanced Document Generation"
-description: "Custom template definition and assembly"
+description: "Specialty templates + billing codes"
 ---
 
 
-Advanced document generation supports custom template definitions, per-section model overrides, and explicit fact selection.
+```
+POST /api/therapy/generate-soap-note-enhanced
+```
 
-```bash
-POST /api/textgen/documents/advanced
+### Body
+
+```json
 {
-  "template": {
-    "key": "custom_bh_intake_v2",
-    "sections": [
-      {
-        "key": "chief_complaint",
-        "required": true,
-        "facts_filter": { "group": "presenting_problem" }
-      },
-      {
-        "key": "screeners",
-        "required": true,
-        "facts_filter": { "group": "validated_screener" }
-      }
-    ]
-  },
-  "facts": { ... }
+  "session_data": { ... },
+  "patient_context": { ... },
+  "specialty": "psychiatry",
+  "template_config": {
+    "format_version": "v3",
+    "include_assessments": true,
+    "include_billing_codes": true
+  }
 }
 ```
+
+`specialty` values: `psychiatry`, `primary_care`, `cardiology`, `neurology`, ...

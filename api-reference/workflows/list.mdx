@@ -3,14 +3,9 @@ title: "GET /api/agent-workflows"
 description: "List workflows"
 ---
 
-## `GET /api/agent-workflows`
 
-List agent workflows.
-
-### Example
-
-```bash
-curl -X GET https://api.medera.ai/api/agent-workflows \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+GET /api/agent-workflows
+```
+
+Returns workflows across the actor's accessible organizations (multi-org fan-out, paginated).

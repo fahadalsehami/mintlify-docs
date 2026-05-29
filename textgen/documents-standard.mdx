@@ -1,39 +1,30 @@
 ---
 title: "Standard Document Generation"
-description: "Generate documents with templates using facts or transcripts"
+description: "Generate documents via template"
 ---
 
 
-Standard document generation uses a registered template and either a fact set or a transcript ID.
-
-```bash
-POST /api/textgen/documents
-{
-  "template_key": "soap_outpatient_bh",
-  "session_id": "ses_abc",
-  "transcript_id": "tx_xyz"
-}
+```
+POST /api/therapy/generate-soap-note
 ```
 
-## Response
+### Body
 
 ```json
 {
-  "document_id": "doc_abc",
-  "template_key": "soap_outpatient_bh",
-  "version": "1.4.0",
-  "sections": {
-    "subjective": { "text": "...", "anchors": ["span_001"] },
-    "objective": { "text": "...", "anchors": ["span_004", "span_007"] },
-    "assessment": { "text": "...", "anchors": ["span_011"] },
-    "plan": { "text": "...", "anchors": ["span_015"] }
+  "session_data": {
+    "session_id": "ses_abc",
+    "transcript": "...",
+    "duration_minutes": 45
   },
-  "completeness": { "required_fields_present": 14, "required_fields_total": 14 }
+  "patient_context": {
+    "patient_id": "pat_abc",
+    "diagnoses": ["F32.1"],
+    "medications": [...]
+  }
 }
 ```
 
-## Best practices
+### Response
 
-- Use the smallest template that fits the visit type
-- Always preserve `anchors` when rendering — they enable the clinician to verify every claim
-- For partial transcripts, set `partial: true` to indicate the note will be regenerated at sign-off
+Structured SOAP (Subjective / Objective / Assessment / Plan) with section anchors back to the transcript.

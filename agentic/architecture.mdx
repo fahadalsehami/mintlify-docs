@@ -1,30 +1,71 @@
 ---
 title: "Agentic Architecture"
-description: "System architecture of the Agentic Framework"
+description: "Runtime architecture of the canvas + care orchestrator"
 ---
 
 
 ```
-┌────────────────────────────────────────────────────────────┐
-│                       Orchestrator                         │
-│        Routing · Policy · Context · Audit · Guardrails     │
-└─────────────────────────┬──────────────────────────────────┘
-                          │
-   ┌──────────────────────┼──────────────────────┐
-   ▼                      ▼                      ▼
-┌──────────┐         ┌──────────┐         ┌──────────┐
-│  Agent   │         │  Agent   │  ...    │  Agent   │
-│ (Intake) │         │ (Scribe) │         │  (PA)    │
-└────┬─────┘         └────┬─────┘         └────┬─────┘
-     │                    │                    │
-     ▼                    ▼                    ▼
-  Experts              Experts              Experts
-  (PHQ-9, C-SSRS,...)  (ICD-10, CPT,...)    (PubMed, Payer,...)
+┌──────────────────────────────────────────────────────────────────┐
+│        Canvas (Frontend) — AgentBuilderContext, AgentCanvas      │
+└──────────────────────────────────┬───────────────────────────────┘
+                                   │ REST + Socket.IO
+                                   ▼
+┌──────────────────────────────────────────────────────────────────┐
+│    Backend /api/agent-workflows + /api/deployments + /api/care-* │
+│           Auth · Tenant Context · PHI Audit · Subscription       │
+└─┬────────────────────────────────────────────────────────────────┘
+  │
+  ├─ workflow-engine (Node.js)
+  │   ├─ WorkflowExecutor (471L) — _executeNode, _updateExecution, RLS
+  │   ├─ ExecutionContext (354L) — resolveVariable, executionTrace[]
+  │   └─ WorkflowQueue (285L) — Bull on Redis DB 2, 5 concurrent workers
+  │
+  └─ Care Orchestrator (AI Services, port 8000)
+      ├─ /api/care-orchestrator/workflows · /agents · /tasks · /voice
+      ├─ AgentType enum (INTAKE, CARE_COORDINATOR, REFERRAL_SPECIALIST, …)
+      ├─ Workflow State Machine (30+ states across Referral / Rx / Lab / Care Plan)
+      └─ Event Bus (INTAKE_*, PA_*, REFERRAL_*, PRESCRIPTION_*, LAB_*)
 ```
 
-## Runtime
+## Workflow execution
 
-- Workers: 5 concurrent (Bull queue, BullMQ-compatible)
-- Retry: exponential backoff, 3 attempts
-- Timeout: per-agent configurable, default 60 s
-- Audit: every step logged to the immutable WORM event store
+```
+client → POST /api/agent-workflows/:id/execute
+backend → insert into agent_workflow_executions (status=pending)
+backend → WorkflowQueue.queueWorkflowExecution(executionId, ...)
+       │ (graceful sync fallback if Redis unavailable)
+       ▼
+worker → load execution + version snapshot
+       → WorkflowExecutor.execute(executionId, organizationId)
+            ├─ executeInOrgScope() — SET LOCAL app.current_organization_id
+            ├─ find start node
+            └─ loop _executeNode(node, context)
+                  ├─ dispatch to NodeRunner.execute()
+                  ├─ on success → route to next nodes
+                  ├─ on { paused: true } → halt + persist state
+                  └─ on error → route to error port (or re-throw)
+worker → update agent_workflow_executions (status=completed|failed|paused)
+worker → emit workflow:execution:* on Socket.IO
+```
+
+## Real-time events (Socket.IO)
+
+Emitted to the org room and per-execution room:
+
+| Event | When |
+| :--- | :--- |
+| `workflow:execution:started` | Execution claimed by a worker |
+| `workflow:node:executing` | `_executeNode` invoked |
+| `workflow:node:completed` | Node returned `success()` |
+| `workflow:ehr-sync` | `ehr-sync` node touched a connected EHR |
+| `workflow:execution:paused` | `user-approval` returned `{ paused: true }` |
+| `workflow:execution:completed` | Reached `end` node |
+| `workflow:execution:failed` | Unhandled node error |
+
+## Tenant isolation
+
+Background workers obtain a Postgres connection and immediately run `SET LOCAL app.current_organization_id = '<org_id>'` inside a transaction. RLS policies enforce that every read / write is filtered by `organization_id`.
+
+## Versioned execution
+
+For published executions, the executor loads the immutable snapshot from `agent_workflow_versions` — draft edits made to the same workflow after the publish do **not** affect running executions.

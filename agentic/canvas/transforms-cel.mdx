@@ -1,16 +1,20 @@
 ---
-title: "Transforms (CEL)"
-description: "Data transformation with Common Expression Language"
+title: "Transforms"
+description: "Template-driven data shaping with Handlebars / Liquid"
 ---
 
 
-Transform nodes run **Common Expression Language (CEL)** expressions for type-safe data transformation.
+The `transform` node runs a Handlebars / Liquid-style template against the context. Outputs land in `nodes.<id>.output` or, with `output_to: state.<name>`, in workflow state.
 
-```cel
-{
-  "patient_summary": input.patient.name + " — PHQ-9 score: " + string(input.screeners.phq9.score),
-  "high_risk": input.screeners.phq9.score >= 15 || input.screeners.cssrs.band == "high"
-}
+```yaml
+type: transform
+config:
+  template: |
+    {
+      "patient_summary": "{{input.patient.name}} — PHQ-9 score: {{state.phq9_score}}",
+      "high_risk": {{ gt state.phq9_score 14 }}
+    }
+  output_to: state.summary
 ```
 
-CEL is sandboxed: no I/O, no network, no PHI exfiltration paths.
+Transforms are sandboxed: no I/O, no network, no PHI exfiltration paths.

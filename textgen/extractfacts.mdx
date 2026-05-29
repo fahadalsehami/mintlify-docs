@@ -1,17 +1,17 @@
 ---
 title: "Facts Extraction"
-description: "Extract facts from transcript text"
+description: "Standalone facts extraction"
 ---
 
 
-Extract facts from arbitrary text without storing them:
+Use the post-visit analyzer to extract facts from any transcript:
 
-```bash
-POST /api/textgen/facts/extract
+```
+POST /api/therapy/analyze-session
 {
-  "text": "Patient reports low mood for 6 weeks...",
-  "groups": ["presenting_problem", "validated_screener", "med_list"]
+  "session_transcript": "...",
+  "clinical_context": { "patient_id": "pat_abc" }
 }
 ```
 
-Returns a list of `Fact` objects, each with a quoted span.
+The `aiTasks[]`, `visitSummary`, and `clinicalFindings[]` in the response are the extracted, structured facts.

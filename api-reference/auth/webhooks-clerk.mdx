@@ -1,16 +1,15 @@
 ---
-title: "POST /api/clerk-webhooks"
-description: "Clerk webhook receiver"
+title: "Clerk webhook receiver"
+description: "Receive Clerk lifecycle events"
 ---
 
-## `POST /api/clerk-webhooks`
 
-Receive Clerk lifecycle webhooks (user.created, user.updated, organization.created, etc.). Validated via Svix HMAC signatures.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/clerk-webhooks \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/clerk-webhooks
+```
+
+Receives Clerk lifecycle webhooks: `user.created`, `user.updated`, `user.deleted`, `organization.created`, `organization.updated`, `organizationMembership.created`, `organizationMembership.deleted`.
+
+Signature: validated via [Svix](https://svix.com) HMAC headers (`svix-id`, `svix-timestamp`, `svix-signature`).
+
+`clerkUserSyncService.js` handles the reflection into the `users` and `organization_memberships` tables.

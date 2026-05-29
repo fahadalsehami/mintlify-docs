@@ -1,16 +1,13 @@
 ---
-title: "POST /api/multimodal/rdoc/compute"
-description: "Compute RDoC construct activations"
+title: "RDoC compute (internal)"
+description: "RDoC profile computation"
 ---
 
-## `POST /api/multimodal/rdoc/compute`
 
-Compute RDoC construct activations from multimodal features.
+RDoC computation is internal to `MultimodalTherapyAnalyzer.analyze_session_with_multimodal()` and is not exposed as a standalone endpoint. To trigger RDoC computation, use:
 
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/multimodal/rdoc/compute \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/multimodal-therapy/analyze-session
+```
+
+The response includes `rdoc.constructs[]` with one entry per construct.

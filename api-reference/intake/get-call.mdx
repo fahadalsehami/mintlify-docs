@@ -3,14 +3,9 @@ title: "GET /api/intake-calls/{id}"
 description: "Get an intake call"
 ---
 
-## `GET /api/intake-calls/{id}`
 
-Get an intake call with state, screener results, ICD-10 candidates, and the handoff packet.
-
-### Example
-
-```bash
-curl -X GET https://api.medera.ai/api/intake-calls/{id} \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+GET /api/intake-calls/{call_id}
+```
+
+Returns the call record with state, transcript, tasks, action items, and review status.

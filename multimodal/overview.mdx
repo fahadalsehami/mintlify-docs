@@ -1,58 +1,79 @@
 ---
 title: "Multimodal Sensing — Overview"
-description: "Speech, facial physiology, and vocal acoustics fused into clinical signal"
+description: "Vocal acoustics + facial physiology + RDoC fusion"
 ---
 
 
-Medera's Multimodal Sensing layer fuses three real-time clinical signal channels — speech, facial physiology, and vocal acoustics — into a single defensible read of the patient's state.
+Medera's Multimodal Sensing layer fuses three real-time clinical signal channels — vocal acoustics, facial physiology, and assessment context — into 15 RDoC construct activations. The pipeline runs in `ai-services` under `src/multimodal/engines/` and `src/rdoc/`.
 
 ## The three engines
 
 <CardGroup cols={3}>
-  <Card title="Speech to Text" icon="audio-lines" href="/multimodal/stt/overview">
-    Whisper + Deepgram nova-2-medical with sub-second interim results, diarization, and dictation commands.
+  <Card title="Vocal Acoustic Engine" icon="waveform-lines" href="/multimodal/vocal/overview">
+    `VocalAcousticEngine` — Librosa + Parselmouth (Praat). F0 statistics, jitter, shimmer, HNR, MFCC (13), prosodic features, and clinical markers.
   </Card>
-  <Card title="Facial Physiology" icon="eye" href="/multimodal/facial/overview">
-    HR, BP, HRV (SDNN/RMSSD/LF-HF), respiration, stress index, affect from MediaPipe 468-point landmarks.
+  <Card title="Facial Physiological Engine" icon="eye" href="/multimodal/facial/overview">
+    `FacialPhysiologicalEngine` — OpenCV + HeartPy + SciPy. rPPG-derived HR, BP, HRV (SDNN / RMSSD / LF-HF / SD1 / SD2), respiration, stress index.
   </Card>
-  <Card title="Vocal Acoustics" icon="waveform-lines" href="/multimodal/vocal/overview">
-    F0, jitter, shimmer, HNR, MFCC, prosodic flatness, depression/anxiety/distress indices.
+  <Card title="RDoC Construct Computer" icon="brain" href="/multimodal/rdoc/overview">
+    `RDoCConstructComputer` — fuses facial features, vocal features, and assessment context into 15 named constructs across 5 domains.
   </Card>
 </CardGroup>
 
-The three engines feed the [RDoC Construct Computer](/multimodal/rdoc/overview), which produces 15 documented construct activations with feature contributions and confidence.
-
-## Architecture at a glance
+## Architecture
 
 ```
-   AUDIO  →  Whisper · Deepgram nova-2-medical  →  Diarized transcript
-            ↓
-            Vocal Acoustic Engine (Librosa + Parselmouth)
-            ↓
-            ┌─────────────────────────────────────────┐
-   VIDEO →  │   RDoC Construct Computer (15 RDoC)     │
-            │   ↑ Vocal · Facial · Linguistic         │
-   LANG  →  └─────────────────────────────────────────┘
-            ↓
-            Construct Activations + Clinical Markers
+   AUDIO  →  VocalAcousticEngine.extract_features(audio) → VocalFeatures
+                                                              │
+   VIDEO  →  FacialPhysiologicalEngine.extract_features(frames) → PhysiologicalSignals
+                                                              │
+   ASSESS →  PHQ-9 / GAD-7 / C-SSRS scores ──────────────────┤
+                                                              ▼
+                                  RDoCConstructComputer.compute_all_constructs()
+                                                              │
+                                                              ▼
+                                          RDoCActivationProfile (15 constructs)
+                                                              │
+                                                              ▼
+                          MultimodalTherapyAnalyzer → canonical clinical payload
+                                                              │
+                                                              ▼
+                           AdvancedClinicalRAG (optional)  → CitedResponse
 ```
+
+## Endpoints
+
+The multimodal pipeline is exposed through two API surfaces.
+
+| Surface | Endpoint | Use |
+| :--- | :--- | :--- |
+| Backend (3001) | `POST /api/multimodal-therapy/analyze-session` | Full multimodal analysis + biomarker persistence + metered credit |
+| Backend (3001) | `POST /api/multimodal-therapy/analyze-audio-only` | Audio-only proxy to AI services |
+| AI Services (8000) | `POST /api/multimodal-therapy/analyze-session` | Source-of-truth analyzer |
+| AI Services (8000) | `POST /api/multimodal-therapy/analyze-audio-only` | Vocal-only analysis |
+| AI Services (8000) | `GET /api/multimodal-therapy/health` | Engine availability + dep status |
+
+The backend proxy enriches the payload with the runtime agent config and persists the resulting biomarker envelope; the AI services router runs the engines.
 
 ## Quality and confidence
 
-Every multimodal output reports a confidence band (`VERY_HIGH` → `VERY_LOW`) and the feature contributions that drove it. Clinical claims are bounded to the documented signal — never extrapolated.
+Every output reports confidence in `ConfidenceLevel` bands (defined in `advanced_clinical_rag.py`):
 
-## What you can build
+| Band | Range |
+| :--- | :--- |
+| `VERY_HIGH` | ≥ 0.95 |
+| `HIGH` | ≥ 0.85 |
+| `MODERATE` | ≥ 0.70 |
+| `LOW` | ≥ 0.50 |
+| `VERY_LOW` | < 0.50 |
 
-- Real-time SOAP scribe with multimodal anchors
-- Co-Therapy in-session signal channel for the clinician
-- Adaptive intake with prosody-driven branching
-- Longitudinal RDoC tracking across episodes
+Below `MODERATE`, results are delivered with `requires_human_review: true`. If signal quality fails (SNR < 3.0 on the facial channel, voiced fraction too low on the vocal channel), the engine returns the metric with `confidence: 0.0` and the analyzer falls back to a GPT-4o transcript-inferred analysis — never to fabricated values.
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Architecture" href="/multimodal/architecture">Deep dive on the multimodal pipeline.</Card>
+  <Card title="Architecture" href="/multimodal/architecture">Pipeline deep dive.</Card>
   <Card title="Quickstart" href="/multimodal/quickstart">Stream your first multimodal session.</Card>
-  <Card title="Speech to Text" href="/multimodal/stt/overview">STT capabilities.</Card>
-  <Card title="RDoC Constructs" href="/multimodal/rdoc/overview">15 construct activations.</Card>
+  <Card title="RDoC Constructs" href="/multimodal/rdoc/overview">15 named constructs.</Card>
+  <Card title="Co-Therapy Agent" href="/agentic/agents/co-therapy">Agent-level documentation.</Card>
 </CardGroup>

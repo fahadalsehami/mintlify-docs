@@ -1,24 +1,45 @@
 ---
 title: "Versioning & Deployment"
-description: "How workflow versions and deployments work"
+description: "Sandbox-first deployment with WORM audit"
 ---
 
 
-Workflows are semver-versioned. Each published version is immutable and can be deployed independently to sandbox or production.
+Canvas workflows are semver-versioned. Publishing creates an immutable snapshot in `agent_workflow_versions` and triggers an automatic sandbox deployment.
 
-## Sandbox-first
+## Tables
 
-Every published version deploys first to sandbox. Only after sandbox tests pass can a version be promoted to production.
+| Table | Migration | Purpose |
+| :--- | :--- | :--- |
+| `agent_workflows` | 061 / 110 / 130 | Current draft + status + `lock_version` for optimistic concurrency |
+| `agent_workflow_versions` | 110 | Immutable per-version snapshot (nodes, connections, variables, settings) |
+| `agent_workflow_executions` | 110 | Per-execution trace + `trigger_type` (`canvas_test` / `api` / `scheduled` / `webhook`) |
+| `workflow_approvals` | 111 | `user-approval` pauses persist here for human review |
+| `workflow_schedules` | 112 / 133 | Cron-driven scheduled triggers |
+| `agent_deployments` | 138 / 151 / 152 | Runtime deployments — `environment`, `status`, snapshots, URLs, auto-rollback config |
+| `agent_links` | 141 | Shareable canonical URL per deployment (`org_slug`, `agent_slug`, `version_number`) |
+| `agent_calls` | 142 | Per-call tracking against a deployment |
+| `agent_call_function_logs` | 143 | High-volume per-function-invocation log (BIGSERIAL) |
+| `deployment_preview_access` | 144 | Token-based sandbox sharing |
+| `deployment_audit_log` | 140 / 145 | WORM-style immutable audit of every deployment event |
+| `deployment_metrics` | 148 | Time-bucketed call / latency / error metrics |
+| `deployment_alerts` | 149 | Threshold-based alerting + resolution |
 
-## Deployment artifacts
+## Deployment lifecycle
 
-| Artifact | Purpose |
-| :--- | :--- |
-| Deployment | A versioned, immutable runtime instance |
-| Deployment metrics | Time-bucketed call counts, latency, errors |
-| Deployment alerts | Threshold-based alerting |
-| Auto-rollback | Configurable rollback on alert |
-| Preview tokens | Token-based sharing for sandbox previews |
-| Agent links | Shareable URLs per deployment |
-| Agent calls | Per-call tracking |
-| Audit log | Immutable WORM events for every deployment action |
+```
+pending → deploying → running → testing → passed | failed
+                                       └→ promoting → promoted
+                                       └→ stopping  → stopped | expired | rolled_back
+```
+
+- **Sandbox** URL: `https://sandbox.medera.info/{org_slug}/{agent_slug}-v{version}`
+- **Production** URL: `https://agents.medera.info/{org_slug}/{agent_slug}`
+- **Sandbox auto-expiry:** `auto_expire_at` is set 72 h after deploy; `expirePreviewTokens` cron runs daily at 3 AM
+
+## Auto-rollback
+
+`agent_deployments.auto_rollback_config` declares thresholds (error rate, p95 latency, alert severity). When triggered, the deployment rolls back to the previous successful version and writes an `event_type='rolled_back'` row to `deployment_audit_log`.
+
+## WORM audit
+
+`deployment_audit_log` is an append-only table. UPDATE and DELETE are blocked by triggers (migration 145 fixed the FK from RESTRICT → SET NULL to preserve WORM semantics when actors are deleted).

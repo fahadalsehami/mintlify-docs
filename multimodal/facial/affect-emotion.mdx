@@ -1,11 +1,14 @@
 ---
 title: "Affect & Emotion"
-description: "Emotion detection + microexpressions + engagement"
+description: "Per-frame affect classification and engagement"
 ---
 
 
-Per-frame affect classification across 6 basic emotions + neutral, plus microexpression onset/offset tracking and an engagement score.
+The facial pipeline includes optional per-frame affect classification across 6 basic emotions + neutral plus engagement scoring. These features are computed by the analyzer (not the engine itself) and are available in the canonical multimodal payload.
 
-- **Emotion classes:** anger, disgust, fear, happiness, sadness, surprise, neutral
-- **Microexpression window:** 40–200 ms
-- **Engagement:** 0–1 composite
+| Output | Range |
+| :--- | :--- |
+| Emotion classes | anger / disgust / fear / happiness / sadness / surprise / neutral |
+| Engagement | 0–1 |
+
+Affect outputs contribute to RDoC constructs in the Negative Valence and Positive Valence domains via `RDoCConstructComputer`.

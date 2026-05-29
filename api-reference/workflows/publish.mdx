@@ -1,16 +1,25 @@
 ---
 title: "POST /api/agent-workflows/{id}/publish"
-description: "Publish a workflow version"
+description: "Publish a workflow"
 ---
 
-## `POST /api/agent-workflows/{id}/publish`
 
-Publish a semantic version. The version is immutable once published.
+```
+POST /api/agent-workflows/{id}/publish
+```
 
-### Example
+Snapshots the canvas into `agent_workflow_versions`, immediately deploys to sandbox (`agent_deployments` with `environment='sandbox'`), and emits `runtime:agent-config:invalidated` to refresh the runtime config cache.
 
-```bash
-curl -X POST https://api.medera.ai/api/agent-workflows/{id}/publish \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+### Body
+
+```json
+{
+  "changeDescription": "Initial release"
+}
+```
+
+To deploy to production:
+
+```
+POST /api/agent-workflows/{id}/deploy/{version}
 ```

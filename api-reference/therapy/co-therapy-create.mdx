@@ -3,14 +3,31 @@ title: "POST /api/co-therapy-sessions"
 description: "Create a co-therapy session"
 ---
 
-## `POST /api/co-therapy-sessions`
 
-Create a multi-provider co-therapy session.
+```
+POST /api/co-therapy-sessions
+```
 
-### Example
+### Request body
 
-```bash
-curl -X POST https://api.medera.ai/api/co-therapy-sessions \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+```json
+{
+  "patientId": "pat_abc",
+  "providers": ["prv_xyz"],
+  "scheduledStart": "2026-05-28T15:00:00Z",
+  "scheduledDurationMinutes": 50,
+  "videoPlatform": "telehealth",
+  "recordingEnabled": true,
+  "deploymentId": "dep_abc",
+  "publishedWorkflowId": "wf_published_..."
+}
+```
+
+Lifecycle endpoints:
+
+```
+POST /api/co-therapy-sessions/{id}/start       # send invitations
+POST /api/co-therapy-sessions/{id}/join        # record participant join
+POST /api/co-therapy-sessions/{id}/leave       # record participant leave
+POST /api/co-therapy-sessions/{id}/transition  # state transition
 ```

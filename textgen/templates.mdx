@@ -1,19 +1,9 @@
 ---
-title: "Introduction to Templates"
-description: "Working with Medera templates for document generation"
+title: "Note Templates"
+description: "Working with Medera templates"
 ---
 
 
-Templates are versioned, schema-validated definitions of a document's sections and required content. Medera ships a library of standard templates (SOAP, referral, discharge, etc.) and supports custom templates per practice.
+Templates are persisted in `note_templates` (backend) and exposed through both the backend (for tenant-managed templates) and AI Services (for system templates).
 
-## Template lifecycle
-
-```
-draft → review → published → deprecated → archived
-```
-
-Only `published` templates can drive document generation in production.
-
-## Versioning
-
-Templates are semver-versioned. Breaking changes (renamed section keys, removed required fields) bump major; non-breaking changes bump minor.
+Template versioning is semver; deprecated templates retain their last published version for trailing executions.

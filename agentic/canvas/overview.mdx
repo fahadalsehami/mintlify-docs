@@ -4,22 +4,62 @@ description: "Visual workflow editor for composable clinical agents"
 ---
 
 
-The Agent Builder Canvas is a visual workflow editor for composing agents from a registry of 16 node types. It's designed for clinical product teams who want to build behavioral-health workflows without writing code — and still ship with audit, versioning, and sandbox-first deployment.
+The Agent Builder Canvas is a visual workflow editor backed by a real workflow engine (471-line `WorkflowExecutor` + 285-line `WorkflowQueue` on Bull/Redis, 5 concurrent workers, 3-attempt retry with 5 s exponential backoff). Workflows compose 16 core node types plus 8 BH-OS rail node types.
 
-## What you get
-
-- 16 typed node types (start, end, agents, tools, logic, transforms)
-- Type-checked connections between nodes
-- Variable scopes: workflow input, node output, runtime context, tenant secret
-- Versioning with semantic version numbers
-- Sandbox-first deployment + production publish
-- Undo/redo, draft auto-save, hash-based deduplication
-- HIPAA + 42 CFR Part 2 guardrails enforced at runtime
-
-## Workflow lifecycle
+## Lifecycle
 
 ```
-draft → in-review → published (v1.0.0) → deployed (sandbox) → deployed (production)
+draft → published (immutable version) → deployed (sandbox)
+                                       └→ deployed (production) → archived | disabled
 ```
 
-See [Versioning & Deployment](/agentic/canvas/versioning-deployment).
+`agent_workflows` carries the current draft. Publishing snapshots the canvas into `agent_workflow_versions` and immediately deploys to sandbox. Promotion to production is explicit.
+
+## Optimistic concurrency
+
+Every draft update is guarded by `lock_version` — concurrent edits to the same workflow return `409 idempotency_conflict`. Draft auto-save is hash-deduped: identical payloads do not create new versions.
+
+## Tenant isolation
+
+The canvas is tenant-scoped end to end:
+- `agent_workflows.organization_id` is RLS-enforced
+- Published versions inherit the org
+- Deployments expose `https://sandbox.medera.info/{org}/{agent}-v{ver}` or `https://agents.medera.info/{org}/{agent}` URLs
+- Sandbox deployments auto-expire 72 h after deploy (`auto_expire_at`)
+
+## Variable scopes
+
+Canvas nodes can reference variables using `{{scope.path}}` syntax. Available scopes:
+
+| Scope | Lifetime | Mutability | Example |
+| :--- | :--- | :--- | :--- |
+| `workflow.input` | Per execution | Immutable | `{{input.patient_id}}` |
+| `state.<name>` | Per execution | Mutable | `{{state.phq9_score}}` |
+| `nodes.<id>.output` | Per execution | Immutable | `{{nodes.intake_1.output.transcript}}` |
+| `runtime.context` | Per execution | Immutable | `{{runtime.organization_id}}` |
+| `tenant.secret` | Persistent | Read-only | `{{tenant.secret.epic_oauth_client_id}}` |
+
+`tenant.secret` is sourced from your configured secret store (SSM / Vault) — secrets are never inlined into versions or deployments.
+
+## Real-time events (Socket.IO)
+
+The executor emits the following events to the org room and per-execution room:
+
+| Event | When |
+| :--- | :--- |
+| `workflow:execution:started` | Execution claimed by a worker |
+| `workflow:node:executing` | Node `_executeNode` invoked |
+| `workflow:node:completed` | Node returned `success()` |
+| `workflow:ehr-sync` | An `ehr-sync` node read or wrote to a connected EHR |
+| `workflow:execution:paused` | A `user-approval` node returned `{ paused: true }` |
+| `workflow:execution:completed` | Reached `end` node |
+| `workflow:execution:failed` | Node threw without an error handler |
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Node Types" href="/agentic/canvas/node-types">16 core nodes + 8 BH-OS rails.</Card>
+  <Card title="Variables & Scopes" href="/agentic/canvas/variables-scopes">Variable resolution and template syntax.</Card>
+  <Card title="Versioning & Deployment" href="/agentic/canvas/versioning-deployment">Sandbox-first deployment with WORM audit.</Card>
+  <Card title="Guardrails" href="/agentic/canvas/guardrails">HIPAA + 42 CFR Part 2 enforcement.</Card>
+</CardGroup>

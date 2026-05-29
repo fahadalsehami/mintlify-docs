@@ -1,16 +1,16 @@
 ---
 title: "Errors"
-description: "Error messages and solutions from Medera's API"
+description: "Error format and common error codes"
 ---
 
 
-Errors are returned with an appropriate HTTP status code and a JSON body:
+Errors follow a consistent JSON shape:
 
 ```json
 {
   "error": {
-    "code": "invalid_request",
-    "message": "Missing required field: patient_id",
+    "code": "rls_denied",
+    "message": "Access to resource is denied by tenant policy.",
     "request_id": "req_abc123"
   }
 }
@@ -21,14 +21,14 @@ Errors are returned with an appropriate HTTP status code and a JSON body:
 | Code | Meaning |
 | :--- | :--- |
 | 400 | Invalid request — see `error.code` |
-| 401 | Unauthenticated — token missing or expired |
+| 401 | Unauthenticated — token / API key missing or expired |
 | 403 | Forbidden — scope or RLS denial |
-| 404 | Not found — or RLS-hidden |
-| 409 | Conflict — optimistic concurrency, duplicate idempotency key |
+| 404 | Not found (or RLS-hidden) |
+| 409 | Conflict — `lock_version` mismatch, duplicate idempotency key |
 | 422 | Validation failure |
-| 429 | Rate limit exceeded |
+| 429 | Rate limit |
 | 500 | Internal error |
-| 503 | Service unavailable |
+| 503 | Service unavailable — see `/health/dependencies` |
 
 ## Common error codes
 
@@ -39,6 +39,9 @@ Errors are returned with an appropriate HTTP status code and a JSON body:
 | `scope_denied` | Token lacks required scope |
 | `rls_denied` | Cross-tenant access attempted |
 | `phi_consent_required` | PHI access blocked by missing consent |
-| `crisis_handoff_required` | Crisis-language detected, agent path terminated |
-| `rate_limit` | Exceeded RPM or burst |
-| `idempotency_conflict` | Same idempotency key with different payload |
+| `crisis_handoff_required` | Crisis language detected — agent path terminated |
+| `subscription_inactive` | Stripe subscription not active |
+| `agent_limit_exceeded` | Tenant agent limit reached |
+| `idempotency_conflict` | `lock_version` mismatch |
+| `rate_limit` | RPM or burst exceeded |
+| `circuit_open` | External service circuit breaker is open |

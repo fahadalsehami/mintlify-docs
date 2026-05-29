@@ -1,39 +1,62 @@
 ---
 title: "Canvas Node Types"
-description: "The 16 typed node types available in the Canvas"
+description: "16 core + 8 BH-OS rail node types"
 ---
 
 
-## Core nodes
+The canvas ships 16 core node types and 8 BH-OS rail node types. Each runner extends `BaseNodeRunner` and is registered with the `WorkflowExecutor`.
 
-| Type | Icon | Purpose |
+## Core nodes (3)
+
+| Type | Runner | Purpose |
 | :--- | :--- | :--- |
-| `start` | Play | Workflow entry, defines input variables |
-| `end` | Square | Workflow exit, defines output schema |
+| `start` | `StartNodeRunner` | Workflow entry. Defines input variables. |
+| `end` | `EndNodeRunner` | Workflow exit. Marks execution complete with output values. |
+| `note` | (annotation only) | Documentation node — no runtime effect. |
 
-## Healthcare agents
+## Logic & control (5)
 
-| Type | Outputs | Purpose |
+| Type | Runner | Outputs |
 | :--- | :--- | :--- |
-| `intake-agent` | success / escalate / error | Patient intake calls |
-| `scribe-agent` | success / error | Clinical documentation |
-| `therapy-agent` | success / concern / error | Behavioral health analysis |
-| `triage-agent` | urgent / routine / self-care | Symptom assessment |
+| `condition` | `ConditionNodeRunner` | `true` / `false` (field + operator + value) |
+| `transform` | `TransformNodeRunner` | `default` (Handlebars / Liquid template) |
+| `classify` | `ClassifyNodeRunner` | Dynamic — one per declared category |
+| `wait` | `WaitNodeRunner` | `default` (after delay or cron) |
+| `user-approval` | `UserApprovalRunner` | `approved` / `rejected` — pauses execution and writes to `workflow_approvals` |
 
-## Tools
+## Healthcare agents (4)
 
-| Type | Outputs | Purpose |
+| Type | Runner | Outputs |
 | :--- | :--- | :--- |
-| `guardrails` | pass / fail | HIPAA / 42 CFR Part 2 compliance |
-| `fhir-query` | success / error | FHIR R4 data operations |
-| `transform` | default | Data transformation (CEL) |
-| `user-approval` | approved / rejected | Human-in-the-loop gate |
+| `intake-agent` | `IntakeAgentRunner` | `success` / `escalate` / `error` — orchestrates Vapi + intake state machine |
+| `scribe-agent` | `ScribeAgentRunner` | `success` / `error` — drafts SOAP notes |
+| `therapy-agent` | `TherapyAgentRunner` | `success` / `concern` / `error` — behavioral health analysis |
+| `triage-agent` | `TriageAgentRunner` | `urgent` / `routine` / `self_care` — ESI-aligned routing |
 
-## Logic nodes
+## Integration & data (4)
 
-| Type | Outputs | Purpose |
+| Type | Runner | Outputs |
 | :--- | :--- | :--- |
-| `condition` | true / false | If/Else branching |
-| `classify` | category1 / category2 / other | Multi-way classification |
-| `wait` | default | Delay/timeout |
-| `escalate` | none | Urgent escalation |
+| `guardrails` | `GuardrailsNodeRunner` | `pass` / `fail` — HIPAA, 42 CFR Part 2, suicide-language, PII checks |
+| `ehr-sync` | `EHRSyncNode` | `success` / `error` — bidirectional FHIR sync against connected EHR |
+| `fhir-query` | `FHIRQueryRunner` | `success` / `error` — FHIR R4 search (Patient, Observation, Encounter, …) |
+| `escalate` | `EscalateNodeRunner` | (terminal) — sends notification via email / SMS / pager / Slack |
+
+## BH-OS rails (8)
+
+The BH-OS rails are typed runners backed by `StudioBlockRunner`. Each rail wires the workflow into a corresponding backend service.
+
+| Type | Service |
+| :--- | :--- |
+| `rails/assessment` | Clinical assessment runner |
+| `rails/triage` | Triage runner |
+| `rails/referral` | Referral generator + closed-loop tracking |
+| `rails/pa` | Prior authorization workflow |
+| `rails/mbc` | Measurement-Based Care (PHQ-9 / GAD-7 cadence) |
+| `rails/quality` | HEDIS / MIPS measure capture |
+| `rails/network` | Provider network logic |
+| `rails/pharmacy` | Surescripts e-prescribing + interaction checks |
+
+## Validation
+
+`BaseNodeRunner.validate(node)` enforces required fields per node type at design time. Connections are type-checked: a `condition` node's `true` port can only connect to a node that accepts the `condition`'s state output shape.

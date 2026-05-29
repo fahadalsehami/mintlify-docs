@@ -8,9 +8,20 @@ description: "Verifying webhook signatures"
 import crypto from 'crypto';
 
 function verify(req, secret) {
-  const sig = req.headers['medera-signature'].replace('sha256=', '');
+  const sigHeader = req.headers['medera-signature'];
+  if (!sigHeader || !sigHeader.startsWith('sha256=')) return false;
+  const sig = sigHeader.slice('sha256='.length);
   const body = req.rawBody;
   const expected = crypto.createHmac('sha256', secret).update(body).digest('hex');
-  return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
+  try {
+    return crypto.timingSafeEqual(
+      Buffer.from(sig, 'hex'),
+      Buffer.from(expected, 'hex'),
+    );
+  } catch (e) {
+    return false;
+  }
 }
 ```
+
+For Vapi inbound, use the matching `vapi_integration.verify_webhook_signature()` in the AI Services.

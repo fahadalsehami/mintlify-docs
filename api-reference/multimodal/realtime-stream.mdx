@@ -1,9 +1,15 @@
 ---
-title: "WSS /streams"
-description: "Real-time multimodal stream"
+title: "WSS /ws/call/{call_id}"
+description: "Real-time intake call updates"
 ---
 
 
-## `wss://api.medera.ai/streams`
+The AI Services expose a JWT-authenticated WebSocket for real-time intake call updates:
 
-Real-time multimodal stream. See [Streams endpoint](/multimodal/stt/streams) for full schema.
+```
+wss://api.medera.ai/ws/call/{call_id}
+```
+
+Events emitted: `call-started`, `utterance-processed`, `task-extracted`, `call-ended`, `transcript-update`.
+
+JWT is validated at connection time and scoped to the organization.

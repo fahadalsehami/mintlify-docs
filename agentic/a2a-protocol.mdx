@@ -4,24 +4,20 @@ description: "Agent-to-agent communication"
 ---
 
 
-Agents communicate over the **A2A Protocol** — an open, JSON-RPC-style protocol for inter-agent message-passing.
-
-## Why A2A
-
-- **Composability**: any agent can call any other agent through a uniform interface
-- **Auditability**: every A2A call is logged
-- **Portability**: third-party agents that speak A2A can be added to the registry
-
-## Message envelope
+Agents inside the Care Orchestrator communicate via a JSON-RPC-style envelope. Inbound A2A messages are routed via `POST /api/care-orchestrator/tasks/route`.
 
 ```json
 {
   "from_agent_id": "agt_intake",
   "to_agent_id": "agt_triage",
   "context_id": "ctx_abc",
-  "message": {...},
+  "message": {
+    "role": "assistant",
+    "content": "Triage these symptoms.",
+    "data": { "screeners": { "phq9": 14 } }
+  },
   "auth": { "agent_token": "..." }
 }
 ```
 
-See [MCP Authentication](/agentic/mcp-authentication) for how MCP-based agents authenticate.
+Every A2A call is logged and ties back to a `workflow_id` for trace continuity.

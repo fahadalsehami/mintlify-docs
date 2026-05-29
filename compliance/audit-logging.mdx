@@ -1,14 +1,39 @@
 ---
 title: "Audit Logging"
-description: "Immutable WORM audit with Merkle integrity"
+description: "WORM audit with Merkle integrity and 6-year retention"
 ---
 
 
-Every PHI access generates an audit event written to an append-only event store with the following properties:
+Medera writes immutable audit events on:
 
-- **WORM**: write-once, read-many — events are immutable
-- **Merkle integrity**: events are chained into a Merkle tree; tampering breaks the tree
-- **6-year retention** by default (configurable up to 22 years)
-- **Per-tenant isolation**: RLS-enforced on the audit table
+| Source | Table | Migration |
+| :--- | :--- | :--- |
+| PHI access | `phi_audit_logs` | 080+ |
+| Workflow execution | `agent_workflow_executions.execution_trace[]` | 110 |
+| Deployment actions | `deployment_audit_log` (WORM) | 140 / 145 |
+| Config access | Config access audit table | 137 |
+| Auth events | `auditLogger` + Datadog | — |
+| Realtime corrections | `transcription_corrections`, `clinical_ai_suggestions` | 126 |
 
-Audit events include actor, action, resource, timestamp, and outcome.
+## WORM semantics
+
+`deployment_audit_log` is append-only — UPDATE and DELETE are blocked. Migration 145 fixed the actor FK to `SET NULL` so the WORM invariant holds when an actor is deleted.
+
+## Merkle integrity
+
+Migration 118 introduced audit integrity checkpoints — events are chained into a Merkle tree so tampering breaks the chain. Verify via:
+
+```
+GET /api/audit/integrity-checkpoints
+```
+
+## Retention
+
+Default 6 years, configurable up to 22 years.
+
+## Reading audit logs
+
+```
+GET /api/audit/access-logs
+POST /api/audit/exports          # signed URL export
+```

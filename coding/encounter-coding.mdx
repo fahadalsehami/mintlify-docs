@@ -1,17 +1,24 @@
 ---
-title: "Encounter Diagnosis Coding"
-description: "Assign accurate codes to clinical encounters"
+title: "Encounter Coding"
+description: "Code an encounter from signed notes"
 ---
 
 
-Encounter-level coding takes a `session_id` or `documentId` and returns codes anchored to documentation.
+Run code suggestion against a signed note via `/api/therapy/suggest-codes` or get codes inline with SOAP via `/api/therapy/generate-soap-note-enhanced` (`include_billing_codes: true`).
 
-```bash
-POST /api/coding/encounter
-{
-  "session_id": "ses_abc",
-  "code_systems": ["icd-10-cm", "cpt"]
-}
-```
+## Common BH codes detected
 
-The endpoint orchestrates [Medical Coding Agent](/agentic/agents/medical-coding) + [CDI Agent](/agentic/agents/clinical-documentation-improvement) for documentation-quality review.
+| Code | Description |
+| :--- | :--- |
+| 90832 | Psychotherapy, 30 min |
+| 90834 | Psychotherapy, 45 min |
+| 90837 | Psychotherapy, 60 min |
+| 99213 | Established patient, low-mod complexity E/M |
+| 99214 | Established patient, mod complexity E/M |
+| 99215 | Established patient, mod-high complexity E/M |
+| 96127 | Brief emotional / behavioral assessment |
+| F32.1 | MDD single episode, moderate |
+| F33.1 | MDD recurrent, moderate |
+| F41.1 | Generalized anxiety disorder |
+| F43.10 | PTSD, unspecified |
+| F11.20 | Opioid use disorder, mod/severe |

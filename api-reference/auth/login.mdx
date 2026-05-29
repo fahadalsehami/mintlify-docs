@@ -1,39 +1,25 @@
 ---
-title: "POST /oauth/token"
-description: "Exchange client credentials for an access token"
+title: "Clerk session login"
+description: "Authenticate as an end user via Clerk"
 ---
 
-## `POST /oauth/token`
 
-Exchange client credentials for an access token.
+End-user authentication is handled by Clerk. The frontend uses `@clerk/clerk-react` to sign the user in and obtains a session JWT on demand.
 
-### Request body
-
-```json
-{
-  "grant_type": "client_credentials",
-  "client_id": "...",
-  "client_secret": "...",
-  "audience": "api.medera.ai",
-  "scope": "patients:read sessions:write"
-}
+```javascript
+import { useAuth } from '@clerk/clerk-react';
+const { getToken } = useAuth();
+const jwt = await getToken();
 ```
 
-### Response
+Send the JWT to backend endpoints as `Authorization: Bearer <jwt>`. The backend validates via `clerkAuth` middleware and writes a `phi_audit_logs` entry for every PHI-touching request.
 
-```json
-{
-  "access_token": "eyJhbGciOi...",
-  "token_type": "Bearer",
-  "expires_in": 3600,
-  "scope": "patients:read sessions:write"
-}
+## Backend webhooks
+
+The backend receives Clerk lifecycle webhooks at:
+
+```
+POST /api/clerk-webhooks
 ```
 
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/oauth/token \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
-```
+Validated via Svix HMAC signatures.

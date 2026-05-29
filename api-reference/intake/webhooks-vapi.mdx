@@ -1,10 +1,39 @@
 ---
-title: "Vapi webhooks"
-description: "Vapi webhook events"
+title: "Vapi webhook receiver"
+description: "Vapi → Medera webhook events"
 ---
 
 
-Medera receives Vapi webhooks for call lifecycle events. Customer integrations receive **outbound** webhooks from Medera with the following events:
+The AI Services receive Vapi webhooks at:
+
+```
+POST /api/vapi/webhook                    # main webhook (HMAC-SHA256 verified)
+POST /api/vapi/webhook/assistant-request  # dynamic assistant config
+GET  /api/vapi/webhook/health             # health
+GET  /api/vapi/webhook/call/{call_id}     # call state
+GET  /api/vapi/webhook/call/{call_id}/transcript  # buffered transcript
+```
+
+## Event types
+
+| Event | When |
+| :--- | :--- |
+| `status-update` | Call status change |
+| `transcript` | Transcript chunk available |
+| `function-call` | LLM invoked one of Grace's functions |
+| `tool-calls` | Tool invocation batch |
+| `end-of-call-report` | Final call summary |
+| `speech-update` | Speaking / silent state |
+| `user-interrupted` | User interrupted assistant |
+| `hang` | Call hung up |
+
+## Signature verification
+
+Webhook signature: `vapi-signature` header. Verified using the configured `webhook_secret` (HMAC-SHA256). Unverified webhooks are rejected.
+
+## Outbound webhooks (to your endpoint)
+
+If your tenant has configured a webhook URL on the deployment, Medera sends signed outbound webhooks:
 
 | Event | Payload |
 | :--- | :--- |
@@ -14,4 +43,4 @@ Medera receives Vapi webhooks for call lifecycle events. Customer integrations r
 | `intake.summary.ready` | `{ call_id, handoff_packet_url }` |
 | `intake.completed` | `{ call_id, summary_id, duration_ms }` |
 
-Webhooks are signed with `Medera-Signature: sha256=...` (HMAC-SHA256).
+Verify with `Medera-Signature: sha256=...`.

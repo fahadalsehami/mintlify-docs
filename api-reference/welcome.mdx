@@ -1,35 +1,58 @@
 ---
 title: "Welcome to the Medera API Reference"
-description: "AI platform for behavioral health developers"
+description: "REST + WebSocket API for behavioral and mental health"
 ---
 
 
-The Medera API is a REST + WebSocket API for behavioral and mental health applications. Every endpoint is HIPAA-grade, scoped to a tenant, and protected by Row-Level Security.
+The Medera API is split across two services:
+
+| Service | Port | Purpose |
+| :--- | :--- | :--- |
+| **Backend** | 3001 | Tenant + PHI persistence, workflow + deployment lifecycle, EHR + billing integration, Socket.IO |
+| **AI Services** | 8000 | Multimodal engines, RDoC, Care Orchestrator, Vapi orchestration, clinical NLP |
+
+In production the public host is `api.medera.ai` and routes to both services through the API gateway.
 
 ## Base URLs
 
-| Environment | Base URL |
-| :--- | :--- |
-| Production | `https://api.medera.ai` |
-| Staging | `https://staging.api.medera.ai` |
-| Sandbox | `https://sandbox.api.medera.ai` |
+| Environment | Backend host | AI Services host |
+| :--- | :--- | :--- |
+| Production | `https://api.medera.ai` | `https://api.medera.ai` (proxied) |
+| Staging | `https://staging.api.medera.ai` | `https://staging.api.medera.ai` |
+| Sandbox | `https://sandbox.api.medera.ai` | `https://sandbox.api.medera.ai` |
+
+Internally:
+- Backend: `http://localhost:3001` (dev) / `http://backend:3001` (Docker)
+- AI Services: `http://localhost:8000` (dev) / `http://ai-services:8000` (Docker)
 
 ## Authentication
 
-Every request requires an `Authorization: Bearer <token>` header. See [Authentication Overview](/authentication/overview).
+| Surface | Credential | Header |
+| :--- | :--- | :--- |
+| End-user requests | Clerk JWT | `Authorization: Bearer <jwt>` |
+| Server-to-server | Developer API Key | `X-API-Key: <key>` |
+| Service-to-service | Internal service key | `X-Service-Key: <key>` (internal only) |
+
+See [Authentication Overview](/authentication/overview).
 
 ## Content type
 
-Request and response bodies are JSON. File uploads use `multipart/form-data`.
-
-## Versioning
-
-The API is versioned via the URL path (`/api/v1/...` is implicit; `/api/v2/...` is explicit). See [Versioning](/api-reference/versioning).
+Request and response bodies are JSON. File uploads use `multipart/form-data`. Recordings, audio, and video uploads use `multer` (Backend) or `UploadFile` (AI Services) — max 150 MB per file.
 
 ## Rate limits
 
-Per-tenant default: 1000 requests per minute, burst 100. See [Rate Limits](/api-reference/rate-limits).
+See [Rate Limits](/api-reference/rate-limits).
 
 ## Error format
+
+```json
+{
+  "error": {
+    "code": "rls_denied",
+    "message": "Access to resource is denied by tenant policy.",
+    "request_id": "req_abc123"
+  }
+}
+```
 
 See [Errors](/api-reference/errors).

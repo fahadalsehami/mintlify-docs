@@ -1,82 +1,105 @@
 ---
 title: "Prior Authorization Agent"
-description: "Evidence-based PA letters and appeals."
+description: "Evidence-based PA across a 17-state workflow"
 ---
 
+
 <Info>
-**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Chart facts · Payer policy · Validated screener scores · Peer-reviewed evidence
+**Category:** Clinical Operations &nbsp;·&nbsp; **Voice agent:** Taylor (`AgentType.PA_SPECIALIST`)
 </Info>
 
-Draft submission-ready prior authorization letters from chart and payer policy.
+The Prior Authorization Agent drives the PA lifecycle through a 17-state workflow with payer-specific rules and multi-channel submission. Voice-agent Taylor handles outbound peer-to-peer and status calls.
 
-## Overview
+## Workflow states (`WorkflowState` enum)
 
-The Prior Authorization Agent reads the chart, loads the payer policy, and drafts a submission-ready letter against documented criteria. Every clinical claim is cited; every clinical argument is anchored to a chart span or a peer-reviewed reference.
+```
+PA_INITIATED
+  → PA_CRITERIA_EVALUATION → PA_CRITERIA_EVALUATED
+  → PA_DOCUMENTS_PENDING → PA_DOCUMENTS_READY
+  → PA_PENDING_SUBMISSION → PA_SUBMITTED
+  → PA_IN_REVIEW
+      ├→ PA_PENDED → PA_INFO_REQUESTED
+      ├→ PA_APPROVED | PA_PARTIALLY_APPROVED
+      └→ PA_DENIED
+          → PA_APPEAL_DRAFT → PA_APPEAL_SUBMITTED
+              → PA_APPEAL_APPROVED | PA_APPEAL_DENIED
+          → PA_P2P_SCHEDULED → PA_P2P_COMPLETED
+```
 
-When a denial comes back, the agent reads the denial reason against the chart and the policy and either escalates to the clinician or generates an appeal with new evidence.
+## Payer rules
 
-## How this agent works
+`payer_rules_repository.py` stores rules for at least 10 payers via `PayerId`:
 
-### Configuration
+`CARELON_ANTHEM`, `OPTUM_BH`, `MAGELLAN`, `EVERNORTH`, `UNITED_HEALTHCARE`, `AETNA`, `CIGNA`, `BLUE_CROSS`, `MEDICAID`, `MEDICARE`.
 
-This agent takes the following configuration from your practice settings:
+`rule_evaluator.py` returns:
 
-- Carrier list and payer-policy library
-- Practice formulary and code set
-- Approved evidence base (PubMed, internal protocols)
-- Routing and clinician approval workflow
+| Field | Values |
+| :--- | :--- |
+| Recommendation | `AUTO_APPROVE`, `LIKELY_APPROVE`, `NEEDS_REVIEW`, `LIKELY_DENY` |
+| Match result | `ALL_MET`, `MOSTLY_MET`, `PARTIALLY_MET`, `NOT_MET` |
 
-### Execution
+## Document generators
 
-At runtime, the agent executes the following steps:
+| Document type | Producer |
+| :--- | :--- |
+| `MEDICAL_NECESSITY` | `narrative_service.py` |
+| `CLINICAL_SUMMARY` | `narrative_service.py` |
+| `TREATMENT_PLAN` | `narrative_service.py` |
+| `ASSESSMENT` | `narrative_service.py` |
+| `PROGRESS_NOTE` | `narrative_service.py` |
+| `DISCHARGE_SUMMARY` | `narrative_service.py` |
+| X-12 EDI 278 (PA request) | `x12_builder.py` |
 
-1. Reads the chart for clinical necessity facts and screener scores
-2. Loads payer-specific PA rules and formulary
-3. Drafts the PA letter against documented criteria with citations
-4. Routes for clinician approval and submits via clearinghouse, ePA, or fax
-5. Tracks status, denials, and appeal opportunities
+## Submission channels
+
+Channel priority (`submission_router.py`):
+
+```
+EPA_API → CLEARINGHOUSE → PORTAL → FAX → MANUAL
+```
+
+## Endpoints
+
+| Method | Path (Backend) | Path (AI Services) |
+| :--- | :--- | :--- |
+| POST | `/api/prior-auth/evaluate` | `/api/pa/evaluate` |
+| POST | `/api/prior-auth/evaluate/quick` | `/api/pa/evaluate/quick` |
+| POST | `/api/prior-auth/requests` | `/api/pa/requests` |
+| GET | `/api/prior-auth/requests/{id}` | `/api/pa/requests/{id}` |
+| POST | `/api/prior-auth/requests/{id}/submit` | `/api/pa/requests/{id}/submit` |
+| POST | `/api/prior-auth/requests/{id}/appeal` | `/api/pa/requests/{id}/appeal` |
+| GET | `/api/prior-auth/payers` | `/api/pa/payers` |
+| GET | `/api/prior-auth/payers/{id}/rules` | `/api/pa/payers/{id}/rules` |
+| POST | `/api/prior-auth/documents/generate` | `/api/pa/documents/generate` |
+| GET | `/api/prior-auth/channels` | `/api/pa/channels` |
+| POST | `/api/prior-auth/webhooks/payer-response` | `/api/pa/webhooks/status` |
+| POST | — | `/api/pa/coding-suggest` |
+
+## Real-time coding suggestion
+
+The intake pipeline calls `realtime_coding_service.py` to detect codes likely to require PA during the call. Detected CPT codes include `90832`, `90834`, `90837` (psychotherapy), `99213`, `99214`, `99215` (E/M), and `96127` (assessment); ICD-10: `F32.1`, `F33.1`, `F41.1`, `F43.10`, `F11.20`. Each suggestion includes `pa_required`, `pa_urgency`, `payer_policy_url`, and `evidence_excerpt`.
 
 ## Composable experts
 
-The Prior Authorization Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **PubMed Expert** | Peer-reviewed evidence for medical necessity arguments |
-| **Payer Policy Expert** | Carrier-specific PA rules, formulary, coverage criteria |
-| **Clinical Scoring Expert** | PHQ-9, GAD-7, validated scores supporting severity |
-| **Medical Coding Expert** | ICD-10 and procedure-code validation for PA |
+| **PubMed Expert** | Peer-reviewed evidence |
+| **Payer Policy Expert** | Carrier-specific PA rules + formulary |
+| **Clinical Scoring Expert** | PHQ-9, GAD-7, validated scores |
+| **Medical Coding Expert** | ICD-10 + procedure code validation |
 
-## Typical use cases
+## Compliance guarantees
 
-- Convert a 45-minute PA write-up into a 4-minute clinician review
-- Cite payer policy and peer-reviewed evidence in every letter
-- Catch denied claims that would have been approved with better evidence
-- Run appeals on autopilot when policy and chart support reversal
-
-## Compliance & safety guarantees
-
-- Every PA letter carries explicit citations to chart and policy
+- Every PA letter carries explicit citations to chart and payer policy
 - Letters are submitted only after clinician approval
-- Appeal recommendations include new evidence, not the same argument twice
-
-## Tags
-
-`PA · Authorization · Payer Policy · Appeals · Evidence`
+- Webhooks from payers are verified with per-payer HMAC secrets
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Quickstart" href="/quickstart/prior-auth">Generate your first PA letter.</Card>
+  <Card title="PA API" href="/api-reference/pa/initiate">REST surface.</Card>
+  <Card title="Denial Appeals" href="/agentic/agents/denial-appeals">Appeal lifecycle.</Card>
+  <Card title="Eligibility" href="/agentic/agents/eligibility-verification">Pre-visit benefits.</Card>
 </CardGroup>

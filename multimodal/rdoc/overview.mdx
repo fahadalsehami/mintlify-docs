@@ -1,55 +1,80 @@
 ---
 title: "RDoC Construct Computer"
-description: "15 documented RDoC constructs across 5 domains"
+description: "15 named RDoC constructs across 5 domains"
 ---
 
 
-The RDoC Construct Computer maps multimodal features to **15 RDoC constructs across 5 domains** with zero overlap. Output is `ConstructActivation` objects with score (0–1), confidence, feature contributions, and clinical interpretations.
+`RDoCConstructComputer.compute_all_constructs(facial_features, vocal_features, assessments, context)` returns an `RDoCActivationProfile` containing 15 `ConstructActivation` objects — one per construct — across 5 RDoC domains.
 
-## Domains and constructs
+## The 15 constructs
 
 <CardGroup cols={2}>
-  <Card title="Negative Valence Systems" href="/multimodal/rdoc/negative-valence">
-    Acute Threat (Fear), Potential Threat (Anxiety), Sustained Threat
+  <Card title="Negative Valence" href="/multimodal/rdoc/negative-valence">
+    `acute_threat_fear`, `potential_threat_anxiety`, `sustained_threat`
   </Card>
-  <Card title="Positive Valence Systems" href="/multimodal/rdoc/positive-valence">
-    Reward Responsiveness, Reward Anticipation, Reward Satiation
+  <Card title="Positive Valence" href="/multimodal/rdoc/positive-valence">
+    `reward_responsiveness`, `reward_anticipation`, `reward_satiation`
   </Card>
   <Card title="Cognitive Systems" href="/multimodal/rdoc/cognitive-systems">
-    Attention, Working Memory, Executive Function
+    `attention`, `working_memory`, `executive_function`
   </Card>
   <Card title="Social Processes" href="/multimodal/rdoc/social-processes">
-    Social Communication, Affiliation / Attachment
+    `social_communication`, `affiliation_attachment`
   </Card>
-  <Card title="Arousal & Regulatory Systems" href="/multimodal/rdoc/arousal-regulatory">
-    Arousal, Regulation, Circadian, Sleep/Wake
+  <Card title="Arousal & Regulatory" href="/multimodal/rdoc/arousal-regulatory">
+    `arousal`, `arousal_regulation`, `circadian_rhythms`, `sleep_wakefulness`
   </Card>
 </CardGroup>
 
-## ConstructActivation schema
+## ConstructActivation
+
+```python
+@dataclass
+class ConstructActivation:
+    name: str                      # e.g. "potential_threat_anxiety"
+    score: float                   # 0–1 activation
+    confidence: float              # 0–1 calibrated
+    contributors: List[Dict]       # [{feature, value, contribution}]
+    interpretation: str            # clinical text
+    domain: str                    # RDoC domain
+    low_threshold: float = 0.3
+    high_threshold: float = 0.7
+
+    def get_severity(self) -> str: # "low" | "moderate" | "high"
+```
+
+Severity bands:
+- `score < 0.3` → **low**
+- `0.3 ≤ score < 0.7` → **moderate**
+- `score ≥ 0.7` → **high**
+
+## Profile schema
 
 ```json
 {
-  "construct": "potential_threat_anxiety",
-  "domain": "negative_valence",
-  "score": 0.74,
-  "confidence": "HIGH",
-  "feature_contributions": {
-    "f0_mean": 0.31,
-    "jitter": 0.22,
-    "speaking_rate": 0.18,
-    "facial_affect_fear": 0.14,
-    "linguistic_uncertainty": 0.15
-  },
-  "clinical_interpretation": "Elevated anxiety markers...",
-  "window": { "start_ms": 0, "end_ms": 30000 }
+  "constructs": [
+    {
+      "name": "potential_threat_anxiety",
+      "domain": "negative_valence",
+      "score": 0.74,
+      "confidence": 0.81,
+      "severity": "high",
+      "interpretation": "Elevated anxiety markers ...",
+      "contributors": [
+        {"feature": "f0_mean", "value": 218.0, "contribution": 0.31},
+        {"feature": "jitter", "value": 1.4, "contribution": 0.22},
+        {"feature": "vocal_anxiety_index", "value": 0.66, "contribution": 0.18}
+      ]
+    }
+    // ... 14 more
+  ]
 }
 ```
 
-## Confidence calibration
+## Endpoint
 
-Confidence is reported as `VERY_HIGH`, `HIGH`, `MODERATE`, `LOW`, `VERY_LOW`. Below `MODERATE`, the activation is delivered with `requires_human_review: true`.
+```
+POST /api/multimodal-therapy/analyze-session
+```
 
-## Latency
-
-Construct activation latency: < 110 ms P95 per window.
+The RDoC profile is included in the canonical payload at `payload.rdoc.constructs`.

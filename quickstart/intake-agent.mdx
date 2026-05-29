@@ -1,51 +1,69 @@
 ---
-title: "Quickstart — Intake Agent"
-description: "Deploy a voice-first adaptive intake agent in 15 minutes"
+title: "Quickstart — Intake Agent (Grace)"
+description: "Deploy Grace in 15 minutes"
 ---
 
 
-Spin up the Medera Patient Intake Agent (Grace) with PHQ-9, GAD-7, AUDIT-C, and C-SSRS administration.
+## 1. Configure the deployment
 
-## 1. Create a deployment
+Use the [Agent Builder Canvas](/agentic/canvas/overview) to create or clone the **Grace — Patient Intake Agent** template. Pick:
+
+- `intake_template_id`
+- `screeners` (default `["phq-9", "gad-7", "audit-c", "c-ssrs"]`)
+- `routing_matrix`
+- `crisis_escalation_tree_id`
+- `workflow_modules` (e.g. `["general_intake"]`)
+- `language` (default `en-US`)
+
+Publish the workflow and the canvas auto-deploys to sandbox.
+
+## 2. Initialize the agent for the org
 
 ```bash
-curl -X POST https://api.medera.ai/api/agent-deployments \
+curl -X POST https://api.medera.ai/api/onboarding/initialize-organization \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "agent_template": "patient-intake",
-    "name": "intake-prod-clinic-east",
-    "config": {
-      "intake_template_id": "tpl_intake_bh_default",
-      "screeners": ["phq-9", "gad-7", "audit-c", "c-ssrs"],
-      "language": "en-US",
-      "crisis_escalation_tree_id": "esc_oncall_prod"
-    }
+    "org_name": "Acme Clinic",
+    "org_type": "behavioral_health",
+    "initial_agents": ["intake"],
+    "voice_settings": { "language": "en-US", "tone": "warm" }
   }'
 ```
 
-Returns a `deployment_id` and a provisioned Twilio phone number.
-
-## 2. Configure the webhook
+## 3. Start an intake call
 
 ```bash
-curl -X PATCH https://api.medera.ai/api/agent-deployments/{id} \
+curl -X POST https://api.medera.ai/api/intake-calls \
   -H "Authorization: Bearer $TOKEN" \
-  -d '{ "webhook_url": "https://your.app/webhooks/medera-intake" }'
+  -d '{
+    "patient_id": "pat_abc",
+    "phone_number": "+15555550100",
+    "deployment_id": "dep_abc"
+  }'
 ```
 
-## 3. Receive events
+## 4. Subscribe to real-time updates
 
-Your endpoint receives signed events:
+```javascript
+const ws = new WebSocket(`wss://api.medera.ai/ws/call/${callId}?token=${jwt}`);
+ws.on('message', (msg) => {
+  const event = JSON.parse(msg);
+  // event.type: call-started | utterance-processed | task-extracted | call-ended
+});
+```
 
-```json
+## 5. Receive webhook events
+
+If your tenant has a webhook URL configured, you'll receive signed outbound webhooks:
+
+```
+POST <your_webhook_url>
+Medera-Signature: sha256=<hmac>
 {
   "event": "intake.summary.ready",
-  "deployment_id": "dep_abc",
-  "call_id": "call_xyz",
+  "call_id": "...",
   "summary": { "screeners": {...}, "icd10_candidates": [...] }
 }
 ```
 
-Verify the `Medera-Signature` header (HMAC-SHA256).
-
-See [Patient Intake Agent](/agentic/agents/patient-intake) for the full lifecycle.
+See [Vapi Webhooks](/api-reference/intake/webhooks-vapi).

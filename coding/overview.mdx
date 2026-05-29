@@ -1,27 +1,41 @@
 ---
 title: "Medical Coding Overview"
-description: "ICD-10, CPT, HCPCS, SNOMED CT, LOINC, RxNorm from clinical context"
+description: "ICD-10, CPT, HCPCS, SNOMED CT, LOINC, RxNorm"
 ---
 
 
-Medera's Coding API generates accurate, specific codes from clinical encounter context — each code anchored to a quoted note span and reported with a confidence band.
+Medera's medical coding surface is exposed through three endpoints:
+
+| Endpoint | Surface | Use |
+| :--- | :--- | :--- |
+| `POST /api/therapy/suggest-codes` | AI Services | Standalone suggestion from diagnosis + procedure text |
+| `POST /api/pa/coding-suggest` | AI Services | Real-time detection during intake / call (flags PA-required codes) |
+| `POST /api/therapy/generate-soap-note-enhanced` | AI Services | Returns SOAP with `include_billing_codes: true` |
 
 ## Supported code systems
 
-<CardGroup cols={3}>
-  <Card title="ICD-10-CM" href="/coding/icd-10-cm">US diagnosis coding</Card>
-  <Card title="ICD-10-PCS" href="/coding/icd-10-pcs">US inpatient procedure coding</Card>
-  <Card title="ICD-10 (International)" href="/coding/icd-10-int">WHO international</Card>
-  <Card title="CPT" href="/coding/cpt">Outpatient procedure coding</Card>
-  <Card title="HCPCS Level II" href="/coding/hcpcs">Non-physician services</Card>
-  <Card title="SNOMED CT" href="/coding/snomed-ct">Clinical terminology</Card>
-  <Card title="LOINC" href="/coding/loinc">Lab observations</Card>
-  <Card title="RxNorm" href="/coding/rxnorm">Medication terminology</Card>
-</CardGroup>
+| System | Coverage |
+| :--- | :--- |
+| ICD-10-CM | US diagnosis (F-codes BH range fully covered: F32.0–F34.1, F40–F41, F43, …) |
+| CPT | Psychotherapy (90832 / 90834 / 90837), E/M (99213 / 99214 / 99215), assessment (96127) |
+| HCPCS Level II | DME, non-physician services |
+| SNOMED CT | Clinical terminology (35489007 depression, 48694002 anxiety, …) |
+| LOINC | Lab observations |
+| RxNorm | Medications (SSRIs, SNRIs, sleep meds, anxiolytics, …) |
 
-## Capabilities
+## Real-time PA detection
 
-- **Encounter coding** — generate codes for a signed (or in-progress) note
-- **CDI review** — surface documentation gaps before sign-off
-- **Revenue cycle sweeps** — retrospective audits and missed-code surfacing
-- **Coder workflow** — code suggestions with documented support
+`realtime_coding_service.py` runs during intake to detect codes that require PA. Each suggestion includes:
+
+```python
+CodeSuggestion(
+    code=str,
+    code_system=str,
+    description=str,
+    confidence=float,
+    pa_required=bool,
+    pa_urgency=str,
+    payer_policy_url=Optional[str],
+    evidence_excerpt=str,
+)
+```

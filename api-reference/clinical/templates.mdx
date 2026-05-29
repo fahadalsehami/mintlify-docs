@@ -1,16 +1,18 @@
 ---
-title: "GET /api/note-templates"
-description: "List note templates"
+title: "GET /api/therapy/templates"
+description: "Note templates"
 ---
 
-## `GET /api/note-templates`
 
-List note templates.
+AI Services:
 
-### Example
+```
+GET /api/therapy/templates
+```
 
-```bash
-curl -X GET https://api.medera.ai/api/note-templates \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+Backend templates:
+
+```
+GET /api/note-templates
+GET /api/templates
 ```

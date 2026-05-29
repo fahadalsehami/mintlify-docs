@@ -1,33 +1,35 @@
 ---
 title: "Coding Quickstart"
-description: "Generate codes for a signed note"
+description: "Suggest codes for a signed note"
 ---
 
 
 ```bash
-curl -X POST https://api.medera.ai/api/coding/predict \
+curl -X POST https://api.medera.ai/api/therapy/suggest-codes \
   -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
   -d '{
-    "code_systems": ["icd-10-cm", "cpt"],
-    "context": { "documentId": "doc_abc" },
-    "min_confidence": 0.5
+    "diagnosis_text": "Major depressive disorder, recurrent, moderate",
+    "procedure_text": "45-minute individual psychotherapy",
+    "context": { "patient_id": "pat_abc" }
   }'
 ```
 
+Response:
+
 ```json
 {
-  "codes": [
+  "suggested_codes": [
     {
+      "code": "F33.1",
       "system": "icd-10-cm",
-      "code": "F32.1",
-      "display": "Major depressive disorder, single episode, moderate",
-      "confidence": 0.92,
-      "anchor": {
-        "documentId": "doc_abc",
-        "span": { "start": 412, "end": 489 },
-        "quote": "Patient reports persistent low mood for 6 weeks..."
-      }
+      "description": "Major depressive disorder, recurrent, moderate",
+      "confidence": 0.92
+    },
+    {
+      "code": "90834",
+      "system": "cpt",
+      "description": "Psychotherapy, 45 minutes",
+      "confidence": 0.95
     }
   ]
 }

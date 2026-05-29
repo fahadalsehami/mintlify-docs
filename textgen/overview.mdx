@@ -1,43 +1,37 @@
 ---
 title: "Text Generation Overview"
-description: "Reliable healthcare-focused LLM output for documentation"
+description: "SOAP notes, documents, and clinical reasoning"
 ---
 
 
-Medera Text Generation delivers reliable, citation-anchored documentation in your practice templates — SOAP notes, referral letters, discharge summaries, prior authorization letters, and more.
+Medera's Text Generation surface is exposed under `/api/therapy/*` (AI Services) for generation and `/api/clinical-notes` / `/api/note-templates` (Backend) for persistence.
 
 ## Capabilities
 
 | Capability | Endpoint |
 | :--- | :--- |
-| Document generation (standard) | `POST /api/textgen/documents` |
-| Document generation (advanced) | `POST /api/textgen/documents/advanced` |
-| Template CRUD | `/api/textgen/templates` |
-| Facts extraction (real-time) | `wss://api.medera.ai/streams` (FactsR events) |
-| Facts extraction (async) | `POST /api/textgen/facts/extract` |
+| Post-visit analysis (tasks, summary, diagnoses, risk) | `POST /api/therapy/analyze-session` |
+| SOAP note generation | `POST /api/therapy/generate-soap-note` |
+| Specialty-tailored SOAP | `POST /api/therapy/generate-soap-note-enhanced` |
+| Post-visit insights | `POST /api/therapy/post-visit-insights` |
+| Note validation | `POST /api/therapy/validate-note` |
+| Code suggestions | `POST /api/therapy/suggest-codes` |
+| Note lifecycle | `POST /api/therapy/notes/{id}/transition · /approve · /finalize · /track-change` |
+| Templates | `GET /api/therapy/templates` |
 
-## Documents by template
+## Model
 
-Every document is generated against a **template** — a versioned, schema-validated definition of the document's sections and required content.
-
-```bash
-POST /api/textgen/documents
-{
-  "template_key": "soap_outpatient_bh",
-  "session_id": "ses_abc",
-  "facts": { ... } | "transcript_id": "tx_xyz"
-}
-```
-
-## Facts and reasoning (FactsR™ equivalent)
-
-Medera extracts a structured `Facts` object from the encounter — what was said, by whom, when, with what certainty — and uses that object to drive document generation. Every claim in a generated document anchors to a fact, which anchors to a transcript span.
+| Use | Model | Settings |
+| :--- | :--- | :--- |
+| SOAP notes, analysis | `gpt-4o` | T=0.3, JSON mode |
+| Real-time NLP / classify | `gpt-4o-mini` | T=0.3 |
+| Voice agent LLM | `gpt-4-turbo` | T=0.3, max 500 tokens |
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Standard Documents" href="/textgen/documents-standard">Generate documents from templates.</Card>
-  <Card title="Advanced Documents" href="/textgen/documents-advanced">Custom templates and assembly.</Card>
-  <Card title="Templates" href="/textgen/templates">Template management.</Card>
-  <Card title="Clinical RAG" href="/textgen/rag-overview">Hybrid retrieval over clinical knowledge.</Card>
+  <Card title="Standard documents" href="/textgen/documents-standard">Generate via template.</Card>
+  <Card title="Advanced documents" href="/textgen/documents-advanced">Specialty templates.</Card>
+  <Card title="Facts" href="/textgen/factsr">Structured facts extraction.</Card>
+  <Card title="Clinical RAG" href="/textgen/rag-overview">Evidence retrieval.</Card>
 </CardGroup>

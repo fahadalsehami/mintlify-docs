@@ -1,16 +1,54 @@
 ---
-title: "POST /api/therapy-sessions/{id}/analyze"
-description: "Run post-session analysis"
+title: "POST /api/therapy/analyze-session"
+description: "Post-visit analysis"
 ---
 
-## `POST /api/therapy-sessions/{id}/analyze`
 
-Run post-session multimodal analysis (RDoC construct activation, SOAP draft).
+AI Services endpoint:
 
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/therapy-sessions/{id}/analyze \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/therapy/analyze-session
+```
+
+### Request body
+
+```json
+{
+  "session_transcript": "...",
+  "vital_signs": { ... },
+  "clinical_context": { ... },
+  "ai_metadata": { ... }
+}
+```
+
+### Response
+
+```json
+{
+  "success": true,
+  "aiTasks": [
+    {
+      "id": 1,
+      "title": "Generate SOAP Note",
+      "description": "...",
+      "assignee": "Scribe",
+      "icon": "📝",
+      "priority": "high",
+      "estimatedTime": "5 minutes"
+    }
+  ],
+  "visitSummary": {
+    "topicsDiscussed": [...],
+    "keyFindings": [...],
+    "decisionsMade": [...],
+    "nextSteps": [...]
+  },
+  "differentialDiagnoses": [...],
+  "riskAssessment": { "level": "moderate", "summary": "...", "factors": [...] },
+  "clinicalFindings": [...],
+  "treatmentPlan": [...],
+  "recommendations": [...]
+}
+```
+
+Model: `gpt-4o`, temperature 0.3, JSON object format.

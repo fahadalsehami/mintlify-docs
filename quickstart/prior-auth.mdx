@@ -1,29 +1,66 @@
 ---
 title: "Quickstart — Prior Authorization"
-description: "Generate evidence-based PA letters"
+description: "Drive the 17-state PA workflow"
 ---
 
 
-Generate a prior authorization letter from chart, payer policy, and peer-reviewed evidence.
+## 1. Evaluate criteria
 
 ```bash
-curl -X POST https://api.medera.ai/api/pa/initiate \
+curl -X POST https://api.medera.ai/api/prior-auth/evaluate \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "patient_id": "pat_abc",
-    "service_codes": ["90834", "H0036"],
-    "payer_id": "payer_aetna_commercial",
-    "clinical_facts": { "from_chart": true },
-    "evidence_base": ["pubmed", "internal_protocols"]
+    "patient_data": { "diagnosis_codes": ["F32.1"], "phq9_score": 14 },
+    "procedure_codes": ["90834"],
+    "payer_id": "AETNA"
   }'
 ```
 
-Returns a `pa_id` and triggers the PA workflow:
+Response: `recommendation` (`AUTO_APPROVE` / `LIKELY_APPROVE` / `NEEDS_REVIEW` / `LIKELY_DENY`).
 
-```
-PA_INITIATED → PA_CRITERIA_EVALUATION → PA_CRITERIA_EVALUATED →
-PA_DOCUMENTS_READY → PA_SUBMITTED → PA_IN_REVIEW →
-PA_APPROVED | PA_DENIED → (PA_APPEAL | PA_P2P)
+## 2. Create the PA request
+
+```bash
+curl -X POST https://api.medera.ai/api/prior-auth/requests \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "patient_id": "pat_abc",
+    "diagnosis_codes": ["F32.1"],
+    "procedure_codes": ["90834"],
+    "clinical_justification": "...",
+    "payer_id": "AETNA"
+  }'
 ```
 
-See [Prior Authorization Agent](/agentic/agents/prior-authorization).
+Initial state: `PA_INITIATED`.
+
+## 3. Generate documents
+
+```bash
+curl -X POST https://api.medera.ai/api/prior-auth/documents/generate \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "request_id": "pa_abc",
+    "document_types": ["MEDICAL_NECESSITY", "CLINICAL_SUMMARY"]
+  }'
+```
+
+## 4. Submit
+
+```bash
+curl -X POST https://api.medera.ai/api/prior-auth/requests/{id}/submit \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+Channel priority: `EPA_API → CLEARINGHOUSE → PORTAL → FAX → MANUAL`.
+
+## 5. Track and appeal
+
+```bash
+curl https://api.medera.ai/api/prior-auth/requests/{id} \
+  -H "Authorization: Bearer $TOKEN"
+
+# If denied:
+curl -X POST https://api.medera.ai/api/prior-auth/requests/{id}/appeal \
+  -H "Authorization: Bearer $TOKEN"
+```

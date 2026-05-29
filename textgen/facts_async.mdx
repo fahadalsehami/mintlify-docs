@@ -1,16 +1,11 @@
 ---
-title: "Asynchronous Extraction"
-description: "FactsR™ in async workflows"
+title: "Async facts"
+description: "Facts after the session"
 ---
 
 
-For batch / async workflows, extract facts from a completed transcript:
-
-```bash
-POST /api/sessions/{id}/facts/extract
-{
-  "transcript_id": "tx_xyz"
-}
+```
+POST /api/therapy/analyze-session
 ```
 
-Returns a `Facts` object scoped to the session.
+Runs the full post-visit synthesis on a completed session.

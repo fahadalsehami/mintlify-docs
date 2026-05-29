@@ -1,16 +1,11 @@
 ---
-title: "POST /api/pa/{id}/appeal"
-description: "Generate a PA appeal"
+title: "POST /api/prior-auth/requests/{id}/appeal"
+description: "Generate an appeal"
 ---
 
-## `POST /api/pa/{id}/appeal`
 
-Generate an appeal for a denied PA.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/pa/{id}/appeal \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/prior-auth/requests/{request_id}/appeal
+```
+
+Transitions the workflow to `PA_APPEAL_DRAFT` and generates the appeal letter with new evidence (PubMed Expert + chart context). Submission via the original channel.

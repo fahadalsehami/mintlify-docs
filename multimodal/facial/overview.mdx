@@ -1,36 +1,64 @@
 ---
 title: "Facial Physiological Engine"
-description: "HR, BP, HRV, respiration, stress, and affect from video"
+description: "rPPG-derived HR, BP, HRV, respiration, stress, affect"
 ---
 
 
-The Facial Physiological Engine extracts physiological signal from video using MediaPipe 468-point landmarks plus rPPG (remote photoplethysmography) techniques.
+`FacialPhysiologicalEngine` extracts physiological signal from video via Haar Cascade face detection, ROI sampling, and CHROM rPPG.
 
-## Outputs
+## Constructor
 
-| Signal | Notes | Requirements |
+```python
+engine = FacialPhysiologicalEngine(
+    fps=30,                # frames per second
+    min_hr_duration=30,    # seconds; HR will not be computed below this
+    min_hrv_duration=60,   # seconds; HRV will not be computed below this
+    roi_type='forehead',   # 'forehead' | 'cheeks' | 'full_face'
+)
+```
+
+## Primary method
+
+```python
+signals: PhysiologicalSignals = engine.extract_features(
+    video_frames: List[np.ndarray],
+    timestamps: Optional[List[float]] = None,
+)
+```
+
+## PhysiologicalSignals dataclass
+
+| Field | Unit | Notes |
 | :--- | :--- | :--- |
-| Heart Rate (HR) | <5 bpm MAE | Min 30 s, SNR > 3.0 |
-| Blood Pressure | Systolic / diastolic with confidence | Min 60 s |
-| HRV (SDNN, RMSSD, LF/HF, SD1, SD2) | Standard HRV metrics | Min 60 s |
-| Respiration Rate | Per-minute | Min 30 s |
-| Stress Index | 0–100 with PNS/SNS balance | Min 60 s |
-| Affect | 6 basic emotions + neutral | Per-frame |
-| Microexpressions | Onset/offset tracking | Per-frame |
-| Engagement | 0–1 composite | Per-window |
+| `heart_rate` | bpm | < 5 bpm MAE at SNR > 3.0 |
+| `heart_rate_confidence` | 0–1 | |
+| `systolic_bp` | mmHg | Estimate; clinical decisions should still use a cuff |
+| `diastolic_bp` | mmHg | |
+| `bp_confidence` | 0–1 | |
+| `respiration_rate` | breaths / min | |
+| `respiration_confidence` | 0–1 | |
+| `hrv_sdnn` | ms | Standard deviation of NN intervals |
+| `hrv_rmssd` | ms | Root mean square of successive differences |
+| `hrv_lf_hf_ratio` | ratio | Sympathovagal balance |
+| `hrv_sd1` | ms | Poincaré short-term variability |
+| `hrv_sd2` | ms | Poincaré long-term variability |
+| `stress_index` | 0–100 | |
+| `pns_index` | 0–100 | Parasympathetic activity |
+| `sns_index` | 0–100 | Sympathetic activity |
+| `overall_quality` | 0–100 | |
+| `snr` | dB | Threshold: > 3.0 |
+| `signal_duration` | seconds | |
 
-## How it works
+## Library dependencies
 
-```
-Video frames → MediaPipe 468-point landmarks → ROI extraction →
-   rPPG signal → Bandpass filter → Spectral analysis → HR + HRV →
-   Affect classifier → Emotion + microexpression labels
-```
+- OpenCV (`cv2`) — face detection
+- HeartPy (`heartpy`) — HR / HRV
+- SciPy (`scipy.signal`, `scipy.interpolate`, `scipy.fft`) — filtering
+- NumPy (`numpy`) — arrays
 
-## Quality requirements
+## Failure modes
 
-- Adequate lighting (no harsh backlight)
-- Subject facing camera within ±30°
-- Min 480p, 15+ fps
-- SNR > 3.0 on the rPPG signal
-- See [Quality Requirements](/multimodal/facial/quality-requirements)
+The engine returns the metric with `confidence: 0.0` rather than fabricated values when:
+- Face detection fails on > 30 % of frames
+- SNR ≤ 3.0
+- Recording shorter than the declared minimum duration

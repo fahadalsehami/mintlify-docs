@@ -1,16 +1,21 @@
 ---
-title: "POST /api/pa/{id}/document"
-description: "Generate the PA letter"
+title: "POST /api/prior-auth/documents/generate"
+description: "Generate PA documents"
 ---
 
-## `POST /api/pa/{id}/document`
 
-Generate the PA letter against the payer template.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/pa/{id}/document \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/prior-auth/documents/generate
+```
+
+Generates the requested document types:
+
+| Type | Producer |
+| :--- | :--- |
+| `MEDICAL_NECESSITY` | `narrative_service.py` |
+| `CLINICAL_SUMMARY` | `narrative_service.py` |
+| `TREATMENT_PLAN` | `narrative_service.py` |
+| `ASSESSMENT` | `narrative_service.py` |
+| `PROGRESS_NOTE` | `narrative_service.py` |
+| `DISCHARGE_SUMMARY` | `narrative_service.py` |
+| X-12 EDI 278 | `x12_builder.py` |

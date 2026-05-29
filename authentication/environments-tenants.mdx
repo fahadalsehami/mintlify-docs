@@ -1,41 +1,35 @@
 ---
 title: "Environments & Tenants"
-description: "How Medera environments and tenants work, and how they affect authentication and data residency"
+description: "Sandbox, staging, production, and tenant isolation"
 ---
 
 
-A **tenant** is your organization in Medera. Within a tenant, you have one or more **projects**, each operating in one of three **environments**.
+Every Medera customer is a **tenant** (organization). Tenant ID flows through the entire stack:
 
-## Tenants
-
-Each Medera customer is a single tenant, isolated by Row-Level Security on every PHI-touching table. Tenant ID is injected by the `tenantContext` middleware on every request and is non-spoofable.
-
-## Projects
-
-Projects scope credentials and usage tracking inside a tenant. A typical layout:
-
-| Project | Purpose |
-| :--- | :--- |
-| `core-api` | Main backend integration |
-| `pipeline-pa` | Batch PA processing pipeline |
-| `intake-call-edge` | Edge function for Vapi webhooks |
+- Injected by `setTenantContext` middleware on every request
+- Set on the PostgreSQL session via `SET LOCAL app.current_organization_id = ...`
+- Enforced by Row-Level Security policies on every PHI-touching table (`tenant_isolation` using `has_tenant_access()`)
+- Carried into background workers via `executeInOrgScope()` transaction context
 
 ## Environments
 
-| Environment | URL host | PHI policy | Audit |
+| Environment | Host | Database | PHI |
 | :--- | :--- | :--- | :--- |
-| **sandbox** | `sandbox.api.medera.ai` | Synthetic only | Standard |
-| **staging** | `staging.api.medera.ai` | Real PHI under BAA | Full |
-| **production** | `api.medera.ai` | Real PHI under BAA | Full + Merkle integrity |
+| sandbox | `sandbox.api.medera.ai` | Shared sandbox cluster | Synthetic only |
+| staging | `staging.api.medera.ai` | Tenant-scoped under BAA | Real PHI under BAA |
+| production | `api.medera.ai` | Tenant-scoped under BAA | Real PHI + full audit + Merkle integrity |
 
-Environment is determined by the audience claim in your token: `sandbox.api.medera.ai`, `staging.api.medera.ai`, or `api.medera.ai`.
+## Tenant-scoped tables
 
-## Data residency
+The following tables enforce tenant isolation via RLS (migrations 124, 125, 154):
 
-| Region | Tenant location | Data residency |
-| :--- | :--- | :--- |
-| US | Default | US-only sub-processors |
-| EU | Opt-in | EU-only sub-processors |
-| Customer VPC | Enterprise | Customer-managed VPC |
+| Domain | Tables |
+| :--- | :--- |
+| Identity | `users`, `organizations`, `developer_api_keys` |
+| Patient | `patients`, `phi_token_vault`, `phi_audit_logs` |
+| Clinical | `sessions`, `clinical_notes`, `intake_calls`, `co_therapy_sessions`, `therapy_sessions` |
+| Workflow | `agent_workflows`, `agent_workflow_versions`, `agent_workflow_executions`, `workflow_approvals`, `workflow_schedules` |
+| Deployment | `agent_deployments`, `agent_links`, `agent_calls`, `agent_call_function_logs`, `deployment_audit_log`, `deployment_metrics`, `deployment_alerts` |
+| PA | `pa_requests`, `pa_documents`, `payer_rules` |
 
-Region is selected at tenant creation and is immutable.
+A misconfigured tenant ID cannot read another tenant's data — the row simply does not exist from the perspective of the query.

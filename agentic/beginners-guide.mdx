@@ -1,6 +1,6 @@
 ---
 title: "Beginners' Guide to Agents"
-description: "How LLM agents work in the Medera Agentic Framework"
+description: "How agents work in Medera, without jargon"
 ---
 
 
@@ -8,24 +8,25 @@ This guide is for product and clinical teams new to LLM agents.
 
 ## What is an agent?
 
-An agent is a task-specific actor — it takes input, calls experts, and produces output. Unlike a generic LLM prompt, a Medera agent has:
+In Medera, an **agent** is a task-specific actor with:
 
-1. A **typed configuration** (practice template, screener set, escalation policy)
-2. A **documented execution flow** (you can read the steps in this doc)
-3. A bundle of **typed experts** (e.g. PHQ-9 Expert, ICD-10 Expert)
-4. **Safety guarantees** (e.g. crisis-language never auto-handles)
+1. A **typed configuration** — practice template, screener set, escalation policy, voice settings
+2. A **documented execution flow** — every step is in this documentation
+3. A bundle of **typed experts** — PHQ-9, C-SSRS, ICD-10, PubMed, Payer Policy, …
+4. **Compliance guarantees** — e.g. crisis-language detection bypasses agent gating
 
 ## Why this matters
 
-Generic LLMs can hallucinate clinical claims. Medera agents:
-- Anchor every claim to a quoted span, screener score, or peer-reviewed citation
-- Report confidence — never invent it
-- Surface unavailable status when signal quality is too low
-- Log every step to an immutable audit trail
+Generic LLMs hallucinate clinical claims. Medera agents:
+
+- Anchor claims to quoted spans, screener scores, or peer-reviewed citations
+- Report confidence in calibrated bands (`VERY_HIGH` → `VERY_LOW`)
+- Surface `unavailable` rather than fabricated values when signal quality is low
+- Log every step to an immutable audit trail (`deployment_audit_log` for deployment actions, `phi_audit_logs` for PHI)
 
 ## First steps
 
-1. Pick an agent that matches your workflow (see the [Agent Library](/agentic/agents/patient-intake))
+1. Pick an agent from the [Agent Library](/agentic/agents/patient-intake)
 2. Read the agent's configuration section
-3. Configure it in the Console
-4. Send a message via the [Quickstart](/agentic/quickstart)
+3. Use the Canvas to compose a workflow that includes the agent
+4. Publish a version, deploy to sandbox, and execute via [/agentic/quickstart](/agentic/quickstart)

@@ -1,43 +1,39 @@
 ---
 title: "Medera Console"
-description: "Self-service portal to sign up and start your free trial"
+description: "Sign up, provision your tenant, generate credentials"
 ---
 
 
-The [Medera Console](https://app.medera.ai) is the self-service portal where you create an account, manage organizations, generate client credentials, and monitor usage.
+The [Medera Console](https://app.medera.ai) is the self-service portal for tenant management, agent canvas, deployments, integrations, and billing.
 
 ## Sign up
 
 <Steps>
   <Step title="Create an account">
-    Visit [app.medera.ai/signup](https://app.medera.ai/signup) and create an account with your work email. New tenants start in the **sandbox** environment with synthetic PHI only.
+    Visit [app.medera.ai/signup](https://app.medera.ai/signup). Authentication is handled by Clerk. New tenants start in the **sandbox** environment.
   </Step>
-  <Step title="Verify your email">
-    Click the verification link we send. Without verification, you can still browse the Console but cannot create credentials.
+  <Step title="Provision your organization">
+    `OrganizationProvisioningService` (3,810 lines, 12-step state machine) handles tenant setup — branding, EHR integration scaffolding, payer rule defaults, screener defaults, crisis escalation policy, and Stripe subscription state.
   </Step>
-  <Step title="Create an organization">
-    Every tenant in Medera is an Organization. The Organization Provisioning Service walks you through a 16-step setup — branding, EHR integration, payer setup, screener defaults, and crisis escalation policy.
+  <Step title="Generate Developer API Keys">
+    Under **Settings → Developer API Keys**, generate a key scoped to a project, environment (`sandbox` / `staging` / `production`), and scopes. The secret is shown once — copy it into your secret store.
   </Step>
-  <Step title="Generate client credentials">
-    Under **Settings → Developer API Keys**, generate a `client_id` / `client_secret` pair. Keys are scoped to a project and an environment (sandbox or production).
+  <Step title="Optionally provision a workflow from a template">
+    Under **Canvas → Templates**, clone Grace, Scribe, Therapy, Triage, or Care Coordinator. Customize, publish, and the canvas auto-deploys to sandbox at `https://sandbox.medera.info/{org}/{agent}-v{ver}`.
   </Step>
 </Steps>
 
 ## Environments
 
-Medera supports three environments:
-
-| Environment | Purpose | PHI policy |
+| Environment | Host | PHI policy |
 | :--- | :--- | :--- |
-| **sandbox** | Build and test against synthetic data | No real PHI permitted |
-| **staging** | Pre-production verification under your BAA | Real PHI permitted under BAA |
-| **production** | Live patient traffic | Real PHI under BAA + RLS + full audit |
-
-Promote a tenant from sandbox to production by signing a Business Associate Agreement and completing the Trust Center checklist.
+| **sandbox** | `sandbox.api.medera.ai` | Synthetic only |
+| **staging** | `staging.api.medera.ai` | Real PHI under BAA |
+| **production** | `api.medera.ai` | Real PHI + full audit + Merkle integrity |
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Authentication Quickstart" href="/authentication/quickstart">Learn how to exchange your credentials for an access token.</Card>
-  <Card title="Ambient Scribe Quickstart" href="/quickstart/ambient-rt">Build your first real-time scribe in under 20 minutes.</Card>
+  <Card title="Auth Quickstart" href="/authentication/quickstart">Get an access token.</Card>
+  <Card title="Canvas Overview" href="/agentic/canvas/overview">Build your first workflow.</Card>
 </CardGroup>

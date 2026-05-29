@@ -1,29 +1,31 @@
 ---
 title: "Creating Clients"
-description: "Create your first client in the Medera Console"
+description: "Create a Developer API Key in the Console"
 ---
 
 
-Client credentials are managed in the [Medera Console](https://app.medera.ai) under **Settings → Developer API Keys**.
+Developer API Keys are managed in the [Medera Console](https://app.medera.ai) under **Settings → Developer API Keys**.
 
 <Steps>
   <Step title="Open the Console">
-    Go to [app.medera.ai](https://app.medera.ai) and sign in.
+    Sign in to [app.medera.ai](https://app.medera.ai).
   </Step>
-  <Step title="Choose an environment">
-    Select **sandbox** for initial development. Promote later to staging / production after BAA execution.
+  <Step title="Pick an environment">
+    Sandbox keys can only touch synthetic data. Staging and production keys require an active BAA.
   </Step>
-  <Step title="Create a project (optional)">
-    Projects scope credentials and isolate usage tracking. A new tenant gets a default `production` project.
+  <Step title="Pick a project">
+    Projects scope a key to a specific use case (intake pipeline, scribe service, PA batch, etc.). Per-project usage and quota are tracked in the `developer_usage_daily` table.
   </Step>
-  <Step title="Click 'Create credential'">
-    Pick a descriptive name, assign scopes, and click create. The `client_secret` is shown **once** — copy it to your secret store immediately.
+  <Step title="Pick scopes">
+    Combine the smallest scopes that cover the use case. PHI scopes require a BAA on file.
   </Step>
-  <Step title="Store and rotate">
-    Store the secret in a hardened secret manager (AWS Secrets Manager, HashiCorp Vault, GCP Secret Manager). Rotate every 90 days by default.
+  <Step title="Copy the secret">
+    The key is shown **once**. Store it in your secret manager (AWS Secrets Manager, GCP Secret Manager, HashiCorp Vault) and reference it from environment variables in your runtime.
   </Step>
 </Steps>
 
-## Naming conventions
+## Key rotation
 
-Use descriptive names like `app-prod-scribe-eu-west-2` or `pipeline-staging-pa-batch`. Names are visible in audit logs, so make them informative.
+Default rotation reminder: 90 days. Revoke retired keys; do not just remove them from code.
+
+Every call made with a Developer API Key is logged to `developer_api_logs` with the request ID, scopes used, and outcome — visible in the Console.

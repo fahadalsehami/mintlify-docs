@@ -1,26 +1,28 @@
 ---
 title: "Agentic Framework Overview"
-description: "AI for every behavioral-health workflow"
+description: "Canvas-based workflows, voice agents, and the care orchestrator"
 ---
 
 
-The Medera Agentic Framework lets product and clinical teams compose **task-specific agents** from a typed registry of clinical experts. It ships with **24 production agents** and a canvas for building your own.
+The Medera Agentic Framework is built around a **canvas-based workflow engine** (16 core node types + 8 BH-OS rails), a **multi-agent care orchestrator**, and a **typed expert registry**.
 
 ## Three layers
 
 <CardGroup cols={3}>
-  <Card title="Orchestrator" icon="layout-grid" href="/agentic/orchestrator">
-    The top-level coordination layer that routes messages, manages context, and enforces policy.
+  <Card title="Agent Builder Canvas" icon="layout-grid" href="/agentic/canvas/overview">
+    Drag a graph of agents, tools, and logic. Publish a semver version. Deploy to sandbox first. Promote to production with WORM audit.
   </Card>
-  <Card title="Agents" icon="layers" href="/agentic/quickstart">
-    24 production agents from Patient Intake to Evidence Synthesis. Each agent bundles experts and exposes a typed interface.
+  <Card title="Care Orchestrator" icon="layers" href="/agentic/orchestrator">
+    Multi-agent runtime over 4 voice agents (Grace, Alex, Jordan, Taylor) and 6 workflow agents (PRIOR_AUTH, REFERRAL, PRESCRIPTION, LAB, CARE_PLAN, ESCALATION).
   </Card>
-  <Card title="Experts" icon="puzzle" href="/agentic/experts/overview">
-    The typed expert registry. Examples: PHQ-9 Screener Expert, C-SSRS Risk Expert, ICD-10 Coding Expert, PubMed Expert.
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">
+    Typed clinical capabilities (PHQ-9, C-SSRS, ICD-10, PubMed, DrugBank, Payer Policy, …) that node runners bundle.
   </Card>
 </CardGroup>
 
 ## The 24 agents
+
+Medera ships 24 production agents in five categories. Each has a documented configuration, execution flow, expert composition, and compliance guarantees.
 
 | Category | Agents |
 | :--- | :--- |
@@ -30,15 +32,30 @@ The Medera Agentic Framework lets product and clinical teams compose **task-spec
 | **Revenue Cycle & Ops** | Denial Appeals, Eligibility Verification, Claims Review, Quality Reporting |
 | **Evidence & Safety** | Clinical Guidelines, Medication Reconciliation, Drug Interaction, Risk Stratification, Evidence Synthesis |
 
-## Build your own
+## Workflow engine
 
-The [Agent Builder Canvas](/agentic/canvas/overview) lets product teams compose agents from a registry of 16 node types — start, end, agents, tools, logic, transforms.
+The canvas is backed by a real workflow engine:
+
+- `WorkflowExecutor` (471 lines) — traverses the graph and dispatches to node runners
+- `ExecutionContext` (354 lines) — variable scopes (`workflow.input`, `state.*`, `nodes.*.output`, `runtime.context`, `tenant.secret`)
+- `WorkflowQueue` (285 lines) — Bull queue on Redis DB 2, 5 concurrent workers, 3-attempt retry with 5 s exponential backoff, graceful fallback to synchronous execution if Redis is unavailable
+
+## API surface
+
+| Surface | Mount |
+| :--- | :--- |
+| Backend (3001) | `/api/agent-workflows` — workflow CRUD, publish, deploy, execute |
+| Backend (3001) | `/api/deployments` — deployment lifecycle |
+| Backend (3001) | `/api/care-orchestrator` (proxy) → AI Services |
+| AI Services (8000) | `/api/care-orchestrator/*` — workflows, agents, voice, events |
+| AI Services (8000) | `/api/vapi/webhook` — Vapi inbound events |
+| AI Services (8000) | `/api/onboarding/*` — agent configuration per organization |
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Quickstart" href="/agentic/quickstart">Send your first message to an agent.</Card>
-  <Card title="Architecture" href="/agentic/architecture">System architecture and runtime.</Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">Agent-to-agent communication.</Card>
-  <Card title="Canvas" href="/agentic/canvas/overview">Build your own agent.</Card>
+  <Card title="Quickstart" href="/agentic/quickstart">Execute a published workflow.</Card>
+  <Card title="Architecture" href="/agentic/architecture">Runtime deep dive.</Card>
+  <Card title="Canvas Overview" href="/agentic/canvas/overview">Build your own workflow.</Card>
+  <Card title="Care Orchestrator" href="/agentic/orchestrator">Multi-agent coordination.</Card>
 </CardGroup>

@@ -4,11 +4,11 @@
   "name": "Medera",
   "description": "AI infrastructure for behavioral and mental health. Multimodal biomarkers, validated screeners, composable clinical agents, and HIPAA-grade APIs for the next generation of clinical software.",
   "colors": {
-    "primary": "#76a1fc",
-    "light": "#a8c4ff",
-    "dark": "#3a6dd9"
+    "primary": "#141413",
+    "light": "#76a1fc",
+    "dark": "#fafafa"
   },
-  "favicon": "/favicon.png",
+  "favicon": "/favicon.svg",
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",

@@ -1,15 +1,19 @@
 ---
 title: "Text Generation Release Notes"
-description: "Document generation and templates"
+description: "SOAP, templates, facts, RAG"
 ---
 
 
-## May 28, 2026
-- Document templates: 12 new BH-specific templates
-- Hybrid RAG: ChromaDB + BM25 with medical ontology expansion
+## Service surface
 
-## May 7, 2026
-- Facts extraction: real-time + async parity
+- `/api/therapy/analyze-session` — post-visit analysis (`gpt-4o`, T=0.3, JSON mode)
+- `/api/therapy/generate-soap-note` + `/generate-soap-note-enhanced` — specialty-tailored SOAP
+- `/api/therapy/post-visit-insights`, `/validate-note`, `/suggest-codes`
+- `/api/therapy/notes/{id}/{transition|approve|finalize|track-change}` — note lifecycle
 
-## Apr 16, 2026
-- Clinical RAG: 3,200-line clinical RAG service with citation tracking
+## Clinical RAG
+
+- `AdvancedClinicalRAG` (`services/rag/advanced_clinical_rag.py`) — hybrid semantic + BM25
+- SNOMED-CT, ICD-10, RxNorm ontology expansion
+- 5-band confidence calibration
+- `Citation` dataclass for provenance tracking

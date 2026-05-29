@@ -1,18 +1,16 @@
 ---
-title: "Intake Function Calls"
-description: "Functions the intake agent invokes during a call"
+title: "Grace function calls"
+description: "Functions Grace's LLM can invoke during a call"
 ---
 
 
-The intake agent invokes the following functions during the conversation. These are observable in the call log:
+Grace's system prompt registers **4 function calls**. The Vapi orchestrator invokes them and routes the function output back into the conversation.
 
-| Function | Purpose |
-| :--- | :--- |
-| `verify_identity(dob, address, ssn_last_4)` | Identity verification |
-| `document_symptom(symptom, severity, duration)` | Symptom capture |
-| `check_insurance(provider, member_id)` | Insurance verification |
-| `schedule_appointment(date, time, provider)` | Appointment scheduling |
-| `escalate_urgent(reason, urgency_level)` | Urgent escalation |
-| `flag_for_review(reason, priority)` | Flag for clinician review |
-| `create_referral(...)` | Generate a referral |
-| `request_refill(...)` | Request a medication refill |
+| Function | Parameters | Purpose |
+| :--- | :--- | :--- |
+| `verify_identity` | `patient_id, verification_data` | 2-of-3 ID confirmation (DOB, address, SSN last 4) |
+| `document_symptom` | `symptom_description, severity_level, onset_date` | Capture chief complaint |
+| `flag_for_review` | `reason, urgency_level` | Flag for clinical review queue |
+| `escalate_urgent` | `escalation_reason, call_action` | Hard escalation for emergencies (no agent gating) |
+
+These functions persist their effects via the backend `/api/intake-calls/{id}/tasks` endpoint.

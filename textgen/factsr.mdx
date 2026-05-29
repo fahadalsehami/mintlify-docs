@@ -1,18 +1,18 @@
 ---
-title: "Introducing Facts & Reasoning"
-description: "Real-time clinical reasoning over the encounter"
+title: "Facts & Reasoning"
+description: "Structured facts extraction"
 ---
 
 
-Medera's Facts & Reasoning system extracts a structured `Facts` object from the encounter — every clinically relevant claim, who said it, when, and with what certainty. Documents generate against the fact set, not against raw transcripts.
+Medera's facts pipeline extracts structured `Fact` objects from the encounter — every clinically relevant claim, who said it, and supporting evidence. Documents generate against the fact set rather than raw transcripts so every claim ties back to a source.
 
-## Why facts?
+The real-time fact stream rides the same WebSocket as the transcript on the clinical session and intake pipelines.
 
-- **Defensibility:** every claim in a generated document ties back to a fact
-- **Editability:** the clinician can correct a fact, and downstream documents update
-- **Audit:** facts are an auditable, immutable layer between transcript and note
+```
+POST /api/therapy/analyze-session   # extracts facts + downstream synthesis
+```
 
-## Fact schema
+A `Fact` includes:
 
 ```json
 {

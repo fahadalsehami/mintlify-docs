@@ -1,11 +1,16 @@
 ---
 title: "Blood Pressure"
-description: "Systolic and diastolic from facial video"
+description: "Systolic and diastolic estimation from PPG morphology + HR"
 ---
 
 
-Blood pressure is estimated from pulse transit time and PPG waveform morphology.
+BP is estimated by `_estimate_blood_pressure(hr, ppg_signal, peaks)`. Output is `systolic_bp`, `diastolic_bp`, and `bp_confidence`.
 
-- **Output:** Systolic, diastolic with confidence band
-- **Min duration:** 60 s
-- **Note:** This is an *estimate*, not a cuff measurement. Use for trend, not for treatment decisions.
+<Warning>
+  Medera's BP is an **estimate** derived from rPPG morphology, not a cuff measurement. Use for **trend** observation; do not use as a clinical decision substitute for a calibrated cuff.
+</Warning>
+
+| Aspect | Value |
+| :--- | :--- |
+| Minimum duration | 60 s |
+| Output | `systolic_bp` (mmHg), `diastolic_bp` (mmHg), `bp_confidence` (0–1) |

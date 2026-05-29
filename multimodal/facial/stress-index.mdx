@@ -1,10 +1,15 @@
 ---
 title: "Stress Index"
-description: "0–100 stress score with ANS balance"
+description: "0–100 stress score with PNS / SNS balance"
 ---
 
 
-The Stress Index fuses HRV, RR, and affect into a 0–100 stress score and reports the inferred autonomic balance (PNS vs SNS dominance).
+Computed by `_compute_stress_indices(hr, hrv_metrics)`.
 
-- **Output:** Stress (0–100), PNS contribution, SNS contribution, confidence
-- **Min duration:** 60 s
+| Field | Range |
+| :--- | :--- |
+| `stress_index` | 0–100 |
+| `pns_index` | 0–100 (parasympathetic) |
+| `sns_index` | 0–100 (sympathetic) |
+
+PNS / SNS dominance is read from the LF/HF ratio and SDNN-band relationships.

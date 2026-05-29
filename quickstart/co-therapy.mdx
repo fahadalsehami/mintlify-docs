@@ -1,54 +1,47 @@
 ---
-title: "Quickstart — Co-Therapy"
-description: "Run multimodal in-session analysis with RDoC construct activation"
+title: "Quickstart — Co-Therapy multimodal"
+description: "Run a multimodal session"
 ---
 
 
-The Co-Therapy multimodal pipeline runs silently in-session.
-
-## 1. Start the session
+## 1. Create a co-therapy session
 
 ```bash
-curl -X POST https://api.medera.ai/api/therapy-sessions/start \
+curl -X POST https://api.medera.ai/api/co-therapy-sessions \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "patient_id": "pat_abc",
-    "provider_id": "prv_xyz",
-    "modality": "telehealth_video",
-    "consent_recorded": true,
-    "rdoc_constructs": [
-      "acute_threat_fear",
-      "potential_threat_anxiety",
-      "reward_responsiveness",
-      "social_communication",
-      "arousal"
-    ]
+    "patientId": "pat_abc",
+    "providers": ["prv_xyz"],
+    "scheduledStart": "2026-05-28T15:00:00Z",
+    "scheduledDurationMinutes": 50,
+    "videoPlatform": "telehealth",
+    "recordingEnabled": true,
+    "deploymentId": "dep_abc"
   }'
 ```
 
-## 2. Connect the multimodal WebSocket
-
-```javascript
-const ws = await client.therapy.connect({ sessionId });
-
-ws.on('rdoc.activation', (e) => {
-  // { construct, score, confidence, feature_contributions }
-  clinicianChannel.send(e);
-});
-```
-
-## 3. Stream video and audio frames
-
-```javascript
-ws.streamVideo(videoEl, { fps: 15 });
-ws.streamAudio(audioStream);
-```
-
-## 4. Stop and finalize
+## 2. Start the session
 
 ```bash
-curl -X POST https://api.medera.ai/api/therapy-sessions/{id}/stop \
+curl -X POST https://api.medera.ai/api/co-therapy-sessions/{id}/start \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-The Co-Therapy Agent finalizes the session note with construct-anchored claims.
+## 3. Run multimodal analysis (post-session)
+
+```bash
+curl -X POST https://api.medera.ai/api/multimodal-therapy/analyze-session \
+  -H "Authorization: Bearer $TOKEN" \
+  -F "session_id={id}" \
+  -F "audio_file=@session.wav" \
+  -F "video_file=@session.mp4" \
+  -F "transcript=The patient reports..." \
+  -F "duration_seconds=2400" \
+  -F "patient_id=pat_abc"
+```
+
+The response includes:
+- `facial.*` — HR, BP, HRV, RR, stress (PhysiologicalSignals dataclass)
+- `vocal.*` — F0, jitter, shimmer, HNR, MFCC, depression / anxiety / distress indices
+- `rdoc.constructs[]` — 15 named constructs with score, confidence, contributors
+- `clinical_context.*` — RAG-retrieved evidence with citations

@@ -3,14 +3,9 @@ title: "GET /api/agent-workflows/{id}"
 description: "Get a workflow"
 ---
 
-## `GET /api/agent-workflows/{id}`
 
-Get a workflow definition with nodes, connections, and variables.
-
-### Example
-
-```bash
-curl -X GET https://api.medera.ai/api/agent-workflows/{id} \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+GET /api/agent-workflows/{id}
+```
+
+Returns the workflow with `nodes`, `connections`, `input_variables`, `state_variables`, `settings`, `version`, `lock_version`, and the linked `published_version_id`.

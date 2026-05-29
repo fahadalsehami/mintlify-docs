@@ -1,16 +1,11 @@
 ---
-title: "GET /api/intake-calls"
-description: "List intake calls"
+title: "List intake calls"
+description: "Active, completed, or all calls"
 ---
 
-## `GET /api/intake-calls`
 
-List intake calls.
-
-### Example
-
-```bash
-curl -X GET https://api.medera.ai/api/intake-calls \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+```
+GET /api/intake-calls/active     # active calls
+GET /api/intake-calls/completed  # completed (filters: patient_id, status, date)
+GET /api/intake-calls/all        # all (paginated)
 ```

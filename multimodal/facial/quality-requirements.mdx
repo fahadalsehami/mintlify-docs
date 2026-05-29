@@ -7,11 +7,13 @@ description: "Conditions for reliable facial signal"
 | Factor | Requirement |
 | :--- | :--- |
 | Resolution | ≥ 480p |
-| Frame rate | ≥ 15 fps |
+| Frame rate | ≥ 15 fps (engine default `fps=30`) |
 | Face angle | Within ±30° of camera |
-| Lighting | Avoid harsh backlight, side-lit OK |
-| Glasses | Anti-glare preferred; thick frames may block ROI |
-| Mask | Blocks lower-face ROI; HR may still compute from forehead |
-| rPPG SNR | > 3.0 required for HR/BP/HRV |
+| Lighting | Avoid harsh backlight |
+| ROI | Forehead (default), cheeks, or full face |
+| rPPG SNR | > 3.0 required |
+| Min duration (HR) | 30 s |
+| Min duration (HRV) | 60 s |
+| Min duration (BP) | 60 s |
 
-If quality requirements are not met, the engine returns `confidence: 0.0` and `requires_human_review: true`. It never returns fabricated values.
+If the requirements aren't met, the engine returns the metric with `confidence: 0.0`. The downstream analyzer falls back to a GPT-4o transcript-inferred analysis with `requires_human_review: true`.

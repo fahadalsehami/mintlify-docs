@@ -1,16 +1,26 @@
 ---
-title: "GET /api/clinical/notes"
-description: "List clinical notes"
+title: "Notes lifecycle"
+description: "Transition, approve, finalize, track changes"
 ---
 
-## `GET /api/clinical/notes`
 
-List clinical notes.
+AI Services:
 
-### Example
+```
+POST /api/therapy/notes/{note_id}/transition       # workflow state transition
+POST /api/therapy/notes/{note_id}/approve          # provider signature
+POST /api/therapy/notes/{note_id}/finalize         # finalize after approvals
+POST /api/therapy/notes/{note_id}/track-change     # track section edits
+```
 
-```bash
-curl -X GET https://api.medera.ai/api/clinical/notes \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+Validate completeness:
+
+```
+POST /api/therapy/validate-note
+```
+
+Suggest codes:
+
+```
+POST /api/therapy/suggest-codes
 ```

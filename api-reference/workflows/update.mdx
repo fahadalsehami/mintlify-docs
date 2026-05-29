@@ -1,16 +1,19 @@
 ---
-title: "PATCH /api/agent-workflows/{id}"
+title: "PUT /api/agent-workflows/{id}"
 description: "Update a workflow"
 ---
 
-## `PATCH /api/agent-workflows/{id}`
 
-Update a workflow draft. Optimistic concurrency via `lock_version`.
-
-### Example
-
-```bash
-curl -X PATCH https://api.medera.ai/api/agent-workflows/{id} \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+PUT /api/agent-workflows/{id}
+```
+
+Updates the draft. Must include the current `lockVersion`; mismatched values return `409 idempotency_conflict`.
+
+Auto-save endpoint (debounced from the canvas):
+
+```
+POST /api/agent-workflows/{id}/draft
+```
+
+Hash-deduped: identical payloads do not create new versions.

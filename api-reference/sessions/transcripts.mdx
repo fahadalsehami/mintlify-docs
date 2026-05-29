@@ -4,12 +4,20 @@ description: "Manage transcripts"
 ---
 
 
-## Endpoints
+Backend (Express):
 
-| Method | Path |
-| :--- | :--- |
-| `POST` | `/api/sessions/{id}/transcripts` |
-| `GET` | `/api/sessions/{id}/transcripts` |
-| `GET` | `/api/sessions/{id}/transcripts/{transcript_id}` |
-| `GET` | `/api/sessions/{id}/transcripts/{transcript_id}/status` |
-| `DELETE` | `/api/sessions/{id}/transcripts/{transcript_id}` |
+```
+POST /api/sessions/{id}/transcripts
+GET  /api/sessions/{id}/transcripts/{transcript_id}
+GET  /api/sessions/{id}/transcripts/{transcript_id}/status
+```
+
+AI Services real-time transcription:
+
+```
+POST /api/clinical/start
+POST /api/clinical/chunk
+POST /api/clinical/stop
+POST /api/clinical/transcribe-full
+GET  /api/clinical/session/{session_id}
+```

@@ -5,16 +5,16 @@ description: "Frequently asked questions"
 
 
 **Can I use my own LLM?**
-Enterprise tenants can plug a customer-hosted LLM under BAA. Standard tenants use the Medera-managed inference layer.
+Enterprise tenants can plug a customer-hosted LLM under BAA. Standard tenants use the Medera-managed inference layer (OpenAI `gpt-4-turbo` for voice agents, `gpt-4o` for SOAP / analysis, `gpt-4o-mini` for clinical NLP).
 
 **Can I write a custom agent?**
-Yes — use the [Agent Builder Canvas](/agentic/canvas/overview) or implement the A2A interface directly.
+Yes — use the [Agent Builder Canvas](/agentic/canvas/overview) to compose from existing node types, or extend the Care Orchestrator with a new `AgentType` and a corresponding `NodeRunner`.
 
 **Are agents deterministic?**
-No — they're LLM-driven. Every output is reported with confidence; every claim ties back to a span or citation.
+No — agents are LLM-driven. Every output is reported with calibrated confidence; every claim ties back to a span or citation.
 
 **What happens on crisis-language detection?**
-The Crisis Response Agent is invoked immediately — no gating, no model decision. A human is connected within seconds.
+The guardrails layer detects crisis language and immediately invokes the Crisis Response Agent with no gating. The C-SSRS Risk Expert is consulted for risk band classification.
 
 **Where can I see audit logs?**
-`GET /api/audit/access-logs` — see [Audit API](/api-reference/audit/access-logs).
+PHI access logs: `GET /api/audit/access-logs`. Deployment actions: `deployment_audit_log` (WORM, exposed via [Audit API](/api-reference/audit/access-logs)).

@@ -3,14 +3,9 @@ title: "GET /api/patients"
 description: "List patients"
 ---
 
-## `GET /api/patients`
 
-List patients in the tenant. Cursor-paginated, filterable by name, DOB, provider, and program.
-
-### Example
-
-```bash
-curl -X GET https://api.medera.ai/api/patients \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+GET /api/patients
+```
+
+Lists tenant patients (RLS-enforced). Cursor-paginated; supports filters: `name`, `dob`, `provider_id`, `program`.

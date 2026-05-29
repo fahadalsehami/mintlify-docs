@@ -1,16 +1,11 @@
 ---
 title: "Session annotations"
-description: "Clinical annotations on sessions"
+description: "Clinical annotations"
 ---
 
-## `POST /api/sessions/{id}/annotations`
 
-Create an annotation on a session.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/sessions/{id}/annotations \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/annotations
+```
+
+Backed by `annotationService.js` with a taxonomy defined in `defaults/annotationTaxonomy.js`.

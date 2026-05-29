@@ -1,11 +1,14 @@
 ---
 title: "POST /api/patients"
-description: "Create a new patient"
+description: "Create a patient"
 ---
+
 
 ## `POST /api/patients`
 
-Create a new patient. PHI fields (SSN, insurance, address, phone, email) are encrypted at rest with AES-256-GCM. Phone and email are also hashed for search.
+Create a new patient. The PHI fields are encrypted at rest with AES-256-GCM. Phone and email are stored both encrypted and hashed (for search).
+
+**Mount stack:** `resolveDeploymentScope, authenticateToken, setTenantContext, sessionTimeoutMiddleware, phiAuditMiddleware, consentGate, purposeBasedAccess('patients', 'TREATMENT', 'PAYMENT', 'OPERATIONS', 'EMERGENCY')`
 
 ### Request body
 
@@ -15,8 +18,8 @@ Create a new patient. PHI fields (SSN, insurance, address, phone, email) are enc
   "last_name": "...",
   "dob": "1985-04-12",
   "ssn": "...",
-  "insurance": {...},
-  "address": {...},
+  "insurance": { ... },
+  "address": { ... },
   "phone": "...",
   "email": "..."
 }
@@ -26,12 +29,4 @@ Create a new patient. PHI fields (SSN, insurance, address, phone, email) are enc
 
 ```json
 { "id": "pat_abc", "created_at": "..." }
-```
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/patients \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```

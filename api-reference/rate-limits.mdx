@@ -4,12 +4,26 @@ description: "Per-tenant and per-endpoint rate limits"
 ---
 
 
-| Endpoint family | Default RPM | Burst |
+| Endpoint family | Production | Dev / staging |
 | :--- | :--- | :--- |
-| `GET` reads | 1000 | 100 |
-| `POST` / `PATCH` writes | 500 | 50 |
-| `/coding/*` | 200 | 20 |
-| `/pa/*` | 100 | 10 |
-| Auth endpoints | 30 | 5 |
+| Read endpoints | 100 req / min | 10,000 req / min |
+| Write endpoints | 20 req / min | 10,000 req / min |
+| Auth (`/login`, `/register`, `/forgot-password`) | 10 req / 15 min | 10 req / 15 min |
+| Intake batch (`/api/intake/start-batch-call`) | 10 req / min | 10 req / min |
+| `/api/pa/coding-suggest` | 200 req / min | 10,000 req / min |
+| Realtime WSS | 50 sessions / tenant | 200 sessions / tenant |
 
-Enterprise tenants can request elevated limits. Limits return `Retry-After` on `429`.
+Enterprise tenants can request elevated limits.
+
+## Headers
+
+```
+Retry-After: 60
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1735944600
+```
+
+## Subscription gating
+
+The `requireActiveSubscription` middleware blocks agent / intake / therapy / copilot endpoints when the Stripe subscription is not active. `checkAgentLimit` enforces per-tier agent count.

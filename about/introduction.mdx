@@ -1,95 +1,66 @@
 ---
-title: "Introduction to the Medera API"
-description: "Overview of Medera application programming interfaces (API)"
+title: "Introduction to Medera"
+description: "Behavioral-health-native AI infrastructure"
 ---
 
-Medera is the AI infrastructure stack for behavioral and mental health, built for clinical accuracy, evidence anchoring, and enterprise compliance. Behavioral health's specialized language, validated screeners, and crisis-detection requirements demand purpose-built AI infrastructure — not a generic LLM with a prompt.
 
-The Medera platform delivers multimodal sensing, medical-grade text generation, and agentic clinical automation through a single API that makes it easy to embed AI directly into behavioral-health workflows. From intake and screening through documentation, coding, prior authorization, and outcomes measurement, Medera helps clinical product teams surface critical signal, improve patient outcomes, and ship faster — without trading off compliance.
+Medera is the AI infrastructure stack for behavioral and mental health, built for clinical accuracy, evidence anchoring, and enterprise compliance.
 
-<Tip>
-  The platform is delivered as a HIPAA-grade runtime with Row-Level Security on every tenant-scoped table, AES-256-GCM at rest for PHI, and 42 CFR Part 2 controls in the request path.
-</Tip>
-
-## The four product surfaces
+## What ships
 
 <CardGroup cols={2}>
+  <Card title="Agent Builder Canvas" icon="layout-grid" href="/agentic/canvas/overview">
+    16 core node types + 8 BH-OS rails, semver versioning, sandbox-first deployment, WORM audit.
+  </Card>
   <Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview">
-    Speech to text (Whisper + Deepgram nova-2-medical), facial physiology (HR, BP, HRV, RR, stress), and vocal acoustics (F0, jitter, shimmer, HNR, MFCC). Fuses into RDoC construct scores.
+    Vocal Acoustic Engine (Praat / Parselmouth), Facial Physiological Engine (rPPG + HRV), RDoC Construct Computer (15 named constructs).
   </Card>
-
-  <Card title="Text Generation" icon="text-align-start" href="/textgen/overview">
-    SOAP notes, referral letters, discharge summaries, prior authorization letters, and clinician-grade documentation against your practice templates. Citation-anchored, confidence-calibrated.
+  <Card title="Care Orchestrator" icon="grid-2x2" href="/agentic/orchestrator">
+    4 voice agents (Grace, Alex, Jordan, Taylor) + 6 workflow agents, 30+ state workflow state machine, event bus.
   </Card>
-
-  <Card title="Agentic Framework" icon="layers" href="/agentic/overview">
-    24 production agents (Patient Intake, Triage, Visit Scribe, Co-Therapy, Prior Auth, Care Coordinator, Crisis Response, …) plus a canvas to compose your own from a registry of clinical experts.
-  </Card>
-
   <Card title="Medical Coding" icon="code" href="/coding/overview">
-    ICD-10-CM, ICD-10-PCS, CPT, HCPCS, SNOMED CT, LOINC, and RxNorm coding from clinical context — with documented support for every code.
+    ICD-10-CM, ICD-10-PCS, CPT, HCPCS, SNOMED CT, LOINC, RxNorm coding from clinical context.
   </Card>
 </CardGroup>
 
-## How the platform is layered
+## Two-service architecture
 
 ```
-┌──────────────────────────────────────────────────────────────────┐
-│                  Frontend SDKs + Web Components                  │
-│         JavaScript / TypeScript · Python · Embedded UI           │
-└────────────────────────────────┬─────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────┐
+│                         FRONTEND (Port 5173)                             │
+│   React 19 + Vite 7 + Tailwind 3 + Socket.IO + TensorFlow.js             │
+└────────────────────────────────┬─────────────────────────────────────────┘
                                  │
-┌──────────────────────────────────────────────────────────────────┐
-│                       Medera API (REST + WS)                     │
-│  Auth · Patients · Sessions · Intake · Therapy · PA · Workflows  │
-└────────────────────────────────┬─────────────────────────────────┘
-                                 │
-            ┌────────────────────┼────────────────────┐
-            ▼                    ▼                    ▼
-   ┌────────────────┐   ┌────────────────┐   ┌────────────────┐
-   │   Multimodal   │   │      Text      │   │    Agentic     │
-   │     Engine     │   │   Generation   │   │   Framework    │
-   └────────────────┘   └────────────────┘   └────────────────┘
-            │                    │                    │
-            └────────────────────┼────────────────────┘
-                                 ▼
-       ┌──────────────────────────────────────────────┐
-       │  PostgreSQL 16 (RLS) · Redis · Audit Vault   │
-       └──────────────────────────────────────────────┘
+                 ┌───────────────┴───────────────┐
+                 ▼                               ▼
+┌──────────────────────────────┐  ┌────────────────────────────────────────┐
+│    BACKEND (Port 3001)       │  │      AI SERVICES (Port 8000)           │
+│  Node.js/Express + Socket.IO │  │    Python/FastAPI + OpenAI + PyTorch   │
+│  58 routes · 57 services     │  │  22 routers · multimodal engines · PA  │
+│  18 middleware · RLS · BAA   │  │  Care Orchestrator · Clinical RAG      │
+│  Workflow Engine + Bull queue│  │  Vapi voice orchestration              │
+└──────────────┬───────────────┘  └──────────────┬─────────────────────────┘
+               │                                  │
+               ▼                                  ▼
+┌──────────────────────────────────────────────────────────────────────────┐
+│              POSTGRESQL 16 (5433) + REDIS (6380)                          │
+│        RLS · AES-256-GCM PHI · Merkle audit · WORM deployment log         │
+└──────────────────────────────────────────────────────────────────────────┘
 ```
 
-## Why Medera
-
-| Capability | Detail |
-| :--- | :--- |
-| **Behavioral-health-native** | Validated screeners (PHQ-9, GAD-7, AUDIT-C, C-SSRS) are administered and scored as first-class API objects, not free-text prompts. |
-| **Multimodal by default** | Every session can be fused across voice, facial physiology, and linguistic content for an evidence-grade clinical read. |
-| **Evidence-anchored** | Every claim in a Medera output ties back to a quoted transcript span, a screener score, or a peer-reviewed citation. |
-| **Composable agents** | The Agentic Framework exposes 24 production agents and a typed expert registry so your team can compose new agents with code. |
-| **Enterprise-grade** | RLS on every tenant table, AES-256-GCM PHI encryption, Merkle-tree audit integrity, dual signing on workflow approvals. |
-
-## Integrate seamlessly
-
-Medera can be integrated via the REST + WebSocket API, allowing organizations to build bespoke AI-powered behavioral-health solutions. The same API powers **Medera Studio** — a packaged, EHR-agnostic, real-time ambient AI scribe and intake agent. If you want to embed Medera into your existing workflow or customize the interactions, take a deeper dive into the API documentation.
+## What you can build
 
 <CardGroup cols={2}>
   <Card title="Quickstart — Ambient Scribe" href="/quickstart/ambient-rt">
-    Spin up a real-time SOAP scribe over WebSockets in under 20 minutes.
+    Real-time SOAP scribe using the clinical session APIs.
   </Card>
-
-  <Card title="Quickstart — Intake Agent" href="/quickstart/intake-agent">
-    Deploy a voice-first adaptive intake agent with PHQ-9, GAD-7, and C-SSRS scoring.
+  <Card title="Quickstart — Intake (Grace)" href="/quickstart/intake-agent">
+    Voice-first adaptive intake with 4 function calls.
   </Card>
-
   <Card title="Quickstart — Co-Therapy" href="/quickstart/co-therapy">
-    Run multimodal in-session analysis with RDoC construct activation.
+    Multimodal in-session analysis + RDoC profiles.
   </Card>
-
   <Card title="Quickstart — Prior Authorization" href="/quickstart/prior-auth">
-    Generate evidence-based PA letters with payer-policy citations.
+    17-state PA workflow with payer-specific rules.
   </Card>
 </CardGroup>
-
-<Note>
-  If you have questions about implementing Medera in your environment or product, [contact us](https://help.medera.ai).
-</Note>

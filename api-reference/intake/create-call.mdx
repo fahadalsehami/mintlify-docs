@@ -1,31 +1,54 @@
 ---
 title: "POST /api/intake-calls"
-description: "Initiate an intake call"
+description: "Create an intake call"
 ---
+
 
 ## `POST /api/intake-calls`
 
-Initiate an intake call for a deployed Intake Agent.
+Create an intake call record. Triggers Vapi assistant creation with the patient-specific runtime config and subscription enforcement.
 
 ### Request body
 
 ```json
 {
-  "deployment_id": "dep_abc",
-  "patient_phone": "+15555550100"
+  "call_id": "call-abc-1716938400",
+  "patient_id": "pat_abc",
+  "phone_number": "+15555550100",
+  "status": "initiated",
+  "deployment_id": "dep_abc"
 }
 ```
 
 ### Response
 
 ```json
-{ "id": "call_abc", "twilio_sid": "..." }
+{
+  "id": "uuid-...",
+  "patient_id": "pat_abc",
+  "status": "initiated",
+  "transcript": [],
+  "tasks": [],
+  "action_items": [],
+  "created_at": "..."
+}
 ```
 
-### Example
+### Other endpoints
 
-```bash
-curl -X POST https://api.medera.ai/api/intake-calls \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
-```
+| Method | Path | Purpose |
+| :--- | :--- | :--- |
+| GET | `/api/intake-calls/active` | List active calls |
+| GET | `/api/intake-calls/completed` | Completed calls (filters) |
+| GET | `/api/intake-calls/all` | All calls (paginated) |
+| GET | `/api/intake-calls/stats/summary` | Daily statistics |
+| GET | `/api/intake-calls/queue/review` | Review queue |
+| GET | `/api/intake-calls/search/transcripts` | Full-text transcript search |
+| PUT | `/api/intake-calls/{id}` | Update call |
+| POST | `/api/intake-calls/{id}/review` | Mark reviewed |
+| POST | `/api/intake-calls/{id}/transcript` | Save transcript chunk |
+| POST | `/api/intake-calls/{id}/tasks` | Save tasks |
+| POST | `/api/intake-calls/{id}/send-confirmations` | Send email / SMS confirmations |
+| POST | `/api/intake-calls/{id}/end` | End active call |
+| GET | `/api/intake-calls/{id}/state` | Get real-time state from AI Services |
+| POST | `/api/intake-calls/analyze-behavioral` | Behavioral health analysis |

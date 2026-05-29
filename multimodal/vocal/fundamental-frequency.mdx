@@ -1,15 +1,21 @@
 ---
-title: "Fundamental Frequency (F0)"
-description: "Pitch features from speech"
+title: "Fundamental Frequency"
+description: "F0 statistics from Praat autocorrelation"
 ---
 
 
-F0 is extracted using a robust autocorrelation method with cepstral smoothing.
+F0 is extracted by `_extract_f0_features(sound, audio)` using Praat's autocorrelation method via Parselmouth.
 
 | Feature | Unit |
 | :--- | :--- |
-| F0 mean | Hz |
-| F0 std | Hz |
-| F0 min / max / range | Hz |
+| `f0_mean` | Hz |
+| `f0_std` | Hz |
+| `f0_min`, `f0_max`, `f0_range` | Hz |
+| `f0_confidence` | 0–1 |
 
-Reduced F0 range correlates with prosodic flatness — a documented marker in major depressive disorder.
+Gender-aware range:
+- Male: 85–180 Hz
+- Female: 165–255 Hz
+- Auto: 75–300 Hz
+
+Reduced `f0_range` correlates with prosodic flatness — a documented marker in major depressive disorder.

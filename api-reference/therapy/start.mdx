@@ -1,11 +1,14 @@
 ---
-title: "POST /api/therapy-sessions/start"
-description: "Start a therapy session"
+title: "POST /api/therapy-sessions"
+description: "Create a therapy session"
 ---
 
-## `POST /api/therapy-sessions/start`
 
-Start a therapy (or co-therapy) session.
+Backend route:
+
+```
+POST /api/therapy-sessions
+```
 
 ### Request body
 
@@ -13,15 +16,19 @@ Start a therapy (or co-therapy) session.
 {
   "patient_id": "pat_abc",
   "provider_id": "prv_xyz",
-  "modality": "telehealth_video",
-  "consent_recorded": true
+  "template_id": "tpl_psychotherapy",
+  "session_date": "2026-05-28T15:00:00Z",
+  "duration_minutes": 50,
+  "chief_complaints": ["depressed mood"],
+  "session_goals": ["..."],
+  "status": "scheduled"
 }
 ```
 
-### Example
+For co-therapy (multi-provider) sessions, use `POST /api/co-therapy-sessions` instead.
 
-```bash
-curl -X POST https://api.medera.ai/api/therapy-sessions/start \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+AI Services real-time clinical session:
+
+```
+POST /api/clinical/start
 ```

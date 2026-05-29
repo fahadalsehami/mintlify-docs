@@ -1,16 +1,11 @@
 ---
-title: "GET /api/pa/{id}"
+title: "GET /api/prior-auth/requests/{id}"
 description: "Get PA status"
 ---
 
-## `GET /api/pa/{id}`
 
-Get the PA workflow state and history.
-
-### Example
-
-```bash
-curl -X GET https://api.medera.ai/api/pa/{id} \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+GET /api/prior-auth/requests/{request_id}
+```
+
+Returns the current `WorkflowState` plus history of state transitions.

@@ -4,17 +4,24 @@ description: "How Medera webhooks work"
 ---
 
 
-Medera webhooks deliver event notifications to your configured endpoint. Every webhook is signed with `Medera-Signature: sha256=...` (HMAC-SHA256) — verify the signature before acting on the event.
-
-## Headers
+Webhooks are delivered to a tenant-configured URL with signed headers.
 
 | Header | Description |
 | :--- | :--- |
-| `Medera-Signature` | HMAC-SHA256 of the body with your webhook signing secret |
+| `Medera-Signature` | `sha256=<hmac>` of the body using the per-tenant webhook secret |
 | `Medera-Event` | Event name |
-| `Medera-Delivery-Id` | Unique delivery ID (use for idempotency) |
+| `Medera-Delivery-Id` | Unique delivery ID — use for idempotency |
 | `Medera-Timestamp` | Delivery timestamp (verify within ±5 minutes) |
+
+Inbound webhooks from external services (Vapi, Stripe, Clerk, payer systems) are verified separately with the source's own scheme:
+
+| Source | Verification |
+| :--- | :--- |
+| Vapi | HMAC-SHA256 (`vapi-signature`) via `vapi_integration.py` |
+| Stripe | `Stripe-Signature` |
+| Clerk | Svix HMAC (`svix-id`, `svix-timestamp`, `svix-signature`) |
+| Payer | Per-payer HMAC secret |
 
 ## Retry
 
-Failed deliveries retry with exponential backoff for 24 hours. After 24 hours, the delivery is moved to a dead-letter queue.
+Failed deliveries retry with exponential backoff for 24 hours, then move to a dead-letter queue.

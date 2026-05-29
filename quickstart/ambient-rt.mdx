@@ -1,75 +1,66 @@
 ---
-title: "Quickstart — Real-Time AI Scribe"
-description: "Build an ambient scribe application on the Medera API"
+title: "Quickstart — Real-time ambient scribe"
+description: "In-encounter SOAP via clinical session APIs"
 ---
 
 
-This quickstart spins up a real-time ambient scribe in under 20 minutes: diarized capture, in-encounter SOAP drafting, ICD-10 / CPT code suggestions, and EHR sync.
+Spin up a real-time ambient scribe with the AI Services clinical endpoints.
 
-## Prerequisites
-
-- Medera client credentials (see [Quickstart — Authentication](/authentication/quickstart))
-- An EHR target configured in the Console (Epic, Cerner, athenahealth, etc.)
-- A microphone — see [Microphone Devices](/multimodal/stt/microphones)
-
-## 1. Create a session
+## 1. Authenticate
 
 ```bash
-curl -X POST https://api.medera.ai/api/sessions \
+export TOKEN="<your Clerk JWT or API key>"
+```
+
+## 2. Start the session
+
+```bash
+curl -X POST https://api.medera.ai/api/clinical/start \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
+  -d '{ "session_type": "clinical_visit", "patient_id": "pat_abc" }'
+```
+
+## 3. Stream chunks
+
+```bash
+curl -X POST https://api.medera.ai/api/clinical/chunk \
+  -H "Authorization: Bearer $TOKEN" \
   -d '{
-    "patient_id": "pat_abc",
-    "provider_id": "prv_xyz",
-    "visit_type": "psychiatry_followup",
-    "modality": "telehealth"
+    "session_id": "ses_abc",
+    "audio_data": "<base64 PCM 16 kHz>"
   }'
 ```
 
-Save the returned `session_id`.
+Local Whisper (`base`) is the default; OpenAI Whisper is the fallback.
 
-## 2. Open the stream
-
-```javascript
-import { MederaClient } from '@medera/sdk';
-
-const client = new MederaClient({ accessToken });
-
-const stream = await client.streams.open({
-  sessionId,
-  audio: { sampleRate: 16000, encoding: 'pcm_s16le' },
-  features: ['transcript', 'soap', 'codes', 'span_anchors'],
-});
-
-stream.on('transcript.final', (e) => render(e));
-stream.on('note.section.update', (e) => updateNoteSection(e.section, e.text));
-stream.on('code.suggestion', (e) => renderCodeSuggestion(e));
-```
-
-## 3. Pipe microphone audio
-
-```javascript
-const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
-stream.streamAudio(mic);
-```
-
-## 4. Render and sign
-
-The clinician reviews the note. After sign-off:
+## 4. Stop and analyze
 
 ```bash
-curl -X POST https://api.medera.ai/api/clinical/notes/{id}/sign \
+curl -X POST https://api.medera.ai/api/clinical/stop \
   -H "Authorization: Bearer $TOKEN" \
-  -d '{ "signed_at": "2026-05-28T15:42:00Z" }'
+  -d '{ "session_id": "ses_abc" }'
 ```
 
-Medera posts the signed note and code set to the configured EHR target.
+## 5. Generate the SOAP note
 
-## What's next
+```bash
+curl -X POST https://api.medera.ai/api/therapy/generate-soap-note-enhanced \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "session_data": { "session_id": "ses_abc" },
+    "specialty": "psychiatry",
+    "template_config": { "include_billing_codes": true }
+  }'
+```
 
-<CardGroup cols={2}>
-  <Card title="Streams endpoint" href="/multimodal/stt/streams">Full WebSocket schema.</Card>
-  <Card title="Visit Scribe Agent" href="/agentic/agents/visit-scribe">Agent-level documentation.</Card>
-  <Card title="Encounter Coding" href="/coding/encounter-coding">How code suggestions work.</Card>
-  <Card title="EHR Integrations" href="/api-reference/integrations/overview">Connect Epic, Cerner, athenahealth.</Card>
-</CardGroup>
+## 6. Sign and post
+
+After clinician sign-off:
+
+```bash
+curl -X POST https://api.medera.ai/api/therapy/notes/{note_id}/finalize \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+Medera posts the signed note and code set to the configured EHR via the integration adapter.

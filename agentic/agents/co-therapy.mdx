@@ -1,82 +1,80 @@
 ---
 title: "Co-Therapy Agent"
-description: "Multimodal clinical intelligence during the session."
+description: "Multimodal in-session intelligence (silent)"
 ---
 
+
 <Info>
-**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Vocal prosody · Facial affect · Linguistic content · RDoC constructs
+**Category:** Clinical Operations &nbsp;·&nbsp; **Signal channels:** Vocal acoustics · Facial physiology · Linguistic content · Assessments
 </Info>
 
-Surface clinical signal in-session — without ever speaking to the patient.
+The Co-Therapy Agent is a silent multimodal partner — it never speaks to the patient. It runs the [Vocal Acoustic Engine](/multimodal/vocal/overview) and [Facial Physiological Engine](/multimodal/facial/overview), fuses outputs through the [RDoC Construct Computer](/multimodal/rdoc/overview) into 15 named construct activations, and surfaces the resulting payload to the clinician on a private channel.
 
-## Overview
+## Endpoints
 
-The Co-Therapy Agent is a silent clinical partner — it never speaks to the patient. It listens, watches, and reads, fuses the signal into 15 RDoC construct activations, and surfaces what matters to the clinician on a private channel.
+| Method | Path | Purpose |
+| :--- | :--- | :--- |
+| `POST` | `/api/co-therapy-sessions` | Create session (backend) |
+| `POST` | `/api/co-therapy-sessions/{id}/start` | Start session + invitations |
+| `POST` | `/api/co-therapy-sessions/{id}/join` | Record participant joining |
+| `POST` | `/api/co-therapy-sessions/{id}/leave` | Record participant leaving |
+| `POST` | `/api/co-therapy-sessions/{id}/transition` | Manually transition session state |
+| `POST` | `/api/multimodal-therapy/analyze-session` | Full multimodal analysis |
+| `POST` | `/api/multimodal-therapy/analyze-audio-only` | Audio-only analysis |
 
-Every construct activation is anchored to vocal, facial, and linguistic feature contributions so the clinician can verify and document with rationale.
+## Pipeline
 
-## How this agent works
+```
+audio + video + transcript + assessments
+  └─→ FacialPhysiologicalEngine.extract_features()  → PhysiologicalSignals
+  └─→ VocalAcousticEngine.extract_features()        → VocalFeatures
+  └─→ RDoCConstructComputer.compute_all_constructs() → RDoCActivationProfile
+  └─→ AdvancedClinicalRAG (optional)                → CitedResponse
+                                                       │
+                                                       ▼
+                            MultimodalTherapyAnalyzer canonical payload
+                                                       │
+                                                       ▼
+                              Clinician private channel + session note
+```
 
-### Configuration
+## Configuration
 
-This agent takes the following configuration from your practice settings:
-
-- Multimodal channels (audio, video, language)
-- RDoC construct set the clinician cares about
-- Practice notes template and live-feedback policy
-- Patient consent and recording policy
-
-### Execution
-
-At runtime, the agent executes the following steps:
-
-1. Captures multimodal signal — vocal prosody, facial affect, linguistic content
-2. Computes RDoC construct activation in 15 documented constructs
-3. Surfaces in-session signal to the clinician — never to the patient
-4. Drafts the session note with construct-anchored claims
-5. Captures longitudinal measurement data for outcomes review
+| Field | Description |
+| :--- | :--- |
+| `audio_enabled`, `video_enabled` | Channel toggles |
+| `rdoc_constructs` | Optional subset of the 15 named constructs |
+| `clinical_context` | Chief complaint, active diagnoses, recent screener scores |
+| `consent_recorded` | Per-session consent flag (required) |
 
 ## Composable experts
 
-The Co-Therapy Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **Vocal Prosody Expert** | Pitch, rate, jitter, shimmer, energy |
+| **Vocal Prosody Expert** | F0, jitter, shimmer, HNR, speaking rate, prosodic flatness |
 | **Affect Dynamics Expert** | Facial affect intensity, valence, congruence |
-| **Neurobehavioral Construct Expert** | Activation, valence, engagement, cognitive load |
-| **Linguistic Content Expert** | Topic, valence, pronoun shift, certainty |
+| **Neurobehavioral Construct Expert** | RDoC activation, severity, contributors |
+| **Linguistic Content Expert** | Topic, valence, certainty, pronoun shift |
 
-## Typical use cases
+## Quality gates
 
-- Surface affect congruence and engagement to the clinician in real time
-- Track 15 RDoC constructs longitudinally without an extra screener
-- Document multimodal signal in the session note for defensibility
-- Catch dissociation and crisis markers that the clinician misses on a tired Friday
+- Audio: ≥ 1.0 s, valid `voiced_fraction`
+- Video: ≥ 30 s for HR, ≥ 60 s for HRV / BP, SNR > 3.0
+- Quality gate (analyzer): minimum 20 words of transcript + 30 s of session signal
 
-## Compliance & safety guarantees
+On quality failure, the engine returns `confidence: 0.0` and the analyzer falls back to a GPT-4o transcript-inferred analysis marked `requires_human_review: true` — **never fabricated values**.
 
-- Co-Therapy never addresses or interacts with the patient
-- Every construct activation reports feature contributions and confidence
-- Recording policy is explicit per patient and per session
+## Compliance guarantees
 
-## Tags
-
-`Co-Therapy · Multimodal · RDoC · Affect · Live`
+- The Co-Therapy Agent never addresses or interacts with the patient
+- Construct activations report `contributors[]` so clinicians can audit feature-level influence
+- Recording policy is explicit per session (`consent_recorded: true` required)
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Quickstart" href="/quickstart/co-therapy">Run a multimodal session.</Card>
+  <Card title="Multimodal Overview" href="/multimodal/overview">Engine deep dive.</Card>
+  <Card title="RDoC Constructs" href="/multimodal/rdoc/overview">15 named constructs.</Card>
+  <Card title="Multimodal API" href="/api-reference/multimodal/analyze-video">REST surface.</Card>
 </CardGroup>

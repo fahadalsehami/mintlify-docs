@@ -1,22 +1,32 @@
 ---
-title: "POST /api/multimodal/analyze-video"
-description: "Analyze video for facial physiology"
+title: "POST /api/multimodal-therapy/analyze-session"
+description: "Full multimodal analysis"
 ---
 
-## `POST /api/multimodal/analyze-video`
 
-Analyze uploaded video for HR, BP, HRV, RR, stress, and affect.
+Backend:
 
-### Request body
-
-```json
-multipart/form-data: video=@session.mp4
+```
+POST /api/multimodal-therapy/analyze-session
 ```
 
-### Example
+Proxies to AI Services with auth + biomarker persistence + metered credit accounting.
 
-```bash
-curl -X POST https://api.medera.ai/api/multimodal/analyze-video \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
-```
+### Request (multipart/form-data)
+
+| Field | Type | Notes |
+| :--- | :--- | :--- |
+| `session_id` | string | Existing session ID |
+| `transcript` | string | Optional |
+| `audio_file` | file | WAV / Opus, 16 kHz mono recommended |
+| `video_file` | file | MP4 / MOV |
+| `duration_seconds` | int | Session duration |
+| `patient_id` | string | Patient ID |
+
+### Response
+
+Canonical multimodal payload (see [Multimodal Architecture](/multimodal/architecture)). Includes `facial`, `vocal`, `rdoc`, and `clinical_context` envelopes.
+
+### Quality gate
+
+20+ words of transcript + 30 s of session signal required. Below threshold the analyzer falls back to GPT-4o transcript-inferred output with `requires_human_review: true`.

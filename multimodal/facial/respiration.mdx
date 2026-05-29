@@ -1,11 +1,14 @@
 ---
 title: "Respiration Rate"
-description: "Breaths per minute from facial video"
+description: "Breaths per minute from rPPG amplitude modulation"
 ---
 
 
-Respiration rate is derived from rPPG amplitude modulation and chest/shoulder micro-movement.
+RR is computed by `_extract_respiration_rate(rgb_traces, fps)` from rPPG amplitude envelope.
 
-- **Output:** Breaths per minute, confidence
-- **Min duration:** 30 s
-- **Window:** Sliding 30 s, 5 s hop
+| Field | Unit |
+| :--- | :--- |
+| `respiration_rate` | breaths / minute |
+| `respiration_confidence` | 0–1 |
+
+Minimum duration: 30 s.

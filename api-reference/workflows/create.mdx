@@ -1,16 +1,29 @@
 ---
 title: "POST /api/agent-workflows"
-description: "Create an agent workflow"
+description: "Create a workflow"
 ---
 
-## `POST /api/agent-workflows`
 
-Create an agent workflow definition.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/agent-workflows \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/agent-workflows
+```
+
+Creates a workflow draft.
+
+### Body
+
+```json
+{
+  "name": "My Intake Flow",
+  "description": "...",
+  "projectId": "prj_abc",
+  "nodes": [...],
+  "connections": [...],
+  "input_variables": [...],
+  "state_variables": [...],
+  "settings": {...},
+  "status": "draft"
+}
+```
+
+`lock_version` is initialized to 0. Subsequent updates must provide `lockVersion` to avoid `409 idempotency_conflict`.

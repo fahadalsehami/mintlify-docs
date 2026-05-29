@@ -1,16 +1,12 @@
 ---
-title: "POST /api/pa/{id}/evaluate-criteria"
+title: "POST /api/prior-auth/evaluate"
 description: "Evaluate PA criteria"
 ---
 
-## `POST /api/pa/{id}/evaluate-criteria`
 
-Evaluate the PA criteria against chart facts and payer policy.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/pa/{id}/evaluate-criteria \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/prior-auth/evaluate          # full evaluation
+POST /api/prior-auth/evaluate/quick    # quick (PHQ-9 / GAD-7 scores)
+```
+
+Returns a `recommendation` (`AUTO_APPROVE`, `LIKELY_APPROVE`, `NEEDS_REVIEW`, `LIKELY_DENY`) plus `match_result` (`ALL_MET`, `MOSTLY_MET`, `PARTIALLY_MET`, `NOT_MET`).

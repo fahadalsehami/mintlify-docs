@@ -1,28 +1,13 @@
 ---
-title: "POST /oauth/refresh"
-description: "Refresh an end-user access token"
+title: "Refresh a session JWT"
+description: "Use Clerk's session refresh"
 ---
 
-## `POST /oauth/refresh`
 
-Refresh an end-user JWT via the Clerk refresh flow.
+Clerk handles JWT refresh transparently on the client. There is no Medera-issued refresh token.
 
-### Request body
+If you cache JWTs server-side (proxy pattern), refresh via:
 
-```json
-{ "refresh_token": "..." }
-```
-
-### Response
-
-```json
-{ "access_token": "...", "expires_in": 3600 }
-```
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/oauth/refresh \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
+```javascript
+const newJwt = await getToken({ template: 'medera-api', skipCache: true });
 ```

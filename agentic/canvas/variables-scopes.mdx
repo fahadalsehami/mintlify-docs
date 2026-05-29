@@ -1,14 +1,70 @@
 ---
 title: "Variables & Scopes"
-description: "Variable scopes available to canvas nodes"
+description: "Template resolution in canvas nodes"
 ---
 
 
-| Scope | Lifetime | Example |
-| :--- | :--- | :--- |
-| `workflow.input` | Single execution | Input parameters from the trigger |
-| `node.{id}.output` | Single execution | Output of a previous node |
-| `runtime.context` | Single execution | Auth, patient, encounter |
-| `tenant.secret` | Persistent | API keys for external integrations |
+Canvas nodes resolve variables using `{{scope.path}}` template syntax. The runtime `ExecutionContext.resolveVariable()` is recursive and works across arrays, objects, and strings.
 
-Variables are type-checked. Connecting a `string` source to a `number` sink raises a validation error at design time, not runtime.
+## Scopes
+
+### `workflow.input`
+
+Input parameters passed to the workflow at execution start. Frozen — cannot be mutated.
+
+```
+{{input.patient_id}}
+{{input.deployment_id}}
+{{input.clinical_context.chief_complaint}}
+```
+
+### `state.<name>`
+
+State variables declared on the workflow's `start` node. Initialized from `state_variables.defaultValue`. Mutable during execution.
+
+```
+{{state.phq9_score}}
+{{state.attempts}}
+```
+
+A `transform` node can write to state:
+
+```yaml
+transform:
+  output_to: state.phq9_score
+  template: "{{nodes.intake_1.output.screeners.phq9.total}}"
+```
+
+### `nodes.<id>.output`
+
+Output of a previously-executed node. Available as soon as the source node completes.
+
+```
+{{nodes.intake_1.output.transcript}}
+{{nodes.intake_1.output.tasks[0].title}}
+```
+
+### `runtime.context`
+
+Runtime context for the current execution.
+
+| Path | Value |
+| :--- | :--- |
+| `runtime.execution_id` | `agent_workflow_executions.id` |
+| `runtime.organization_id` | Tenant ID (RLS-enforced) |
+| `runtime.workflow_id` | `agent_workflows.id` |
+| `runtime.workflow_version` | Version executed |
+| `runtime.trigger_type` | `canvas_test` / `api` / `scheduled` / `webhook` |
+
+### `tenant.secret`
+
+Read-only access to tenant-configured secrets stored in your secret store (SSM / Vault). Resolved at execution time, never inlined into the workflow definition.
+
+```
+{{tenant.secret.epic_oauth_client_id}}
+{{tenant.secret.aetna_payer_api_key}}
+```
+
+## Type safety
+
+Variable references are type-checked against the source node's output schema at design time. A `string` source cannot be assigned to a `number` sink.

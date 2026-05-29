@@ -1,16 +1,11 @@
 ---
 title: "GET /api/audit/integrity-checkpoints"
-description: "Get Merkle integrity checkpoints"
+description: "Merkle integrity checkpoints"
 ---
 
-## `GET /api/audit/integrity-checkpoints`
 
-Get Merkle tree checkpoints for the audit log. Use to verify tamper-evident integrity.
-
-### Example
-
-```bash
-curl -X GET https://api.medera.ai/api/audit/integrity-checkpoints \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+GET /api/audit/integrity-checkpoints
+```
+
+Returns Merkle root hashes for each audit checkpoint (introduced in migration 118). Verify integrity by reconstructing the tree from the audit events between checkpoints and comparing the root hash.

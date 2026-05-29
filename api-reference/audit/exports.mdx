@@ -3,14 +3,9 @@ title: "POST /api/audit/exports"
 description: "Export audit logs"
 ---
 
-## `POST /api/audit/exports`
 
-Export audit logs to a signed URL. Useful for periodic compliance reporting.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/audit/exports \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/audit/exports
+```
+
+Generates a signed URL for an audit log export.

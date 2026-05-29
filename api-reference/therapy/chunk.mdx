@@ -1,16 +1,21 @@
 ---
-title: "POST /api/therapy-sessions/{id}/chunks"
-description: "Submit a session chunk (async)"
+title: "POST /api/clinical/chunk"
+description: "Submit audio/text chunks"
 ---
 
-## `POST /api/therapy-sessions/{id}/chunks`
 
-Submit a chunk of audio/video for async processing.
-
-### Example
-
-```bash
-curl -X POST https://api.medera.ai/api/therapy-sessions/{id}/chunks \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json"
 ```
+POST /api/clinical/chunk
+```
+
+### Body
+
+```json
+{
+  "session_id": "ses_abc",
+  "audio_data": "<base64 PCM>",
+  "text": "optional text chunk"
+}
+```
+
+Local Whisper (`base` model) is the default with OpenAI Whisper API as fallback.
