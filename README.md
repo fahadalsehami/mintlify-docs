@@ -4,6 +4,21 @@ Enterprise documentation for the Medera AI platform — multimodal sensing, text
 
 Built with [Mintlify](https://mintlify.com).
 
+## Pushing to GitHub (first-time setup)
+
+The repo is initialized locally and a commit is staged on `main`. Before pushing, remove the leftover lock file (it was held by a sandboxed session that couldn't release it), then push from your terminal where your GitHub auth lives:
+
+```bash
+cd ~/Documents/Docs/Docs
+rm -f .git/index.lock                   # one-time cleanup if it exists
+git add -A && git commit -m "chore: push docs" || true
+./push.sh                               # HTTPS (gh / PAT)
+# or
+./push.sh ssh                           # SSH (git@github.com)
+```
+
+Then connect the repo in the [Mintlify dashboard](https://dashboard.mintlify.com) — Mintlify auto-deploys on every push to `main`.
+
 ## Local development
 
 Install the Mintlify CLI and run the dev server in this folder.
