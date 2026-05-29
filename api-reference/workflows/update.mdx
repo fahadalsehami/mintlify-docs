@@ -1,0 +1,16 @@
+---
+title: "PATCH /api/agent-workflows/{id}"
+description: "Update a workflow"
+---
+
+## `PATCH /api/agent-workflows/{id}`
+
+Update a workflow draft. Optimistic concurrency via `lock_version`.
+
+### Example
+
+```bash
+curl -X PATCH https://api.medera.ai/api/agent-workflows/{id} \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

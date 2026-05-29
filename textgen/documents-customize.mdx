@@ -1,0 +1,21 @@
+---
+title: "Customize Template Sections"
+description: "Assemble and customize sections for tailored templates"
+---
+
+
+Section-level customization lets you mix-and-match sections from the standard library with custom ones.
+
+```bash
+POST /api/textgen/templates
+{
+  "key": "custom_psychotherapy_v1",
+  "name": "Custom psychotherapy template",
+  "sections": [
+    { "key": "subjective", "from_standard": "subjective_v3" },
+    { "key": "rdoc_summary", "from_standard": "rdoc_summary_v1" },
+    { "key": "assessment", "from_standard": "assessment_dsm5_v2" },
+    { "key": "plan", "custom": { "prompt": "...", "schema": {...} } }
+  ]
+}
+```

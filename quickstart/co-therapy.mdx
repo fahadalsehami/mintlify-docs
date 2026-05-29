@@ -1,0 +1,54 @@
+---
+title: "Quickstart — Co-Therapy"
+description: "Run multimodal in-session analysis with RDoC construct activation"
+---
+
+
+The Co-Therapy multimodal pipeline runs silently in-session.
+
+## 1. Start the session
+
+```bash
+curl -X POST https://api.medera.ai/api/therapy-sessions/start \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "patient_id": "pat_abc",
+    "provider_id": "prv_xyz",
+    "modality": "telehealth_video",
+    "consent_recorded": true,
+    "rdoc_constructs": [
+      "acute_threat_fear",
+      "potential_threat_anxiety",
+      "reward_responsiveness",
+      "social_communication",
+      "arousal"
+    ]
+  }'
+```
+
+## 2. Connect the multimodal WebSocket
+
+```javascript
+const ws = await client.therapy.connect({ sessionId });
+
+ws.on('rdoc.activation', (e) => {
+  // { construct, score, confidence, feature_contributions }
+  clinicianChannel.send(e);
+});
+```
+
+## 3. Stream video and audio frames
+
+```javascript
+ws.streamVideo(videoEl, { fps: 15 });
+ws.streamAudio(audioStream);
+```
+
+## 4. Stop and finalize
+
+```bash
+curl -X POST https://api.medera.ai/api/therapy-sessions/{id}/stop \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+The Co-Therapy Agent finalizes the session note with construct-anchored claims.

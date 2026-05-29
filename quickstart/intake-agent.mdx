@@ -1,0 +1,51 @@
+---
+title: "Quickstart — Intake Agent"
+description: "Deploy a voice-first adaptive intake agent in 15 minutes"
+---
+
+
+Spin up the Medera Patient Intake Agent (Grace) with PHQ-9, GAD-7, AUDIT-C, and C-SSRS administration.
+
+## 1. Create a deployment
+
+```bash
+curl -X POST https://api.medera.ai/api/agent-deployments \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "agent_template": "patient-intake",
+    "name": "intake-prod-clinic-east",
+    "config": {
+      "intake_template_id": "tpl_intake_bh_default",
+      "screeners": ["phq-9", "gad-7", "audit-c", "c-ssrs"],
+      "language": "en-US",
+      "crisis_escalation_tree_id": "esc_oncall_prod"
+    }
+  }'
+```
+
+Returns a `deployment_id` and a provisioned Twilio phone number.
+
+## 2. Configure the webhook
+
+```bash
+curl -X PATCH https://api.medera.ai/api/agent-deployments/{id} \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{ "webhook_url": "https://your.app/webhooks/medera-intake" }'
+```
+
+## 3. Receive events
+
+Your endpoint receives signed events:
+
+```json
+{
+  "event": "intake.summary.ready",
+  "deployment_id": "dep_abc",
+  "call_id": "call_xyz",
+  "summary": { "screeners": {...}, "icd10_candidates": [...] }
+}
+```
+
+Verify the `Medera-Signature` header (HMAC-SHA256).
+
+See [Patient Intake Agent](/agentic/agents/patient-intake) for the full lifecycle.

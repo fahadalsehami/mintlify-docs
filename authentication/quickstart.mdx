@@ -1,0 +1,75 @@
+---
+title: "Quickstart — Authentication"
+description: "Exchange client credentials for an access token"
+---
+
+
+This 60-second quickstart shows how to exchange your client credentials for an access token.
+
+## Prerequisites
+
+- A `client_id` / `client_secret` pair from the [Medera Console](https://app.medera.ai)
+- `curl` or any HTTP client
+
+## Get a token
+
+```bash
+curl -X POST https://auth.medera.ai/oauth/token \
+  -H "Content-Type: application/json" \
+  -d '{
+    "grant_type": "client_credentials",
+    "client_id": "<CLIENT_ID>",
+    "client_secret": "<CLIENT_SECRET>",
+    "audience": "api.medera.ai",
+    "scope": "patients:read sessions:write"
+  }'
+```
+
+Response:
+
+```json
+{
+  "access_token": "eyJhbGciOi...",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "scope": "patients:read sessions:write"
+}
+```
+
+## Use the token
+
+```bash
+curl https://api.medera.ai/api/patients?limit=10 \
+  -H "Authorization: Bearer eyJhbGciOi..."
+```
+
+## In the SDKs
+
+```javascript
+import { MederaAuth, MederaClient } from '@medera/sdk';
+
+const auth = new MederaAuth({
+  clientId: process.env.MEDERA_CLIENT_ID,
+  clientSecret: process.env.MEDERA_CLIENT_SECRET,
+  audience: 'api.medera.ai',
+});
+
+const client = new MederaClient({ auth });
+
+const patients = await client.patients.list({ limit: 10 });
+```
+
+```python
+from medera import MederaAuth, MederaClient
+
+auth = MederaAuth(
+    client_id=os.environ["MEDERA_CLIENT_ID"],
+    client_secret=os.environ["MEDERA_CLIENT_SECRET"],
+    audience="api.medera.ai",
+)
+
+client = MederaClient(auth=auth)
+patients = client.patients.list(limit=10)
+```
+
+The SDKs automatically refresh the token before it expires.

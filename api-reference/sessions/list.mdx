@@ -1,0 +1,16 @@
+---
+title: "GET /api/sessions"
+description: "List sessions"
+---
+
+## `GET /api/sessions`
+
+List sessions, filterable by patient, provider, date range, status.
+
+### Example
+
+```bash
+curl -X GET https://api.medera.ai/api/sessions \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

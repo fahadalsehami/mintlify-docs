@@ -1,0 +1,16 @@
+---
+title: "Session annotations"
+description: "Clinical annotations on sessions"
+---
+
+## `POST /api/sessions/{id}/annotations`
+
+Create an annotation on a session.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/sessions/{id}/annotations \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

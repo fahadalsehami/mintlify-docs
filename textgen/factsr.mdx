@@ -1,0 +1,27 @@
+---
+title: "Introducing Facts & Reasoning"
+description: "Real-time clinical reasoning over the encounter"
+---
+
+
+Medera's Facts & Reasoning system extracts a structured `Facts` object from the encounter — every clinically relevant claim, who said it, when, and with what certainty. Documents generate against the fact set, not against raw transcripts.
+
+## Why facts?
+
+- **Defensibility:** every claim in a generated document ties back to a fact
+- **Editability:** the clinician can correct a fact, and downstream documents update
+- **Audit:** facts are an auditable, immutable layer between transcript and note
+
+## Fact schema
+
+```json
+{
+  "fact_id": "fact_abc",
+  "group": "presenting_problem",
+  "claim": "Persistent low mood for 6 weeks",
+  "evidence_spans": ["span_004"],
+  "source_speaker": "patient",
+  "certainty": "asserted",
+  "timestamp_ms": 84300
+}
+```

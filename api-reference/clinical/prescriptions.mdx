@@ -1,0 +1,16 @@
+---
+title: "POST /api/clinical/prescriptions"
+description: "Create a prescription"
+---
+
+## `POST /api/clinical/prescriptions`
+
+Create a prescription. Routes through Surescripts for ePrescribing.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/clinical/prescriptions \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

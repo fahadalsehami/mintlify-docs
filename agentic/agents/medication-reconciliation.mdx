@@ -1,0 +1,82 @@
+---
+title: "Medication Reconciliation Agent"
+description: "Reconcile active, prior, and discharge medication lists."
+---
+
+<Info>
+**Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Med list sources · Prescribing history · Discharge orders · Patient-reported
+</Info>
+
+Maintain a clean, auditable medication list across every transition.
+
+## Overview
+
+The Medication Reconciliation Agent pulls med lists from connected sources — EHR, Surescripts, pharmacy — and reconciles them with the patient-reported list, surfacing discrepancies and documenting the resolution.
+
+The active list becomes the source of truth across transitions.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Connected med list sources (EHR, Surescripts, pharmacy)
+- Practice reconciliation cadence
+- Discrepancy escalation tree
+- Documentation requirements
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Pulls med lists from connected sources
+2. Reconciles across sources and patient-reported list
+3. Surfaces discrepancies with rationale
+4. Documents the reconciliation and the resolution
+5. Tracks the active list as the source of truth
+
+## Composable experts
+
+The Medication Reconciliation Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Med List Source Expert** | EHR, Surescripts, pharmacy integration |
+| **Reconciliation Expert** | Discrepancy logic and resolution |
+| **Patient Report Expert** | Patient-reported list capture |
+| **Documentation Expert** | Reconciliation logging |
+
+## Typical use cases
+
+- Reconcile med lists at every transition automatically
+- Surface discrepancies before they cause harm
+- Document reconciliation for audit
+- Keep the active list current across sources
+
+## Compliance & safety guarantees
+
+- Reconciliation runs at every transition by default
+- Discrepancies are surfaced with rationale
+- The active list is documented and auditable
+
+## Tags
+
+`MedRec · Reconciliation · Transitions · Auditable`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

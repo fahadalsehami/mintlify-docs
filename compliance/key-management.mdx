@@ -1,0 +1,14 @@
+---
+title: "Key Management"
+description: "Per-tenant data encryption keys and KEK rotation"
+---
+
+
+Each tenant has a unique **Data Encryption Key (DEK)** for PHI columns. DEKs are wrapped by a **Key Encryption Key (KEK)** stored in AWS KMS (or customer-managed CloudHSM).
+
+## Rotation
+
+- DEK rotation: quarterly, transparent re-encryption
+- KEK rotation: annual
+
+Customers can opt into customer-managed keys (CMK) for the KEK layer.

@@ -1,0 +1,31 @@
+---
+title: "Beginners' Guide to Agents"
+description: "How LLM agents work in the Medera Agentic Framework"
+---
+
+
+This guide is for product and clinical teams new to LLM agents.
+
+## What is an agent?
+
+An agent is a task-specific actor — it takes input, calls experts, and produces output. Unlike a generic LLM prompt, a Medera agent has:
+
+1. A **typed configuration** (practice template, screener set, escalation policy)
+2. A **documented execution flow** (you can read the steps in this doc)
+3. A bundle of **typed experts** (e.g. PHQ-9 Expert, ICD-10 Expert)
+4. **Safety guarantees** (e.g. crisis-language never auto-handles)
+
+## Why this matters
+
+Generic LLMs can hallucinate clinical claims. Medera agents:
+- Anchor every claim to a quoted span, screener score, or peer-reviewed citation
+- Report confidence — never invent it
+- Surface unavailable status when signal quality is too low
+- Log every step to an immutable audit trail
+
+## First steps
+
+1. Pick an agent that matches your workflow (see the [Agent Library](/agentic/agents/patient-intake))
+2. Read the agent's configuration section
+3. Configure it in the Console
+4. Send a message via the [Quickstart](/agentic/quickstart)

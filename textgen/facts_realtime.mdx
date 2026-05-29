@@ -1,0 +1,14 @@
+---
+title: "Real-Time Extraction"
+description: "FactsR™ in real-time workflows"
+---
+
+
+In real-time workflows (Visit Scribe, Intake, Co-Therapy), facts stream over the same WebSocket as the transcript:
+
+```javascript
+ws.on('fact.added', (e) => factsStore.add(e.fact));
+ws.on('fact.updated', (e) => factsStore.update(e.fact_id, e.fact));
+```
+
+Use the streaming fact store to render the running summary alongside the transcript.

@@ -1,0 +1,34 @@
+---
+title: "Vocal Acoustic Engine"
+description: "F0, jitter, shimmer, HNR, MFCC, prosody, and clinical markers"
+---
+
+
+The Vocal Acoustic Engine extracts ~70 acoustic features from speech using Librosa and Parselmouth (Praat) and produces clinical markers calibrated for behavioral health.
+
+## Feature families
+
+| Family | Features |
+| :--- | :--- |
+| Fundamental frequency | F0 mean, std, min, max, range |
+| Voice quality | Jitter (%), shimmer (%), HNR (dB) |
+| Prosodics | Speaking rate (WPM), articulation rate, pause patterns |
+| Spectral | MFCCs (13), centroid, bandwidth, rolloff, flatness |
+
+## Clinical markers
+
+| Marker | Description |
+| :--- | :--- |
+| Depression Index | Reduced F0 range + slowed rate + increased jitter |
+| Anxiety Index | Elevated F0 mean + irregular shimmer |
+| Distress Index | Composite of jitter, shimmer, HNR drop |
+| Prosodic Flatness | Reduced F0 standard deviation |
+
+## Requirements
+
+- 16 kHz sample rate
+- Min 10 s of speech
+- 25 ms analysis frame, 10 ms hop
+- Mono PCM
+
+If requirements aren't met, the engine returns `unavailable` status — never fabricated values.

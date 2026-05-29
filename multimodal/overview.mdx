@@ -1,0 +1,58 @@
+---
+title: "Multimodal Sensing — Overview"
+description: "Speech, facial physiology, and vocal acoustics fused into clinical signal"
+---
+
+
+Medera's Multimodal Sensing layer fuses three real-time clinical signal channels — speech, facial physiology, and vocal acoustics — into a single defensible read of the patient's state.
+
+## The three engines
+
+<CardGroup cols={3}>
+  <Card title="Speech to Text" icon="audio-lines" href="/multimodal/stt/overview">
+    Whisper + Deepgram nova-2-medical with sub-second interim results, diarization, and dictation commands.
+  </Card>
+  <Card title="Facial Physiology" icon="eye" href="/multimodal/facial/overview">
+    HR, BP, HRV (SDNN/RMSSD/LF-HF), respiration, stress index, affect from MediaPipe 468-point landmarks.
+  </Card>
+  <Card title="Vocal Acoustics" icon="waveform-lines" href="/multimodal/vocal/overview">
+    F0, jitter, shimmer, HNR, MFCC, prosodic flatness, depression/anxiety/distress indices.
+  </Card>
+</CardGroup>
+
+The three engines feed the [RDoC Construct Computer](/multimodal/rdoc/overview), which produces 15 documented construct activations with feature contributions and confidence.
+
+## Architecture at a glance
+
+```
+   AUDIO  →  Whisper · Deepgram nova-2-medical  →  Diarized transcript
+            ↓
+            Vocal Acoustic Engine (Librosa + Parselmouth)
+            ↓
+            ┌─────────────────────────────────────────┐
+   VIDEO →  │   RDoC Construct Computer (15 RDoC)     │
+            │   ↑ Vocal · Facial · Linguistic         │
+   LANG  →  └─────────────────────────────────────────┘
+            ↓
+            Construct Activations + Clinical Markers
+```
+
+## Quality and confidence
+
+Every multimodal output reports a confidence band (`VERY_HIGH` → `VERY_LOW`) and the feature contributions that drove it. Clinical claims are bounded to the documented signal — never extrapolated.
+
+## What you can build
+
+- Real-time SOAP scribe with multimodal anchors
+- Co-Therapy in-session signal channel for the clinician
+- Adaptive intake with prosody-driven branching
+- Longitudinal RDoC tracking across episodes
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Architecture" href="/multimodal/architecture">Deep dive on the multimodal pipeline.</Card>
+  <Card title="Quickstart" href="/multimodal/quickstart">Stream your first multimodal session.</Card>
+  <Card title="Speech to Text" href="/multimodal/stt/overview">STT capabilities.</Card>
+  <Card title="RDoC Constructs" href="/multimodal/rdoc/overview">15 construct activations.</Card>
+</CardGroup>

@@ -1,0 +1,82 @@
+---
+title: "Evidence Synthesis Agent"
+description: "Peer-reviewed evidence synthesis at the point of decision."
+---
+
+<Info>
+**Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Clinical question · Evidence library · Patient context · Currency of evidence
+</Info>
+
+Surface peer-reviewed evidence — anchored, cited, and bounded.
+
+## Overview
+
+The Evidence Synthesis Agent runs at the point of decision, searching an approved evidence library and synthesizing the evidence with explicit citations and currency.
+
+Conclusions are bounded to the evidence base — never invented, never extrapolated.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Approved evidence library (PubMed, UpToDate, internal)
+- Citation requirements
+- Currency thresholds
+- Surfacing policy
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Receives a clinical question with patient context
+2. Searches the approved evidence library
+3. Synthesizes the evidence with explicit citations
+4. Reports currency and bound the answer to documented sources
+5. Logs the query and the response for audit
+
+## Composable experts
+
+The Evidence Synthesis Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **PubMed Expert** | Peer-reviewed literature search |
+| **UpToDate Expert** | Clinical reference search |
+| **Evidence Synthesis Expert** | Synthesis with bounded conclusions |
+| **Citation Expert** | Citation rendering and currency |
+
+## Typical use cases
+
+- Surface peer-reviewed evidence at the point of decision
+- Cite every clinical claim with currency
+- Bound conclusions to the evidence base
+- Log queries and responses for audit
+
+## Compliance & safety guarantees
+
+- Every claim carries an explicit citation
+- Currency of evidence is reported
+- Conclusions are bounded to documented sources
+
+## Tags
+
+`Evidence · PubMed · Synthesis · Cited`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

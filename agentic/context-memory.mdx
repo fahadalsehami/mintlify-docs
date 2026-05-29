@@ -1,0 +1,17 @@
+---
+title: "Context & Memory"
+description: "How context and memory work in the Agentic Framework"
+---
+
+
+**Context** is a thread of messages, memories, and tasks scoped to a patient, encounter, or workflow.
+
+**Memory** is persistent state available to the agent across contexts. Memory is scoped:
+
+| Scope | Lifetime | Visible to |
+| :--- | :--- | :--- |
+| `thread` | Until context ends | Current agent in current context |
+| `patient` | Until patient deletion | Any agent for this patient |
+| `tenant` | Indefinite | Any agent in this tenant |
+
+Memory is encrypted at rest under tenant-specific keys and is subject to the standard 6-year HIPAA retention.

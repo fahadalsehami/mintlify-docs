@@ -1,0 +1,82 @@
+---
+title: "Health Coach Agent"
+description: "Compassionate, evidence-based behavioral support."
+---
+
+<Info>
+**Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Patient message · Care plan · Recent screener scores · Crisis-language criteria
+</Info>
+
+Between-session support that listens, reflects, and stays in its lane.
+
+## Overview
+
+The Health Coach Agent provides compassionate, evidence-based behavioral support between sessions. It listens reflectively, stays in scope, and detects crisis language by documented criteria — escalating to a human within seconds.
+
+Every conversation is tied back to the patient's active care plan and is logged with privacy controls.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Practice scope-of-coaching definition
+- Crisis-language detection and escalation policy
+- Communication channel and timing
+- Care plan tie-in and reporting
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Receives a patient message in their preferred language
+2. Listens reflectively and within scope
+3. Detects crisis language by documented criteria
+4. Escalates to a human within seconds when crisis is detected
+5. Logs the conversation to the chart with privacy controls
+
+## Composable experts
+
+The Health Coach Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Reflective Listening Expert** | Boundaries, validation, scope |
+| **Crisis Detection Expert** | C-SSRS-aligned crisis-language criteria |
+| **Care Plan Expert** | Tie-in to active plan and goals |
+| **Privacy Expert** | PHI handling and consent controls |
+
+## Typical use cases
+
+- Provide compassionate, in-scope support between sessions
+- Detect crisis language and connect a human in seconds
+- Tie coaching back to the active care plan
+- Maintain privacy controls and explicit scope
+
+## Compliance & safety guarantees
+
+- Crisis-language always escalates to a human, never to an agent
+- Coaching stays within the practice-defined scope
+- Conversations are logged with PHI controls and consent
+
+## Tags
+
+`Coaching · Between-session · Boundaries · Reflective`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

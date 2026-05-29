@@ -1,0 +1,19 @@
+---
+title: "MCP Authentication"
+description: "Authenticating MCP server calls in the Agentic Framework"
+---
+
+
+Medera agents can call **MCP servers** — Model Context Protocol servers that expose tools to the agent runtime. MCP calls are authenticated per-tenant with short-lived bearer tokens.
+
+```json
+{
+  "mcp_server_url": "https://mcp.your-domain.com",
+  "auth": {
+    "scheme": "bearer",
+    "token": "mcp_token_..."
+  }
+}
+```
+
+Configure MCP servers per tenant in the Console.

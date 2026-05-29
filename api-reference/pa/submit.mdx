@@ -1,0 +1,16 @@
+---
+title: "POST /api/pa/{id}/submit"
+description: "Submit the PA"
+---
+
+## `POST /api/pa/{id}/submit`
+
+Submit the PA via the configured channel (clearinghouse, ePA, fax).
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/pa/{id}/submit \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

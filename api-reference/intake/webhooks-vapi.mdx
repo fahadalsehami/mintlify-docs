@@ -1,0 +1,17 @@
+---
+title: "Vapi webhooks"
+description: "Vapi webhook events"
+---
+
+
+Medera receives Vapi webhooks for call lifecycle events. Customer integrations receive **outbound** webhooks from Medera with the following events:
+
+| Event | Payload |
+| :--- | :--- |
+| `intake.started` | `{ call_id, deployment_id, patient_phone }` |
+| `intake.screener.completed` | `{ call_id, screener, score, severity }` |
+| `intake.crisis.detected` | `{ call_id, risk_band, escalation_id }` |
+| `intake.summary.ready` | `{ call_id, handoff_packet_url }` |
+| `intake.completed` | `{ call_id, summary_id, duration_ms }` |
+
+Webhooks are signed with `Medera-Signature: sha256=...` (HMAC-SHA256).

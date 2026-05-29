@@ -1,0 +1,27 @@
+---
+title: "Orchestrator"
+description: "The Orchestration Agent at the center of the Agentic Framework"
+---
+
+
+The Orchestrator routes inbound messages to the right agent, manages context lifecycle, enforces policy, and writes the audit trail.
+
+## Responsibilities
+
+- **Routing**: pick the right agent for an inbound message based on context + content
+- **Policy**: enforce guardrails, scope, and configuration limits
+- **Context**: open / close / archive context (thread) state
+- **Memory**: persist agent memory under tenant + scope
+- **Audit**: write every step to the immutable WORM event store
+
+## Routing rules
+
+Routing rules are configured at the tenant level. Default routing:
+
+| Inbound | Routes to |
+| :--- | :--- |
+| Voice intake call | Patient Intake Agent |
+| In-session multimodal stream | Co-Therapy Agent |
+| Encounter audio + EHR target | Visit Scribe Agent |
+| Service code + payer | Prior Authorization Agent |
+| Crisis-language detection | Crisis Response Agent (always, no gating) |

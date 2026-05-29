@@ -1,0 +1,30 @@
+---
+title: "Agentic Architecture"
+description: "System architecture of the Agentic Framework"
+---
+
+
+```
+┌────────────────────────────────────────────────────────────┐
+│                       Orchestrator                         │
+│        Routing · Policy · Context · Audit · Guardrails     │
+└─────────────────────────┬──────────────────────────────────┘
+                          │
+   ┌──────────────────────┼──────────────────────┐
+   ▼                      ▼                      ▼
+┌──────────┐         ┌──────────┐         ┌──────────┐
+│  Agent   │         │  Agent   │  ...    │  Agent   │
+│ (Intake) │         │ (Scribe) │         │  (PA)    │
+└────┬─────┘         └────┬─────┘         └────┬─────┘
+     │                    │                    │
+     ▼                    ▼                    ▼
+  Experts              Experts              Experts
+  (PHQ-9, C-SSRS,...)  (ICD-10, CPT,...)    (PubMed, Payer,...)
+```
+
+## Runtime
+
+- Workers: 5 concurrent (Bull queue, BullMQ-compatible)
+- Retry: exponential backoff, 3 attempts
+- Timeout: per-agent configurable, default 60 s
+- Audit: every step logged to the immutable WORM event store

@@ -1,0 +1,18 @@
+---
+title: "Intake Function Calls"
+description: "Functions the intake agent invokes during a call"
+---
+
+
+The intake agent invokes the following functions during the conversation. These are observable in the call log:
+
+| Function | Purpose |
+| :--- | :--- |
+| `verify_identity(dob, address, ssn_last_4)` | Identity verification |
+| `document_symptom(symptom, severity, duration)` | Symptom capture |
+| `check_insurance(provider, member_id)` | Insurance verification |
+| `schedule_appointment(date, time, provider)` | Appointment scheduling |
+| `escalate_urgent(reason, urgency_level)` | Urgent escalation |
+| `flag_for_review(reason, priority)` | Flag for clinician review |
+| `create_referral(...)` | Generate a referral |
+| `request_refill(...)` | Request a medication refill |

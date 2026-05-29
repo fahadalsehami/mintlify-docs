@@ -1,0 +1,39 @@
+---
+title: "Python SDK"
+description: "Install, configure, and use the Medera Python SDK"
+---
+
+
+The Medera Python SDK is async-first, fully typed via Pydantic, and supports the full API.
+
+## Install
+
+```bash
+pip install medera
+```
+
+Requires Python 3.10+.
+
+## Quick start
+
+```python
+import asyncio
+from medera import MederaAuth, MederaClient
+
+async def main():
+    auth = MederaAuth(
+        client_id=os.environ["MEDERA_CLIENT_ID"],
+        client_secret=os.environ["MEDERA_CLIENT_SECRET"],
+        audience="api.medera.ai",
+    )
+
+    async with MederaClient(auth=auth) as client:
+        session = await client.sessions.create(
+            patient_id="pat_abc",
+            provider_id="prv_xyz",
+            visit_type="psychiatry_followup",
+        )
+        print(session.id)
+
+asyncio.run(main())
+```

@@ -1,0 +1,34 @@
+---
+title: "Clinical Documentation Improvement (CDI)"
+description: "Concurrent and retrospective CDI review"
+---
+
+
+The CDI API surfaces documentation gaps and queries clinicians can paste into the note.
+
+```bash
+POST /api/coding/cdi/review
+{
+  "documentId": "doc_abc",
+  "specialty": "behavioral_health"
+}
+```
+
+Returns a list of CDI queries:
+
+```json
+{
+  "queries": [
+    {
+      "rule": "specificity_severity",
+      "current_code": "F32.0",
+      "suggested_code": "F32.1",
+      "documentation_gap": "Severity qualifier (mild / moderate / severe) not documented",
+      "language": "Could you specify the severity of the depressive episode (mild, moderate, severe)?",
+      "anchor": { "span": { "start": 412, "end": 489 } }
+    }
+  ]
+}
+```
+
+See [CDI Agent](/agentic/agents/clinical-documentation-improvement).

@@ -1,0 +1,33 @@
+---
+title: "POST /api/sessions"
+description: "Create a clinical session"
+---
+
+## `POST /api/sessions`
+
+Create a clinical session (encounter).
+
+### Request body
+
+```json
+{
+  "patient_id": "pat_abc",
+  "provider_id": "prv_xyz",
+  "visit_type": "psychiatry_followup",
+  "modality": "telehealth"
+}
+```
+
+### Response
+
+```json
+{ "id": "ses_abc", "created_at": "..." }
+```
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/sessions \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

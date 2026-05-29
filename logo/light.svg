@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" fill="none">
+  <defs>
+    <linearGradient id="medera-light-grad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#76a1fc"/>
+      <stop offset="100%" stop-color="#7ac7a4"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="40" height="40" rx="10" fill="url(#medera-light-grad)"/>
+  <path d="M14 32 V18 L24 30 L34 18 V32" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <text x="58" y="32" font-family="Inter, ui-sans-serif, system-ui" font-size="22" font-weight="600" fill="#141413" letter-spacing="-0.5">Medera</text>
+  <text x="155" y="32" font-family="Inter, ui-sans-serif, system-ui" font-size="22" font-weight="400" fill="#76a1fc" letter-spacing="-0.3">Docs</text>
+</svg>

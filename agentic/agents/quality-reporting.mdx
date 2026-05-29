@@ -1,0 +1,82 @@
+---
+title: "Quality Reporting Agent"
+description: "HEDIS, MIPS, and program reporting from chart data."
+---
+
+<Info>
+**Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Chart facts · Program measure set · Reporting period · Data completeness
+</Info>
+
+Assemble quality-program submissions from the chart, not a spreadsheet.
+
+## Overview
+
+The Quality Reporting Agent assembles quality-program submissions from chart data — HEDIS, MIPS, and program-specific measure sets — surfacing gaps to the care team and submitting once complete.
+
+Every submission is documented for audit and tracked through the program lifecycle.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Active quality programs (HEDIS, MIPS, others)
+- Reporting period and submission cadence
+- Data completeness thresholds
+- Reporting destinations
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Reads the chart for the program measure set
+2. Identifies data gaps that block measure completion
+3. Surfaces gaps to the care team for remediation
+4. Assembles the submission once complete
+5. Submits to the program destination
+
+## Composable experts
+
+The Quality Reporting Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **HEDIS Measure Expert** | HEDIS measure set and logic |
+| **MIPS Measure Expert** | MIPS measure set and scoring |
+| **Data Completeness Expert** | Gap analysis and remediation |
+| **Submission Expert** | Program submission formats |
+
+## Typical use cases
+
+- Assemble HEDIS / MIPS submissions from the chart
+- Surface data gaps to the care team for remediation
+- Submit to programs without a spreadsheet workflow
+- Track measure completion over the reporting period
+
+## Compliance & safety guarantees
+
+- Submissions are assembled from the chart, not a separate workflow
+- Gaps surface to the care team for remediation
+- Every submission is documented for audit
+
+## Tags
+
+`Quality · HEDIS · MIPS · Reporting`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

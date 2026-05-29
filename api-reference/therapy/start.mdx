@@ -1,0 +1,27 @@
+---
+title: "POST /api/therapy-sessions/start"
+description: "Start a therapy session"
+---
+
+## `POST /api/therapy-sessions/start`
+
+Start a therapy (or co-therapy) session.
+
+### Request body
+
+```json
+{
+  "patient_id": "pat_abc",
+  "provider_id": "prv_xyz",
+  "modality": "telehealth_video",
+  "consent_recorded": true
+}
+```
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/therapy-sessions/start \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

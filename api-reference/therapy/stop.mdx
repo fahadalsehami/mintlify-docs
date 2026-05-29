@@ -1,0 +1,16 @@
+---
+title: "POST /api/therapy-sessions/{id}/stop"
+description: "Stop a therapy session"
+---
+
+## `POST /api/therapy-sessions/{id}/stop`
+
+Stop a therapy session and finalize the analysis.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/therapy-sessions/{id}/stop \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

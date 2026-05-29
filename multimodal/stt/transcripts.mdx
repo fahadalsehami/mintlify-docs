@@ -1,0 +1,37 @@
+---
+title: "Recordings and Transcripts"
+description: "Batch audio file processing"
+---
+
+
+Upload an audio file and get a diarized transcript back.
+
+## Upload
+
+```
+POST /api/sessions/{id}/recordings
+Content-Type: multipart/form-data
+```
+
+Limits: 60 min audio, 150 MB file.
+
+## Trigger transcript
+
+```
+POST /api/sessions/{id}/transcripts
+{ "diarization": true, "language": "en-US" }
+```
+
+## Poll status
+
+```
+GET /api/sessions/{id}/transcripts/{transcript_id}/status
+```
+
+Status: `processing` → `completed` | `failed`.
+
+## Retrieve
+
+```
+GET /api/sessions/{id}/transcripts/{transcript_id}
+```

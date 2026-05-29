@@ -1,0 +1,12 @@
+---
+title: "Heart Rate"
+description: "Continuous HR from facial video"
+---
+
+
+Heart rate is computed from rPPG signals extracted from forehead and cheek ROIs.
+
+- **Accuracy:** <5 bpm MAE against pulse oximeter ground truth
+- **Min duration:** 30 s
+- **Window:** Sliding 10 s, 1 s hop
+- **Output:** Beats per minute, confidence

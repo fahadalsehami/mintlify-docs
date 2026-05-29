@@ -1,0 +1,16 @@
+---
+title: "GET /api/patients/{id}"
+description: "Retrieve a patient"
+---
+
+## `GET /api/patients/{id}`
+
+Retrieve a patient by ID. PHI fields are returned only if the token carries the appropriate scope and the actor has purpose-based access.
+
+### Example
+
+```bash
+curl -X GET https://api.medera.ai/api/patients/{id} \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

@@ -1,0 +1,51 @@
+---
+title: "Multimodal Architecture"
+description: "How audio, video, and language fuse into clinical signal"
+---
+
+
+The Multimodal Sensing layer is built around three independent engines plus a fusion layer.
+
+## Engines
+
+### Audio → Vocal Acoustic Engine
+- **Input:** 16 kHz mono PCM
+- **Tools:** Librosa, Parselmouth (Praat), TorchAudio
+- **Outputs:** F0 (mean, std, min, max, range), jitter (%), shimmer (%), HNR (dB), MFCCs, spectral centroid/bandwidth/rolloff/flatness, speaking rate (WPM), articulation rate, pause patterns
+- **Clinical markers:** depression index, anxiety index, distress index, prosodic flatness
+- **Requirements:** 16 kHz, min 10s recording, 25 ms frame / 10 ms hop
+
+### Video → Facial Physiological Engine
+- **Input:** Video frames (≥ 15 fps recommended)
+- **Tools:** MediaPipe 468-point landmarks, OpenCV
+- **Outputs:**
+  - Heart Rate (HR) — <5 bpm MAE, min 30 s recording
+  - Blood Pressure (systolic / diastolic) with confidence
+  - HRV — SDNN, RMSSD, LF/HF, SD1, SD2 (min 60 s)
+  - Respiration Rate (RR)
+  - Stress Index (0–100) with ANS balance (PNS/SNS)
+  - Emotion detection (6 basic + neutral)
+  - Microexpression tracking + engagement scoring
+- **Signal quality:** SNR > 3.0 required
+
+### Language → Linguistic Content Expert
+- **Input:** Diarized transcript
+- **Outputs:** topic, valence, certainty, pronoun-shift markers, validated screener candidates
+
+## Fusion → RDoC Construct Computer
+
+The fusion layer maps multimodal features to 15 RDoC constructs across 5 domains with zero overlap. See [RDoC Overview](/multimodal/rdoc/overview).
+
+## Latency
+
+| Operation | P50 | P95 |
+| :--- | :--- | :--- |
+| STT interim | 180 ms | 350 ms |
+| STT final | 450 ms | 900 ms |
+| Vocal feature window (10 s) | 80 ms | 150 ms |
+| Facial feature window (10 s) | 120 ms | 220 ms |
+| RDoC construct activation | 60 ms | 110 ms |
+
+## Compliance
+
+The multimodal pipeline is HIPAA-grade. PHI never leaves the tenant boundary. Recording policy is per-patient and per-session. See [Compliance Overview](/compliance/overview).

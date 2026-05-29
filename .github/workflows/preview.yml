@@ -1,0 +1,28 @@
+name: Validate Docs
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Mintlify CLI
+        run: npm i -g mint
+
+      - name: Validate docs.json
+        run: mint config:check
+
+      - name: Check for broken links
+        run: mint broken-links
+        continue-on-error: true

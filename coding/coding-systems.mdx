@@ -1,0 +1,25 @@
+---
+title: "Supported Coding Systems"
+description: "Feature availability and typical combinations"
+---
+
+
+| System | Realm | Use case |
+| :--- | :--- | :--- |
+| ICD-10-CM | US | Outpatient + inpatient diagnosis |
+| ICD-10-PCS | US | Inpatient procedure |
+| ICD-10 (International) | WHO | International diagnosis |
+| CPT | US | Outpatient procedure, E&M |
+| HCPCS Level II | US | DME, drugs, ambulance |
+| SNOMED CT | International | Clinical terminology |
+| LOINC | International | Lab observations |
+| RxNorm | US | Medication terminology |
+
+## Typical combinations
+
+| Encounter type | Code systems |
+| :--- | :--- |
+| BH outpatient | ICD-10-CM + CPT (E&M + 9083x) |
+| BH telehealth | ICD-10-CM + CPT (with modifier 95) |
+| Lab order | LOINC + ICD-10-CM |
+| Prescription | RxNorm + ICD-10-CM |

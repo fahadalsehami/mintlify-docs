@@ -1,0 +1,21 @@
+---
+title: "Citations"
+description: "Citation provenance and rendering"
+---
+
+
+Every retrieved chunk carries provenance:
+
+```json
+{
+  "chunk_id": "ch_abc",
+  "source": "APA",
+  "document": "APA Clinical Practice Guideline for MDD",
+  "section": "Pharmacotherapy",
+  "url": "https://...",
+  "publication_date": "2024-01-15",
+  "currency": "current"
+}
+```
+
+Render citations in the surface that consumes the retrieval — every clinical claim in a generated document should anchor to a citation or a transcript span.

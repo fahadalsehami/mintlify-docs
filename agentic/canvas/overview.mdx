@@ -1,0 +1,25 @@
+---
+title: "Agent Builder Canvas"
+description: "Visual workflow editor for composable clinical agents"
+---
+
+
+The Agent Builder Canvas is a visual workflow editor for composing agents from a registry of 16 node types. It's designed for clinical product teams who want to build behavioral-health workflows without writing code — and still ship with audit, versioning, and sandbox-first deployment.
+
+## What you get
+
+- 16 typed node types (start, end, agents, tools, logic, transforms)
+- Type-checked connections between nodes
+- Variable scopes: workflow input, node output, runtime context, tenant secret
+- Versioning with semantic version numbers
+- Sandbox-first deployment + production publish
+- Undo/redo, draft auto-save, hash-based deduplication
+- HIPAA + 42 CFR Part 2 guardrails enforced at runtime
+
+## Workflow lifecycle
+
+```
+draft → in-review → published (v1.0.0) → deployed (sandbox) → deployed (production)
+```
+
+See [Versioning & Deployment](/agentic/canvas/versioning-deployment).

@@ -1,0 +1,20 @@
+---
+title: "Agentic Framework FAQ"
+description: "Frequently asked questions"
+---
+
+
+**Can I use my own LLM?**
+Enterprise tenants can plug a customer-hosted LLM under BAA. Standard tenants use the Medera-managed inference layer.
+
+**Can I write a custom agent?**
+Yes — use the [Agent Builder Canvas](/agentic/canvas/overview) or implement the A2A interface directly.
+
+**Are agents deterministic?**
+No — they're LLM-driven. Every output is reported with confidence; every claim ties back to a span or citation.
+
+**What happens on crisis-language detection?**
+The Crisis Response Agent is invoked immediately — no gating, no model decision. A human is connected within seconds.
+
+**Where can I see audit logs?**
+`GET /api/audit/access-logs` — see [Audit API](/api-reference/audit/access-logs).

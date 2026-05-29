@@ -1,0 +1,23 @@
+---
+title: "Diarization"
+description: "Speaker separation for conversational STT"
+---
+
+
+Medera diarizes up to 4 speakers in conversational STT with sub-second labelling latency.
+
+## How it works
+
+- Speaker embeddings extracted per voiced window
+- Online clustering with minimum-cluster-duration heuristic
+- Label stability via Viterbi smoothing
+- Optional enrollment for known clinicians
+
+## Enrollment
+
+```bash
+POST /api/providers/{id}/voice-enroll
+Content-Type: audio/wav
+```
+
+Upload 30 s of clean clinician speech to register a speaker embedding. Enrolled speakers are labelled consistently across sessions.

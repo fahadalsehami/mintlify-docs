@@ -1,0 +1,29 @@
+---
+title: "Security Best Practices"
+description: "Five essential steps for keeping your client credentials and access tokens secure"
+---
+
+
+Five rules for handling credentials. These are non-negotiable for production.
+
+<Steps>
+  <Step title="Never embed credentials in client code">
+    Never ship a `client_secret` in a browser bundle, mobile app, or any client-controlled binary. Always exchange on a backend you control.
+  </Step>
+  <Step title="Use the smallest possible scope">
+    A token with `patients:read` cannot mutate. A token with `audit:read` cannot read PHI. Tiny scopes contain blast radius.
+  </Step>
+  <Step title="Rotate every 90 days">
+    Set calendar rotation. The Console has a rotation reminder. Old credentials should be revoked, not just retired.
+  </Step>
+  <Step title="Store secrets in a hardened secret store">
+    AWS Secrets Manager, GCP Secret Manager, HashiCorp Vault — never in source control, never in environment variables that get baked into images.
+  </Step>
+  <Step title="Verify webhook signatures">
+    Every Medera webhook ships with an HMAC-SHA256 signature in `Medera-Signature`. Verify it. Webhook events without verified signatures must be discarded.
+  </Step>
+</Steps>
+
+## Detect leaked credentials
+
+Medera scans GitHub for leaked secrets and revokes them automatically. You will receive an alert at the security contact on file.

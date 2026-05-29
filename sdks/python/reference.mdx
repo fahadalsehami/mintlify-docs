@@ -1,0 +1,17 @@
+---
+title: "Python SDK — Reference"
+description: "Reference for the Python client"
+---
+
+
+See the [Sphinx reference](https://docs.medera.ai/sdks/python/api) for typed schemas.
+
+## MederaClient
+
+| Method | Returns |
+| :--- | :--- |
+| `await client.sessions.create(...)` | `Session` |
+| `await client.patients.get(id)` | `Patient` |
+| `await client.intake.create_call(...)` | `IntakeCall` |
+| `await client.coding.predict(...)` | `CodePredictionResponse` |
+| `client.streams.open(...)` | `StreamConnection` (async context) |

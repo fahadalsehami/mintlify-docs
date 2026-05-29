@@ -1,0 +1,25 @@
+---
+title: "JavaScript SDK — Reference"
+description: "Complete reference for MederaClient and MederaAuth"
+---
+
+
+Full API reference for the JavaScript SDK. See the [TypeDoc-generated reference](https://docs.medera.ai/sdks/js/typedoc) for typed schemas.
+
+## MederaClient
+
+| Method | Description |
+| :--- | :--- |
+| `sessions.create(input)` | Create a clinical session |
+| `sessions.list(query)` | List sessions |
+| `sessions.get(id)` | Get a session |
+| `patients.create(input)` | Create a patient |
+| `patients.get(id)` | Get a patient (PHI scope required) |
+| `intake.createCall(input)` | Initiate an intake call |
+| `therapy.start(input)` | Start a therapy session |
+| `coding.predict(input)` | Predict codes |
+| `pa.initiate(input)` | Initiate a PA workflow |
+| `workflows.execute(id, input)` | Execute an agent workflow |
+| `streams.open(input)` | Open a real-time stream |
+| `transcribe.connect(input)` | Open a dictation WebSocket |
+| `therapy.connect(input)` | Open a multimodal WebSocket |

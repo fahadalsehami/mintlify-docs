@@ -1,0 +1,44 @@
+---
+title: "Agentic Framework Overview"
+description: "AI for every behavioral-health workflow"
+---
+
+
+The Medera Agentic Framework lets product and clinical teams compose **task-specific agents** from a typed registry of clinical experts. It ships with **24 production agents** and a canvas for building your own.
+
+## Three layers
+
+<CardGroup cols={3}>
+  <Card title="Orchestrator" icon="layout-grid" href="/agentic/orchestrator">
+    The top-level coordination layer that routes messages, manages context, and enforces policy.
+  </Card>
+  <Card title="Agents" icon="layers" href="/agentic/quickstart">
+    24 production agents from Patient Intake to Evidence Synthesis. Each agent bundles experts and exposes a typed interface.
+  </Card>
+  <Card title="Experts" icon="puzzle" href="/agentic/experts/overview">
+    The typed expert registry. Examples: PHQ-9 Screener Expert, C-SSRS Risk Expert, ICD-10 Coding Expert, PubMed Expert.
+  </Card>
+</CardGroup>
+
+## The 24 agents
+
+| Category | Agents |
+| :--- | :--- |
+| **Clinical Operations** | Patient Intake, Triage, Visit Scribe, Co-Therapy, Prior Authorization, Care Coordinator |
+| **Documentation & Coding** | Medical Coding, CDI, Note Completeness, Referral Generator, Discharge Summary |
+| **Patient-Facing** | Health Coach, Patient Education, Crisis Response, Outcomes Measurement |
+| **Revenue Cycle & Ops** | Denial Appeals, Eligibility Verification, Claims Review, Quality Reporting |
+| **Evidence & Safety** | Clinical Guidelines, Medication Reconciliation, Drug Interaction, Risk Stratification, Evidence Synthesis |
+
+## Build your own
+
+The [Agent Builder Canvas](/agentic/canvas/overview) lets product teams compose agents from a registry of 16 node types — start, end, agents, tools, logic, transforms.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" href="/agentic/quickstart">Send your first message to an agent.</Card>
+  <Card title="Architecture" href="/agentic/architecture">System architecture and runtime.</Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">Agent-to-agent communication.</Card>
+  <Card title="Canvas" href="/agentic/canvas/overview">Build your own agent.</Card>
+</CardGroup>

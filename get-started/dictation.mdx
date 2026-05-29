@@ -1,0 +1,45 @@
+---
+title: "Building Your Dictation Solution"
+description: "Dictation implementation guide"
+---
+
+
+Medera supports two dictation modes:
+
+- **Stateless dictation** — real-time transcription with command-and-control. Use the `/transcribe` endpoint.
+- **Ambient dictation** — long-form encounter audio with diarization. Use the `/streams` endpoint.
+
+## Stateless dictation
+
+The `/transcribe` endpoint runs Whisper + Deepgram nova-2-medical with sub-second interim results, smart punctuation, and command parsing.
+
+```javascript
+import { MederaClient } from '@medera/sdk';
+
+const client = new MederaClient({ accessToken });
+const ws = await client.transcribe.connect({ language: 'en-US' });
+
+ws.on('interim', (e) => console.log('Interim:', e.text));
+ws.on('final', (e) => console.log('Final:', e.text));
+ws.on('command', (e) => handleCommand(e.command, e.args));
+
+const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
+ws.streamAudio(mic);
+```
+
+## Commands
+
+Dictation commands let the clinician control the editor by voice. See [Dictation Commands](/multimodal/stt/commands).
+
+## Drop-in web component
+
+For React, Vue, or vanilla web apps, use the [Dictation Web Component](/sdks/dictation-component) — microphone management, push-to-talk, and editor wiring out of the box.
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Transcribe endpoint" href="/multimodal/stt/transcribe">Real-time stateless dictation.</Card>
+  <Card title="Streams endpoint" href="/multimodal/stt/streams">Ambient + diarized encounter audio.</Card>
+  <Card title="Commands" href="/multimodal/stt/commands">Voice command authoring.</Card>
+  <Card title="Microphones" href="/multimodal/stt/microphones">Recommended hardware.</Card>
+</CardGroup>

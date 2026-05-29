@@ -1,0 +1,16 @@
+---
+title: "GET /api/audit/access-logs"
+description: "List PHI access audit logs"
+---
+
+## `GET /api/audit/access-logs`
+
+List PHI access events with actor, resource, action, and outcome.
+
+### Example
+
+```bash
+curl -X GET https://api.medera.ai/api/audit/access-logs \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

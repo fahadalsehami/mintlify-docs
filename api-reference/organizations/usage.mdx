@@ -1,0 +1,16 @@
+---
+title: "GET /api/organizations/{id}/usage"
+description: "Get usage consumption"
+---
+
+## `GET /api/organizations/{id}/usage`
+
+Get usage consumption for the organization within a time window.
+
+### Example
+
+```bash
+curl -X GET https://api.medera.ai/api/organizations/{id}/usage \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

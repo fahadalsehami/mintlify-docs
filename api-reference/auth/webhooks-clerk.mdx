@@ -1,0 +1,16 @@
+---
+title: "POST /api/clerk-webhooks"
+description: "Clerk webhook receiver"
+---
+
+## `POST /api/clerk-webhooks`
+
+Receive Clerk lifecycle webhooks (user.created, user.updated, organization.created, etc.). Validated via Svix HMAC signatures.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/clerk-webhooks \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

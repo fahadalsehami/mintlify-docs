@@ -1,0 +1,39 @@
+---
+title: "Standard Document Generation"
+description: "Generate documents with templates using facts or transcripts"
+---
+
+
+Standard document generation uses a registered template and either a fact set or a transcript ID.
+
+```bash
+POST /api/textgen/documents
+{
+  "template_key": "soap_outpatient_bh",
+  "session_id": "ses_abc",
+  "transcript_id": "tx_xyz"
+}
+```
+
+## Response
+
+```json
+{
+  "document_id": "doc_abc",
+  "template_key": "soap_outpatient_bh",
+  "version": "1.4.0",
+  "sections": {
+    "subjective": { "text": "...", "anchors": ["span_001"] },
+    "objective": { "text": "...", "anchors": ["span_004", "span_007"] },
+    "assessment": { "text": "...", "anchors": ["span_011"] },
+    "plan": { "text": "...", "anchors": ["span_015"] }
+  },
+  "completeness": { "required_fields_present": 14, "required_fields_total": 14 }
+}
+```
+
+## Best practices
+
+- Use the smallest template that fits the visit type
+- Always preserve `anchors` when rendering — they enable the clinician to verify every claim
+- For partial transcripts, set `partial: true` to indicate the note will be regenerated at sign-off

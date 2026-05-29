@@ -1,0 +1,82 @@
+---
+title: "Co-Therapy Agent"
+description: "Multimodal clinical intelligence during the session."
+---
+
+<Info>
+**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Vocal prosody · Facial affect · Linguistic content · RDoC constructs
+</Info>
+
+Surface clinical signal in-session — without ever speaking to the patient.
+
+## Overview
+
+The Co-Therapy Agent is a silent clinical partner — it never speaks to the patient. It listens, watches, and reads, fuses the signal into 15 RDoC construct activations, and surfaces what matters to the clinician on a private channel.
+
+Every construct activation is anchored to vocal, facial, and linguistic feature contributions so the clinician can verify and document with rationale.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Multimodal channels (audio, video, language)
+- RDoC construct set the clinician cares about
+- Practice notes template and live-feedback policy
+- Patient consent and recording policy
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Captures multimodal signal — vocal prosody, facial affect, linguistic content
+2. Computes RDoC construct activation in 15 documented constructs
+3. Surfaces in-session signal to the clinician — never to the patient
+4. Drafts the session note with construct-anchored claims
+5. Captures longitudinal measurement data for outcomes review
+
+## Composable experts
+
+The Co-Therapy Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Vocal Prosody Expert** | Pitch, rate, jitter, shimmer, energy |
+| **Affect Dynamics Expert** | Facial affect intensity, valence, congruence |
+| **Neurobehavioral Construct Expert** | Activation, valence, engagement, cognitive load |
+| **Linguistic Content Expert** | Topic, valence, pronoun shift, certainty |
+
+## Typical use cases
+
+- Surface affect congruence and engagement to the clinician in real time
+- Track 15 RDoC constructs longitudinally without an extra screener
+- Document multimodal signal in the session note for defensibility
+- Catch dissociation and crisis markers that the clinician misses on a tired Friday
+
+## Compliance & safety guarantees
+
+- Co-Therapy never addresses or interacts with the patient
+- Every construct activation reports feature contributions and confidence
+- Recording policy is explicit per patient and per session
+
+## Tags
+
+`Co-Therapy · Multimodal · RDoC · Affect · Live`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

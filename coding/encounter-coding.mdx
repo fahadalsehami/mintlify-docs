@@ -1,0 +1,17 @@
+---
+title: "Encounter Diagnosis Coding"
+description: "Assign accurate codes to clinical encounters"
+---
+
+
+Encounter-level coding takes a `session_id` or `documentId` and returns codes anchored to documentation.
+
+```bash
+POST /api/coding/encounter
+{
+  "session_id": "ses_abc",
+  "code_systems": ["icd-10-cm", "cpt"]
+}
+```
+
+The endpoint orchestrates [Medical Coding Agent](/agentic/agents/medical-coding) + [CDI Agent](/agentic/agents/clinical-documentation-improvement) for documentation-quality review.

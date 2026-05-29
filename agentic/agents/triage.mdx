@@ -1,0 +1,82 @@
+---
+title: "Triage Agent"
+description: "ESI-aligned acuity and risk stratification."
+---
+
+<Info>
+**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Chief complaint linguistics · Vocal prosody · Vital trend · Historical risk priors
+</Info>
+
+Stratify acuity and route patients with the rigor of an ED triage nurse.
+
+## Overview
+
+The Triage Agent stratifies acuity with the discipline of an ED triage nurse and the consistency of a protocol. It uses validated screeners, documented routing rules, and multimodal signal to decide what kind of care the patient needs and when.
+
+Every triage decision carries its rationale, the screeners that supported it, and the documented criteria it cleared.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Practice routing matrix by ESI level and service line
+- Approved screener set and cut-points
+- Crisis handoff destinations and on-call escalation tree
+- Acuity thresholds for telehealth vs. in-person vs. ED referral
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Ingests intake summary, chart history, and any active screener results
+2. Runs C-SSRS and PHQ-9 risk logic against documented criteria
+3. Applies the ESI five-level framework adapted for behavioral health
+4. Issues a routing recommendation with rationale and confidence
+5. Hands off to clinician or escalates per the practice routing matrix
+
+## Composable experts
+
+The Triage Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **C-SSRS Risk Expert** | Suicide-risk classification with rationale |
+| **ESI Acuity Expert** | Five-level acuity stratification for BH |
+| **Vocal Prosody Expert** | Distress and urgency markers from voice |
+| **Risk Prior Expert** | Historical risk factors from chart |
+
+## Typical use cases
+
+- Stratify a same-day request into telehealth, in-person, or ED in seconds
+- Apply ESI levels consistently across every intake and every shift
+- Document risk rationale automatically for every routing decision
+- Escalate high-risk patients to the on-call clinician before they hang up
+
+## Compliance & safety guarantees
+
+- ESI level and C-SSRS risk band are documented for every routing decision
+- Crisis-language triggers immediate human-on-call handoff, no agent gating
+- Routing rules are configured by the practice, not inferred by the model
+
+## Tags
+
+`Triage · ESI · C-SSRS · Routing · Risk`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

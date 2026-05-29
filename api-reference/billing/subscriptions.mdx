@@ -1,0 +1,16 @@
+---
+title: "Subscriptions"
+description: "Stripe subscription management"
+---
+
+## `GET /api/billing/subscriptions`
+
+List subscriptions for the tenant.
+
+### Example
+
+```bash
+curl -X GET https://api.medera.ai/api/billing/subscriptions \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

@@ -1,0 +1,82 @@
+---
+title: "Claims Review Agent"
+description: "Pre-submission claim scrubbing and edit checks."
+---
+
+<Info>
+**Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Claim line items · Payer edit rules · Modifier logic · NCCI edits
+</Info>
+
+Catch claim errors before they leave the practice.
+
+## Overview
+
+The Claims Review Agent scrubs every claim against payer edit rules and NCCI edits before submission, surfacing errors with fix suggestions and routing clean claims to billing.
+
+Every edit failure carries a rationale and a suggested fix.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Payer edit rule library
+- NCCI edit set
+- Modifier policy
+- Pre-submission approval workflow
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Reads the claim before submission
+2. Runs payer edit rules and NCCI edits
+3. Validates modifier and code-pair logic
+4. Surfaces errors with rationale and fix suggestions
+5. Routes to billing for approval and submission
+
+## Composable experts
+
+The Claims Review Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Payer Edit Rule Expert** | Carrier-specific edits |
+| **NCCI Edit Expert** | National Correct Coding Initiative |
+| **Modifier Expert** | Modifier logic and validation |
+| **Claim Structure Expert** | Line item and total validation |
+
+## Typical use cases
+
+- Catch edit failures before submission, not after denial
+- Validate modifier logic on every claim
+- Surface errors with fix suggestions, not just rejections
+- Reduce denial rate without retraining billing staff
+
+## Compliance & safety guarantees
+
+- Every edit failure is reported with a rationale
+- Fix suggestions are surfaced, not auto-applied
+- Submission requires explicit billing approval
+
+## Tags
+
+`Claims · Scrubbing · NCCI · Modifiers`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

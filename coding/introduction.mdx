@@ -1,0 +1,19 @@
+---
+title: "Core Concepts"
+description: "The key fields in every Code Prediction response"
+---
+
+
+Every code prediction in the Medera API returns the following fields:
+
+| Field | Description |
+| :--- | :--- |
+| `system` | Code system (e.g. `icd-10-cm`) |
+| `code` | The code itself |
+| `display` | Human-readable description |
+| `confidence` | 0–1, calibrated against documentation strength |
+| `anchor` | Quoted document span supporting the code |
+| `severity_qualifier_suggestions` | Optional severity / specificity upgrades |
+| `documentation_gap` | What documentation would strengthen the code |
+
+Codes without an anchor are never returned. Codes with `confidence < 0.4` are surfaced with `requires_human_review: true`.

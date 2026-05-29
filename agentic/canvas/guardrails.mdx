@@ -1,0 +1,16 @@
+---
+title: "Guardrails"
+description: "HIPAA and 42 CFR Part 2 guardrails at runtime"
+---
+
+
+The Canvas ships first-class guardrail nodes that enforce compliance at runtime:
+
+| Rule | Check |
+| :--- | :--- |
+| `phi_minimum_necessary` | Ensure only the minimum necessary PHI is propagated |
+| `substance_use_42cfr2` | Block disclosure of SUD data without explicit consent |
+| `crisis_no_gating` | Bypass agent gating on detected crisis language |
+| `no_offline_phi` | Block writes of PHI to external sinks without consent |
+
+Guardrail failures terminate the workflow with an `error` output, not a `false` branch — the workflow cannot continue with the rule unenforced.

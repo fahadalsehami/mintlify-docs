@@ -1,0 +1,29 @@
+---
+title: "Creating Clients"
+description: "Create your first client in the Medera Console"
+---
+
+
+Client credentials are managed in the [Medera Console](https://app.medera.ai) under **Settings → Developer API Keys**.
+
+<Steps>
+  <Step title="Open the Console">
+    Go to [app.medera.ai](https://app.medera.ai) and sign in.
+  </Step>
+  <Step title="Choose an environment">
+    Select **sandbox** for initial development. Promote later to staging / production after BAA execution.
+  </Step>
+  <Step title="Create a project (optional)">
+    Projects scope credentials and isolate usage tracking. A new tenant gets a default `production` project.
+  </Step>
+  <Step title="Click 'Create credential'">
+    Pick a descriptive name, assign scopes, and click create. The `client_secret` is shown **once** — copy it to your secret store immediately.
+  </Step>
+  <Step title="Store and rotate">
+    Store the secret in a hardened secret manager (AWS Secrets Manager, HashiCorp Vault, GCP Secret Manager). Rotate every 90 days by default.
+  </Step>
+</Steps>
+
+## Naming conventions
+
+Use descriptive names like `app-prod-scribe-eu-west-2` or `pipeline-staging-pa-batch`. Names are visible in audit logs, so make them informative.

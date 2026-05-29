@@ -1,0 +1,16 @@
+---
+title: "Usage"
+description: "Get tenant usage"
+---
+
+## `GET /api/billing/usage`
+
+Get tenant usage by metric (sessions, intake calls, PA generations, code predictions, multimodal minutes).
+
+### Example
+
+```bash
+curl -X GET https://api.medera.ai/api/billing/usage \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

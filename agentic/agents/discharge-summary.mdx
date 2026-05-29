@@ -1,0 +1,82 @@
+---
+title: "Discharge Summary Agent"
+description: "Comprehensive, patient-ready discharge summaries."
+---
+
+<Info>
+**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Episode timeline · Active diagnoses · Medications · Patient reading level
+</Info>
+
+Generate clinician-grade and patient-grade summaries from a complete episode.
+
+## Overview
+
+The Discharge Summary Agent synthesizes a complete episode into both a clinician-grade discharge summary and a patient-grade summary at the configured reading level.
+
+Translations, medication reconciliation, and template adherence are first-class.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Practice discharge template
+- Patient reading-level constraints
+- Translation language set
+- Attachment and medication list policy
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Reads the complete episode timeline and active state
+2. Drafts a clinician-grade discharge summary in the template
+3. Drafts a patient-grade summary at the configured reading level
+4. Translates both if needed
+5. Posts to the EHR and to the patient portal
+
+## Composable experts
+
+The Discharge Summary Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Episode Timeline Expert** | Complete episode synthesis |
+| **Medication Reconciliation Expert** | Active list at discharge |
+| **Plain-Language Expert** | Reading-level and translation |
+| **Documentation Quality Expert** | Template adherence and completeness |
+
+## Typical use cases
+
+- Generate a discharge summary at sign-off, not the next day
+- Hand the patient a plain-language summary in their language
+- Reconcile medications at discharge with documented rationale
+- Document the complete episode without manual stitching
+
+## Compliance & safety guarantees
+
+- Both clinician and patient summaries are generated
+- Medication reconciliation is documented at discharge
+- Patient summary is at the configured reading level
+
+## Tags
+
+`Discharge · Episode · Plain language · Patient-grade`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

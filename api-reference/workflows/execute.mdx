@@ -1,0 +1,16 @@
+---
+title: "POST /api/agent-workflows/{id}/execute"
+description: "Execute a workflow"
+---
+
+## `POST /api/agent-workflows/{id}/execute`
+
+Execute a published workflow. Returns an `execution_id` for polling.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/agent-workflows/{id}/execute \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

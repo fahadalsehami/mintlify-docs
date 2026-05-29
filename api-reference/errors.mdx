@@ -1,0 +1,44 @@
+---
+title: "Errors"
+description: "Error messages and solutions from Medera's API"
+---
+
+
+Errors are returned with an appropriate HTTP status code and a JSON body:
+
+```json
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "Missing required field: patient_id",
+    "request_id": "req_abc123"
+  }
+}
+```
+
+## Status codes
+
+| Code | Meaning |
+| :--- | :--- |
+| 400 | Invalid request — see `error.code` |
+| 401 | Unauthenticated — token missing or expired |
+| 403 | Forbidden — scope or RLS denial |
+| 404 | Not found — or RLS-hidden |
+| 409 | Conflict — optimistic concurrency, duplicate idempotency key |
+| 422 | Validation failure |
+| 429 | Rate limit exceeded |
+| 500 | Internal error |
+| 503 | Service unavailable |
+
+## Common error codes
+
+| Code | When |
+| :--- | :--- |
+| `invalid_request` | Schema validation failure |
+| `auth_expired` | Token expired |
+| `scope_denied` | Token lacks required scope |
+| `rls_denied` | Cross-tenant access attempted |
+| `phi_consent_required` | PHI access blocked by missing consent |
+| `crisis_handoff_required` | Crisis-language detected, agent path terminated |
+| `rate_limit` | Exceeded RPM or burst |
+| `idempotency_conflict` | Same idempotency key with different payload |

@@ -1,0 +1,14 @@
+---
+title: "Variables & Scopes"
+description: "Variable scopes available to canvas nodes"
+---
+
+
+| Scope | Lifetime | Example |
+| :--- | :--- | :--- |
+| `workflow.input` | Single execution | Input parameters from the trigger |
+| `node.{id}.output` | Single execution | Output of a previous node |
+| `runtime.context` | Single execution | Auth, patient, encounter |
+| `tenant.secret` | Persistent | API keys for external integrations |
+
+Variables are type-checked. Connecting a `string` source to a `number` sink raises a validation error at design time, not runtime.

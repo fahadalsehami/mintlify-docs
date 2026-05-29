@@ -1,0 +1,53 @@
+---
+title: "Agentic Quickstart"
+description: "Get started with the Medera Agentic Framework"
+---
+
+
+This quickstart shows how to send a message to an agent and receive a response.
+
+## 1. List available agents
+
+```bash
+curl https://api.medera.ai/api/agents \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+## 2. Create a thread (context)
+
+```bash
+curl -X POST https://api.medera.ai/api/agents/{agent_id}/contexts \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{ "patient_id": "pat_abc" }'
+```
+
+Returns a `context_id` (thread).
+
+## 3. Send a message
+
+```bash
+curl -X POST https://api.medera.ai/api/agents/{agent_id}/v1/message:send \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "context_id": "ctx_abc",
+    "message": {
+      "role": "user",
+      "content": "Suggest ICD-10 codes for the signed note doc_abc"
+    }
+  }'
+```
+
+Returns a task ID. Poll `/api/agents/{agent_id}/tasks/{task_id}` until complete.
+
+## 4. Receive the result
+
+```json
+{
+  "task_id": "task_abc",
+  "status": "completed",
+  "artifacts": [
+    { "type": "code_suggestions", "data": [...] }
+  ],
+  "history": [...]
+}
+```

@@ -1,0 +1,45 @@
+---
+title: "Streams endpoint"
+description: "Real-time conversational clinical intelligence"
+---
+
+
+`wss://api.medera.ai/streams` is a stateful conversational STT WebSocket optimized for diarized encounter audio with real-time SOAP drafting.
+
+## Connection
+
+```
+wss://api.medera.ai/streams?session_id=<id>&token=<jwt>
+```
+
+## Client → Server
+
+Send PCM frames as binary messages, or control messages as JSON:
+
+```json
+{ "type": "configure", "language": "en-US", "diarization": true, "features": ["soap", "codes"] }
+```
+
+## Server → Client events
+
+| Event | Schema |
+| :--- | :--- |
+| `transcript.partial` | `{ text, speaker, start_ms, end_ms }` |
+| `transcript.final` | `{ text, speaker, start_ms, end_ms, span_id }` |
+| `note.section.update` | `{ section, text, anchors: [span_id] }` |
+| `code.suggestion` | `{ system, code, display, anchor: { span_id, quote } }` |
+| `audio.event` | `{ kind: "silence" | "clipping" | "low_snr" }` |
+| `error` | `{ code, message, recoverable }` |
+
+## Lifecycle
+
+```
+client opens WS
+  → server: { connected, session_id }
+  → client: { configure, ... }
+  → server: { configured }
+  → client: <PCM binary>...
+  → server: { transcript.partial }, { transcript.final }, { note.section.update }, { code.suggestion }
+  → client: { close }
+  → server: { finalized }
+```

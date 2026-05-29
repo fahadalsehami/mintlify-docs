@@ -1,0 +1,30 @@
+---
+title: "Commands"
+description: "Build custom dictation commands"
+---
+
+
+Dictation commands let the clinician control the editor by voice. Medera ships a default command set; you can extend it per deployment.
+
+## Default commands
+
+| Phrase | Command | Args |
+| :--- | :--- | :--- |
+| "new paragraph" | `new_paragraph` | — |
+| "next section" | `next_section` | — |
+| "period" | `period` | — |
+| "comma" | `comma` | — |
+| "scratch that" | `delete_last` | — |
+| "go to assessment" | `goto_section` | `assessment` |
+
+## Custom commands
+
+```json
+{
+  "name": "insert_template",
+  "phrases": ["insert template {name}"],
+  "args": { "name": "string" }
+}
+```
+
+See [Dictation Commands best practices](/multimodal/stt/best-practices-commands).

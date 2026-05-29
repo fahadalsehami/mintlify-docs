@@ -1,0 +1,22 @@
+---
+title: "POST /api/multimodal/analyze-video"
+description: "Analyze video for facial physiology"
+---
+
+## `POST /api/multimodal/analyze-video`
+
+Analyze uploaded video for HR, BP, HRV, RR, stress, and affect.
+
+### Request body
+
+```json
+multipart/form-data: video=@session.mp4
+```
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/multimodal/analyze-video \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

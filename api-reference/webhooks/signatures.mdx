@@ -1,0 +1,16 @@
+---
+title: "Webhook Signatures"
+description: "Verifying webhook signatures"
+---
+
+
+```javascript
+import crypto from 'crypto';
+
+function verify(req, secret) {
+  const sig = req.headers['medera-signature'].replace('sha256=', '');
+  const body = req.rawBody;
+  const expected = crypto.createHmac('sha256', secret).update(body).digest('hex');
+  return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
+}
+```

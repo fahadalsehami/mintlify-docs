@@ -1,0 +1,16 @@
+---
+title: "POST /api/auth/register"
+description: "Register a new user (Clerk webhook handler)"
+---
+
+## `POST /api/auth/register`
+
+Register a new user. Rate-limited to 10 requests / 15 minutes per IP. New users default to the inviting organization.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/auth/register \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

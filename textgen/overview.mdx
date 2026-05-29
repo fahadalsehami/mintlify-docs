@@ -1,0 +1,43 @@
+---
+title: "Text Generation Overview"
+description: "Reliable healthcare-focused LLM output for documentation"
+---
+
+
+Medera Text Generation delivers reliable, citation-anchored documentation in your practice templates — SOAP notes, referral letters, discharge summaries, prior authorization letters, and more.
+
+## Capabilities
+
+| Capability | Endpoint |
+| :--- | :--- |
+| Document generation (standard) | `POST /api/textgen/documents` |
+| Document generation (advanced) | `POST /api/textgen/documents/advanced` |
+| Template CRUD | `/api/textgen/templates` |
+| Facts extraction (real-time) | `wss://api.medera.ai/streams` (FactsR events) |
+| Facts extraction (async) | `POST /api/textgen/facts/extract` |
+
+## Documents by template
+
+Every document is generated against a **template** — a versioned, schema-validated definition of the document's sections and required content.
+
+```bash
+POST /api/textgen/documents
+{
+  "template_key": "soap_outpatient_bh",
+  "session_id": "ses_abc",
+  "facts": { ... } | "transcript_id": "tx_xyz"
+}
+```
+
+## Facts and reasoning (FactsR™ equivalent)
+
+Medera extracts a structured `Facts` object from the encounter — what was said, by whom, when, with what certainty — and uses that object to drive document generation. Every claim in a generated document anchors to a fact, which anchors to a transcript span.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Standard Documents" href="/textgen/documents-standard">Generate documents from templates.</Card>
+  <Card title="Advanced Documents" href="/textgen/documents-advanced">Custom templates and assembly.</Card>
+  <Card title="Templates" href="/textgen/templates">Template management.</Card>
+  <Card title="Clinical RAG" href="/textgen/rag-overview">Hybrid retrieval over clinical knowledge.</Card>
+</CardGroup>

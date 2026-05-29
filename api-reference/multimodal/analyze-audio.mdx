@@ -1,0 +1,16 @@
+---
+title: "POST /api/multimodal/analyze-audio"
+description: "Analyze audio for vocal acoustics"
+---
+
+## `POST /api/multimodal/analyze-audio`
+
+Analyze uploaded audio for vocal prosody, voice quality, and clinical markers.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/multimodal/analyze-audio \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

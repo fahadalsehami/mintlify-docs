@@ -1,0 +1,31 @@
+---
+title: "POST /api/intake-calls"
+description: "Initiate an intake call"
+---
+
+## `POST /api/intake-calls`
+
+Initiate an intake call for a deployed Intake Agent.
+
+### Request body
+
+```json
+{
+  "deployment_id": "dep_abc",
+  "patient_phone": "+15555550100"
+}
+```
+
+### Response
+
+```json
+{ "id": "call_abc", "twilio_sid": "..." }
+```
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/intake-calls \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

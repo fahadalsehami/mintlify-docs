@@ -1,0 +1,17 @@
+---
+title: "Row-Level Security"
+description: "Tenant isolation at the database layer"
+---
+
+
+Medera enforces tenant isolation at the **database layer** via PostgreSQL Row-Level Security on every PHI-touching table. The `tenant_context` middleware injects the tenant ID into the PostgreSQL session context on every request; RLS policies reject any read or write outside the tenant.
+
+## Coverage
+
+| Tables | Policy model |
+| :--- | :--- |
+| 42 tenant-scoped tables | 4-policy `has_tenant_access()` |
+| 13 additional tables | Standardized RLS coverage (migration 124) |
+| All PHI tables | `FORCE ROW LEVEL SECURITY` enabled |
+
+A misconfigured tenant ID cannot read another tenant's data — RLS blocks the query at the row level.

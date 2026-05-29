@@ -1,0 +1,16 @@
+---
+title: "POST /api/pa/{id}/appeal"
+description: "Generate a PA appeal"
+---
+
+## `POST /api/pa/{id}/appeal`
+
+Generate an appeal for a denied PA.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/pa/{id}/appeal \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

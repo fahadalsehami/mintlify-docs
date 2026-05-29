@@ -1,0 +1,18 @@
+---
+title: "Platform Release Notes"
+description: "Backend and runtime updates"
+---
+
+
+## May 28, 2026
+- Multi-tenant: added FORCE ROW LEVEL SECURITY completeness sweep on all RLS-enabled tables
+- Audit: GIN indexes on JSONB columns for faster audit queries
+- Performance: dynamic FK index detection and creation
+
+## May 7, 2026
+- Agent Builder Canvas: split AgentConfigPanel into 150-line orchestrator + 15 config subcomponents
+- Workflow engine: 5 concurrent workers, exponential retry, immutable WORM event store
+
+## Apr 16, 2026
+- Patient model PHI handling: AES-256-GCM on SSN, insurance, address; hashed phone and email
+- Security: hardcoded service keys removed; auth rate limiting added

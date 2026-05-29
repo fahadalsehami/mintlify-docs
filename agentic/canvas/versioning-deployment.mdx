@@ -1,0 +1,24 @@
+---
+title: "Versioning & Deployment"
+description: "How workflow versions and deployments work"
+---
+
+
+Workflows are semver-versioned. Each published version is immutable and can be deployed independently to sandbox or production.
+
+## Sandbox-first
+
+Every published version deploys first to sandbox. Only after sandbox tests pass can a version be promoted to production.
+
+## Deployment artifacts
+
+| Artifact | Purpose |
+| :--- | :--- |
+| Deployment | A versioned, immutable runtime instance |
+| Deployment metrics | Time-bucketed call counts, latency, errors |
+| Deployment alerts | Threshold-based alerting |
+| Auto-rollback | Configurable rollback on alert |
+| Preview tokens | Token-based sharing for sandbox previews |
+| Agent links | Shareable URLs per deployment |
+| Agent calls | Per-call tracking |
+| Audit log | Immutable WORM events for every deployment action |

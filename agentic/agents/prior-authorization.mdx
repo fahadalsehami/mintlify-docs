@@ -1,0 +1,82 @@
+---
+title: "Prior Authorization Agent"
+description: "Evidence-based PA letters and appeals."
+---
+
+<Info>
+**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Chart facts · Payer policy · Validated screener scores · Peer-reviewed evidence
+</Info>
+
+Draft submission-ready prior authorization letters from chart and payer policy.
+
+## Overview
+
+The Prior Authorization Agent reads the chart, loads the payer policy, and drafts a submission-ready letter against documented criteria. Every clinical claim is cited; every clinical argument is anchored to a chart span or a peer-reviewed reference.
+
+When a denial comes back, the agent reads the denial reason against the chart and the policy and either escalates to the clinician or generates an appeal with new evidence.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Carrier list and payer-policy library
+- Practice formulary and code set
+- Approved evidence base (PubMed, internal protocols)
+- Routing and clinician approval workflow
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Reads the chart for clinical necessity facts and screener scores
+2. Loads payer-specific PA rules and formulary
+3. Drafts the PA letter against documented criteria with citations
+4. Routes for clinician approval and submits via clearinghouse, ePA, or fax
+5. Tracks status, denials, and appeal opportunities
+
+## Composable experts
+
+The Prior Authorization Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **PubMed Expert** | Peer-reviewed evidence for medical necessity arguments |
+| **Payer Policy Expert** | Carrier-specific PA rules, formulary, coverage criteria |
+| **Clinical Scoring Expert** | PHQ-9, GAD-7, validated scores supporting severity |
+| **Medical Coding Expert** | ICD-10 and procedure-code validation for PA |
+
+## Typical use cases
+
+- Convert a 45-minute PA write-up into a 4-minute clinician review
+- Cite payer policy and peer-reviewed evidence in every letter
+- Catch denied claims that would have been approved with better evidence
+- Run appeals on autopilot when policy and chart support reversal
+
+## Compliance & safety guarantees
+
+- Every PA letter carries explicit citations to chart and policy
+- Letters are submitted only after clinician approval
+- Appeal recommendations include new evidence, not the same argument twice
+
+## Tags
+
+`PA · Authorization · Payer Policy · Appeals · Evidence`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

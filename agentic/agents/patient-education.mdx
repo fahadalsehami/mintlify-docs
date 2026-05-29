@@ -1,0 +1,82 @@
+---
+title: "Patient Education Agent"
+description: "Plain-language education tailored to the patient."
+---
+
+<Info>
+**Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Clinical content · Patient reading level · Preferred language · Active diagnoses
+</Info>
+
+Translate clinical content into the patient's language, reading level, and context.
+
+## Overview
+
+The Patient Education Agent translates clinical content into the patient's language, reading level, and context — drawing from a clinician-approved education library.
+
+Engagement and comprehension are tracked over time so the care team can see what's landing and what isn't.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Practice education library and approved content
+- Patient reading-level constraints
+- Translation language set
+- Channel and delivery policy
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Loads the clinical content the clinician wants delivered
+2. Adapts it to the patient's reading level and preferred language
+3. Tailors it to the active diagnoses and medications
+4. Delivers via the configured channel
+5. Tracks engagement and comprehension
+
+## Composable experts
+
+The Patient Education Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Plain-Language Expert** | Reading-level and clarity |
+| **Translation Expert** | Multilingual fidelity |
+| **Tailoring Expert** | Active diagnoses and medications |
+| **Engagement Expert** | Channel selection and delivery |
+
+## Typical use cases
+
+- Deliver education in the patient's language and reading level
+- Tailor education to the patient's active diagnoses
+- Track engagement and comprehension over time
+- Maintain a clinician-approved education library
+
+## Compliance & safety guarantees
+
+- Education content is drawn from a clinician-approved library
+- Reading level and translation are explicit and configurable
+- Engagement and comprehension are tracked, not assumed
+
+## Tags
+
+`Education · Plain language · Translation · Tailored`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

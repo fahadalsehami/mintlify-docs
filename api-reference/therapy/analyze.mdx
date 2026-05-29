@@ -1,0 +1,16 @@
+---
+title: "POST /api/therapy-sessions/{id}/analyze"
+description: "Run post-session analysis"
+---
+
+## `POST /api/therapy-sessions/{id}/analyze`
+
+Run post-session multimodal analysis (RDoC construct activation, SOAP draft).
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/therapy-sessions/{id}/analyze \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

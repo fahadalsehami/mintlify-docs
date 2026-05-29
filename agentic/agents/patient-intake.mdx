@@ -1,0 +1,83 @@
+---
+title: "Patient Intake Agent"
+description: "Voice-first adaptive intake for behavioral health."
+---
+
+<Info>
+**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Vocal prosody · Linguistic content · Affect dynamics · Session timing
+</Info>
+
+Conduct adaptive, voice-first intake interviews that hand a complete chart to the clinician.
+
+## Overview
+
+The Patient Intake Agent runs the first contact a patient has with the practice. It is voice-first, runs in the patient's preferred language, and adapts question-by-question based on what the patient says and how they say it.
+
+Every intake produces a clinician-ready packet: identity, consent, insurance, validated screeners, ICD-10 candidates from the chief complaint, and a multimodal acuity read from vocal prosody and linguistic content.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Practice intake template (fields, screeners, scripts)
+- Routing rules by acuity and payer
+- Identity verification and insurance capture settings
+- Preferred language(s) and reading-level constraints
+- Crisis escalation policy and handoff destinations
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Greets the patient and confirms identity, insurance, and consent
+2. Conducts an adaptive interview against the practice intake template
+3. Administers validated screeners (PHQ-9, GAD-7, AUDIT-C, C-SSRS) at appropriate decision points
+4. Listens to vocal prosody and linguistic content for risk and acuity signals
+5. Produces a structured session summary, ICD-10 candidates, and a clinician handoff packet
+
+## Composable experts
+
+The Patient Intake Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Vocal Prosody Expert** | Pitch, rate, jitter, shimmer for affect and acuity inference |
+| **Linguistic Content Expert** | Topic, valence, certainty, and pronoun-shift markers |
+| **Validated Screener Expert** | PHQ-9, GAD-7, AUDIT-C, C-SSRS administration and scoring |
+| **C-SSRS Risk Expert** | Suicide-risk classification with documented rationale |
+
+## Typical use cases
+
+- Front-load 30-minute intakes into a 6-minute adaptive interview the patient drives
+- Capture validated screener data directly into the chart, not into a paper packet
+- Surface acuity and risk signal to the clinician before the first session begins
+- Translate intake content into the patient's preferred language without losing fidelity
+
+## Compliance & safety guarantees
+
+- Adaptive interview never replaces a validated screener — both run, both are documented
+- Crisis-language is detected by C-SSRS criteria and routed to a human within seconds
+- Every claim in the summary is anchored to a quoted span in the transcript
+
+## Tags
+
+`Intake · Screening · PHQ-9 · GAD-7 · Voice-first · Multimodal`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

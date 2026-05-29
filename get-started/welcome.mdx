@@ -1,0 +1,76 @@
+---
+title: "Welcome to Medera"
+description: "AI infrastructure for behavioral and mental health."
+---
+
+Medera is the AI infrastructure platform for behavioral and mental health. It combines **multimodal clinical sensing**, **purpose-built medical LLMs**, and an **agentic framework** of 24 composable clinical agents — delivered through a single API and a HIPAA-grade runtime that drops into existing EHR and payer workflows.
+
+<Tip>
+  Medera's goal is to be the most accurate, defensible, and clinician-ready **AI platform for behavioral and mental health teams** — without compromises on integration speed, evidence, or regulatory compliance.
+</Tip>
+
+<Card title="Buyer's Guide" href="https://medera.ai/whitepaper" arrow="true" cta="Read the whitepaper">
+  Learn what makes Medera the right choice for clinical and product teams building the next generation of behavioral health applications.
+</Card>
+
+---
+
+## Why Medera
+
+|                                       |                                                                                                                                                                                  |
+| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Purpose-built for behavioral health** | Validated screeners (PHQ-9, GAD-7, AUDIT-C, C-SSRS), RDoC construct mapping, and 42 CFR Part 2 controls are first-class — not bolted on.                                       |
+| **Multimodal by default**             | Voice (Whisper, Deepgram nova-2-medical), facial physiology (HR, BP, HRV, respiration, stress), and linguistic content fuse into one clinical signal.                            |
+| **Composable clinical agents**        | 24 production agents with a documented expert registry, A2A protocol, and an Agent Builder Canvas with 16 node types.                                                            |
+| **Evidence-anchored**                 | Every clinical claim is anchored to a quoted span, a screener score, or a peer-reviewed citation. Confidence is calibrated, never invented.                                      |
+| **Enterprise-grade runtime**          | PostgreSQL with Row-Level Security on 100+ tables, AES-256-GCM PHI encryption, Merkle-tree audit integrity, and HIPAA + 42 CFR Part 2 controls baked into the request path.      |
+
+<Columns>
+  <Card title="Flexible infrastructure">
+    <Icon icon="circle-check" /> Bespoke REST + WebSocket APIs <br />
+    <Icon icon="circle-check" /> JavaScript + Python SDKs <br />
+    <Icon icon="circle-check" /> Embeddable UI components
+  </Card>
+
+  <Card title="Built for healthcare">
+    <Icon icon="circle-check" /> Behavioral-health language proficiency <br />
+    <Icon icon="circle-check" /> HIPAA, 42 CFR Part 2, SOC 2 controls <br />
+    <Icon icon="circle-check" /> Real-time or asynchronous
+  </Card>
+</Columns>
+
+---
+
+## Core Capabilities
+
+<Columns cols={3}>
+  <Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview" horizontal>
+    Real-time and asynchronous medical speech recognition, facial physiology, and vocal acoustics.
+  </Card>
+
+  <Card title="Text Generation" icon="text-align-start" href="/textgen/overview" horizontal>
+    Reliable behavioral-health-focused LLM output, SOAP notes, and document generation.
+  </Card>
+
+  <Card title="Agentic Framework" icon="layers" href="/agentic/overview" horizontal>
+    24 composable clinical agents and a canvas to build your own.
+  </Card>
+</Columns>
+
+---
+
+## Bringing it All Together
+
+This documentation site explains how to use the Medera API and provides example workflows.
+
+- Each component of the Medera platform has its own tab for detailed documentation: [Multimodal Sensing](/multimodal/overview), [Text Generation](/textgen/overview), [Agentic Framework](/agentic/overview), and [Coding](/coding/overview).
+- The [API Reference](/api-reference/welcome) tab provides detailed specifications for each available endpoint.
+- The [Console](https://app.medera.ai) is where you create an account and client credentials to begin your journey.
+- The Quickstarts at the top of the Home tab outline how to get started fast. Start with [Authentication](/authentication/overview).
+- The [SDKs section](/sdks/overview) covers the official [JavaScript SDK](/sdks/js/overview), [Python SDK](/sdks/python/overview), [Dictation Web Component](/sdks/dictation-component), and [Postman collection](/sdks/postman).
+- The [Examples Repository](https://github.com/medera-ai/examples) provides working code for authentication, streaming, text generation, proxy setups, and more.
+- The [Release Notes](/release-notes/overview) page provides information about the API change policy, scheduled upcoming changes, and links to release notes per product.
+
+<Note>
+  If you have any questions about how to implement Medera in your healthcare environment, [contact us](https://help.medera.ai) for support.
+</Note>

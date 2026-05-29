@@ -1,0 +1,27 @@
+---
+title: "Dictation Web Component"
+description: "Drop-in web component for real-time speech-to-text with built-in UI"
+---
+
+
+The Dictation Web Component handles microphone management, push-to-talk, command parsing, and editor wiring.
+
+```html
+<script type="module" src="https://cdn.medera.ai/dictation/v1/dictation.js"></script>
+
+<medera-dictation
+  access-token="..."
+  language="en-US"
+  punctuation="smart"
+  commands='["new_paragraph", "next_section", "period"]'
+></medera-dictation>
+```
+
+## Events
+
+| Event | Payload |
+| :--- | :--- |
+| `interim` | `{ text }` |
+| `final` | `{ text }` |
+| `command` | `{ command, args }` |
+| `error` | `{ code, message }` |

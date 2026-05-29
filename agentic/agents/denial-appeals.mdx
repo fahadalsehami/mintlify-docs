@@ -1,0 +1,82 @@
+---
+title: "Denial Appeals Agent"
+description: "Evidence-based denial appeals from chart and policy."
+---
+
+<Info>
+**Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Denial reason · Chart facts · Payer policy · Peer-reviewed evidence
+</Info>
+
+Appeal denials with documented evidence and payer-policy citations.
+
+## Overview
+
+The Denial Appeals Agent reads the denial reason, pulls relevant chart context and payer policy, and drafts a submission-ready appeal letter with documented evidence.
+
+It surfaces denials that aren't worth appealing and tracks the outcomes of those that are.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Payer policy library and carrier rules
+- Practice approval workflow
+- Evidence base (PubMed, internal protocols)
+- Appeal letter templates
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Reads the denial reason and the original claim
+2. Pulls relevant chart context and payer policy
+3. Drafts the appeal letter with documented evidence
+4. Routes for clinician approval
+5. Tracks appeal status and outcome
+
+## Composable experts
+
+The Denial Appeals Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Payer Policy Expert** | Carrier-specific appeal criteria |
+| **PubMed Expert** | Peer-reviewed evidence for appeals |
+| **Chart Evidence Expert** | Relevant chart spans for appeals |
+| **Appeal Strategy Expert** | Appeal letter structure and arguments |
+
+## Typical use cases
+
+- Appeal denials that should have been approved
+- Cite policy and evidence in every appeal letter
+- Track appeal outcomes and improve future PA submissions
+- Surface denials that aren't worth appealing
+
+## Compliance & safety guarantees
+
+- Every appeal carries chart and policy citations
+- Appeal recommendations include new evidence, not the same argument
+- Submission requires explicit clinician approval
+
+## Tags
+
+`Appeals · Denials · Payer Policy · Evidence`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

@@ -1,0 +1,82 @@
+---
+title: "Care Coordinator Agent"
+description: "Orchestrates handoffs across the care journey."
+---
+
+<Info>
+**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Care plan · Referral graph · Outreach attempts · Documentation state
+</Info>
+
+Keep the patient, the chart, and the next step in lockstep across every transition.
+
+## Overview
+
+The Care Coordinator Agent keeps the patient, the chart, and the next step in lockstep. It runs continuously against the care plan, triggers outreach when a milestone slips, and generates the documentation that proves the loop closed.
+
+Every coordination action — outreach attempted, referral sent, screener refreshed — is documented to the chart with rationale.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Practice care-plan templates by program
+- In-network and partner referral graph
+- Outreach channels and compliance caps (SMS, email, phone)
+- Closed-loop documentation requirements
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Maintains the care plan as the source of truth across transitions
+2. Triggers outreach for next-step appointments and screener refreshes
+3. Generates referrals and tracks closed-loop confirmation
+4. Surfaces handoff risk to the care team with rationale
+5. Documents every coordination action in the chart
+
+## Composable experts
+
+The Care Coordinator Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Care Plan Expert** | Practice template adherence and milestone reasoning |
+| **Referral Graph Expert** | Network logic, partner preferences, capacity reads |
+| **Outreach Expert** | Channel selection and timing within compliance caps |
+| **Closed-Loop Audit Expert** | Receipt, scheduling, completion, documentation |
+
+## Typical use cases
+
+- Close referral loops the practice can prove to a payer
+- Re-engage patients who drift off the care plan, before they no-show
+- Surface care plans the clinician hasn't touched in weeks
+- Document every coordination action without an admin staffer
+
+## Compliance & safety guarantees
+
+- Outreach is always within practice-configured compliance caps
+- Referrals are tracked to closed-loop confirmation or escalation
+- Care plan milestones are tracked against a documented template
+
+## Tags
+
+`Coordination · Care plan · Referral · Outreach · Closed-loop`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

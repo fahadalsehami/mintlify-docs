@@ -1,0 +1,34 @@
+---
+title: "Coding Quickstart"
+description: "Generate codes for a signed note"
+---
+
+
+```bash
+curl -X POST https://api.medera.ai/api/coding/predict \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "code_systems": ["icd-10-cm", "cpt"],
+    "context": { "documentId": "doc_abc" },
+    "min_confidence": 0.5
+  }'
+```
+
+```json
+{
+  "codes": [
+    {
+      "system": "icd-10-cm",
+      "code": "F32.1",
+      "display": "Major depressive disorder, single episode, moderate",
+      "confidence": 0.92,
+      "anchor": {
+        "documentId": "doc_abc",
+        "span": { "start": 412, "end": 489 },
+        "quote": "Patient reports persistent low mood for 6 weeks..."
+      }
+    }
+  ]
+}
+```

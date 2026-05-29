@@ -1,0 +1,55 @@
+---
+title: "Authentication overview"
+description: "Authenticate to the Medera API with client credentials"
+---
+
+
+The Medera API uses **OAuth 2.0 Client Credentials** for server-to-server authentication. End-user authentication is handled by Clerk and JWT bearer tokens.
+
+## Two credential types
+
+| Credential | Use case | Where you get it |
+| :--- | :--- | :--- |
+| **Client credentials** | Server-to-server, backend integrations | [Medera Console](https://app.medera.ai) → Settings → Developer API Keys |
+| **End-user JWT** | Acting on behalf of a clinician or staff member | Issued by Clerk after user sign-in |
+
+## Bearer token usage
+
+Every API request must include `Authorization: Bearer <token>`.
+
+```bash
+curl https://api.medera.ai/api/sessions \
+  -H "Authorization: Bearer eyJhbGciOi..."
+```
+
+## Token lifecycle
+
+- **Client-credential access tokens**: 1 hour, refreshable via `POST /oauth/token`.
+- **End-user JWT**: 1 hour, refreshable via Clerk refresh tokens.
+- **Webhook signature tokens**: short-lived, validated per-request via HMAC-SHA256.
+
+## Scopes
+
+Scopes scope a token to a project, an environment (sandbox / staging / production), and a permission set:
+
+| Scope prefix | Permissions |
+| :--- | :--- |
+| `patients:*` | CRUD on patient records (PHI-touching) |
+| `sessions:*` | Create, read, and stream sessions |
+| `intake:*` | Initiate and read intake calls |
+| `therapy:*` | Therapy session management |
+| `pa:*` | Prior authorization workflows |
+| `workflows:*` | Agent workflow CRUD and execution |
+| `audit:read` | Read audit logs |
+| `admin:*` | Admin API access (separate issuer) |
+
+Use the smallest scope that gets the job done. PHI-touching scopes require an active BAA.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" href="/authentication/quickstart">Exchange credentials for a token in under 60 seconds.</Card>
+  <Card title="Creating Clients" href="/authentication/creating-clients">Create your first client in the Console.</Card>
+  <Card title="Environments & Tenants" href="/authentication/environments-tenants">Sandbox, staging, and production.</Card>
+  <Card title="Security Best Practices" href="/authentication/security-best-practices">Five rules for keeping credentials safe.</Card>
+</CardGroup>

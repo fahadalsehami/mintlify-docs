@@ -1,0 +1,82 @@
+---
+title: "Note Completeness Agent"
+description: "Ensure every required element is documented."
+---
+
+<Info>
+**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Template definition · Quality program elements · Sign-off state
+</Info>
+
+Catch missing required elements before the note is signed.
+
+## Overview
+
+The Note Completeness Agent checks every note against the practice template and the quality programs the practice participates in.
+
+It surfaces missing elements before sign-off, logs the pre-sign-off state, and only blocks sign-off when the practice has explicitly configured it.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Practice template and required-element list
+- Quality program element set (HEDIS, MIPS, others)
+- Blocking vs. advisory sign-off policy
+- Pre-sign-off review timing
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Reads the note against the practice template
+2. Flags missing required elements per template and per program
+3. Surfaces the gap with the template's expected language
+4. Logs the pre-sign-off completeness state
+5. Optionally blocks sign-off until critical fields are filled
+
+## Composable experts
+
+The Note Completeness Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Template Adherence Expert** | Practice template completeness |
+| **Quality Program Expert** | HEDIS, MIPS, and program-specific elements |
+| **Audit Trail Expert** | Pre-sign-off completeness state logged |
+| **Sign-off Workflow Expert** | Blocking vs. advisory enforcement |
+
+## Typical use cases
+
+- Catch missing template elements before sign-off
+- Surface HEDIS / MIPS elements without an extra workflow
+- Document the pre-sign-off state for audit
+- Block sign-off only when the practice has configured it
+
+## Compliance & safety guarantees
+
+- Completeness checks are deterministic and template-driven
+- Blocking enforcement is explicit and configured by the practice
+- Pre-sign-off state is logged for every encounter
+
+## Tags
+
+`Completeness · HEDIS · MIPS · Sign-off`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

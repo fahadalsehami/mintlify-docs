@@ -1,0 +1,39 @@
+---
+title: "Canvas Node Types"
+description: "The 16 typed node types available in the Canvas"
+---
+
+
+## Core nodes
+
+| Type | Icon | Purpose |
+| :--- | :--- | :--- |
+| `start` | Play | Workflow entry, defines input variables |
+| `end` | Square | Workflow exit, defines output schema |
+
+## Healthcare agents
+
+| Type | Outputs | Purpose |
+| :--- | :--- | :--- |
+| `intake-agent` | success / escalate / error | Patient intake calls |
+| `scribe-agent` | success / error | Clinical documentation |
+| `therapy-agent` | success / concern / error | Behavioral health analysis |
+| `triage-agent` | urgent / routine / self-care | Symptom assessment |
+
+## Tools
+
+| Type | Outputs | Purpose |
+| :--- | :--- | :--- |
+| `guardrails` | pass / fail | HIPAA / 42 CFR Part 2 compliance |
+| `fhir-query` | success / error | FHIR R4 data operations |
+| `transform` | default | Data transformation (CEL) |
+| `user-approval` | approved / rejected | Human-in-the-loop gate |
+
+## Logic nodes
+
+| Type | Outputs | Purpose |
+| :--- | :--- | :--- |
+| `condition` | true / false | If/Else branching |
+| `classify` | category1 / category2 / other | Multi-way classification |
+| `wait` | default | Delay/timeout |
+| `escalate` | none | Urgent escalation |

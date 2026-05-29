@@ -1,0 +1,41 @@
+---
+title: "Speech to Text Overview"
+description: "Real-time and asynchronous medical speech recognition"
+---
+
+
+Medera Speech to Text runs on a hybrid Whisper + Deepgram nova-2-medical stack, tuned for behavioral-health language and validated screener administration.
+
+## Capabilities
+
+| Capability | Surface |
+| :--- | :--- |
+| Real-time conversational STT | `/streams` (WebSocket) |
+| Real-time stateless dictation | `/transcribe` (WebSocket) |
+| Batch transcription | `/recordings` (REST) |
+| Diarization | `/streams`, `/recordings` |
+| Smart punctuation | All |
+| Dictation commands | `/transcribe` |
+| Interim results | All |
+| Speaker enrollment | `/streams` |
+| Language detection | All |
+
+## Languages
+
+See [Languages](/about/languages) for the full matrix.
+
+## Latency
+
+- Interim transcript: < 350 ms P95
+- Final transcript: < 900 ms P95
+- Diarization label: < 1.2 s P95 after final
+
+## Quality
+
+Audio recommendations:
+- 16 kHz 16-bit PCM
+- Mono
+- SNR > 20 dB
+- Beamforming or lavalier mic recommended
+
+See [Recording Best Practices](/multimodal/stt/best-practices-recording).

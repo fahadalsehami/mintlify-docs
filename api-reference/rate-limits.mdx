@@ -1,0 +1,15 @@
+---
+title: "Rate Limits"
+description: "Per-tenant and per-endpoint rate limits"
+---
+
+
+| Endpoint family | Default RPM | Burst |
+| :--- | :--- | :--- |
+| `GET` reads | 1000 | 100 |
+| `POST` / `PATCH` writes | 500 | 50 |
+| `/coding/*` | 200 | 20 |
+| `/pa/*` | 100 | 10 |
+| Auth endpoints | 30 | 5 |
+
+Enterprise tenants can request elevated limits. Limits return `Retry-After` on `429`.

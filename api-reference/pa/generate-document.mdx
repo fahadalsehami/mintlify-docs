@@ -1,0 +1,16 @@
+---
+title: "POST /api/pa/{id}/document"
+description: "Generate the PA letter"
+---
+
+## `POST /api/pa/{id}/document`
+
+Generate the PA letter against the payer template.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/pa/{id}/document \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

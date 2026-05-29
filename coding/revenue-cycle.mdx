@@ -1,0 +1,18 @@
+---
+title: "Revenue Cycle"
+description: "Sweeps and retrospective audits"
+---
+
+
+For revenue-cycle sweeps and retrospective audits, the `/api/coding/sweep` endpoint runs across a patient panel.
+
+```bash
+POST /api/coding/sweep
+{
+  "patient_ids": ["pat_a", "pat_b", ...],
+  "period": { "from": "2026-04-01", "to": "2026-04-30" },
+  "mode": "retrospective_audit"
+}
+```
+
+Returns a per-patient missed-code report.

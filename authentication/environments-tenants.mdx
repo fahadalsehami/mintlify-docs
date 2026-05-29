@@ -1,0 +1,41 @@
+---
+title: "Environments & Tenants"
+description: "How Medera environments and tenants work, and how they affect authentication and data residency"
+---
+
+
+A **tenant** is your organization in Medera. Within a tenant, you have one or more **projects**, each operating in one of three **environments**.
+
+## Tenants
+
+Each Medera customer is a single tenant, isolated by Row-Level Security on every PHI-touching table. Tenant ID is injected by the `tenantContext` middleware on every request and is non-spoofable.
+
+## Projects
+
+Projects scope credentials and usage tracking inside a tenant. A typical layout:
+
+| Project | Purpose |
+| :--- | :--- |
+| `core-api` | Main backend integration |
+| `pipeline-pa` | Batch PA processing pipeline |
+| `intake-call-edge` | Edge function for Vapi webhooks |
+
+## Environments
+
+| Environment | URL host | PHI policy | Audit |
+| :--- | :--- | :--- | :--- |
+| **sandbox** | `sandbox.api.medera.ai` | Synthetic only | Standard |
+| **staging** | `staging.api.medera.ai` | Real PHI under BAA | Full |
+| **production** | `api.medera.ai` | Real PHI under BAA | Full + Merkle integrity |
+
+Environment is determined by the audience claim in your token: `sandbox.api.medera.ai`, `staging.api.medera.ai`, or `api.medera.ai`.
+
+## Data residency
+
+| Region | Tenant location | Data residency |
+| :--- | :--- | :--- |
+| US | Default | US-only sub-processors |
+| EU | Opt-in | EU-only sub-processors |
+| Customer VPC | Enterprise | Customer-managed VPC |
+
+Region is selected at tenant creation and is immutable.

@@ -1,0 +1,32 @@
+---
+title: "POST /api/pa/initiate"
+description: "Initiate a PA workflow"
+---
+
+## `POST /api/pa/initiate`
+
+Initiate a prior authorization workflow.
+
+### Request body
+
+```json
+{
+  "patient_id": "pat_abc",
+  "service_codes": ["90834"],
+  "payer_id": "payer_aetna_commercial"
+}
+```
+
+### Response
+
+```json
+{ "pa_id": "pa_abc", "state": "PA_INITIATED" }
+```
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/pa/initiate \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

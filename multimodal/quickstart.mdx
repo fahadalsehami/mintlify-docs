@@ -1,0 +1,27 @@
+---
+title: "Multimodal Quickstart"
+description: "Stream your first multimodal session"
+---
+
+
+```javascript
+import { MederaClient } from '@medera/sdk';
+const client = new MederaClient({ accessToken });
+
+const session = await client.therapy.start({
+  patient_id: 'pat_abc',
+  provider_id: 'prv_xyz',
+  modality: 'telehealth_video',
+  consent_recorded: true,
+});
+
+const ws = await client.therapy.connect({ sessionId: session.id });
+
+ws.on('transcript.final', (e) => console.log('Transcript:', e.text));
+ws.on('vocal.window', (e) => console.log('Vocal features:', e.features));
+ws.on('facial.window', (e) => console.log('Facial features:', e.features));
+ws.on('rdoc.activation', (e) => console.log('RDoC:', e.construct, e.score));
+
+ws.streamVideo(videoEl);
+ws.streamAudio(audioStream);
+```

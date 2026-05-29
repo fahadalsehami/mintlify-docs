@@ -1,0 +1,17 @@
+---
+title: "Encryption"
+description: "AES-256-GCM at rest, TLS 1.3 in transit"
+---
+
+
+| Layer | Algorithm | Key management |
+| :--- | :--- | :--- |
+| PHI columns at rest | AES-256-GCM | Per-tenant DEK, KEK in HSM |
+| Backups at rest | AES-256-GCM | Customer-managed KEK option |
+| Object storage at rest | AES-256 | Customer-managed key option |
+| In transit | TLS 1.3 (HTTPS enforced) | — |
+| WebSocket | TLS 1.3 (WSS enforced) | — |
+
+PHI fields (SSN, insurance policy number, address, phone, email) are encrypted at the column level. Phone and email are also hashed for search.
+
+See [Key Management](/compliance/key-management).

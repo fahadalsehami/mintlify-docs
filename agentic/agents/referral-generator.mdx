@@ -1,0 +1,82 @@
+---
+title: "Referral Generator Agent"
+description: "Clinician-to-clinician referral letters in seconds."
+---
+
+<Info>
+**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Referral reason · Chart context · Network logic · Closed-loop confirmations
+</Info>
+
+Generate complete, contextual referral letters from chart and visit context.
+
+## Overview
+
+The Referral Generator drafts a complete, contextual letter from the chart and the referral reason. It applies in-network and partner-preference rules and attaches the right context — prior care, screeners, labs.
+
+Every referral is tracked to closed-loop confirmation. Stalled referrals are surfaced to the care team with rationale.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Specialty referral templates
+- In-network and partner referral graph
+- Attachment policy (notes, screeners, labs)
+- Closed-loop tracking and reminders
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Classifies the referral reason and required content
+2. Pulls chart context, prior care, and relevant attachments
+3. Applies in-network and partner-preference rules
+4. Drafts the letter against the specialty template
+5. Tracks receipt, scheduling, completion, and documentation
+
+## Composable experts
+
+The Referral Generator Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Referral Reason Expert** | Reason classification and required-content mapping |
+| **Chart Context Expert** | Relevant prior care, current state, and attachments |
+| **Network Logic Expert** | In-network and partner-preference rules |
+| **Closed-Loop Audit Expert** | Receipt, scheduled, completed, documented |
+
+## Typical use cases
+
+- Generate a complete referral letter in 60 seconds, not 20 minutes
+- Route referrals to the right specialist by network and capacity
+- Track closed-loop confirmation and surface stalled referrals
+- Attach the right notes and screeners every time
+
+## Compliance & safety guarantees
+
+- Every referral letter is anchored to chart spans and screener scores
+- Closed-loop tracking is mandatory and documented
+- Network preferences are configured by the practice, not the model
+
+## Tags
+
+`Referral · Letter · Closed-loop · Network`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

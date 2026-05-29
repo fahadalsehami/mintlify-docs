@@ -1,0 +1,16 @@
+---
+title: "Asynchronous Extraction"
+description: "FactsR™ in async workflows"
+---
+
+
+For batch / async workflows, extract facts from a completed transcript:
+
+```bash
+POST /api/sessions/{id}/facts/extract
+{
+  "transcript_id": "tx_xyz"
+}
+```
+
+Returns a `Facts` object scoped to the session.

@@ -1,0 +1,82 @@
+---
+title: "Crisis Response Agent"
+description: "Immediate, documented response to crisis language."
+---
+
+<Info>
+**Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Real-time text/voice · C-SSRS criteria · Practice escalation tree · On-call availability
+</Info>
+
+Detect crisis language and connect a human in seconds — no AI gating.
+
+## Overview
+
+The Crisis Response Agent is always-on across every patient touchpoint — text, voice, in-session, between-session. When crisis language is detected by documented criteria, it connects a human within seconds.
+
+Agent gating is never allowed in the crisis path. The agent's job is to detect, escalate, and document — not to decide.
+
+## How this agent works
+
+### Configuration
+
+This agent takes the following configuration from your practice settings:
+
+- Crisis-language criteria (C-SSRS-aligned)
+- Practice escalation tree and on-call schedule
+- Documentation requirements
+- Patient safety policy
+
+### Execution
+
+At runtime, the agent executes the following steps:
+
+1. Monitors real-time text and voice for crisis language
+2. Classifies risk per C-SSRS-aligned criteria
+3. Triggers the practice escalation tree without agent gating
+4. Connects a human within seconds
+5. Logs the event and the response for audit
+
+## Composable experts
+
+The Crisis Response Agent bundles the following experts from the [registry](/agentic/experts/overview):
+
+| Expert | Role |
+| :--- | :--- |
+| **Crisis Detection Expert** | C-SSRS-aligned criteria |
+| **Escalation Expert** | Practice tree and on-call routing |
+| **Documentation Expert** | Event logging and follow-up |
+| **Safety Policy Expert** | Configurable safety guardrails |
+
+## Typical use cases
+
+- Detect crisis language across every patient touchpoint
+- Connect a human within seconds, every time
+- Document the crisis event and the response
+- Never gate a crisis response on a model decision
+
+## Compliance & safety guarantees
+
+- Agent gating is never allowed in the crisis path
+- Detection criteria are documented and configurable
+- Every crisis event is logged with the response and the follow-up
+
+## Tags
+
+`Crisis · C-SSRS · Escalation · Safety`
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Agentic Framework Overview" href="/agentic/overview">
+    Learn how agents compose with experts and the orchestrator.
+  </Card>
+  <Card title="Expert Registry" href="/agentic/experts/overview">
+    Browse the typed expert registry agents bundle.
+  </Card>
+  <Card title="Quickstart" href="/agentic/quickstart">
+    Send your first message to an agent.
+  </Card>
+  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
+    Learn how agents talk to each other.
+  </Card>
+</CardGroup>

@@ -1,0 +1,16 @@
+---
+title: "Session recordings"
+description: "Manage session recordings"
+---
+
+
+## Endpoints
+
+| Method | Path |
+| :--- | :--- |
+| `POST` | `/api/sessions/{id}/recordings` |
+| `GET` | `/api/sessions/{id}/recordings` |
+| `GET` | `/api/sessions/{id}/recordings/{recording_id}` |
+| `DELETE` | `/api/sessions/{id}/recordings/{recording_id}` |
+
+Limits: 60 minutes per recording, 150 MB max. Supported formats: WAV, MP3, M4A, OGG, FLAC, Opus.

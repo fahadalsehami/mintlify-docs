@@ -1,0 +1,14 @@
+---
+title: "Audit Logging"
+description: "Immutable WORM audit with Merkle integrity"
+---
+
+
+Every PHI access generates an audit event written to an append-only event store with the following properties:
+
+- **WORM**: write-once, read-many — events are immutable
+- **Merkle integrity**: events are chained into a Merkle tree; tampering breaks the tree
+- **6-year retention** by default (configurable up to 22 years)
+- **Per-tenant isolation**: RLS-enforced on the audit table
+
+Audit events include actor, action, resource, timestamp, and outcome.

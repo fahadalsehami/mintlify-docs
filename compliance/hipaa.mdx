@@ -1,0 +1,16 @@
+---
+title: "HIPAA Compliance"
+description: "How Medera implements HIPAA Security and Privacy Rule requirements"
+---
+
+
+| HIPAA section | Requirement | Medera implementation |
+| :--- | :--- | :--- |
+| §164.312(a)(1) | Access Control | JWT + RLS + tenant context + purpose-based access |
+| §164.312(a)(2)(iv) | Encryption at Rest | AES-256-GCM for PHI fields |
+| §164.312(b) | Audit Controls | PHI audit logging, 6-year retention, Merkle integrity |
+| §164.312(c)(1) | Integrity Controls | Hash-based document integrity, signed events |
+| §164.312(d) | Authentication | OAuth 2.0 client credentials + Clerk JWT for users |
+| §164.312(e)(1) | Transmission Security | TLS 1.3, HTTPS enforcement |
+| §164.308(a)(7)(ii)(A) | Backup | Encrypted backups with 14-day point-in-time recovery |
+| §164.308(a)(7)(ii)(B) | Disaster Recovery | Multi-AZ with regional failover |

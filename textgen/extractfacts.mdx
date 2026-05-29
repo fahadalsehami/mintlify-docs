@@ -1,0 +1,17 @@
+---
+title: "Facts Extraction"
+description: "Extract facts from transcript text"
+---
+
+
+Extract facts from arbitrary text without storing them:
+
+```bash
+POST /api/textgen/facts/extract
+{
+  "text": "Patient reports low mood for 6 weeks...",
+  "groups": ["presenting_problem", "validated_screener", "med_list"]
+}
+```
+
+Returns a list of `Fact` objects, each with a quoted span.

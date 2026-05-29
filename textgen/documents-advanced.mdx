@@ -1,0 +1,29 @@
+---
+title: "Advanced Document Generation"
+description: "Custom template definition and assembly"
+---
+
+
+Advanced document generation supports custom template definitions, per-section model overrides, and explicit fact selection.
+
+```bash
+POST /api/textgen/documents/advanced
+{
+  "template": {
+    "key": "custom_bh_intake_v2",
+    "sections": [
+      {
+        "key": "chief_complaint",
+        "required": true,
+        "facts_filter": { "group": "presenting_problem" }
+      },
+      {
+        "key": "screeners",
+        "required": true,
+        "facts_filter": { "group": "validated_screener" }
+      }
+    ]
+  },
+  "facts": { ... }
+}
+```

@@ -1,0 +1,16 @@
+---
+title: "Transforms (CEL)"
+description: "Data transformation with Common Expression Language"
+---
+
+
+Transform nodes run **Common Expression Language (CEL)** expressions for type-safe data transformation.
+
+```cel
+{
+  "patient_summary": input.patient.name + " — PHQ-9 score: " + string(input.screeners.phq9.score),
+  "high_risk": input.screeners.phq9.score >= 15 || input.screeners.cssrs.band == "high"
+}
+```
+
+CEL is sandboxed: no I/O, no network, no PHI exfiltration paths.

@@ -1,0 +1,55 @@
+---
+title: "RDoC Construct Computer"
+description: "15 documented RDoC constructs across 5 domains"
+---
+
+
+The RDoC Construct Computer maps multimodal features to **15 RDoC constructs across 5 domains** with zero overlap. Output is `ConstructActivation` objects with score (0–1), confidence, feature contributions, and clinical interpretations.
+
+## Domains and constructs
+
+<CardGroup cols={2}>
+  <Card title="Negative Valence Systems" href="/multimodal/rdoc/negative-valence">
+    Acute Threat (Fear), Potential Threat (Anxiety), Sustained Threat
+  </Card>
+  <Card title="Positive Valence Systems" href="/multimodal/rdoc/positive-valence">
+    Reward Responsiveness, Reward Anticipation, Reward Satiation
+  </Card>
+  <Card title="Cognitive Systems" href="/multimodal/rdoc/cognitive-systems">
+    Attention, Working Memory, Executive Function
+  </Card>
+  <Card title="Social Processes" href="/multimodal/rdoc/social-processes">
+    Social Communication, Affiliation / Attachment
+  </Card>
+  <Card title="Arousal & Regulatory Systems" href="/multimodal/rdoc/arousal-regulatory">
+    Arousal, Regulation, Circadian, Sleep/Wake
+  </Card>
+</CardGroup>
+
+## ConstructActivation schema
+
+```json
+{
+  "construct": "potential_threat_anxiety",
+  "domain": "negative_valence",
+  "score": 0.74,
+  "confidence": "HIGH",
+  "feature_contributions": {
+    "f0_mean": 0.31,
+    "jitter": 0.22,
+    "speaking_rate": 0.18,
+    "facial_affect_fear": 0.14,
+    "linguistic_uncertainty": 0.15
+  },
+  "clinical_interpretation": "Elevated anxiety markers...",
+  "window": { "start_ms": 0, "end_ms": 30000 }
+}
+```
+
+## Confidence calibration
+
+Confidence is reported as `VERY_HIGH`, `HIGH`, `MODERATE`, `LOW`, `VERY_LOW`. Below `MODERATE`, the activation is delivered with `requires_human_review: true`.
+
+## Latency
+
+Construct activation latency: < 110 ms P95 per window.

@@ -1,0 +1,16 @@
+---
+title: "POST /api/pa/{id}/evaluate-criteria"
+description: "Evaluate PA criteria"
+---
+
+## `POST /api/pa/{id}/evaluate-criteria`
+
+Evaluate the PA criteria against chart facts and payer policy.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/pa/{id}/evaluate-criteria \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

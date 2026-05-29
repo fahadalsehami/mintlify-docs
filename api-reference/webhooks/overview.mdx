@@ -1,0 +1,20 @@
+---
+title: "Webhooks Overview"
+description: "How Medera webhooks work"
+---
+
+
+Medera webhooks deliver event notifications to your configured endpoint. Every webhook is signed with `Medera-Signature: sha256=...` (HMAC-SHA256) — verify the signature before acting on the event.
+
+## Headers
+
+| Header | Description |
+| :--- | :--- |
+| `Medera-Signature` | HMAC-SHA256 of the body with your webhook signing secret |
+| `Medera-Event` | Event name |
+| `Medera-Delivery-Id` | Unique delivery ID (use for idempotency) |
+| `Medera-Timestamp` | Delivery timestamp (verify within ±5 minutes) |
+
+## Retry
+
+Failed deliveries retry with exponential backoff for 24 hours. After 24 hours, the delivery is moved to a dead-letter queue.

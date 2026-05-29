@@ -1,0 +1,28 @@
+---
+title: "POST /oauth/refresh"
+description: "Refresh an end-user access token"
+---
+
+## `POST /oauth/refresh`
+
+Refresh an end-user JWT via the Clerk refresh flow.
+
+### Request body
+
+```json
+{ "refresh_token": "..." }
+```
+
+### Response
+
+```json
+{ "access_token": "...", "expires_in": 3600 }
+```
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/oauth/refresh \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

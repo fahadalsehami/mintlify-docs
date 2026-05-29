@@ -1,0 +1,16 @@
+---
+title: "POST /api/agent-workflows/{id}/publish"
+description: "Publish a workflow version"
+---
+
+## `POST /api/agent-workflows/{id}/publish`
+
+Publish a semantic version. The version is immutable once published.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/agent-workflows/{id}/publish \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

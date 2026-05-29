@@ -1,0 +1,75 @@
+---
+title: "Quickstart — Real-Time AI Scribe"
+description: "Build an ambient scribe application on the Medera API"
+---
+
+
+This quickstart spins up a real-time ambient scribe in under 20 minutes: diarized capture, in-encounter SOAP drafting, ICD-10 / CPT code suggestions, and EHR sync.
+
+## Prerequisites
+
+- Medera client credentials (see [Quickstart — Authentication](/authentication/quickstart))
+- An EHR target configured in the Console (Epic, Cerner, athenahealth, etc.)
+- A microphone — see [Microphone Devices](/multimodal/stt/microphones)
+
+## 1. Create a session
+
+```bash
+curl -X POST https://api.medera.ai/api/sessions \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "patient_id": "pat_abc",
+    "provider_id": "prv_xyz",
+    "visit_type": "psychiatry_followup",
+    "modality": "telehealth"
+  }'
+```
+
+Save the returned `session_id`.
+
+## 2. Open the stream
+
+```javascript
+import { MederaClient } from '@medera/sdk';
+
+const client = new MederaClient({ accessToken });
+
+const stream = await client.streams.open({
+  sessionId,
+  audio: { sampleRate: 16000, encoding: 'pcm_s16le' },
+  features: ['transcript', 'soap', 'codes', 'span_anchors'],
+});
+
+stream.on('transcript.final', (e) => render(e));
+stream.on('note.section.update', (e) => updateNoteSection(e.section, e.text));
+stream.on('code.suggestion', (e) => renderCodeSuggestion(e));
+```
+
+## 3. Pipe microphone audio
+
+```javascript
+const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
+stream.streamAudio(mic);
+```
+
+## 4. Render and sign
+
+The clinician reviews the note. After sign-off:
+
+```bash
+curl -X POST https://api.medera.ai/api/clinical/notes/{id}/sign \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{ "signed_at": "2026-05-28T15:42:00Z" }'
+```
+
+Medera posts the signed note and code set to the configured EHR target.
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Streams endpoint" href="/multimodal/stt/streams">Full WebSocket schema.</Card>
+  <Card title="Visit Scribe Agent" href="/agentic/agents/visit-scribe">Agent-level documentation.</Card>
+  <Card title="Encounter Coding" href="/coding/encounter-coding">How code suggestions work.</Card>
+  <Card title="EHR Integrations" href="/api-reference/integrations/overview">Connect Epic, Cerner, athenahealth.</Card>
+</CardGroup>

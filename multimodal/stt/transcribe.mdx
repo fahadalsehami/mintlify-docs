@@ -1,0 +1,31 @@
+---
+title: "Transcribe endpoint"
+description: "Real-time speech-to-text and command-and-control"
+---
+
+
+`wss://api.medera.ai/transcribe` is a stateless dictation WebSocket for clinical editors.
+
+## Why stateless
+
+No session is required. No transcript is persisted server-side. The endpoint is designed for clinical editor dictation where the editor owns the text.
+
+## Configuration
+
+```json
+{
+  "type": "configure",
+  "language": "en-US",
+  "punctuation": "smart",
+  "commands": ["new_paragraph", "next_section", "period", "comma"],
+  "interim_results": true
+}
+```
+
+## Events
+
+| Event | Schema |
+| :--- | :--- |
+| `interim` | `{ text }` |
+| `final` | `{ text }` |
+| `command` | `{ command, args }` |

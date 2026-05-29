@@ -1,0 +1,16 @@
+---
+title: "POST /api/therapy-sessions/{id}/chunks"
+description: "Submit a session chunk (async)"
+---
+
+## `POST /api/therapy-sessions/{id}/chunks`
+
+Submit a chunk of audio/video for async processing.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.ai/api/therapy-sessions/{id}/chunks \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
+```

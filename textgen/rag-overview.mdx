@@ -1,0 +1,19 @@
+---
+title: "Clinical RAG Overview"
+description: "Hybrid retrieval over clinical knowledge"
+---
+
+
+Medera's Clinical RAG system runs hybrid semantic + keyword search over medical ontologies, clinical guidelines, drug interactions, and payer-specific authorization rules.
+
+## Layers
+
+- **Semantic retrieval:** ChromaDB vector index over the clinical knowledge base
+- **Keyword retrieval:** BM25 over the same corpus
+- **Ontology expansion:** SNOMED CT, ICD-10, RxNorm, LOINC term expansion
+- **Query rewriting:** clinical context-aware reformulation
+- **Citation tracking:** every retrieved chunk carries provenance
+
+## Confidence calibration
+
+Retrieval confidence: `VERY_HIGH` → `HIGH` → `MODERATE` → `LOW` → `VERY_LOW`. Below `MODERATE`, results are surfaced with `requires_human_review: true`.
