@@ -1,66 +1,171 @@
 ---
 title: "Quickstart — Prior Authorization"
-description: "Drive the 17-state PA workflow"
+description: "Drive the 17-state PA workflow end-to-end."
 ---
 
 
-## 1. Evaluate criteria
+The PA workflow runs through 17 documented states with payer-specific rules and 5-channel submission. Voice agent Taylor handles outbound peer-to-peer calls.
 
-```bash
-curl -X POST https://api.medera.ai/api/prior-auth/evaluate \
-  -H "Authorization: Bearer $TOKEN" \
-  -d '{
-    "patient_data": { "diagnosis_codes": ["F32.1"], "phq9_score": 14 },
-    "procedure_codes": ["90834"],
-    "payer_id": "AETNA"
-  }'
+## State machine
+
+```mermaid
+stateDiagram-v2
+  [*] --> PA_INITIATED
+  PA_INITIATED --> PA_CRITERIA_EVALUATION
+  PA_CRITERIA_EVALUATION --> PA_CRITERIA_EVALUATED
+  PA_CRITERIA_EVALUATED --> PA_DOCUMENTS_PENDING
+  PA_DOCUMENTS_PENDING --> PA_DOCUMENTS_READY
+  PA_DOCUMENTS_READY --> PA_PENDING_SUBMISSION
+  PA_PENDING_SUBMISSION --> PA_SUBMITTED
+  PA_SUBMITTED --> PA_IN_REVIEW
+  PA_IN_REVIEW --> PA_PENDED
+  PA_IN_REVIEW --> PA_APPROVED
+  PA_IN_REVIEW --> PA_PARTIALLY_APPROVED
+  PA_IN_REVIEW --> PA_DENIED
+  PA_PENDED --> PA_INFO_REQUESTED
+  PA_INFO_REQUESTED --> PA_IN_REVIEW
+  PA_DENIED --> PA_APPEAL_DRAFT
+  PA_APPEAL_DRAFT --> PA_APPEAL_SUBMITTED
+  PA_APPEAL_SUBMITTED --> PA_APPEAL_APPROVED
+  PA_APPEAL_SUBMITTED --> PA_APPEAL_DENIED
+  PA_DENIED --> PA_P2P_SCHEDULED
+  PA_P2P_SCHEDULED --> PA_P2P_COMPLETED
+  PA_APPROVED --> [*]
+  PA_APPEAL_APPROVED --> [*]
 ```
 
-Response: `recommendation` (`AUTO_APPROVE` / `LIKELY_APPROVE` / `NEEDS_REVIEW` / `LIKELY_DENY`).
+<Steps>
+  <Step title="Evaluate criteria">
+    <CodeGroup>
+      ```bash cURL
+      curl -X POST https://api.medera.ai/api/prior-auth/evaluate \
+        -H "X-API-Key: $MEDERA_API_KEY" \
+        -d '{
+          "patient_data": { "diagnosis_codes": ["F32.1"], "phq9_score": 14 },
+          "procedure_codes": ["90834"],
+          "payer_id": "AETNA"
+        }'
+      ```
 
-## 2. Create the PA request
+      ```typescript JavaScript
+      const result = await client.pa.evaluate({
+        patient_data: { diagnosis_codes: ['F32.1'], phq9_score: 14 },
+        procedure_codes: ['90834'],
+        payer_id: 'AETNA',
+      });
+      // result.recommendation: AUTO_APPROVE | LIKELY_APPROVE | NEEDS_REVIEW | LIKELY_DENY
+      ```
 
-```bash
-curl -X POST https://api.medera.ai/api/prior-auth/requests \
-  -H "Authorization: Bearer $TOKEN" \
-  -d '{
-    "patient_id": "pat_abc",
-    "diagnosis_codes": ["F32.1"],
-    "procedure_codes": ["90834"],
-    "clinical_justification": "...",
-    "payer_id": "AETNA"
-  }'
-```
+      ```python Python
+      result = client.pa.evaluate(
+          patient_data={"diagnosis_codes": ["F32.1"], "phq9_score": 14},
+          procedure_codes=["90834"],
+          payer_id="AETNA",
+      )
+      ```
+    </CodeGroup>
+  </Step>
 
-Initial state: `PA_INITIATED`.
+  <Step title="Create the PA request">
+    <CodeGroup>
+      ```bash cURL
+      curl -X POST https://api.medera.ai/api/prior-auth/requests \
+        -H "X-API-Key: $MEDERA_API_KEY" \
+        -d '{
+          "patient_id": "pat_abc",
+          "diagnosis_codes": ["F32.1"],
+          "procedure_codes": ["90834"],
+          "clinical_justification": "...",
+          "payer_id": "AETNA"
+        }'
+      ```
 
-## 3. Generate documents
+      ```typescript JavaScript
+      const req = await client.pa.createRequest({
+        patient_id: 'pat_abc',
+        diagnosis_codes: ['F32.1'],
+        procedure_codes: ['90834'],
+        clinical_justification: '...',
+        payer_id: 'AETNA',
+      });
+      ```
 
-```bash
-curl -X POST https://api.medera.ai/api/prior-auth/documents/generate \
-  -H "Authorization: Bearer $TOKEN" \
-  -d '{
-    "request_id": "pa_abc",
-    "document_types": ["MEDICAL_NECESSITY", "CLINICAL_SUMMARY"]
-  }'
-```
+      ```python Python
+      req = client.pa.create_request(
+          patient_id="pat_abc",
+          diagnosis_codes=["F32.1"],
+          procedure_codes=["90834"],
+          clinical_justification="...",
+          payer_id="AETNA",
+      )
+      ```
+    </CodeGroup>
 
-## 4. Submit
+    Initial state: `PA_INITIATED`.
+  </Step>
 
-```bash
-curl -X POST https://api.medera.ai/api/prior-auth/requests/{id}/submit \
-  -H "Authorization: Bearer $TOKEN"
-```
+  <Step title="Generate documents">
+    <CodeGroup>
+      ```bash cURL
+      curl -X POST https://api.medera.ai/api/prior-auth/documents/generate \
+        -H "X-API-Key: $MEDERA_API_KEY" \
+        -d '{
+          "request_id": "pa_abc",
+          "document_types": ["MEDICAL_NECESSITY", "CLINICAL_SUMMARY"]
+        }'
+      ```
 
-Channel priority: `EPA_API → CLEARINGHOUSE → PORTAL → FAX → MANUAL`.
+      ```typescript JavaScript
+      await client.pa.generateDocuments({
+        request_id: req.pa_id,
+        document_types: ['MEDICAL_NECESSITY', 'CLINICAL_SUMMARY'],
+      });
+      ```
+    </CodeGroup>
+  </Step>
 
-## 5. Track and appeal
+  <Step title="Submit">
+    Submission selects the highest-priority available channel:
 
-```bash
-curl https://api.medera.ai/api/prior-auth/requests/{id} \
-  -H "Authorization: Bearer $TOKEN"
+    ```
+    EPA_API → CLEARINGHOUSE → PORTAL → FAX → MANUAL
+    ```
 
-# If denied:
-curl -X POST https://api.medera.ai/api/prior-auth/requests/{id}/appeal \
-  -H "Authorization: Bearer $TOKEN"
-```
+    ```bash
+    curl -X POST https://api.medera.ai/api/prior-auth/requests/{id}/submit \
+      -H "X-API-Key: $MEDERA_API_KEY"
+    ```
+  </Step>
+
+  <Step title="Track and appeal">
+    Poll status; if denied, generate the appeal with new evidence.
+
+    ```bash
+    curl https://api.medera.ai/api/prior-auth/requests/{id} \
+      -H "X-API-Key: $MEDERA_API_KEY"
+
+    # If denied:
+    curl -X POST https://api.medera.ai/api/prior-auth/requests/{id}/appeal \
+      -H "X-API-Key: $MEDERA_API_KEY"
+    ```
+  </Step>
+</Steps>
+
+## Supported payers
+
+`CARELON_ANTHEM`, `OPTUM_BH`, `MAGELLAN`, `EVERNORTH`, `UNITED_HEALTHCARE`, `AETNA`, `CIGNA`, `BLUE_CROSS`, `MEDICAID`, `MEDICARE`.
+
+## Document types
+
+`MEDICAL_NECESSITY`, `CLINICAL_SUMMARY`, `TREATMENT_PLAN`, `ASSESSMENT`, `PROGRESS_NOTE`, `DISCHARGE_SUMMARY` — plus X-12 EDI 278 for clearinghouse submission.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Prior Authorization Agent" icon="file-check" href="/agentic/agents/prior-authorization">Agent-level documentation.</Card>
+  <Card title="PA API" icon="terminal" href="/api-reference/pa/initiate">Full REST surface.</Card>
+  <Card title="Denial Appeals" icon="undo" href="/agentic/agents/denial-appeals">Appeal lifecycle.</Card>
+  <Card title="Eligibility" icon="badge-check" href="/agentic/agents/eligibility-verification">Pre-visit benefits.</Card>
+</CardGroup>

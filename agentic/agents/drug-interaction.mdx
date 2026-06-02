@@ -4,31 +4,21 @@ description: "Behavioral-health-aware interaction and contraindication checks."
 ---
 
 <Info>
-**Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Active med list · Prescribing context · Patient comorbidities · Allergies
+  **Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Active med list · Prescribing context · Patient comorbidities · Allergies
 </Info>
 
 Catch interactions that matter in psychopharmacology and primary care overlap.
 
-## Overview
+## Configuration
 
-The Drug Interaction Agent runs at the point of prescribing — checking the pending order against the active med list and the patient's comorbidities and allergies.
+| Field | Description |
+| :--- | :--- |
+| `library` | Drug interaction library (DrugBank, RxNorm) |
+| `severity_threshold` | Severity threshold for surfacing |
+| `specialty_context` | Specialty context (psychopharm, primary care) |
+| `policy` | Allergy + contraindication policy |
 
-Warnings are severity-graded, surfaced with rationale, and the prescribing decision (including overrides) is logged.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Drug interaction library (DrugBank, RxNorm)
-- Severity threshold for surfacing
-- Specialty context (psychopharm, primary care)
-- Allergy and contraindication policy
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reads the active med list and pending order
 2. Runs interaction and contraindication checks
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Drug Interaction Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
 | **DrugBank Expert** | Interaction library queries |
 | **Psychopharm Interaction Expert** | BH-specific interaction logic |
-| **Contraindication Expert** | Patient comorbidity and allergy logic |
+| **Contraindication Expert** | Patient comorbidity + allergy logic |
 | **Severity Grading Expert** | Clinical severity scoring |
 
-## Typical use cases
+## Compliance guarantees
 
-- Catch psychopharm interactions that matter at the point of prescribing
-- Surface contraindications based on patient comorbidities
-- Log overrides and rationale for safety review
-- Update the interaction library as new evidence emerges
-
-## Compliance & safety guarantees
-
+<Warning>
 - Interaction library is current and configurable
 - Severity grading is explicit
 - Overrides are logged with rationale
+</Warning>
 
-## Tags
+## Endpoints
 
-`Interactions · Contraindications · Psychopharm · Safety`
+Canvas: `rails/pharmacy`. Care Orchestrator event: `PRESCRIPTION_INTERACTION_WARNING`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

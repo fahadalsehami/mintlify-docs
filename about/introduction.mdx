@@ -1,66 +1,108 @@
 ---
-title: "Introduction to Medera"
-description: "Behavioral-health-native AI infrastructure"
+title: "Introduction to the Medera API"
+description: "Overview of the Medera application programming interfaces"
 ---
 
 
-Medera is the AI infrastructure stack for behavioral and mental health, built for clinical accuracy, evidence anchoring, and enterprise compliance.
+Medera is the AI infrastructure stack for behavioral and mental health, built for clinical accuracy, evidence anchoring, and enterprise compliance. Behavioral health's specialized language, validated screeners, and crisis-detection requirements demand purpose-built AI infrastructure — not a generic LLM with a prompt.
 
-## What ships
+The Medera platform delivers multimodal sensing, medical-grade text generation, and agentic clinical automation through a single API that drops into existing EHR and payer workflows.
+
+<Tip>
+  The platform runs on a HIPAA-grade runtime with Row-Level Security on every tenant-scoped table, AES-256-GCM at rest for PHI, and 42 CFR Part 2 controls in the request path.
+</Tip>
+
+## Why choose Medera
+
+|                                       |                                                                                                            |
+| :------------------------------------ | :--------------------------------------------------------------------------------------------------------- |
+| **Purpose-built for behavioral health** | Validated screeners, crisis detection, and 42 CFR Part 2 controls are first-class.                       |
+| **Multimodal by default**             | Voice, facial physiology, and linguistic content fuse into one defensible clinical read.                   |
+| **Composable agents**                 | 24 production agents and 16 + 8 canvas node types with a typed expert registry.                            |
+| **Customizable and scalable**         | Sandbox-first deployments with semver versioning and WORM audit on every promotion.                        |
+
+<Columns cols={2}>
+  <Card title="Flexible infrastructure" icon="layers">
+    <Icon icon="circle-check" /> Bespoke REST + WebSocket APIs <br />
+    <Icon icon="circle-check" /> JavaScript + Python SDKs <br />
+    <Icon icon="circle-check" /> Embeddable web components
+  </Card>
+  <Card title="Built for healthcare" icon="stethoscope">
+    <Icon icon="circle-check" /> Behavioral-health language proficiency <br />
+    <Icon icon="circle-check" /> Secure and compliant <br />
+    <Icon icon="circle-check" /> Real-time or asynchronous
+  </Card>
+</Columns>
+
+---
+
+## Integrate seamlessly
+
+Medera integrates via REST + WebSocket. The same API powers **Medera Studio** — a packaged, EHR-agnostic, real-time ambient scribe and intake agent. To embed Medera into an existing workflow or customize the interactions, dive into the API documentation below.
 
 <CardGroup cols={2}>
-  <Card title="Agent Builder Canvas" icon="layout-grid" href="/agentic/canvas/overview">
-    16 core node types + 8 BH-OS rails, semver versioning, sandbox-first deployment, WORM audit.
+  <Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview" horizontal>
+    Voice + facial physiology + RDoC fusion.
   </Card>
-  <Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview">
-    Vocal Acoustic Engine (Praat / Parselmouth), Facial Physiological Engine (rPPG + HRV), RDoC Construct Computer (15 named constructs).
+  <Card title="Text Generation" icon="text-align-start" href="/textgen/overview" horizontal>
+    SOAP, referral, discharge, PA letters.
   </Card>
-  <Card title="Care Orchestrator" icon="grid-2x2" href="/agentic/orchestrator">
-    4 voice agents (Grace, Alex, Jordan, Taylor) + 6 workflow agents, 30+ state workflow state machine, event bus.
+  <Card title="Agentic Framework" icon="layers" href="/agentic/overview" horizontal>
+    24 production agents + Agent Builder Canvas.
   </Card>
-  <Card title="Medical Coding" icon="code" href="/coding/overview">
-    ICD-10-CM, ICD-10-PCS, CPT, HCPCS, SNOMED CT, LOINC, RxNorm coding from clinical context.
+  <Card title="Medical Coding" icon="code" href="/coding/overview" horizontal>
+    ICD-10, CPT, HCPCS, SNOMED, LOINC, RxNorm.
   </Card>
 </CardGroup>
+
+---
+
+## Core capabilities
+
+<CardGroup cols={3}>
+  <Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview" horizontal>
+    Real-time and asynchronous medical speech recognition, facial physiology, and vocal acoustics.
+  </Card>
+  <Card title="Text Generation" icon="text-align-start" href="/textgen/overview" horizontal>
+    Reliable healthcare-focused LLM output, SOAP notes, and document generation.
+  </Card>
+  <Card title="Agentic Framework" icon="layers" href="/agentic/overview" horizontal>
+    24 composable clinical agents and a canvas to build your own.
+  </Card>
+</CardGroup>
+
+---
 
 ## Two-service architecture
 
-```
-┌──────────────────────────────────────────────────────────────────────────┐
-│                         FRONTEND (Port 5173)                             │
-│   React 19 + Vite 7 + Tailwind 3 + Socket.IO + TensorFlow.js             │
-└────────────────────────────────┬─────────────────────────────────────────┘
-                                 │
-                 ┌───────────────┴───────────────┐
-                 ▼                               ▼
-┌──────────────────────────────┐  ┌────────────────────────────────────────┐
-│    BACKEND (Port 3001)       │  │      AI SERVICES (Port 8000)           │
-│  Node.js/Express + Socket.IO │  │    Python/FastAPI + OpenAI + PyTorch   │
-│  58 routes · 57 services     │  │  22 routers · multimodal engines · PA  │
-│  18 middleware · RLS · BAA   │  │  Care Orchestrator · Clinical RAG      │
-│  Workflow Engine + Bull queue│  │  Vapi voice orchestration              │
-└──────────────┬───────────────┘  └──────────────┬─────────────────────────┘
-               │                                  │
-               ▼                                  ▼
-┌──────────────────────────────────────────────────────────────────────────┐
-│              POSTGRESQL 16 (5433) + REDIS (6380)                          │
-│        RLS · AES-256-GCM PHI · Merkle audit · WORM deployment log         │
-└──────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+  FE["Frontend · Port 5173<br/>React 19 · Vite 7 · Socket.IO"]
+  BE["Backend · Port 3001<br/>Node / Express · 58 routes · 57 services<br/>Workflow Engine + Bull queue"]
+  AI["AI Services · Port 8000<br/>FastAPI · OpenAI · PyTorch<br/>Multimodal engines · Vapi · RAG"]
+  PG[("PostgreSQL 16<br/>Port 5433 · RLS")]
+  RD[("Redis<br/>Port 6380 · Bull queue")]
+
+  FE --> BE
+  FE -.-> AI
+  BE --> PG
+  BE --> RD
+  AI --> PG
+  AI --> RD
 ```
 
-## What you can build
+---
 
-<CardGroup cols={2}>
-  <Card title="Quickstart — Ambient Scribe" href="/quickstart/ambient-rt">
-    Real-time SOAP scribe using the clinical session APIs.
-  </Card>
-  <Card title="Quickstart — Intake (Grace)" href="/quickstart/intake-agent">
-    Voice-first adaptive intake with 4 function calls.
-  </Card>
-  <Card title="Quickstart — Co-Therapy" href="/quickstart/co-therapy">
-    Multimodal in-session analysis + RDoC profiles.
-  </Card>
-  <Card title="Quickstart — Prior Authorization" href="/quickstart/prior-auth">
-    17-state PA workflow with payer-specific rules.
-  </Card>
-</CardGroup>
+## Bringing it all together
+
+- Each component has its own tab: [Multimodal Sensing](/multimodal/overview), [Text Generation](/textgen/overview), [Agentic Framework](/agentic/overview), and [Coding](/coding/overview).
+- The [API Reference](/api-reference/welcome) tab provides detailed specifications for each endpoint.
+- The [Console](https://app.medera.ai) is where you create accounts and Developer API Keys.
+- Quickstarts outline how to get started fast. Start with [Authentication](/authentication/overview).
+- The [SDKs](/sdks/overview) section covers JavaScript, Python, web components, and Postman.
+- The [Examples Repository](https://github.com/medera-ai/examples) provides working code.
+- The [Release Notes](/release-notes/overview) page provides the change policy and per-product notes.
+
+<Note>
+  If you have questions about implementing Medera in your environment or product, [contact us](https://help.medera.ai).
+</Note>

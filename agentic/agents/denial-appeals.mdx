@@ -1,34 +1,24 @@
 ---
 title: "Denial Appeals Agent"
-description: "Evidence-based denial appeals from chart and policy."
+description: "Evidence-based denial appeals from chart and payer policy."
 ---
 
 <Info>
-**Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Denial reason · Chart facts · Payer policy · Peer-reviewed evidence
+  **Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Denial reason · Chart facts · Payer policy · Peer-reviewed evidence
 </Info>
 
 Appeal denials with documented evidence and payer-policy citations.
 
-## Overview
+## Configuration
 
-The Denial Appeals Agent reads the denial reason, pulls relevant chart context and payer policy, and drafts a submission-ready appeal letter with documented evidence.
+| Field | Description |
+| :--- | :--- |
+| `payer_library` | Payer policy library + carrier rules |
+| `approval_workflow` | Practice approval workflow |
+| `evidence_base` | Evidence base (PubMed, internal protocols) |
+| `templates` | Appeal letter templates |
 
-It surfaces denials that aren't worth appealing and tracks the outcomes of those that are.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Payer policy library and carrier rules
-- Practice approval workflow
-- Evidence base (PubMed, internal protocols)
-- Appeal letter templates
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reads the denial reason and the original claim
 2. Pulls relevant chart context and payer policy
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Denial Appeals Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
 | **Payer Policy Expert** | Carrier-specific appeal criteria |
-| **PubMed Expert** | Peer-reviewed evidence for appeals |
-| **Chart Evidence Expert** | Relevant chart spans for appeals |
-| **Appeal Strategy Expert** | Appeal letter structure and arguments |
+| **PubMed Expert** | Peer-reviewed evidence |
+| **Chart Evidence Expert** | Relevant chart spans |
+| **Appeal Strategy Expert** | Appeal letter structure + arguments |
 
-## Typical use cases
+## Compliance guarantees
 
-- Appeal denials that should have been approved
-- Cite policy and evidence in every appeal letter
-- Track appeal outcomes and improve future PA submissions
-- Surface denials that aren't worth appealing
-
-## Compliance & safety guarantees
-
+<Warning>
 - Every appeal carries chart and policy citations
 - Appeal recommendations include new evidence, not the same argument
 - Submission requires explicit clinician approval
+</Warning>
 
-## Tags
+## Endpoints
 
-`Appeals · Denials · Payer Policy · Evidence`
+REST: `POST /api/prior-auth/requests/{id}/appeal`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

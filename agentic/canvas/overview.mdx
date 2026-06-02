@@ -1,35 +1,61 @@
 ---
 title: "Agent Builder Canvas"
-description: "Visual workflow editor for composable clinical agents"
+description: "Visual workflow editor for composable behavioral-health agents."
 ---
 
 
-The Agent Builder Canvas is a visual workflow editor backed by a real workflow engine (471-line `WorkflowExecutor` + 285-line `WorkflowQueue` on Bull/Redis, 5 concurrent workers, 3-attempt retry with 5 s exponential backoff). Workflows compose 16 core node types plus 8 BH-OS rail node types.
+The Agent Builder Canvas is a visual workflow editor backed by a production workflow engine. It composes **16 core node types** plus **8 BH-OS rails** into clinical workflows that ship safely from sandbox to production with WORM audit.
+
+<CardGroup cols={4}>
+  <Card title="WorkflowExecutor" icon="play" horizontal>
+    471 lines · graph traversal · RLS-scoped
+  </Card>
+  <Card title="ExecutionContext" icon="memory" horizontal>
+    354 lines · 5 variable scopes
+  </Card>
+  <Card title="WorkflowQueue" icon="list" horizontal>
+    285 lines · Bull queue · 5 workers
+  </Card>
+  <Card title="BaseNodeRunner" icon="puzzle" horizontal>
+    15 runners + StudioBlockRunner
+  </Card>
+</CardGroup>
+
+---
 
 ## Lifecycle
 
-```
-draft → published (immutable version) → deployed (sandbox)
-                                       └→ deployed (production) → archived | disabled
+```mermaid
+stateDiagram-v2
+  [*] --> draft
+  draft --> published: publish() ·<br/>snapshot to agent_workflow_versions
+  published --> deployed_sandbox: auto-deploy ·<br/>72h auto-expire
+  deployed_sandbox --> deployed_production: promote
+  deployed_production --> archived
+  deployed_production --> disabled
+  draft --> draft: auto-save ·<br/>hash-deduped
 ```
 
 `agent_workflows` carries the current draft. Publishing snapshots the canvas into `agent_workflow_versions` and immediately deploys to sandbox. Promotion to production is explicit.
 
 ## Optimistic concurrency
 
-Every draft update is guarded by `lock_version` — concurrent edits to the same workflow return `409 idempotency_conflict`. Draft auto-save is hash-deduped: identical payloads do not create new versions.
+Every draft update is guarded by `lock_version`. Concurrent edits to the same workflow return `409 idempotency_conflict`. Draft auto-save is hash-deduped — identical payloads do not create new versions.
 
 ## Tenant isolation
 
 The canvas is tenant-scoped end to end:
+
 - `agent_workflows.organization_id` is RLS-enforced
 - Published versions inherit the org
-- Deployments expose `https://sandbox.medera.info/{org}/{agent}-v{ver}` or `https://agents.medera.info/{org}/{agent}` URLs
-- Sandbox deployments auto-expire 72 h after deploy (`auto_expire_at`)
+- Deployments expose `https://sandbox.medera.info/{org}/{agent}-v{ver}` (sandbox) or `https://agents.medera.info/{org}/{agent}` (production)
+- Sandbox deployments auto-expire 72 h after deploy
+
+---
 
 ## Variable scopes
 
-Canvas nodes can reference variables using `{{scope.path}}` syntax. Available scopes:
+Canvas nodes can reference variables using `{{scope.path}}` syntax. Five scopes are available:
 
 | Scope | Lifetime | Mutability | Example |
 | :--- | :--- | :--- | :--- |
@@ -40,6 +66,8 @@ Canvas nodes can reference variables using `{{scope.path}}` syntax. Available sc
 | `tenant.secret` | Persistent | Read-only | `{{tenant.secret.epic_oauth_client_id}}` |
 
 `tenant.secret` is sourced from your configured secret store (SSM / Vault) — secrets are never inlined into versions or deployments.
+
+---
 
 ## Real-time events (Socket.IO)
 
@@ -55,11 +83,13 @@ The executor emits the following events to the org room and per-execution room:
 | `workflow:execution:completed` | Reached `end` node |
 | `workflow:execution:failed` | Node threw without an error handler |
 
+---
+
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Node Types" href="/agentic/canvas/node-types">16 core nodes + 8 BH-OS rails.</Card>
-  <Card title="Variables & Scopes" href="/agentic/canvas/variables-scopes">Variable resolution and template syntax.</Card>
-  <Card title="Versioning & Deployment" href="/agentic/canvas/versioning-deployment">Sandbox-first deployment with WORM audit.</Card>
-  <Card title="Guardrails" href="/agentic/canvas/guardrails">HIPAA + 42 CFR Part 2 enforcement.</Card>
+  <Card title="Node Types" icon="puzzle" href="/agentic/canvas/node-types">16 core nodes + 8 BH-OS rails.</Card>
+  <Card title="Variables & Scopes" icon="code" href="/agentic/canvas/variables-scopes">Variable resolution and template syntax.</Card>
+  <Card title="Versioning & Deployment" icon="rocket" href="/agentic/canvas/versioning-deployment">Sandbox-first deployment with WORM audit.</Card>
+  <Card title="Guardrails" icon="shield-check" href="/agentic/canvas/guardrails">HIPAA + 42 CFR Part 2 enforcement.</Card>
 </CardGroup>

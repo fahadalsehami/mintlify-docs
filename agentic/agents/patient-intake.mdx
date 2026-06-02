@@ -1,43 +1,49 @@
 ---
-title: "Patient Intake Agent"
-description: "Voice-first adaptive intake (Grace)"
+title: "Patient Intake Agent (Grace)"
+description: "Voice-first adaptive intake for behavioral health."
 ---
 
 
 <Info>
-**Category:** Clinical Operations &nbsp;·&nbsp; **Voice agent:** Grace (`AgentType.INTAKE`) &nbsp;·&nbsp; **Voice ID:** ElevenLabs `21m00Tcm4TlvDq8ikWAM` (Rachel)
+  **Category:** Clinical Operations &nbsp;·&nbsp; **Voice agent:** Grace (`AgentType.INTAKE`) &nbsp;·&nbsp; **Voice ID:** ElevenLabs `21m00Tcm4TlvDq8ikWAM` (Rachel)
 </Info>
 
-The Patient Intake Agent runs the first contact a patient has with the practice. It is voice-first, runs through Vapi orchestration with Deepgram `nova-2-medical` transcription, and follows a documented 7-state conversation state machine with 10 task types.
+The Patient Intake Agent runs the first contact a patient has with the practice. It is voice-first, orchestrated via Vapi with Deepgram `nova-2-medical` transcription and an ElevenLabs voice, and follows a documented 7-state conversation state machine.
 
 ## Conversation state machine
 
-```
-GREETING → IDENTITY_VERIFICATION → GATHERING_INFO →
-MENTAL_HEALTH_SCREENING → APPOINTMENT_SCHEDULING →
-SUMMARY_CONFIRMATION → CLOSING → COMPLETED
-```
+```mermaid
+stateDiagram-v2
+  [*] --> GREETING
+  GREETING --> IDENTITY_VERIFICATION
+  IDENTITY_VERIFICATION --> GATHERING_INFO
+  GATHERING_INFO --> MENTAL_HEALTH_SCREENING
+  MENTAL_HEALTH_SCREENING --> APPOINTMENT_SCHEDULING
+  APPOINTMENT_SCHEDULING --> SUMMARY_CONFIRMATION
+  SUMMARY_CONFIRMATION --> CLOSING
+  CLOSING --> COMPLETED
+  COMPLETED --> [*]
 
-Alternative terminal state: `ESCALATED` (reachable from any state).
+  IDENTITY_VERIFICATION --> ESCALATED: escalate_urgent()
+  GATHERING_INFO --> ESCALATED: escalate_urgent()
+  MENTAL_HEALTH_SCREENING --> ESCALATED: crisis-language
+  ESCALATED --> [*]
+```
 
 ## Task types (`TaskType` enum)
 
 `IDENTITY_VERIFICATION`, `INSURANCE_VERIFICATION`, `APPOINTMENT_SCHEDULING`, `REFERRAL_PROCESSING`, `PRE_AUTHORIZATION`, `PRESCRIPTION_REFILL`, `BILLING_CALCULATION`, `SYMPTOM_DOCUMENTATION`, `CHIEF_COMPLAINT`, `URGENT_CARE_TRIAGE`.
 
-## Function calls
+## Grace's 4 function calls
 
-Grace's prompt registers **4 function calls** that the LLM can invoke during the call:
-
-| Function | Signature |
-| :--- | :--- |
-| `verify_identity` | `(patient_id, verification_data)` — 2-of-3 required (DOB, address, SSN last 4) |
-| `document_symptom` | `(symptom_description, severity_level, onset_date)` |
-| `flag_for_review` | `(reason, urgency_level)` |
-| `escalate_urgent` | `(escalation_reason, call_action)` |
+| Function | Signature | Purpose |
+| :--- | :--- | :--- |
+| `verify_identity` | `(patient_id, verification_data)` | 2-of-3 ID confirmation (DOB, address, SSN last 4) |
+| `document_symptom` | `(symptom_description, severity_level, onset_date)` | Capture chief complaint |
+| `flag_for_review` | `(reason, urgency_level)` | Flag for clinical review queue |
+| `escalate_urgent` | `(escalation_reason, call_action)` | Hard escalation — no agent gating |
 
 ## Workflow modules
-
-The intake conversation runs one of three reusable workflow modules:
 
 | Module | Purpose |
 | :--- | :--- |
@@ -49,19 +55,19 @@ The intake conversation runs one of three reusable workflow modules:
 
 `GRACE_SYSTEM_PROMPT_TEMPLATE` is composed of 13 sections, including:
 
-1. PATIENT CONTEXT (name, DOB, provider, conditions, meds, allergies)
-2. CALL SCENARIO (type + scenario_details)
-3. CONVERSATION GUIDELINES (tone, opening, **AI / recording disclosure — mandatory**, identity verification, info gathering, sensitive topics, urgent situations, closing)
+1. **Patient context** (name, DOB, provider, conditions, meds, allergies)
+2. **Call scenario** (type + scenario details)
+3. **Conversation guidelines** (tone, opening, AI / recording disclosure — **mandatory**, identity verification, info gathering, sensitive topics, urgent situations, closing)
 
 ## Configuration
 
 | Field | Description |
 | :--- | :--- |
-| `intake_template_id` | Practice intake template (fields, screeners, scripts) |
+| `intake_template_id` | Practice intake template |
 | `screeners` | Default `["phq-9", "gad-7", "audit-c", "c-ssrs"]` |
 | `routing_matrix` | Practice routing rules by acuity and payer |
 | `language` | Preferred language for the call |
-| `crisis_escalation_tree_id` | Practice escalation policy + handoff destinations |
+| `crisis_escalation_tree_id` | Practice escalation policy |
 | `workflow_modules` | `["general_intake"]` by default |
 
 ## Composable experts
@@ -69,22 +75,26 @@ The intake conversation runs one of three reusable workflow modules:
 | Expert | Role |
 | :--- | :--- |
 | **Vocal Prosody Expert** | F0, jitter, shimmer for affect and acuity inference |
-| **Linguistic Content Expert** | Topic, valence, certainty, pronoun shift markers |
+| **Linguistic Content Expert** | Topic, valence, certainty, pronoun-shift markers |
 | **Validated Screener Expert** | PHQ-9, GAD-7, AUDIT-C, C-SSRS administration and scoring |
 | **C-SSRS Risk Expert** | Suicide-risk classification with documented rationale |
 
 ## Compliance guarantees
 
-- **Verbal recording + AI disclosure** is mandatory before any clinical questions
-- Identity verification requires 2-of-3 confirmation
-- Crisis-language detection bypasses agent gating and triggers `escalate_urgent`
-- Every claim in the summary is anchored to a quoted span in the transcript
+<Warning>
+  - **Verbal recording + AI disclosure** is mandatory before any clinical questions.
+  - **Identity verification** requires 2-of-3 confirmation.
+  - **Crisis-language detection** bypasses agent gating and triggers `escalate_urgent` immediately.
+  - **Every claim** in the summary is anchored to a quoted span in the transcript.
+</Warning>
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Quickstart" href="/quickstart/intake-agent">Deploy Grace in 15 minutes.</Card>
-  <Card title="Vapi Webhooks" href="/api-reference/intake/webhooks-vapi">Webhook event schema.</Card>
-  <Card title="Intake API" href="/api-reference/intake/create-call">Backend REST surface.</Card>
-  <Card title="Care Orchestrator" href="/agentic/orchestrator">Multi-agent runtime.</Card>
+  <Card title="Quickstart" icon="zap" href="/quickstart/intake-agent">Deploy Grace in 15 minutes.</Card>
+  <Card title="Vapi Webhooks" icon="webhook" href="/api-reference/intake/webhooks-vapi">Webhook schema.</Card>
+  <Card title="Intake API" icon="terminal" href="/api-reference/intake/create-call">REST surface.</Card>
+  <Card title="Care Orchestrator" icon="grid-2x2" href="/agentic/orchestrator">Multi-agent runtime.</Card>
 </CardGroup>

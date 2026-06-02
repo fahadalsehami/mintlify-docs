@@ -1,82 +1,59 @@
 ---
-title: "Referral Generator Agent"
-description: "Clinician-to-clinician referral letters in seconds."
+title: "Referral Generator Agent (Jordan)"
+description: "Voice agent Jordan generates referral letters in seconds."
 ---
 
 <Info>
-**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Referral reason · Chart context · Network logic · Closed-loop confirmations
+  **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Referral reason · Chart context · Network logic · Closed-loop confirmations
 </Info>
 
-Generate complete, contextual referral letters from chart and visit context.
+Generate complete, contextual referral letters from chart and visit context. Voice agent Jordan on ElevenLabs `EXAVITQu4vr4xnSDxMaL` (Bella).
 
-## Overview
+## Configuration
 
-The Referral Generator drafts a complete, contextual letter from the chart and the referral reason. It applies in-network and partner-preference rules and attaches the right context — prior care, screeners, labs.
+| Field | Description |
+| :--- | :--- |
+| `templates` | Specialty referral templates |
+| `referral_graph` | In-network + partner referral graph |
+| `attachment_policy` | Attachment policy (notes, screeners, labs) |
+| `closed_loop_tracking` | Closed-loop tracking + reminders |
 
-Every referral is tracked to closed-loop confirmation. Stalled referrals are surfaced to the care team with rationale.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Specialty referral templates
-- In-network and partner referral graph
-- Attachment policy (notes, screeners, labs)
-- Closed-loop tracking and reminders
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Classifies the referral reason and required content
 2. Pulls chart context, prior care, and relevant attachments
 3. Applies in-network and partner-preference rules
 4. Drafts the letter against the specialty template
-5. Tracks receipt, scheduling, completion, and documentation
+5. Tracks receipt, scheduling, completion, documentation
 
 ## Composable experts
 
-The Referral Generator Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **Referral Reason Expert** | Reason classification and required-content mapping |
-| **Chart Context Expert** | Relevant prior care, current state, and attachments |
-| **Network Logic Expert** | In-network and partner-preference rules |
-| **Closed-Loop Audit Expert** | Receipt, scheduled, completed, documented |
+| **Referral Reason Expert** | Reason classification + required-content mapping |
+| **Chart Context Expert** | Relevant prior care, current state, attachments |
+| **Network Logic Expert** | In-network + partner-preference rules |
+| **Closed-Loop Audit Expert** | Receipt → scheduled → completed → documented |
 
-## Typical use cases
+## Compliance guarantees
 
-- Generate a complete referral letter in 60 seconds, not 20 minutes
-- Route referrals to the right specialist by network and capacity
-- Track closed-loop confirmation and surface stalled referrals
-- Attach the right notes and screeners every time
-
-## Compliance & safety guarantees
-
+<Warning>
 - Every referral letter is anchored to chart spans and screener scores
 - Closed-loop tracking is mandatory and documented
 - Network preferences are configured by the practice, not the model
+</Warning>
 
-## Tags
+## Endpoints
 
-`Referral · Letter · Closed-loop · Network`
+Canvas: `rails/referral`. Care Orchestrator: `AgentType.REFERRAL` + voice via `AgentType.REFERRAL_SPECIALIST` (Jordan).
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

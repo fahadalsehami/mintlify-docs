@@ -1,34 +1,24 @@
 ---
 title: "Crisis Response Agent"
-description: "Immediate, documented response to crisis language."
+description: "Immediate, documented response to crisis language — no AI gating."
 ---
 
 <Info>
-**Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Real-time text/voice · C-SSRS criteria · Practice escalation tree · On-call availability
+  **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Real-time text/voice · C-SSRS criteria · Practice escalation tree · On-call availability
 </Info>
 
-Detect crisis language and connect a human in seconds — no AI gating.
+Always-on across every patient touchpoint. Detect, escalate, document — never decide.
 
-## Overview
+## Configuration
 
-The Crisis Response Agent is always-on across every patient touchpoint — text, voice, in-session, between-session. When crisis language is detected by documented criteria, it connects a human within seconds.
+| Field | Description |
+| :--- | :--- |
+| `criteria` | C-SSRS-aligned crisis-language criteria |
+| `escalation_tree` | Practice escalation tree + on-call schedule |
+| `documentation` | Documentation requirements |
+| `safety_policy` | Patient safety policy |
 
-Agent gating is never allowed in the crisis path. The agent's job is to detect, escalate, and document — not to decide.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Crisis-language criteria (C-SSRS-aligned)
-- Practice escalation tree and on-call schedule
-- Documentation requirements
-- Patient safety policy
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Monitors real-time text and voice for crisis language
 2. Classifies risk per C-SSRS-aligned criteria
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Crisis Response Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
 | **Crisis Detection Expert** | C-SSRS-aligned criteria |
-| **Escalation Expert** | Practice tree and on-call routing |
-| **Documentation Expert** | Event logging and follow-up |
+| **Escalation Expert** | Practice tree + on-call routing |
+| **Documentation Expert** | Event logging + follow-up |
 | **Safety Policy Expert** | Configurable safety guardrails |
 
-## Typical use cases
+## Compliance guarantees
 
-- Detect crisis language across every patient touchpoint
-- Connect a human within seconds, every time
-- Document the crisis event and the response
-- Never gate a crisis response on a model decision
-
-## Compliance & safety guarantees
-
-- Agent gating is never allowed in the crisis path
+<Warning>
+- Agent gating is NEVER allowed in the crisis path
 - Detection criteria are documented and configurable
 - Every crisis event is logged with the response and the follow-up
+</Warning>
 
-## Tags
+## Endpoints
 
-`Crisis · C-SSRS · Escalation · Safety`
+Canvas: `guardrails` (suicide-language rule) + `escalate`. Care Orchestrator: `INTAKE_RED_FLAG_DETECTED` event.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

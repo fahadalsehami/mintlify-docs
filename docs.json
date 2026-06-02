@@ -2,17 +2,17 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Medera",
-  "description": "AI infrastructure for behavioral and mental health. Multimodal biomarkers, validated screeners, composable clinical agents, and HIPAA-grade APIs for the next generation of clinical software.",
-  "colors": {
-    "primary": "#141413",
-    "light": "#76a1fc",
-    "dark": "#fafafa"
-  },
+  "description": "Behavioral-health-native AI infrastructure: canvas agents, multimodal sensing, voice orchestration, and a HIPAA-grade runtime.",
   "favicon": "/favicon.svg",
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
     "href": "https://medera.ai"
+  },
+  "colors": {
+    "primary": "#141413",
+    "light": "#a8c4ff",
+    "dark": "#fafafa"
   },
   "background": {
     "color": {
@@ -20,13 +20,24 @@
       "dark": "#0f0f0f"
     }
   },
+  "styling": {
+    "codeblocks": "system",
+    "eyebrows": "section"
+  },
   "fonts": {
     "heading": {
-      "family": "Inter"
+      "family": "Inter",
+      "weight": 600,
+      "format": "woff2"
     },
     "body": {
-      "family": "Inter"
+      "family": "Inter",
+      "weight": 400,
+      "format": "woff2"
     }
+  },
+  "icons": {
+    "library": "lucide"
   },
   "appearance": {
     "default": "system",
@@ -43,14 +54,14 @@
         "href": "https://status.medera.ai"
       },
       {
-        "label": "Help",
+        "label": "Support",
         "href": "https://help.medera.ai"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Get Access",
-      "href": "https://medera.ai/early-access"
+      "label": "Start building",
+      "href": "https://app.medera.ai/signup"
     }
   },
   "footer": {
@@ -74,7 +85,7 @@
         "items": [
           { "label": "API Reference", "href": "/api-reference/welcome" },
           { "label": "SDKs", "href": "/sdks/overview" },
-          { "label": "Quickstart", "href": "/quickstart/ambient-rt" },
+          { "label": "Quickstarts", "href": "/quickstart/ambient-rt" },
           { "label": "Examples", "href": "https://github.com/medera-ai/examples" }
         ]
       },
@@ -82,9 +93,9 @@
         "header": "Trust",
         "items": [
           { "label": "Compliance", "href": "/compliance/overview" },
-          { "label": "Security", "href": "/compliance/security" },
+          { "label": "Security", "href": "/compliance/encryption" },
           { "label": "Status", "href": "https://status.medera.ai" },
-          { "label": "DPA / BAA", "href": "/compliance/baa" }
+          { "label": "BAA / DPA", "href": "/compliance/baa" }
         ]
       }
     ]
@@ -93,9 +104,11 @@
     "tabs": [
       {
         "tab": "Home",
+        "icon": "home",
         "groups": [
           {
             "group": "Get Started",
+            "icon": "rocket",
             "pages": [
               "get-started/welcome",
               "get-started/console",
@@ -109,6 +122,7 @@
           },
           {
             "group": "About",
+            "icon": "book-open",
             "pages": [
               "about/introduction",
               "about/compliance",
@@ -120,6 +134,7 @@
           },
           {
             "group": "Quickstarts",
+            "icon": "zap",
             "pages": [
               "quickstart/ambient-rt",
               "quickstart/ambient-async",
@@ -133,6 +148,7 @@
           },
           {
             "group": "Authentication",
+            "icon": "key",
             "pages": [
               "authentication/overview",
               "authentication/quickstart",
@@ -145,6 +161,7 @@
       },
       {
         "tab": "Multimodal Sensing",
+        "icon": "audio-lines",
         "groups": [
           {
             "group": "Overview",
@@ -216,6 +233,7 @@
       },
       {
         "tab": "Text Generation",
+        "icon": "text-align-start",
         "groups": [
           {
             "group": "Overview",
@@ -258,6 +276,7 @@
       },
       {
         "tab": "Agentic Framework",
+        "icon": "layers",
         "groups": [
           {
             "group": "Get Started",
@@ -359,6 +378,7 @@
       },
       {
         "tab": "Coding",
+        "icon": "code",
         "groups": [
           {
             "group": "Overview",
@@ -390,6 +410,7 @@
       },
       {
         "tab": "Compliance",
+        "icon": "shield-check",
         "groups": [
           {
             "group": "Trust Center",
@@ -419,6 +440,7 @@
       },
       {
         "tab": "SDKs",
+        "icon": "package",
         "groups": [
           {
             "group": "Overview",
@@ -463,6 +485,7 @@
       },
       {
         "tab": "API Reference",
+        "icon": "terminal",
         "groups": [
           {
             "group": "Introduction",
@@ -634,6 +657,7 @@
       },
       {
         "tab": "Release Notes",
+        "icon": "newspaper",
         "groups": [
           {
             "group": "Releases",
@@ -662,7 +686,8 @@
     "indexing": "all",
     "metatags": {
       "og:site_name": "Medera Docs",
-      "og:image": "https://docs.medera.ai/images/og.png"
+      "og:image": "https://docs.medera.ai/images/og.png",
+      "theme-color": "#141413"
     }
   },
   "integrations": {

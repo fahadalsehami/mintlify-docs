@@ -1,71 +1,81 @@
 ---
 title: "Agentic Architecture"
-description: "Runtime architecture of the canvas + care orchestrator"
+description: "Runtime architecture of the canvas + care orchestrator."
 ---
 
 
-```
-┌──────────────────────────────────────────────────────────────────┐
-│        Canvas (Frontend) — AgentBuilderContext, AgentCanvas      │
-└──────────────────────────────────┬───────────────────────────────┘
-                                   │ REST + Socket.IO
-                                   ▼
-┌──────────────────────────────────────────────────────────────────┐
-│    Backend /api/agent-workflows + /api/deployments + /api/care-* │
-│           Auth · Tenant Context · PHI Audit · Subscription       │
-└─┬────────────────────────────────────────────────────────────────┘
-  │
-  ├─ workflow-engine (Node.js)
-  │   ├─ WorkflowExecutor (471L) — _executeNode, _updateExecution, RLS
-  │   ├─ ExecutionContext (354L) — resolveVariable, executionTrace[]
-  │   └─ WorkflowQueue (285L) — Bull on Redis DB 2, 5 concurrent workers
-  │
-  └─ Care Orchestrator (AI Services, port 8000)
-      ├─ /api/care-orchestrator/workflows · /agents · /tasks · /voice
-      ├─ AgentType enum (INTAKE, CARE_COORDINATOR, REFERRAL_SPECIALIST, …)
-      ├─ Workflow State Machine (30+ states across Referral / Rx / Lab / Care Plan)
-      └─ Event Bus (INTAKE_*, PA_*, REFERRAL_*, PRESCRIPTION_*, LAB_*)
+The Agentic Framework is built around two pillars: the **canvas workflow engine** (backend) and the **care orchestrator** (AI services). Both share the event bus and the tenant audit trail.
+
+```mermaid
+flowchart TB
+  C[Canvas frontend<br/>AgentBuilderContext · AgentCanvas]
+  C -->|REST + Socket.IO| BE[Backend<br/>/api/agent-workflows<br/>/api/deployments<br/>/api/care-orchestrator proxy]
+  BE -->|Auth · TenantContext · PHI Audit · Subscription| ENG[workflow-engine]
+  ENG --> WE[WorkflowExecutor 471L]
+  ENG --> EC[ExecutionContext 354L]
+  ENG --> WQ[WorkflowQueue 285L<br/>Bull · Redis DB 2 · 5 workers]
+  BE -.->|Service Key| AI[AI Services]
+  AI --> CO[Care Orchestrator]
+  CO --> AGT[AgentType enum]
+  CO --> SM[Workflow State Machine 30+ states]
+  CO --> EB[Event Bus]
 ```
 
 ## Workflow execution
 
+```mermaid
+sequenceDiagram
+  participant Client
+  participant Backend
+  participant DB
+  participant Queue as WorkflowQueue
+  participant Worker
+  participant Executor as WorkflowExecutor
+  participant Socket as Socket.IO
+
+  Client->>Backend: POST /api/agent-workflows/:id/execute
+  Backend->>DB: INSERT agent_workflow_executions (status=pending)
+  Backend->>Queue: queueWorkflowExecution(executionId, ...)
+  Note over Backend,Queue: Falls back to sync if Redis unavailable
+  Backend-->>Client: { executionId }
+  Queue->>Worker: dispatch job
+  Worker->>DB: load execution + version snapshot
+  Worker->>Executor: execute(executionId, organizationId)
+  Executor->>DB: SET LOCAL app.current_organization_id
+  Executor->>Executor: traverse graph<br/>_executeNode → NodeRunner.execute()
+  Executor->>Socket: workflow:node:executing
+  Executor->>Socket: workflow:node:completed
+  Executor->>DB: UPDATE agent_workflow_executions (status=completed)
+  Executor->>Socket: workflow:execution:completed
 ```
-client → POST /api/agent-workflows/:id/execute
-backend → insert into agent_workflow_executions (status=pending)
-backend → WorkflowQueue.queueWorkflowExecution(executionId, ...)
-       │ (graceful sync fallback if Redis unavailable)
-       ▼
-worker → load execution + version snapshot
-       → WorkflowExecutor.execute(executionId, organizationId)
-            ├─ executeInOrgScope() — SET LOCAL app.current_organization_id
-            ├─ find start node
-            └─ loop _executeNode(node, context)
-                  ├─ dispatch to NodeRunner.execute()
-                  ├─ on success → route to next nodes
-                  ├─ on { paused: true } → halt + persist state
-                  └─ on error → route to error port (or re-throw)
-worker → update agent_workflow_executions (status=completed|failed|paused)
-worker → emit workflow:execution:* on Socket.IO
-```
-
-## Real-time events (Socket.IO)
-
-Emitted to the org room and per-execution room:
-
-| Event | When |
-| :--- | :--- |
-| `workflow:execution:started` | Execution claimed by a worker |
-| `workflow:node:executing` | `_executeNode` invoked |
-| `workflow:node:completed` | Node returned `success()` |
-| `workflow:ehr-sync` | `ehr-sync` node touched a connected EHR |
-| `workflow:execution:paused` | `user-approval` returned `{ paused: true }` |
-| `workflow:execution:completed` | Reached `end` node |
-| `workflow:execution:failed` | Unhandled node error |
 
 ## Tenant isolation
 
-Background workers obtain a Postgres connection and immediately run `SET LOCAL app.current_organization_id = '<org_id>'` inside a transaction. RLS policies enforce that every read / write is filtered by `organization_id`.
+Background workers obtain a Postgres connection and immediately run `SET LOCAL app.current_organization_id = '<org_id>'` inside a transaction. RLS policies enforce that every read and write is filtered by `organization_id`.
 
 ## Versioned execution
 
-For published executions, the executor loads the immutable snapshot from `agent_workflow_versions` — draft edits made to the same workflow after the publish do **not** affect running executions.
+For published executions, the executor loads the immutable snapshot from `agent_workflow_versions`. Draft edits made to the same workflow after the publish do **not** affect running executions.
+
+## Queue + retry
+
+```
+WorkflowQueue (Bull)
+  ├─ Redis DB 2 (separate from sessions)
+  ├─ retry: 3 attempts with 5 s exponential backoff
+  ├─ job staleness: 60 s interval, 2 stalled threshold
+  ├─ TTL: 100 completed jobs, 50 failed jobs kept
+  ├─ concurrency: 5 workers
+  └─ graceful sync fallback if Redis is unavailable
+```
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Core Concepts" icon="book" href="/agentic/core-concepts">Vocabulary and building blocks.</Card>
+  <Card title="Orchestrator" icon="layout-grid" href="/agentic/orchestrator">Multi-agent runtime.</Card>
+  <Card title="Context & Memory" icon="memory" href="/agentic/context-memory">Variable scopes and persistent memory.</Card>
+  <Card title="Canvas" icon="layers" href="/agentic/canvas/overview">Build your own workflow.</Card>
+</CardGroup>

@@ -4,31 +4,21 @@ description: "Evaluate care against current clinical guidelines."
 ---
 
 <Info>
-**Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Chart facts · Active guidelines · Patient demographics · Documentation completeness
+  **Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Chart facts · Active guidelines · Patient demographics · Documentation completeness
 </Info>
 
-Check the chart against APA, NICE, USPSTF, and program-specific guidance.
+Check the chart against APA, NICE, USPSTF, VA/DOD, and program-specific guidance.
 
-## Overview
+## Configuration
 
-The Clinical Guidelines Agent runs against an active guideline library — APA, NICE, USPSTF, and specialty programs — surfacing care-step gaps to the clinician with citations.
+| Field | Description |
+| :--- | :--- |
+| `library` | Active guideline library |
+| `scope` | Specialty scope |
+| `enforcement` | Surfacing policy (advisory vs. blocking) |
+| `documentation` | Documentation requirements |
 
-Every check is documented for audit and adherence is tracked over time.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Active guideline library
-- Specialty scope
-- Surfacing policy (advisory vs. blocking)
-- Documentation requirements
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reads the chart against the active guideline library
 2. Identifies care steps required by guidelines
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Clinical Guidelines Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **APA Guideline Expert** | American Psychiatric Association guidance |
-| **NICE Guideline Expert** | UK NICE guidance |
+| **APA Guideline Expert** | American Psychiatric Association |
+| **NICE Guideline Expert** | UK NICE |
 | **USPSTF Guideline Expert** | US Preventive Services Task Force |
 | **Program Guideline Expert** | Specialty program guidance |
 
-## Typical use cases
+## Compliance guarantees
 
-- Surface guideline gaps to the clinician with citations
-- Track guideline adherence over time
-- Document the guideline check for audit
-- Update the guideline library as new guidance is published
-
-## Compliance & safety guarantees
-
+<Warning>
 - Guideline citations are explicit and current
 - Gaps are surfaced as suggestions, not auto-applied
 - Adherence is tracked longitudinally
+</Warning>
 
-## Tags
+## Endpoints
 
-`Guidelines · APA · NICE · USPSTF`
+AI Services: `AdvancedClinicalRAG` hybrid retrieval over indexed guideline corpora.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

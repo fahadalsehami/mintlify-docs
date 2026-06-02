@@ -4,79 +4,56 @@ description: "Peer-reviewed evidence synthesis at the point of decision."
 ---
 
 <Info>
-**Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Clinical question · Evidence library · Patient context · Currency of evidence
+  **Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Clinical question · Evidence library · Patient context · Currency of evidence
 </Info>
 
 Surface peer-reviewed evidence — anchored, cited, and bounded.
 
-## Overview
+## Configuration
 
-The Evidence Synthesis Agent runs at the point of decision, searching an approved evidence library and synthesizing the evidence with explicit citations and currency.
+| Field | Description |
+| :--- | :--- |
+| `library` | Approved evidence library (PubMed, UpToDate, internal) |
+| `citation_requirements` | Citation requirements |
+| `currency_thresholds` | Currency thresholds |
+| `surfacing_policy` | Surfacing policy |
 
-Conclusions are bounded to the evidence base — never invented, never extrapolated.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Approved evidence library (PubMed, UpToDate, internal)
-- Citation requirements
-- Currency thresholds
-- Surfacing policy
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Receives a clinical question with patient context
 2. Searches the approved evidence library
 3. Synthesizes the evidence with explicit citations
-4. Reports currency and bound the answer to documented sources
+4. Reports currency and bounds the answer to documented sources
 5. Logs the query and the response for audit
 
 ## Composable experts
-
-The Evidence Synthesis Agent bundles the following experts from the [registry](/agentic/experts/overview):
 
 | Expert | Role |
 | :--- | :--- |
 | **PubMed Expert** | Peer-reviewed literature search |
 | **UpToDate Expert** | Clinical reference search |
 | **Evidence Synthesis Expert** | Synthesis with bounded conclusions |
-| **Citation Expert** | Citation rendering and currency |
+| **Citation Expert** | Citation rendering + currency |
 
-## Typical use cases
+## Compliance guarantees
 
-- Surface peer-reviewed evidence at the point of decision
-- Cite every clinical claim with currency
-- Bound conclusions to the evidence base
-- Log queries and responses for audit
-
-## Compliance & safety guarantees
-
+<Warning>
 - Every claim carries an explicit citation
 - Currency of evidence is reported
 - Conclusions are bounded to documented sources
+</Warning>
 
-## Tags
+## Endpoints
 
-`Evidence · PubMed · Synthesis · Cited`
+AI Services: `AdvancedClinicalRAG.hybrid_search()` → `CitedResponse`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

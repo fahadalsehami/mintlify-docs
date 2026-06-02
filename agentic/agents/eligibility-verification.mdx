@@ -4,31 +4,21 @@ description: "Real-time benefits, coverage, and copay verification."
 ---
 
 <Info>
-**Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Patient demographics · Insurance card · Payer eligibility API · Service codes
+  **Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Patient demographics · Insurance card · Payer eligibility API · Service codes
 </Info>
 
 Verify benefits and surface coverage gaps before the visit.
 
-## Overview
+## Configuration
 
-The Eligibility Verification Agent queries the payer eligibility API in real time, identifies covered services and gaps, and surfaces the result to the front desk and the patient.
+| Field | Description |
+| :--- | :--- |
+| `endpoints` | Connected payer eligibility endpoints |
+| `service_codes` | Service code set per visit type |
+| `communication` | Patient communication policy |
+| `escalation_tree` | Coverage-gap escalation tree |
 
-Every verification is documented in the chart for audit and billing.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Connected payer eligibility endpoints
-- Service code set per visit type
-- Patient communication policy
-- Coverage-gap escalation tree
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Pulls patient demographics and insurance from the chart
 2. Queries the payer eligibility API
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Eligibility Verification Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **Eligibility API Expert** | Payer endpoint integration and retry |
+| **Eligibility API Expert** | Payer endpoint integration + retry |
 | **Coverage Gap Expert** | Service code coverage analysis |
 | **Copay Calculator Expert** | Patient cost estimation |
 | **Documentation Expert** | Eligibility result logging |
 
-## Typical use cases
+## Compliance guarantees
 
-- Verify benefits before the visit, not after the bill
-- Surface coverage gaps to the patient with rationale
-- Calculate accurate copays from real-time eligibility
-- Document verification for audit and billing
-
-## Compliance & safety guarantees
-
+<Warning>
 - Verification is real-time, not cached past policy expiration
 - Coverage gaps surface before the visit
 - Patient cost estimates are sourced from eligibility, not estimates
+</Warning>
 
-## Tags
+## Endpoints
 
-`Eligibility · Benefits · Coverage · Copay`
+Canvas: `fhir-query` (Coverage) + `ehr-sync`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

@@ -1,34 +1,46 @@
 ---
-title: "Prior Authorization Agent"
-description: "Evidence-based PA across a 17-state workflow"
+title: "Prior Authorization Agent (Taylor)"
+description: "Evidence-based PA across a 17-state workflow."
 ---
 
 
 <Info>
-**Category:** Clinical Operations &nbsp;·&nbsp; **Voice agent:** Taylor (`AgentType.PA_SPECIALIST`)
+  **Category:** Clinical Operations &nbsp;·&nbsp; **Voice agent:** Taylor (`AgentType.PA_SPECIALIST`)
 </Info>
 
-The Prior Authorization Agent drives the PA lifecycle through a 17-state workflow with payer-specific rules and multi-channel submission. Voice-agent Taylor handles outbound peer-to-peer and status calls.
+The Prior Authorization Agent drives the PA lifecycle through a 17-state workflow with payer-specific rules and multi-channel submission. Voice agent Taylor handles outbound peer-to-peer and status calls.
 
-## Workflow states (`WorkflowState` enum)
+## Workflow states
 
-```
-PA_INITIATED
-  → PA_CRITERIA_EVALUATION → PA_CRITERIA_EVALUATED
-  → PA_DOCUMENTS_PENDING → PA_DOCUMENTS_READY
-  → PA_PENDING_SUBMISSION → PA_SUBMITTED
-  → PA_IN_REVIEW
-      ├→ PA_PENDED → PA_INFO_REQUESTED
-      ├→ PA_APPROVED | PA_PARTIALLY_APPROVED
-      └→ PA_DENIED
-          → PA_APPEAL_DRAFT → PA_APPEAL_SUBMITTED
-              → PA_APPEAL_APPROVED | PA_APPEAL_DENIED
-          → PA_P2P_SCHEDULED → PA_P2P_COMPLETED
+```mermaid
+stateDiagram-v2
+  [*] --> PA_INITIATED
+  PA_INITIATED --> PA_CRITERIA_EVALUATION
+  PA_CRITERIA_EVALUATION --> PA_CRITERIA_EVALUATED
+  PA_CRITERIA_EVALUATED --> PA_DOCUMENTS_PENDING
+  PA_DOCUMENTS_PENDING --> PA_DOCUMENTS_READY
+  PA_DOCUMENTS_READY --> PA_PENDING_SUBMISSION
+  PA_PENDING_SUBMISSION --> PA_SUBMITTED
+  PA_SUBMITTED --> PA_IN_REVIEW
+  PA_IN_REVIEW --> PA_PENDED
+  PA_IN_REVIEW --> PA_APPROVED
+  PA_IN_REVIEW --> PA_PARTIALLY_APPROVED
+  PA_IN_REVIEW --> PA_DENIED
+  PA_PENDED --> PA_INFO_REQUESTED
+  PA_INFO_REQUESTED --> PA_IN_REVIEW
+  PA_DENIED --> PA_APPEAL_DRAFT
+  PA_APPEAL_DRAFT --> PA_APPEAL_SUBMITTED
+  PA_APPEAL_SUBMITTED --> PA_APPEAL_APPROVED
+  PA_APPEAL_SUBMITTED --> PA_APPEAL_DENIED
+  PA_DENIED --> PA_P2P_SCHEDULED
+  PA_P2P_SCHEDULED --> PA_P2P_COMPLETED
+  PA_APPROVED --> [*]
+  PA_APPEAL_APPROVED --> [*]
 ```
 
 ## Payer rules
 
-`payer_rules_repository.py` stores rules for at least 10 payers via `PayerId`:
+`payer_rules_repository.py` stores rules for 10 payers (`PayerId` enum):
 
 `CARELON_ANTHEM`, `OPTUM_BH`, `MAGELLAN`, `EVERNORTH`, `UNITED_HEALTHCARE`, `AETNA`, `CIGNA`, `BLUE_CROSS`, `MEDICAID`, `MEDICARE`.
 
@@ -55,8 +67,16 @@ PA_INITIATED
 
 Channel priority (`submission_router.py`):
 
-```
-EPA_API → CLEARINGHOUSE → PORTAL → FAX → MANUAL
+```mermaid
+flowchart LR
+  D[Decision] --> A{EPA_API<br/>available?}
+  A -->|yes| EPA[EPA_API]
+  A -->|no| B{CLEARINGHOUSE<br/>available?}
+  B -->|yes| CH[CLEARINGHOUSE]
+  B -->|no| C{PORTAL<br/>configured?}
+  C -->|yes| P[PORTAL]
+  C -->|no| FAX[FAX]
+  FAX -.fallback.-> M[MANUAL]
 ```
 
 ## Endpoints
@@ -78,28 +98,32 @@ EPA_API → CLEARINGHOUSE → PORTAL → FAX → MANUAL
 
 ## Real-time coding suggestion
 
-The intake pipeline calls `realtime_coding_service.py` to detect codes likely to require PA during the call. Detected CPT codes include `90832`, `90834`, `90837` (psychotherapy), `99213`, `99214`, `99215` (E/M), and `96127` (assessment); ICD-10: `F32.1`, `F33.1`, `F41.1`, `F43.10`, `F11.20`. Each suggestion includes `pa_required`, `pa_urgency`, `payer_policy_url`, and `evidence_excerpt`.
+`realtime_coding_service.py` runs during intake to flag PA-required codes. Detected CPT: `90832`, `90834`, `90837`, `99213`, `99214`, `99215`, `96127`. Detected ICD-10: `F32.1`, `F33.1`, `F41.1`, `F43.10`, `F11.20`. Each suggestion includes `pa_required`, `pa_urgency`, `payer_policy_url`, `evidence_excerpt`.
 
 ## Composable experts
 
 | Expert | Role |
 | :--- | :--- |
 | **PubMed Expert** | Peer-reviewed evidence |
-| **Payer Policy Expert** | Carrier-specific PA rules + formulary |
+| **Payer Policy Expert** | Carrier-specific rules + formulary |
 | **Clinical Scoring Expert** | PHQ-9, GAD-7, validated scores |
 | **Medical Coding Expert** | ICD-10 + procedure code validation |
 
 ## Compliance guarantees
 
-- Every PA letter carries explicit citations to chart and payer policy
-- Letters are submitted only after clinician approval
-- Webhooks from payers are verified with per-payer HMAC secrets
+<Warning>
+  - Every PA letter carries explicit citations to chart and payer policy.
+  - Letters are submitted only after clinician approval.
+  - Payer webhooks are verified with per-payer HMAC secrets.
+</Warning>
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Quickstart" href="/quickstart/prior-auth">Generate your first PA letter.</Card>
-  <Card title="PA API" href="/api-reference/pa/initiate">REST surface.</Card>
-  <Card title="Denial Appeals" href="/agentic/agents/denial-appeals">Appeal lifecycle.</Card>
-  <Card title="Eligibility" href="/agentic/agents/eligibility-verification">Pre-visit benefits.</Card>
+  <Card title="Quickstart" icon="zap" href="/quickstart/prior-auth">Generate your first PA letter.</Card>
+  <Card title="PA API" icon="terminal" href="/api-reference/pa/initiate">REST surface.</Card>
+  <Card title="Denial Appeals" icon="undo" href="/agentic/agents/denial-appeals">Appeal lifecycle.</Card>
+  <Card title="Eligibility" icon="badge-check" href="/agentic/agents/eligibility-verification">Pre-visit benefits.</Card>
 </CardGroup>

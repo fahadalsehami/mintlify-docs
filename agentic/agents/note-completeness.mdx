@@ -1,34 +1,24 @@
 ---
 title: "Note Completeness Agent"
-description: "Ensure every required element is documented."
+description: "Catch missing required elements before the note is signed."
 ---
 
 <Info>
-**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Template definition · Quality program elements · Sign-off state
+  **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Template definition · Quality program elements · Sign-off state
 </Info>
 
-Catch missing required elements before the note is signed.
+Pre-sign-off completeness against practice template + quality programs (HEDIS, MIPS).
 
-## Overview
+## Configuration
 
-The Note Completeness Agent checks every note against the practice template and the quality programs the practice participates in.
+| Field | Description |
+| :--- | :--- |
+| `template_id` | Practice template + required-element list |
+| `programs` | Quality program element set (HEDIS, MIPS, …) |
+| `enforcement` | Blocking vs. advisory sign-off policy |
+| `pre_signoff_timing` | Pre-sign-off review timing |
 
-It surfaces missing elements before sign-off, logs the pre-sign-off state, and only blocks sign-off when the practice has explicitly configured it.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Practice template and required-element list
-- Quality program element set (HEDIS, MIPS, others)
-- Blocking vs. advisory sign-off policy
-- Pre-sign-off review timing
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reads the note against the practice template
 2. Flags missing required elements per template and per program
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Note Completeness Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
 | **Template Adherence Expert** | Practice template completeness |
-| **Quality Program Expert** | HEDIS, MIPS, and program-specific elements |
-| **Audit Trail Expert** | Pre-sign-off completeness state logged |
+| **Quality Program Expert** | HEDIS, MIPS, program-specific elements |
+| **Audit Trail Expert** | Pre-sign-off state logged |
 | **Sign-off Workflow Expert** | Blocking vs. advisory enforcement |
 
-## Typical use cases
+## Compliance guarantees
 
-- Catch missing template elements before sign-off
-- Surface HEDIS / MIPS elements without an extra workflow
-- Document the pre-sign-off state for audit
-- Block sign-off only when the practice has configured it
-
-## Compliance & safety guarantees
-
+<Warning>
 - Completeness checks are deterministic and template-driven
 - Blocking enforcement is explicit and configured by the practice
 - Pre-sign-off state is logged for every encounter
+</Warning>
 
-## Tags
+## Endpoints
 
-`Completeness · HEDIS · MIPS · Sign-off`
+REST: `POST /api/therapy/validate-note`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

@@ -1,14 +1,31 @@
 ---
 title: "Co-Therapy Agent"
-description: "Multimodal in-session intelligence (silent)"
+description: "Silent multimodal in-session clinical intelligence."
 ---
 
 
 <Info>
-**Category:** Clinical Operations &nbsp;·&nbsp; **Signal channels:** Vocal acoustics · Facial physiology · Linguistic content · Assessments
+  **Category:** Clinical Operations &nbsp;·&nbsp; **Channels:** Vocal acoustics · Facial physiology · Linguistic content · Assessments
 </Info>
 
-The Co-Therapy Agent is a silent multimodal partner — it never speaks to the patient. It runs the [Vocal Acoustic Engine](/multimodal/vocal/overview) and [Facial Physiological Engine](/multimodal/facial/overview), fuses outputs through the [RDoC Construct Computer](/multimodal/rdoc/overview) into 15 named construct activations, and surfaces the resulting payload to the clinician on a private channel.
+The Co-Therapy Agent is a silent multimodal partner — it **never** speaks to the patient. It runs the [Vocal Acoustic Engine](/multimodal/vocal/overview) and [Facial Physiological Engine](/multimodal/facial/overview), fuses outputs through the [RDoC Construct Computer](/multimodal/rdoc/overview) into 15 named construct activations, and surfaces the resulting canonical payload to the clinician on a private channel.
+
+## Pipeline
+
+```mermaid
+flowchart LR
+  A[Audio] --> V[VocalAcousticEngine]
+  Vi[Video] --> F[FacialPhysiologicalEngine]
+  T[Transcript] --> L[Linguistic Content]
+  S[PHQ-9 · GAD-7 · C-SSRS] --> R[RDoCConstructComputer]
+  V --> R
+  F --> R
+  L --> R
+  R --> MTA[MultimodalTherapyAnalyzer]
+  MTA --> P[Canonical payload]
+  P --> CC[Clinician private channel]
+  P --> SN[Session note + outcomes]
+```
 
 ## Endpoints
 
@@ -18,25 +35,9 @@ The Co-Therapy Agent is a silent multimodal partner — it never speaks to the p
 | `POST` | `/api/co-therapy-sessions/{id}/start` | Start session + invitations |
 | `POST` | `/api/co-therapy-sessions/{id}/join` | Record participant joining |
 | `POST` | `/api/co-therapy-sessions/{id}/leave` | Record participant leaving |
-| `POST` | `/api/co-therapy-sessions/{id}/transition` | Manually transition session state |
+| `POST` | `/api/co-therapy-sessions/{id}/transition` | Manually transition state |
 | `POST` | `/api/multimodal-therapy/analyze-session` | Full multimodal analysis |
 | `POST` | `/api/multimodal-therapy/analyze-audio-only` | Audio-only analysis |
-
-## Pipeline
-
-```
-audio + video + transcript + assessments
-  └─→ FacialPhysiologicalEngine.extract_features()  → PhysiologicalSignals
-  └─→ VocalAcousticEngine.extract_features()        → VocalFeatures
-  └─→ RDoCConstructComputer.compute_all_constructs() → RDoCActivationProfile
-  └─→ AdvancedClinicalRAG (optional)                → CitedResponse
-                                                       │
-                                                       ▼
-                            MultimodalTherapyAnalyzer canonical payload
-                                                       │
-                                                       ▼
-                              Clinician private channel + session note
-```
 
 ## Configuration
 
@@ -58,23 +59,27 @@ audio + video + transcript + assessments
 
 ## Quality gates
 
-- Audio: ≥ 1.0 s, valid `voiced_fraction`
-- Video: ≥ 30 s for HR, ≥ 60 s for HRV / BP, SNR > 3.0
-- Quality gate (analyzer): minimum 20 words of transcript + 30 s of session signal
+- **Audio**: ≥ 1.0 s, valid `voiced_fraction`
+- **Video**: ≥ 30 s for HR, ≥ 60 s for HRV / BP, SNR > 3.0
+- **Analyzer**: minimum 20 words of transcript + 30 s of session signal
 
 On quality failure, the engine returns `confidence: 0.0` and the analyzer falls back to a GPT-4o transcript-inferred analysis marked `requires_human_review: true` — **never fabricated values**.
 
 ## Compliance guarantees
 
-- The Co-Therapy Agent never addresses or interacts with the patient
-- Construct activations report `contributors[]` so clinicians can audit feature-level influence
-- Recording policy is explicit per session (`consent_recorded: true` required)
+<Warning>
+  - The Co-Therapy Agent **never** addresses or interacts with the patient.
+  - Recording requires explicit per-session consent (`consent_recorded: true`).
+  - Construct activations report `contributors[]` so clinicians can audit feature-level influence.
+</Warning>
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Quickstart" href="/quickstart/co-therapy">Run a multimodal session.</Card>
-  <Card title="Multimodal Overview" href="/multimodal/overview">Engine deep dive.</Card>
-  <Card title="RDoC Constructs" href="/multimodal/rdoc/overview">15 named constructs.</Card>
-  <Card title="Multimodal API" href="/api-reference/multimodal/analyze-video">REST surface.</Card>
+  <Card title="Quickstart" icon="zap" href="/quickstart/co-therapy">Run a multimodal session.</Card>
+  <Card title="Multimodal Overview" icon="audio-lines" href="/multimodal/overview">Engine deep dive.</Card>
+  <Card title="RDoC Constructs" icon="brain" href="/multimodal/rdoc/overview">15 named constructs.</Card>
+  <Card title="Multimodal API" icon="terminal" href="/api-reference/multimodal/analyze-video">REST surface.</Card>
 </CardGroup>

@@ -1,10 +1,10 @@
 ---
 title: "Canvas Node Types"
-description: "16 core + 8 BH-OS rail node types"
+description: "16 core node types + 8 BH-OS rail node types."
 ---
 
 
-The canvas ships 16 core node types and 8 BH-OS rail node types. Each runner extends `BaseNodeRunner` and is registered with the `WorkflowExecutor`.
+The canvas ships **16 core node types** and **8 BH-OS rail** node types. Each runner extends `BaseNodeRunner` and is registered with the `WorkflowExecutor`.
 
 ## Core nodes (3)
 
@@ -12,7 +12,7 @@ The canvas ships 16 core node types and 8 BH-OS rail node types. Each runner ext
 | :--- | :--- | :--- |
 | `start` | `StartNodeRunner` | Workflow entry. Defines input variables. |
 | `end` | `EndNodeRunner` | Workflow exit. Marks execution complete with output values. |
-| `note` | (annotation only) | Documentation node — no runtime effect. |
+| `note` | annotation only | Documentation node — no runtime effect. |
 
 ## Logic & control (5)
 
@@ -28,35 +28,61 @@ The canvas ships 16 core node types and 8 BH-OS rail node types. Each runner ext
 
 | Type | Runner | Outputs |
 | :--- | :--- | :--- |
-| `intake-agent` | `IntakeAgentRunner` | `success` / `escalate` / `error` — orchestrates Vapi + intake state machine |
-| `scribe-agent` | `ScribeAgentRunner` | `success` / `error` — drafts SOAP notes |
-| `therapy-agent` | `TherapyAgentRunner` | `success` / `concern` / `error` — behavioral health analysis |
-| `triage-agent` | `TriageAgentRunner` | `urgent` / `routine` / `self_care` — ESI-aligned routing |
+| `intake-agent` | `IntakeAgentRunner` | `success` / `escalate` / `error` |
+| `scribe-agent` | `ScribeAgentRunner` | `success` / `error` |
+| `therapy-agent` | `TherapyAgentRunner` | `success` / `concern` / `error` |
+| `triage-agent` | `TriageAgentRunner` | `urgent` / `routine` / `self_care` |
 
 ## Integration & data (4)
 
 | Type | Runner | Outputs |
 | :--- | :--- | :--- |
-| `guardrails` | `GuardrailsNodeRunner` | `pass` / `fail` — HIPAA, 42 CFR Part 2, suicide-language, PII checks |
-| `ehr-sync` | `EHRSyncNode` | `success` / `error` — bidirectional FHIR sync against connected EHR |
-| `fhir-query` | `FHIRQueryRunner` | `success` / `error` — FHIR R4 search (Patient, Observation, Encounter, …) |
-| `escalate` | `EscalateNodeRunner` | (terminal) — sends notification via email / SMS / pager / Slack |
+| `guardrails` | `GuardrailsNodeRunner` | `pass` / `fail` |
+| `ehr-sync` | `EHRSyncNode` | `success` / `error` |
+| `fhir-query` | `FHIRQueryRunner` | `success` / `error` |
+| `escalate` | `EscalateNodeRunner` | (terminal — sends notification) |
 
 ## BH-OS rails (8)
 
 The BH-OS rails are typed runners backed by `StudioBlockRunner`. Each rail wires the workflow into a corresponding backend service.
 
-| Type | Service |
-| :--- | :--- |
-| `rails/assessment` | Clinical assessment runner |
-| `rails/triage` | Triage runner |
-| `rails/referral` | Referral generator + closed-loop tracking |
-| `rails/pa` | Prior authorization workflow |
-| `rails/mbc` | Measurement-Based Care (PHQ-9 / GAD-7 cadence) |
-| `rails/quality` | HEDIS / MIPS measure capture |
-| `rails/network` | Provider network logic |
-| `rails/pharmacy` | Surescripts e-prescribing + interaction checks |
+<CardGroup cols={2}>
+  <Card title="rails/assessment" icon="clipboard-check">Clinical assessment runner</Card>
+  <Card title="rails/triage" icon="alert-triangle">Triage routing</Card>
+  <Card title="rails/referral" icon="link">Referral generator + closed-loop</Card>
+  <Card title="rails/pa" icon="file-check">Prior authorization workflow</Card>
+  <Card title="rails/mbc" icon="chart-line">Measurement-Based Care</Card>
+  <Card title="rails/quality" icon="award">HEDIS / MIPS capture</Card>
+  <Card title="rails/network" icon="network">Provider network logic</Card>
+  <Card title="rails/pharmacy" icon="pill">Surescripts e-Rx + DDI</Card>
+</CardGroup>
+
+## Sample composition
+
+```mermaid
+flowchart LR
+  S[start] --> G[guardrails]
+  G -->|pass| IA[intake-agent]
+  G -->|fail| E[escalate]
+  IA -->|success| C[condition<br/>phq9 >= 15?]
+  IA -->|escalate| E
+  C -->|true| R[rails/pa]
+  C -->|false| F[fhir-query]
+  R --> N[end]
+  F --> N
+```
 
 ## Validation
 
-`BaseNodeRunner.validate(node)` enforces required fields per node type at design time. Connections are type-checked: a `condition` node's `true` port can only connect to a node that accepts the `condition`'s state output shape.
+`BaseNodeRunner.validate(node)` enforces required fields per node type at design time. Connections are type-checked — a `condition` node's `true` port can only connect to a node that accepts the condition's state output shape.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Variables & Scopes" icon="code" href="/agentic/canvas/variables-scopes">Template resolution and template syntax.</Card>
+  <Card title="Versioning & Deployment" icon="rocket" href="/agentic/canvas/versioning-deployment">Snapshots, sandbox-first deploys, WORM audit.</Card>
+  <Card title="Guardrails" icon="shield-check" href="/agentic/canvas/guardrails">HIPAA + 42 CFR Part 2 rules.</Card>
+  <Card title="Transforms" icon="wand" href="/agentic/canvas/transforms-cel">Template-driven data shaping.</Card>
+</CardGroup>

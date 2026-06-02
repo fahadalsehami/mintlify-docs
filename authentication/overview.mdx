@@ -1,23 +1,52 @@
 ---
-title: "Authentication overview"
-description: "Authenticate to the Medera API"
+title: "Authentication Overview"
+description: "How to authenticate to the Medera API"
 ---
 
 
 Medera supports three credential types, each scoped to a tenant (organization) and an environment.
 
-| Credential | Use case | Issued by | Header |
-| :--- | :--- | :--- | :--- |
-| **Clerk JWT** | End-user requests (clinician, admin) | Clerk | `Authorization: Bearer <jwt>` |
-| **Developer API Key** | Server-to-server, scoped to a project | Medera Console | `X-API-Key: <key>` (or Bearer) |
-| **Internal service key** | AI service ↔ backend proxy auth | Console (admin-only) | `X-Service-Key: <key>` |
+<CardGroup cols={3}>
+  <Card title="Clerk JWT" icon="user" href="/authentication/quickstart">
+    End-user requests from a clinician or admin. Issued by Clerk on sign-in. Header `Authorization: Bearer <jwt>`.
+  </Card>
+  <Card title="Developer API Key" icon="key" href="/authentication/creating-clients">
+    Server-to-server, scoped to a project. Issued by the [Console](https://app.medera.ai). Header `X-API-Key: <key>`.
+  </Card>
+  <Card title="Internal service key" icon="server" href="/authentication/environments-tenants">
+    AI Services ↔ Backend proxy. Header `X-Service-Key: <key>`. Internal use only.
+  </Card>
+</CardGroup>
 
-Every PHI-touching request is validated through a four-layer defense:
+## Four-layer defense
 
-1. **Authentication** — `authenticateToken` (Clerk JWT) or `authenticateApiKey` (Developer API Key)
-2. **Tenant context** — `setTenantContext` injects `organization_id` into the PostgreSQL session via `app.current_organization_id`
-3. **PHI audit logging** — `phiAuditMiddleware` writes a hash-chained event per HIPAA §164.312(b)
-4. **Purpose-based access** — `purposeBasedAccess(resource, ...purposes)` restricts the request to the allowed purposes: `TREATMENT`, `PAYMENT`, `OPERATIONS`, `EMERGENCY`
+Every PHI-touching request is validated through four layers:
+
+<Steps>
+  <Step title="Authentication">
+    `authenticateToken` (Clerk JWT) or `authenticateApiKey` (Developer API Key).
+  </Step>
+  <Step title="Tenant context">
+    `setTenantContext` injects `organization_id` into the PostgreSQL session via `SET LOCAL app.current_organization_id = '...'`.
+  </Step>
+  <Step title="PHI audit logging">
+    `phiAuditMiddleware` writes a hash-chained event per HIPAA §164.312(b).
+  </Step>
+  <Step title="Purpose-based access">
+    `purposeBasedAccess(resource, ...purposes)` restricts the request to the allowed purposes: `TREATMENT`, `PAYMENT`, `OPERATIONS`, `EMERGENCY`.
+  </Step>
+</Steps>
+
+## API key scopes
+
+| Scope | Allows |
+| :--- | :--- |
+| `read:data` | Read non-PHI resources (workflows, deployments, templates) |
+| `write:data` | Create / update non-PHI resources |
+| `execute:agents` | Trigger agent / workflow executions |
+| `read:phi` | Read PHI (patients, sessions) — requires active BAA |
+| `write:phi` | Write PHI — requires active BAA |
+| `admin` | Admin operations (separate issuer) |
 
 ## Subscription gating
 
@@ -32,11 +61,13 @@ For agent / intake / therapy / copilot endpoints, the middleware stack also runs
 | Auth (`/login`, `/register`, `/forgot-password`) | 10 req / 15 min | 10 req / 15 min |
 | `/api/intake/start-batch-call` | 10 req / min | 10 req / min |
 
+---
+
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Quickstart" href="/authentication/quickstart">Exchange credentials for a token.</Card>
-  <Card title="Creating clients" href="/authentication/creating-clients">Generate developer API keys.</Card>
-  <Card title="Environments & Tenants" href="/authentication/environments-tenants">Sandbox, staging, production.</Card>
-  <Card title="Security Best Practices" href="/authentication/security-best-practices">Keep credentials safe.</Card>
+  <Card title="Quickstart" icon="zap" href="/authentication/quickstart">Get a token in 60 seconds.</Card>
+  <Card title="Creating Clients" icon="key" href="/authentication/creating-clients">Generate Developer API Keys.</Card>
+  <Card title="Environments & Tenants" icon="server" href="/authentication/environments-tenants">Sandbox, staging, production.</Card>
+  <Card title="Security Best Practices" icon="shield-check" href="/authentication/security-best-practices">Five rules for credentials.</Card>
 </CardGroup>

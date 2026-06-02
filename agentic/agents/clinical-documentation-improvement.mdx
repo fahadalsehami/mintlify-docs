@@ -1,44 +1,32 @@
 ---
-title: "Clinical Documentation Improvement Agent"
+title: "Clinical Documentation Improvement (CDI) Agent"
 description: "Strengthen documentation specificity and defensibility."
 ---
 
 <Info>
-**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Specialty rule-set · Severity qualifiers · Audit trail
+  **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Specialty rule-set · Severity qualifiers · Audit trail
 </Info>
 
-Review notes for clarity, completeness, and coding-grade specificity.
+Concurrent CDI on every note — surface specificity, severity, and completeness gaps as clinical queries, log every accept/reject.
 
-## Overview
+## Configuration
 
-The CDI Agent runs concurrent documentation review on every note — surfacing missing severity qualifiers, weak specificity, and gaps the coder will query for.
+| Field | Description |
+| :--- | :--- |
+| `specialty_ruleset` | Specialty CDI rule-set (BH, primary care, …) |
+| `thresholds` | Practice documentation thresholds |
+| `audit_retention` | Audit retention + rationale requirements |
+| `enforcement` | Sign-off enforcement (advisory vs. blocking) |
 
-Every suggestion is a clinical query, not a code change, and the clinician's accept / reject decision is logged for audit.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Specialty CDI rule-set (BH, primary care, others)
-- Practice documentation thresholds
-- Audit retention and rationale requirements
-- Sign-off enforcement (advisory vs. blocking)
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reads the note against the CDI rule-set for the specialty
-2. Surfaces missing specificity (uncomplicated → with severity)
+2. Surfaces missing specificity (e.g. uncomplicated → with severity)
 3. Suggests language clinicians can paste into the note
 4. Logs the rationale for every suggestion
 5. Records the clinician's accept/reject decision
 
 ## Composable experts
-
-The Clinical Documentation Improvement Agent bundles the following experts from the [registry](/agentic/experts/overview):
 
 | Expert | Role |
 | :--- | :--- |
@@ -47,36 +35,25 @@ The Clinical Documentation Improvement Agent bundles the following experts from 
 | **Severity & Acuity Expert** | Capture of clinically relevant qualifiers |
 | **Audit Trail Expert** | Every suggestion logged with rationale |
 
-## Typical use cases
+## Compliance guarantees
 
-- Catch missing severity qualifiers before billing
-- Strengthen documentation specificity without retraining
-- Document the rationale behind every CDI query
-- Run concurrent CDI on every note, not the audit sample
-
-## Compliance & safety guarantees
-
+<Warning>
 - CDI suggestions are surfaced as clinical queries, never code changes
 - Every suggestion logs the rationale and the rule it tested
 - Audit retention follows the practice policy by default
+</Warning>
 
-## Tags
+## Endpoints
 
-`CDI · Specificity · Severity · Audit trail`
+REST: `POST /api/therapy/validate-note` · `POST /api/therapy/suggest-codes` (with `mode: 'cdi_review'`).
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

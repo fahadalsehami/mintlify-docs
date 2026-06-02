@@ -4,31 +4,21 @@ description: "Compassionate, evidence-based behavioral support."
 ---
 
 <Info>
-**Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Patient message · Care plan · Recent screener scores · Crisis-language criteria
+  **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Patient message · Care plan · Recent screener scores · Crisis-language criteria
 </Info>
 
-Between-session support that listens, reflects, and stays in its lane.
+Between-session support that listens, reflects, and stays in its lane. Crisis language never gated.
 
-## Overview
+## Configuration
 
-The Health Coach Agent provides compassionate, evidence-based behavioral support between sessions. It listens reflectively, stays in scope, and detects crisis language by documented criteria — escalating to a human within seconds.
+| Field | Description |
+| :--- | :--- |
+| `scope` | Practice scope-of-coaching definition |
+| `crisis_policy` | Crisis-language detection + escalation policy |
+| `channel` | Communication channel + timing |
+| `care_plan_id` | Care plan tie-in + reporting |
 
-Every conversation is tied back to the patient's active care plan and is logged with privacy controls.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Practice scope-of-coaching definition
-- Crisis-language detection and escalation policy
-- Communication channel and timing
-- Care plan tie-in and reporting
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Receives a patient message in their preferred language
 2. Listens reflectively and within scope
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Health Coach Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
 | **Reflective Listening Expert** | Boundaries, validation, scope |
 | **Crisis Detection Expert** | C-SSRS-aligned crisis-language criteria |
-| **Care Plan Expert** | Tie-in to active plan and goals |
-| **Privacy Expert** | PHI handling and consent controls |
+| **Care Plan Expert** | Tie-in to active plan + goals |
+| **Privacy Expert** | PHI handling + consent controls |
 
-## Typical use cases
+## Compliance guarantees
 
-- Provide compassionate, in-scope support between sessions
-- Detect crisis language and connect a human in seconds
-- Tie coaching back to the active care plan
-- Maintain privacy controls and explicit scope
-
-## Compliance & safety guarantees
-
+<Warning>
 - Crisis-language always escalates to a human, never to an agent
 - Coaching stays within the practice-defined scope
 - Conversations are logged with PHI controls and consent
+</Warning>
 
-## Tags
+## Endpoints
 
-`Coaching · Between-session · Boundaries · Reflective`
+Canvas: `therapy-agent` node + `guardrails` for scope enforcement.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

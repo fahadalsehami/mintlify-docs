@@ -1,41 +1,118 @@
 ---
-title: "Medical Coding Overview"
-description: "ICD-10, CPT, HCPCS, SNOMED CT, LOINC, RxNorm"
+title: "Welcome to Medera Medical Coding"
+description: "ICD-10, CPT, HCPCS, SNOMED CT, LOINC, RxNorm from clinical context."
 ---
 
 
-Medera's medical coding surface is exposed through three endpoints:
+Medera Medical Coding generates accurate, defensible codes from clinical context — each code anchored to a quoted note span and reported with calibrated confidence. The same API powers in-encounter code suggestions during scribing, post-visit revenue-cycle sweeps, and real-time PA detection during intake.
 
-| Endpoint | Surface | Use |
-| :--- | :--- | :--- |
-| `POST /api/therapy/suggest-codes` | AI Services | Standalone suggestion from diagnosis + procedure text |
-| `POST /api/pa/coding-suggest` | AI Services | Real-time detection during intake / call (flags PA-required codes) |
-| `POST /api/therapy/generate-soap-note-enhanced` | AI Services | Returns SOAP with `include_billing_codes: true` |
+<Tip>
+  Every code returned by the Medera API includes the documentation span that supports it. Suggestions never auto-post — the coder or clinician confirms.
+</Tip>
 
 ## Supported code systems
 
-| System | Coverage |
-| :--- | :--- |
-| ICD-10-CM | US diagnosis (F-codes BH range fully covered: F32.0–F34.1, F40–F41, F43, …) |
-| CPT | Psychotherapy (90832 / 90834 / 90837), E/M (99213 / 99214 / 99215), assessment (96127) |
-| HCPCS Level II | DME, non-physician services |
-| SNOMED CT | Clinical terminology (35489007 depression, 48694002 anxiety, …) |
-| LOINC | Lab observations |
-| RxNorm | Medications (SSRIs, SNRIs, sleep meds, anxiolytics, …) |
+<CardGroup cols={4}>
+  <Card title="ICD-10-CM" href="/coding/icd-10-cm" icon="hashtag" horizontal>US diagnosis</Card>
+  <Card title="ICD-10-PCS" href="/coding/icd-10-pcs" icon="hashtag" horizontal>US inpatient procedure</Card>
+  <Card title="ICD-10" href="/coding/icd-10-int" icon="hashtag" horizontal>WHO international</Card>
+  <Card title="CPT" href="/coding/cpt" icon="hashtag" horizontal>Outpatient procedure</Card>
+  <Card title="HCPCS Level II" href="/coding/hcpcs" icon="hashtag" horizontal>Non-physician services</Card>
+  <Card title="SNOMED CT" href="/coding/snomed-ct" icon="hashtag" horizontal>Clinical terminology</Card>
+  <Card title="LOINC" href="/coding/loinc" icon="hashtag" horizontal>Lab observations</Card>
+  <Card title="RxNorm" href="/coding/rxnorm" icon="hashtag" horizontal>Medication terminology</Card>
+</CardGroup>
 
-## Real-time PA detection
+---
 
-`realtime_coding_service.py` runs during intake to detect codes that require PA. Each suggestion includes:
+## Endpoints
 
-```python
-CodeSuggestion(
-    code=str,
-    code_system=str,
-    description=str,
-    confidence=float,
-    pa_required=bool,
-    pa_urgency=str,
-    payer_policy_url=Optional[str],
-    evidence_excerpt=str,
-)
+| Endpoint | Surface | Purpose |
+| :--- | :--- | :--- |
+| `POST /api/therapy/suggest-codes` | AI Services | Standalone suggestion from diagnosis + procedure text |
+| `POST /api/pa/coding-suggest` | AI Services | Real-time detection during intake / call — flags PA-required codes |
+| `POST /api/therapy/generate-soap-note-enhanced` | AI Services | Returns SOAP with `include_billing_codes: true` |
+
+---
+
+## Use cases
+
+<CardGroup cols={3}>
+  <Card title="Encounter coding" icon="clipboard-check" href="/coding/encounter-coding">
+    Assign accurate diagnosis and procedure codes to clinical encounters using documentation-anchored suggestions.
+  </Card>
+  <Card title="Clinical Documentation Improvement" icon="file-pen" href="/coding/cdi">
+    Surface missed specificity, severity qualifiers, and gaps as clinical queries before sign-off.
+  </Card>
+  <Card title="Revenue cycle" icon="chart-line" href="/coding/revenue-cycle">
+    Sweep panels for missed codes, run retrospective audits, and resubmit cleanly.
+  </Card>
+</CardGroup>
+
+---
+
+## What you get back
+
+Every code in the Medera response includes:
+
+```json
+{
+  "system": "icd-10-cm",
+  "code": "F32.1",
+  "display": "Major depressive disorder, single episode, moderate",
+  "confidence": 0.92,
+  "anchor": {
+    "documentId": "doc_abc",
+    "span": { "start": 412, "end": 489 },
+    "quote": "Patient reports persistent low mood for 6 weeks..."
+  },
+  "severity_qualifier_suggestions": ["moderate", "severe"],
+  "documentation_gap": null
+}
 ```
+
+| Field | Description |
+| :--- | :--- |
+| `system` | Coding system (e.g. `icd-10-cm`, `cpt`) |
+| `code` | The code that best describes the entity |
+| `display` | Human-readable description |
+| `confidence` | 0–1, calibrated against documentation strength |
+| `anchor` | Document span and quote supporting the code |
+| `severity_qualifier_suggestions` | Optional specificity upgrades |
+| `documentation_gap` | What additional documentation would strengthen the code |
+
+---
+
+## Common BH codes
+
+| Code | Description |
+| :--- | :--- |
+| `90832` | Psychotherapy, 30 min |
+| `90834` | Psychotherapy, 45 min |
+| `90837` | Psychotherapy, 60 min |
+| `99213–99215` | Established patient E/M |
+| `96127` | Brief emotional / behavioral assessment |
+| `F32.1` | MDD single episode, moderate |
+| `F33.1` | MDD recurrent, moderate |
+| `F41.1` | Generalized anxiety disorder |
+| `F43.10` | PTSD, unspecified |
+| `F11.20` | Opioid use disorder, mod/severe |
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="zap" href="/coding/quickstart">
+    Suggest codes for your first note.
+  </Card>
+  <Card title="Core Concepts" icon="book" href="/coding/introduction">
+    Understand every field in the response.
+  </Card>
+  <Card title="How it works" icon="settings" href="/coding/how-it-works">
+    Request structure + best practices.
+  </Card>
+  <Card title="Coding Systems" icon="layers" href="/coding/coding-systems">
+    Feature availability per system.
+  </Card>
+</CardGroup>

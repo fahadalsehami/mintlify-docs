@@ -4,79 +4,56 @@ description: "ICD-10, CPT, and HCPCS coding from clinical context."
 ---
 
 <Info>
-**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Visit modality · Time and complexity · Documentation completeness
+  **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Visit modality · Time + complexity · Documentation completeness
 </Info>
 
-Generate accurate, specific codes anchored to documented support.
+Generate accurate, specific codes anchored to documented support — never auto-posted.
 
-## Overview
+## Configuration
 
-The Medical Coding Agent reads the note for documented findings and proposes specific, defensible codes — ICD-10-CM diagnosis, CPT procedure, E&M level — each anchored to a quoted note span.
+| Field | Description |
+| :--- | :--- |
+| `code_systems` | Approved code sets (`icd-10-cm`, `cpt`, `hcpcs`) |
+| `fee_schedule` | Practice fee schedule + code preferences |
+| `min_confidence` | Documentation quality threshold for sign-off |
+| `audit_retention` | Audit trail retention policy |
 
-Every code suggestion comes with the documentation that supports it and the documentation gap that would weaken it.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Approved code sets (ICD-10-CM, CPT, HCPCS, E&M)
-- Practice fee schedule and code preferences
-- Documentation quality threshold for sign-off
-- Audit trail retention policy
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reads the signed (or in-progress) note for documented findings
-2. Maps findings to ICD-10, CPT, and HCPCS candidates with confidence
+2. Maps findings to ICD-10, CPT, HCPCS candidates with confidence
 3. Flags documentation gaps that would block a code
 4. Surfaces E&M level with documented rationale and time logic
 5. Logs every code suggestion with the supporting documentation span
 
 ## Composable experts
 
-The Medical Coding Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **ICD-10 Coding Expert** | Diagnosis specificity and documentation support |
-| **CPT / E&M Expert** | Time, complexity, and MDM-based selection |
-| **Compliance Guardrail Expert** | Code-set validity and payer rule alignment |
+| **ICD-10 Coding Expert** | Diagnosis specificity + documentation support |
+| **CPT / E&M Expert** | Time, complexity, MDM-based selection |
+| **Compliance Guardrail Expert** | Code-set validity + payer rule alignment |
 | **Documentation Quality Expert** | Sufficiency of support for each code |
 
-## Typical use cases
+## Compliance guarantees
 
-- Code at the level the chart supports, not the level the clinician guesses
-- Catch missed codes and revenue leakage on every visit
-- Surface documentation gaps before the note is signed
-- Document every code suggestion for audit defensibility
-
-## Compliance & safety guarantees
-
+<Warning>
 - Every code carries a documentation anchor and a confidence band
 - E&M selection follows documented time and MDM logic
 - Suggestions never auto-post; the coder or clinician confirms
+</Warning>
 
-## Tags
+## Endpoints
 
-`ICD-10 · CPT · HCPCS · E&M · Code suggestions`
+REST: `POST /api/therapy/suggest-codes` · `POST /api/pa/coding-suggest` (real-time PA detection).
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

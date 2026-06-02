@@ -1,69 +1,172 @@
 ---
 title: "Quickstart — Intake Agent (Grace)"
-description: "Deploy Grace in 15 minutes"
+description: "Deploy Grace, the voice-first intake agent, in 15 minutes."
 ---
 
 
-## 1. Configure the deployment
+Grace is the Medera Patient Intake Agent — voice-first, adaptive, orchestrated via Vapi with Deepgram `nova-2-medical` transcription and an ElevenLabs voice. She follows a documented 7-state conversation state machine and registers 4 function calls.
 
-Use the [Agent Builder Canvas](/agentic/canvas/overview) to create or clone the **Grace — Patient Intake Agent** template. Pick:
+## Conversation state machine
 
-- `intake_template_id`
-- `screeners` (default `["phq-9", "gad-7", "audit-c", "c-ssrs"]`)
-- `routing_matrix`
-- `crisis_escalation_tree_id`
-- `workflow_modules` (e.g. `["general_intake"]`)
-- `language` (default `en-US`)
+```mermaid
+stateDiagram-v2
+  [*] --> GREETING
+  GREETING --> IDENTITY_VERIFICATION
+  IDENTITY_VERIFICATION --> GATHERING_INFO
+  GATHERING_INFO --> MENTAL_HEALTH_SCREENING
+  MENTAL_HEALTH_SCREENING --> APPOINTMENT_SCHEDULING
+  APPOINTMENT_SCHEDULING --> SUMMARY_CONFIRMATION
+  SUMMARY_CONFIRMATION --> CLOSING
+  CLOSING --> COMPLETED
+  COMPLETED --> [*]
 
-Publish the workflow and the canvas auto-deploys to sandbox.
-
-## 2. Initialize the agent for the org
-
-```bash
-curl -X POST https://api.medera.ai/api/onboarding/initialize-organization \
-  -H "Authorization: Bearer $TOKEN" \
-  -d '{
-    "org_name": "Acme Clinic",
-    "org_type": "behavioral_health",
-    "initial_agents": ["intake"],
-    "voice_settings": { "language": "en-US", "tone": "warm" }
-  }'
+  GREETING --> ESCALATED
+  IDENTITY_VERIFICATION --> ESCALATED
+  GATHERING_INFO --> ESCALATED
+  MENTAL_HEALTH_SCREENING --> ESCALATED
+  APPOINTMENT_SCHEDULING --> ESCALATED
+  ESCALATED --> [*]
 ```
 
-## 3. Start an intake call
+<Steps>
+  <Step title="Configure the deployment">
+    Use the [Agent Builder Canvas](/agentic/canvas/overview) to clone the **Grace — Patient Intake Agent** template. Configure:
 
-```bash
-curl -X POST https://api.medera.ai/api/intake-calls \
-  -H "Authorization: Bearer $TOKEN" \
-  -d '{
-    "patient_id": "pat_abc",
-    "phone_number": "+15555550100",
-    "deployment_id": "dep_abc"
-  }'
-```
+    | Field | Default |
+    | :--- | :--- |
+    | `intake_template_id` | Practice intake template |
+    | `screeners` | `["phq-9", "gad-7", "audit-c", "c-ssrs"]` |
+    | `routing_matrix` | Practice routing rules by acuity and payer |
+    | `crisis_escalation_tree_id` | On-call escalation tree |
+    | `workflow_modules` | `["general_intake"]` |
+    | `language` | `en-US` |
 
-## 4. Subscribe to real-time updates
+    Publish the workflow — the canvas auto-deploys to sandbox at `https://sandbox.medera.info/{org}/intake-v{ver}`.
+  </Step>
 
-```javascript
-const ws = new WebSocket(`wss://api.medera.ai/ws/call/${callId}?token=${jwt}`);
-ws.on('message', (msg) => {
-  const event = JSON.parse(msg);
-  // event.type: call-started | utterance-processed | task-extracted | call-ended
-});
-```
+  <Step title="Initialize the agent for the organization">
+    <CodeGroup>
+      ```bash cURL
+      curl -X POST https://api.medera.ai/api/onboarding/initialize-organization \
+        -H "X-API-Key: $MEDERA_API_KEY" \
+        -d '{
+          "org_name": "Acme Clinic",
+          "org_type": "behavioral_health",
+          "initial_agents": ["intake"],
+          "voice_settings": { "language": "en-US", "tone": "warm" }
+        }'
+      ```
 
-## 5. Receive webhook events
+      ```typescript JavaScript
+      await client.onboarding.initializeOrganization({
+        org_name: 'Acme Clinic',
+        org_type: 'behavioral_health',
+        initial_agents: ['intake'],
+        voice_settings: { language: 'en-US', tone: 'warm' },
+      });
+      ```
 
-If your tenant has a webhook URL configured, you'll receive signed outbound webhooks:
+      ```python Python
+      client.onboarding.initialize_organization(
+          org_name="Acme Clinic",
+          org_type="behavioral_health",
+          initial_agents=["intake"],
+          voice_settings={"language": "en-US", "tone": "warm"},
+      )
+      ```
+    </CodeGroup>
+  </Step>
 
-```
-POST <your_webhook_url>
-Medera-Signature: sha256=<hmac>
-{
-  "event": "intake.summary.ready",
-  "call_id": "...",
-  "summary": { "screeners": {...}, "icd10_candidates": [...] }
-}
-```
+  <Step title="Start an intake call">
+    <CodeGroup>
+      ```bash cURL
+      curl -X POST https://api.medera.ai/api/intake-calls \
+        -H "X-API-Key: $MEDERA_API_KEY" \
+        -d '{
+          "patient_id": "pat_abc",
+          "phone_number": "+15555550100",
+          "deployment_id": "dep_abc"
+        }'
+      ```
 
-See [Vapi Webhooks](/api-reference/intake/webhooks-vapi).
+      ```typescript JavaScript
+      const call = await client.intake.createCall({
+        patient_id: 'pat_abc',
+        phone_number: '+15555550100',
+        deployment_id: 'dep_abc',
+      });
+      ```
+
+      ```python Python
+      call = client.intake.create_call(
+          patient_id="pat_abc",
+          phone_number="+15555550100",
+          deployment_id="dep_abc",
+      )
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Subscribe to real-time updates">
+    ```typescript
+    const ws = new WebSocket(
+      `wss://api.medera.ai/ws/call/${call.id}?token=${apiKey}`,
+    );
+
+    ws.addEventListener('message', (e) => {
+      const event = JSON.parse(e.data);
+      // event.type:
+      //   'call-started' | 'utterance-processed'
+      //   'task-extracted' | 'transcript-update' | 'call-ended'
+    });
+    ```
+  </Step>
+
+  <Step title="Receive outbound webhooks">
+    If your tenant has a webhook URL configured, you'll receive signed events:
+
+    ```http
+    POST <your_webhook_url>
+    Medera-Signature: sha256=<hmac>
+    Medera-Event: intake.summary.ready
+    Content-Type: application/json
+
+    {
+      "event": "intake.summary.ready",
+      "call_id": "call_abc",
+      "summary": {
+        "screeners": { "phq-9": { "total": 14, "severity": "moderate" } },
+        "icd10_candidates": ["F32.1"]
+      }
+    }
+    ```
+
+    See [Vapi webhooks](/api-reference/intake/webhooks-vapi).
+  </Step>
+</Steps>
+
+## Grace's 4 function calls
+
+| Function | Parameters | Purpose |
+| :--- | :--- | :--- |
+| `verify_identity` | `patient_id`, `verification_data` | 2-of-3 ID confirmation (DOB, address, SSN last 4) |
+| `document_symptom` | `symptom_description`, `severity_level`, `onset_date` | Capture chief complaint |
+| `flag_for_review` | `reason`, `urgency_level` | Flag for clinical review queue |
+| `escalate_urgent` | `escalation_reason`, `call_action` | Hard escalation for emergencies (no agent gating) |
+
+## Compliance guarantees
+
+<Warning>
+  Verbal recording + AI disclosure is **mandatory** before any clinical questions. Identity verification requires **2-of-3 confirmation**. Crisis-language detection **bypasses agent gating** and triggers `escalate_urgent` immediately.
+</Warning>
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Patient Intake Agent" icon="phone" href="/agentic/agents/patient-intake">Agent-level documentation.</Card>
+  <Card title="Vapi Webhooks" icon="webhook" href="/api-reference/intake/webhooks-vapi">Webhook event schema.</Card>
+  <Card title="Intake API" icon="terminal" href="/api-reference/intake/create-call">REST surface.</Card>
+  <Card title="Crisis Response Agent" icon="shield-alert" href="/agentic/agents/crisis-response">Crisis-language detection.</Card>
+</CardGroup>

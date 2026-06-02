@@ -1,34 +1,24 @@
 ---
 title: "Visit Scribe Agent"
-description: "Real-time SOAP notes, ICD-10, and EHR sync."
+description: "Real-time SOAP notes, ICD-10 / CPT suggestions, and EHR sync."
 ---
 
 <Info>
-**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Encounter audio · Visit modality · Chart context · ICD-10 / CPT codebooks
+  **Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Encounter audio · Visit modality · Chart context · ICD-10 / CPT codebooks
 </Info>
 
-Listen, write, code, and post the note before the patient leaves the room.
+Listen, write, code, and post the note before the patient leaves the room — every claim and code anchored to a transcript span.
 
-## Overview
+## Configuration
 
-The Visit Scribe runs alongside the encounter — diarized capture, real-time SOAP drafting in the practice template, ICD-10 / CPT code suggestions anchored to documented support, and direct EHR sync.
+| Field | Description |
+| :--- | :--- |
+| `template_id` | Practice SOAP template and required fields |
+| `ehr_target` | Epic, Cerner, athenahealth, eClinicalWorks, NextGen, … |
+| `code_scope` | Code-set scope and revenue-cycle rules |
+| `signoff_workflow` | Sign-off and clinician edit windows |
 
-Every claim, every code, and every section ties back to a quoted span in the transcript so the clinician can verify, edit, or strike it before sign-off.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Practice SOAP template and required fields
-- EHR target (Epic, Cerner, athenahealth, eClinicalWorks, NextGen, others)
-- Code-set scope and revenue-cycle rules
-- Sign-off workflow and clinician edit windows
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Captures encounter audio with speaker diarization
 2. Drafts the SOAP note in the practice template during the encounter
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Visit Scribe Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
 | **ICD-10 Coding Expert** | Diagnosis coding with documented support |
-| **CPT / E&M Expert** | Procedure and evaluation-and-management coding |
-| **SOAP Structure Expert** | Practice template adherence and completeness |
+| **CPT / E&M Expert** | Procedure and E&M coding |
+| **SOAP Structure Expert** | Practice template adherence + completeness |
 | **Clinical Terminology Expert** | Normalization across SNOMED, LOINC, RxNorm |
 
-## Typical use cases
+## Compliance guarantees
 
-- Eliminate after-visit charting for the entire clinic
-- Code at the level the chart supports, not the level the visit billed
-- Post structured notes to Epic, Cerner, athenahealth, or any FHIR target
-- Keep the clinician in control with a real edit window before sign-off
-
-## Compliance & safety guarantees
-
+<Warning>
 - Every code is anchored to a quoted span supporting it
 - Clinician sign-off is required; agent edits are surfaced as suggestions
 - Notes are written to the EHR only after the clinician signs
+</Warning>
 
-## Tags
+## Endpoints
 
-`Scribe · SOAP · ICD-10 · CPT · EHR sync`
+REST: `POST /api/clinical/start` · `/api/clinical/chunk` · `/api/clinical/stop` · `POST /api/therapy/generate-soap-note-enhanced` · `POST /api/therapy/notes/{id}/finalize`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

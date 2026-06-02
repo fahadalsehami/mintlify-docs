@@ -1,34 +1,24 @@
 ---
-title: "Care Coordinator Agent"
-description: "Orchestrates handoffs across the care journey."
+title: "Care Coordinator Agent (Alex)"
+description: "Voice agent Alex orchestrates handoffs across the care journey."
 ---
 
 <Info>
-**Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Care plan · Referral graph · Outreach attempts · Documentation state
+  **Category:** Clinical Operations &nbsp;·&nbsp; **Signals:** Care plan · Referral graph · Outreach attempts · Documentation state
 </Info>
 
-Keep the patient, the chart, and the next step in lockstep across every transition.
+Keep the patient, the chart, and the next step in lockstep across every transition. Voice agent Alex on ElevenLabs `pNInz6obpgDQGcFmaJgB` (Adam).
 
-## Overview
+## Configuration
 
-The Care Coordinator Agent keeps the patient, the chart, and the next step in lockstep. It runs continuously against the care plan, triggers outreach when a milestone slips, and generates the documentation that proves the loop closed.
+| Field | Description |
+| :--- | :--- |
+| `care_plan_templates` | Practice care-plan templates by program |
+| `referral_graph` | In-network and partner referral graph |
+| `outreach_channels` | Outreach channels + compliance caps (SMS, email, phone) |
+| `closed_loop_requirements` | Closed-loop documentation requirements |
 
-Every coordination action — outreach attempted, referral sent, screener refreshed — is documented to the chart with rationale.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Practice care-plan templates by program
-- In-network and partner referral graph
-- Outreach channels and compliance caps (SMS, email, phone)
-- Closed-loop documentation requirements
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Maintains the care plan as the source of truth across transitions
 2. Triggers outreach for next-step appointments and screener refreshes
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Care Coordinator Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **Care Plan Expert** | Practice template adherence and milestone reasoning |
-| **Referral Graph Expert** | Network logic, partner preferences, capacity reads |
-| **Outreach Expert** | Channel selection and timing within compliance caps |
+| **Care Plan Expert** | Practice template adherence + milestone reasoning |
+| **Referral Graph Expert** | Network logic + partner-preference rules |
+| **Outreach Expert** | Channel selection + timing within compliance caps |
 | **Closed-Loop Audit Expert** | Receipt, scheduling, completion, documentation |
 
-## Typical use cases
+## Compliance guarantees
 
-- Close referral loops the practice can prove to a payer
-- Re-engage patients who drift off the care plan, before they no-show
-- Surface care plans the clinician hasn't touched in weeks
-- Document every coordination action without an admin staffer
-
-## Compliance & safety guarantees
-
+<Warning>
 - Outreach is always within practice-configured compliance caps
 - Referrals are tracked to closed-loop confirmation or escalation
 - Care plan milestones are tracked against a documented template
+</Warning>
 
-## Tags
+## Endpoints
 
-`Coordination · Care plan · Referral · Outreach · Closed-loop`
+REST: `/api/care-orchestrator/workflows` · `/api/care-orchestrator/voice/calls` for Alex outbound calls.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

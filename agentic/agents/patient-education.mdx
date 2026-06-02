@@ -4,31 +4,21 @@ description: "Plain-language education tailored to the patient."
 ---
 
 <Info>
-**Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Clinical content · Patient reading level · Preferred language · Active diagnoses
+  **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Clinical content · Patient reading level · Preferred language · Active diagnoses
 </Info>
 
-Translate clinical content into the patient's language, reading level, and context.
+Translate clinical content into the patient's language, reading level, and context — drawn from a clinician-approved library.
 
-## Overview
+## Configuration
 
-The Patient Education Agent translates clinical content into the patient's language, reading level, and context — drawing from a clinician-approved education library.
+| Field | Description |
+| :--- | :--- |
+| `library_id` | Practice education library + approved content |
+| `reading_level` | Patient reading-level constraints |
+| `languages` | Translation language set |
+| `channel` | Channel + delivery policy |
 
-Engagement and comprehension are tracked over time so the care team can see what's landing and what isn't.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Practice education library and approved content
-- Patient reading-level constraints
-- Translation language set
-- Channel and delivery policy
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Loads the clinical content the clinician wants delivered
 2. Adapts it to the patient's reading level and preferred language
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Patient Education Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **Plain-Language Expert** | Reading-level and clarity |
+| **Plain-Language Expert** | Reading-level + clarity |
 | **Translation Expert** | Multilingual fidelity |
-| **Tailoring Expert** | Active diagnoses and medications |
-| **Engagement Expert** | Channel selection and delivery |
+| **Tailoring Expert** | Active diagnoses + medications |
+| **Engagement Expert** | Channel selection + delivery |
 
-## Typical use cases
+## Compliance guarantees
 
-- Deliver education in the patient's language and reading level
-- Tailor education to the patient's active diagnoses
-- Track engagement and comprehension over time
-- Maintain a clinician-approved education library
-
-## Compliance & safety guarantees
-
+<Warning>
 - Education content is drawn from a clinician-approved library
 - Reading level and translation are explicit and configurable
 - Engagement and comprehension are tracked, not assumed
+</Warning>
 
-## Tags
+## Endpoints
 
-`Education · Plain language · Translation · Tailored`
+Canvas: `transform` + `escalate` nodes for delivery; backend `POST /api/communications`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

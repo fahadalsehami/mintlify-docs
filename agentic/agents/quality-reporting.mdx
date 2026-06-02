@@ -4,31 +4,21 @@ description: "HEDIS, MIPS, and program reporting from chart data."
 ---
 
 <Info>
-**Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Chart facts · Program measure set · Reporting period · Data completeness
+  **Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Chart facts · Program measure set · Reporting period · Data completeness
 </Info>
 
 Assemble quality-program submissions from the chart, not a spreadsheet.
 
-## Overview
+## Configuration
 
-The Quality Reporting Agent assembles quality-program submissions from chart data — HEDIS, MIPS, and program-specific measure sets — surfacing gaps to the care team and submitting once complete.
+| Field | Description |
+| :--- | :--- |
+| `programs` | Active quality programs (HEDIS, MIPS, …) |
+| `reporting_period` | Reporting period + submission cadence |
+| `thresholds` | Data completeness thresholds |
+| `destinations` | Reporting destinations |
 
-Every submission is documented for audit and tracked through the program lifecycle.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Active quality programs (HEDIS, MIPS, others)
-- Reporting period and submission cadence
-- Data completeness thresholds
-- Reporting destinations
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reads the chart for the program measure set
 2. Identifies data gaps that block measure completion
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Quality Reporting Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **HEDIS Measure Expert** | HEDIS measure set and logic |
-| **MIPS Measure Expert** | MIPS measure set and scoring |
-| **Data Completeness Expert** | Gap analysis and remediation |
+| **HEDIS Measure Expert** | HEDIS measure set + logic |
+| **MIPS Measure Expert** | MIPS measure set + scoring |
+| **Data Completeness Expert** | Gap analysis + remediation |
 | **Submission Expert** | Program submission formats |
 
-## Typical use cases
+## Compliance guarantees
 
-- Assemble HEDIS / MIPS submissions from the chart
-- Surface data gaps to the care team for remediation
-- Submit to programs without a spreadsheet workflow
-- Track measure completion over the reporting period
-
-## Compliance & safety guarantees
-
+<Warning>
 - Submissions are assembled from the chart, not a separate workflow
 - Gaps surface to the care team for remediation
 - Every submission is documented for audit
+</Warning>
 
-## Tags
+## Endpoints
 
-`Quality · HEDIS · MIPS · Reporting`
+Canvas: `rails/quality`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

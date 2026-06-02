@@ -4,31 +4,21 @@ description: "Reconcile active, prior, and discharge medication lists."
 ---
 
 <Info>
-**Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Med list sources · Prescribing history · Discharge orders · Patient-reported
+  **Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Med list sources · Prescribing history · Discharge orders · Patient-reported
 </Info>
 
 Maintain a clean, auditable medication list across every transition.
 
-## Overview
+## Configuration
 
-The Medication Reconciliation Agent pulls med lists from connected sources — EHR, Surescripts, pharmacy — and reconciles them with the patient-reported list, surfacing discrepancies and documenting the resolution.
+| Field | Description |
+| :--- | :--- |
+| `sources` | Connected med list sources (EHR, Surescripts, pharmacy) |
+| `cadence` | Practice reconciliation cadence |
+| `escalation_tree` | Discrepancy escalation tree |
+| `documentation` | Documentation requirements |
 
-The active list becomes the source of truth across transitions.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Connected med list sources (EHR, Surescripts, pharmacy)
-- Practice reconciliation cadence
-- Discrepancy escalation tree
-- Documentation requirements
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Pulls med lists from connected sources
 2. Reconciles across sources and patient-reported list
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Medication Reconciliation Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
 | **Med List Source Expert** | EHR, Surescripts, pharmacy integration |
-| **Reconciliation Expert** | Discrepancy logic and resolution |
+| **Reconciliation Expert** | Discrepancy logic + resolution |
 | **Patient Report Expert** | Patient-reported list capture |
 | **Documentation Expert** | Reconciliation logging |
 
-## Typical use cases
+## Compliance guarantees
 
-- Reconcile med lists at every transition automatically
-- Surface discrepancies before they cause harm
-- Document reconciliation for audit
-- Keep the active list current across sources
-
-## Compliance & safety guarantees
-
+<Warning>
 - Reconciliation runs at every transition by default
 - Discrepancies are surfaced with rationale
 - The active list is documented and auditable
+</Warning>
 
-## Tags
+## Endpoints
 
-`MedRec · Reconciliation · Transitions · Auditable`
+Canvas: `rails/pharmacy` + `ehr-sync` (MedicationRequest).
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

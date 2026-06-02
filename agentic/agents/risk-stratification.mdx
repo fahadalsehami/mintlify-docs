@@ -4,31 +4,21 @@ description: "Population-level risk reads from chart and signal data."
 ---
 
 <Info>
-**Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Chart facts · Screener history · Multimodal signal history · Social determinants
+  **Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Chart facts · Screener history · Multimodal signal history · Social determinants
 </Info>
 
 Stratify a population for proactive outreach with documented rationale.
 
-## Overview
+## Configuration
 
-The Risk Stratification Agent runs against a defined risk model, stratifying the population for proactive outreach with documented rationale and surfacing changes over time.
+| Field | Description |
+| :--- | :--- |
+| `risk_model` | Risk model definition + weights |
+| `thresholds` | Stratification thresholds |
+| `prioritization` | Outreach prioritization rules |
+| `documentation` | Documentation requirements |
 
-Every stratification is documented for audit and prioritization is tied to care team capacity.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Risk model definition and weights
-- Stratification thresholds
-- Outreach prioritization rules
-- Documentation requirements
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reads the population against the risk model
 2. Stratifies patients by documented rationale
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Risk Stratification Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
-| **Risk Model Expert** | Definition and weight management |
-| **Stratification Expert** | Threshold logic and band assignment |
-| **Outreach Prioritization Expert** | Capacity and prioritization logic |
+| **Risk Model Expert** | Definition + weight management |
+| **Stratification Expert** | Threshold logic + band assignment |
+| **Outreach Prioritization Expert** | Capacity + prioritization logic |
 | **Documentation Expert** | Stratification logging |
 
-## Typical use cases
+## Compliance guarantees
 
-- Stratify a population for proactive outreach
-- Surface risk band changes over time
-- Document the risk model and the rationale
-- Prioritize outreach against care team capacity
-
-## Compliance & safety guarantees
-
+<Warning>
 - Risk model definition is explicit and configurable
 - Stratification rationale is documented
 - Outreach prioritization respects capacity
+</Warning>
 
-## Tags
+## Endpoints
 
-`Risk · Population · Outreach · Stratification`
+Canvas: `classify` + `transform` over panel.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

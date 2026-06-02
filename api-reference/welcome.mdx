@@ -1,15 +1,19 @@
 ---
 title: "Welcome to the Medera API Reference"
-description: "REST + WebSocket API for behavioral and mental health"
+description: "REST + WebSocket API for behavioral and mental health."
 ---
 
 
-The Medera API is split across two services:
+The Medera API is split across two services that share authentication, tenant context, and audit infrastructure.
 
-| Service | Port | Purpose |
-| :--- | :--- | :--- |
-| **Backend** | 3001 | Tenant + PHI persistence, workflow + deployment lifecycle, EHR + billing integration, Socket.IO |
-| **AI Services** | 8000 | Multimodal engines, RDoC, Care Orchestrator, Vapi orchestration, clinical NLP |
+<CardGroup cols={2}>
+  <Card title="Backend (Port 3001)" icon="server" horizontal>
+    Tenant + PHI persistence, workflow + deployment lifecycle, EHR + billing integration, Socket.IO.
+  </Card>
+  <Card title="AI Services (Port 8000)" icon="brain" horizontal>
+    Multimodal engines, RDoC, Care Orchestrator, Vapi orchestration, clinical NLP.
+  </Card>
+</CardGroup>
 
 In production the public host is `api.medera.ai` and routes to both services through the API gateway.
 
@@ -37,22 +41,22 @@ See [Authentication Overview](/authentication/overview).
 
 ## Content type
 
-Request and response bodies are JSON. File uploads use `multipart/form-data`. Recordings, audio, and video uploads use `multer` (Backend) or `UploadFile` (AI Services) — max 150 MB per file.
+Request and response bodies are JSON. File uploads use `multipart/form-data`. Recordings, audio, and video uploads use `multer` (Backend) or `UploadFile` (AI Services). Max 150 MB per file.
 
-## Rate limits
+## Conventions
 
-See [Rate Limits](/api-reference/rate-limits).
+| Convention | Detail |
+| :--- | :--- |
+| Pagination | Cursor-based — `?cursor=...&limit=50` |
+| Idempotency | Optional `Idempotency-Key` header on POST / PATCH |
+| Versioning | URL path — `/api/v1/...` implicit, `/api/v2/...` explicit |
+| Rate limits | Per-endpoint, see [Rate Limits](/api-reference/rate-limits) |
+| Errors | JSON `{ error: { code, message, request_id } }` |
 
-## Error format
+## What's next
 
-```json
-{
-  "error": {
-    "code": "rls_denied",
-    "message": "Access to resource is denied by tenant policy.",
-    "request_id": "req_abc123"
-  }
-}
-```
-
-See [Errors](/api-reference/errors).
+<CardGroup cols={3}>
+  <Card title="Errors" icon="circle-x" href="/api-reference/errors">Error format and common codes.</Card>
+  <Card title="Rate Limits" icon="gauge" href="/api-reference/rate-limits">Per-tenant limits.</Card>
+  <Card title="Pagination" icon="list" href="/api-reference/pagination">Cursor-based pagination.</Card>
+</CardGroup>

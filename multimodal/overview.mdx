@@ -1,79 +1,99 @@
 ---
-title: "Multimodal Sensing — Overview"
-description: "Vocal acoustics + facial physiology + RDoC fusion"
+title: "Overview of Medera Multimodal Sensing"
+description: "Vocal acoustics, facial physiology, and RDoC fusion for behavioral health."
 ---
 
 
-Medera's Multimodal Sensing layer fuses three real-time clinical signal channels — vocal acoustics, facial physiology, and assessment context — into 15 RDoC construct activations. The pipeline runs in `ai-services` under `src/multimodal/engines/` and `src/rdoc/`.
+Medera Multimodal Sensing is specifically designed for behavioral and mental health. The engines below provide real-time access to clinical signal channels. Selecting the right engine depends on your use case.
 
-## The three engines
+<Note>
+  Review the [Languages page](/about/languages) to see language support per surface and the [Architecture page](/multimodal/architecture) for engine deep dives.
+</Note>
+
+## Medera Multimodal engines
 
 <CardGroup cols={3}>
   <Card title="Vocal Acoustic Engine" icon="waveform-lines" href="/multimodal/vocal/overview">
-    `VocalAcousticEngine` — Librosa + Parselmouth (Praat). F0 statistics, jitter, shimmer, HNR, MFCC (13), prosodic features, and clinical markers.
+    F0, jitter, shimmer, HNR, MFCC, prosodic features, and clinical markers from speech.
   </Card>
   <Card title="Facial Physiological Engine" icon="eye" href="/multimodal/facial/overview">
-    `FacialPhysiologicalEngine` — OpenCV + HeartPy + SciPy. rPPG-derived HR, BP, HRV (SDNN / RMSSD / LF-HF / SD1 / SD2), respiration, stress index.
+    rPPG-derived HR, BP, HRV (SDNN, RMSSD, LF/HF, SD1, SD2), respiration, stress.
   </Card>
   <Card title="RDoC Construct Computer" icon="brain" href="/multimodal/rdoc/overview">
-    `RDoCConstructComputer` — fuses facial features, vocal features, and assessment context into 15 named constructs across 5 domains.
+    15 named RDoC constructs across 5 domains fused from facial, vocal, and assessment context.
   </Card>
 </CardGroup>
 
+---
+
 ## Architecture
 
+```mermaid
+flowchart LR
+  A[Audio<br/>16 kHz mono PCM] --> VA[VocalAcousticEngine<br/>Librosa · Parselmouth Praat]
+  V[Video frames<br/>≥ 15 fps] --> FA[FacialPhysiologicalEngine<br/>OpenCV · HeartPy · SciPy]
+  AS[Assessments<br/>PHQ-9 · GAD-7 · C-SSRS] --> RDC
+  VA --> RDC[RDoCConstructComputer<br/>15 constructs · 5 domains]
+  FA --> RDC
+  RDC --> MTA[MultimodalTherapyAnalyzer<br/>Canonical payload]
+  MTA --> RAG[AdvancedClinicalRAG<br/>SNOMED · ICD-10 · RxNorm]
+  RAG --> OUT[CitedResponse<br/>+ canonical clinical payload]
 ```
-   AUDIO  →  VocalAcousticEngine.extract_features(audio) → VocalFeatures
-                                                              │
-   VIDEO  →  FacialPhysiologicalEngine.extract_features(frames) → PhysiologicalSignals
-                                                              │
-   ASSESS →  PHQ-9 / GAD-7 / C-SSRS scores ──────────────────┤
-                                                              ▼
-                                  RDoCConstructComputer.compute_all_constructs()
-                                                              │
-                                                              ▼
-                                          RDoCActivationProfile (15 constructs)
-                                                              │
-                                                              ▼
-                          MultimodalTherapyAnalyzer → canonical clinical payload
-                                                              │
-                                                              ▼
-                           AdvancedClinicalRAG (optional)  → CitedResponse
-```
+
+---
+
+## Engine functionality
+
+| | Vocal Acoustic | Facial Physiological | RDoC Construct |
+| :--- | :--- | :--- | :--- |
+| **Input** | 16 kHz mono PCM | Video frames | Vocal + Facial features + Assessments |
+| **Minimum duration** | 1.0 s | 30 s (HR) / 60 s (HRV, BP) | — |
+| **Library** | Librosa + Parselmouth | OpenCV + HeartPy + SciPy | NumPy + Pandas |
+| **Outputs** | F0, jitter, shimmer, HNR, MFCC, clinical markers | HR, BP, HRV, RR, stress, PNS/SNS | 15 named constructs |
+| **Confidence calibration** | 0–1 per family | 0–1 + SNR > 3.0 gate | `VERY_HIGH` → `VERY_LOW` |
+| **Failure mode** | `unavailable` status | `confidence: 0.0` | `requires_human_review: true` |
+
+---
 
 ## Endpoints
 
-The multimodal pipeline is exposed through two API surfaces.
-
-| Surface | Endpoint | Use |
+| Method | Path | Use |
 | :--- | :--- | :--- |
-| Backend (3001) | `POST /api/multimodal-therapy/analyze-session` | Full multimodal analysis + biomarker persistence + metered credit |
-| Backend (3001) | `POST /api/multimodal-therapy/analyze-audio-only` | Audio-only proxy to AI services |
-| AI Services (8000) | `POST /api/multimodal-therapy/analyze-session` | Source-of-truth analyzer |
-| AI Services (8000) | `POST /api/multimodal-therapy/analyze-audio-only` | Vocal-only analysis |
-| AI Services (8000) | `GET /api/multimodal-therapy/health` | Engine availability + dep status |
+| `POST` | `/api/multimodal-therapy/analyze-session` | Full multimodal analysis + biomarker persistence |
+| `POST` | `/api/multimodal-therapy/analyze-audio-only` | Audio-only multimodal analysis |
+| `GET` | `/api/multimodal-therapy/health` | Engine availability + dependency status |
 
-The backend proxy enriches the payload with the runtime agent config and persists the resulting biomarker envelope; the AI services router runs the engines.
+## Confidence bands
 
-## Quality and confidence
+| Band | Range | Behavior |
+| :--- | :--- | :--- |
+| `VERY_HIGH` | ≥ 0.95 | Auto-pass through to clinician |
+| `HIGH` | ≥ 0.85 | Auto-pass through |
+| `MODERATE` | ≥ 0.70 | Surfaced normally |
+| `LOW` | ≥ 0.50 | `requires_human_review: true` |
+| `VERY_LOW` | < 0.50 | `requires_human_review: true` + flagged for review queue |
 
-Every output reports confidence in `ConfidenceLevel` bands (defined in `advanced_clinical_rag.py`):
+If signal quality fails (SNR ≤ 3.0 on facial, voiced fraction too low on vocal), the engine returns `confidence: 0.0` and the analyzer falls back to a GPT-4o transcript-inferred analysis — never fabricated values.
 
-| Band | Range |
-| :--- | :--- |
-| `VERY_HIGH` | ≥ 0.95 |
-| `HIGH` | ≥ 0.85 |
-| `MODERATE` | ≥ 0.70 |
-| `LOW` | ≥ 0.50 |
-| `VERY_LOW` | < 0.50 |
-
-Below `MODERATE`, results are delivered with `requires_human_review: true`. If signal quality fails (SNR < 3.0 on the facial channel, voiced fraction too low on the vocal channel), the engine returns the metric with `confidence: 0.0` and the analyzer falls back to a GPT-4o transcript-inferred analysis — never to fabricated values.
+---
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Architecture" href="/multimodal/architecture">Pipeline deep dive.</Card>
-  <Card title="Quickstart" href="/multimodal/quickstart">Stream your first multimodal session.</Card>
-  <Card title="RDoC Constructs" href="/multimodal/rdoc/overview">15 named constructs.</Card>
-  <Card title="Co-Therapy Agent" href="/agentic/agents/co-therapy">Agent-level documentation.</Card>
+  <Card title="Architecture" icon="diagram-project" href="/multimodal/architecture">
+    Pipeline deep dive from raw signal to canonical clinical payload.
+  </Card>
+  <Card title="Quickstart" icon="zap" href="/multimodal/quickstart">
+    Stream your first multimodal session end-to-end.
+  </Card>
+  <Card title="RDoC Constructs" icon="brain" href="/multimodal/rdoc/overview">
+    15 named constructs across 5 domains.
+  </Card>
+  <Card title="Co-Therapy Agent" icon="users" href="/agentic/agents/co-therapy">
+    Agent-level documentation for in-session multimodal.
+  </Card>
 </CardGroup>
+
+<Note>
+  Contact us if you need help selecting the right engine or have questions about configuring requests. [help.medera.ai](https://help.medera.ai)
+</Note>

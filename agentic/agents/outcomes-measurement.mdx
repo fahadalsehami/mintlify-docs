@@ -4,31 +4,21 @@ description: "Longitudinal PHQ-9, GAD-7, and outcome tracking."
 ---
 
 <Info>
-**Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Screener cadence · Patient consent · Longitudinal scores · Clinical thresholds
+  **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Screener cadence · Patient consent · Longitudinal scores · Clinical thresholds
 </Info>
 
-Run measurement-based care on autopilot, with the clinician in control.
+Run measurement-based care on autopilot with the clinician in control.
 
-## Overview
+## Configuration
 
-The Outcomes Measurement Agent runs measurement-based care on autopilot — administering validated screeners on cadence, tracking longitudinal change, and surfacing threshold crossings to the clinician.
+| Field | Description |
+| :--- | :--- |
+| `cadence` | Practice screener cadence + thresholds |
+| `consent` | Patient consent + reminder policy |
+| `destinations` | Reporting destinations (chart, payer, registry) |
+| `alerts` | Threshold-based clinician alerts |
 
-Outcomes are reported to the chart, the payer, and any registry the practice participates in.
-
-## How this agent works
-
-### Configuration
-
-This agent takes the following configuration from your practice settings:
-
-- Practice screener cadence and thresholds
-- Patient consent and reminder policy
-- Reporting destinations (chart, payer, registry)
-- Threshold-based clinician alerts
-
-### Execution
-
-At runtime, the agent executes the following steps:
+## Execution
 
 1. Reminds patients to complete screeners on cadence
 2. Administers PHQ-9, GAD-7, and outcome instruments
@@ -38,45 +28,32 @@ At runtime, the agent executes the following steps:
 
 ## Composable experts
 
-The Outcomes Measurement Agent bundles the following experts from the [registry](/agentic/experts/overview):
-
 | Expert | Role |
 | :--- | :--- |
 | **Validated Screener Expert** | PHQ-9, GAD-7, AUDIT-C, C-SSRS |
-| **Longitudinal Trend Expert** | Significance and change detection |
+| **Longitudinal Trend Expert** | Significance + change detection |
 | **Threshold Alert Expert** | Clinician-configured cut-points |
 | **Reporting Expert** | Chart, payer, registry destinations |
 
-## Typical use cases
+## Compliance guarantees
 
-- Run measurement-based care on every patient without admin lift
-- Surface threshold crossings to the clinician before the next visit
-- Report outcomes to payers and registries without a spreadsheet
-- Document longitudinal change with significance, not just numbers
-
-## Compliance & safety guarantees
-
+<Warning>
 - Screener cadence is configurable per patient and per program
 - Longitudinal change is reported with significance
 - Reporting destinations are explicit and configurable
+</Warning>
 
-## Tags
+## Endpoints
 
-`MBC · PHQ-9 · GAD-7 · Outcomes · Longitudinal`
+Canvas: `rails/mbc`. AI Services: `POST /api/cocm/score` · `POST /api/cocm/treatment-to-target`.
+
+---
 
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Agentic Framework Overview" href="/agentic/overview">
-    Learn how agents compose with experts and the orchestrator.
-  </Card>
-  <Card title="Expert Registry" href="/agentic/experts/overview">
-    Browse the typed expert registry agents bundle.
-  </Card>
-  <Card title="Quickstart" href="/agentic/quickstart">
-    Send your first message to an agent.
-  </Card>
-  <Card title="A2A Protocol" href="/agentic/a2a-protocol">
-    Learn how agents talk to each other.
-  </Card>
+  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
+  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
+  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
+  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>
