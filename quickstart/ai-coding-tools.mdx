@@ -9,7 +9,7 @@ Common AI coding tasks on Medera, each with a single API call.
 ## Encounter coding (signed note)
 
 ```bash
-curl -X POST https://api.medera.ai/api/coding/predict \
+curl -X POST https://api.medera.info/api/coding/predict \
   -H "Authorization: Bearer $TOKEN" \
   -d '{ "code_systems": ["icd-10-cm", "cpt"], "context": { "documentId": "doc_abc" } }'
 ```
@@ -17,7 +17,7 @@ curl -X POST https://api.medera.ai/api/coding/predict \
 ## CDI review
 
 ```bash
-curl -X POST https://api.medera.ai/api/coding/cdi/review \
+curl -X POST https://api.medera.info/api/coding/cdi/review \
   -H "Authorization: Bearer $TOKEN" \
   -d '{ "documentId": "doc_abc" }'
 ```
@@ -25,7 +25,7 @@ curl -X POST https://api.medera.ai/api/coding/cdi/review \
 ## Revenue cycle sweep
 
 ```bash
-curl -X POST https://api.medera.ai/api/coding/sweep \
+curl -X POST https://api.medera.info/api/coding/sweep \
   -H "Authorization: Bearer $TOKEN" \
   -d '{ "patient_ids": ["pat_a", "pat_b"], "period": { "from": "2026-04-01", "to": "2026-04-30" } }'
 ```

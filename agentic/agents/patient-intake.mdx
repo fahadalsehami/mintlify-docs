@@ -12,23 +12,68 @@ The Patient Intake Agent runs the first contact a patient has with the practice.
 
 ## Conversation state machine
 
-```mermaid
-stateDiagram-v2
-  [*] --> GREETING
-  GREETING --> IDENTITY_VERIFICATION
-  IDENTITY_VERIFICATION --> GATHERING_INFO
-  GATHERING_INFO --> MENTAL_HEALTH_SCREENING
-  MENTAL_HEALTH_SCREENING --> APPOINTMENT_SCHEDULING
-  APPOINTMENT_SCHEDULING --> SUMMARY_CONFIRMATION
-  SUMMARY_CONFIRMATION --> CLOSING
-  CLOSING --> COMPLETED
-  COMPLETED --> [*]
+<Frame>
+<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/intake-state.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
+  <style>{`
+    @keyframes mdr-state { 0%, 8% { fill: #ffffff; stroke: rgba(20,20,19,0.18); } 10%, 18% { fill: #dbe5ff; stroke: #76a1fc; } 20%, 100% { fill: #ffffff; stroke: rgba(20,20,19,0.18); } }
+    @keyframes mdr-state-final { 0%, 95% { fill: #ffffff; } 100% { fill: #76a1fc; } }
+    .mdr-st-1 { animation: mdr-state 12s linear infinite; animation-delay: 0s; }
+    .mdr-st-2 { animation: mdr-state 12s linear infinite; animation-delay: 1.5s; }
+    .mdr-st-3 { animation: mdr-state 12s linear infinite; animation-delay: 3s; }
+    .mdr-st-4 { animation: mdr-state 12s linear infinite; animation-delay: 4.5s; }
+    .mdr-st-5 { animation: mdr-state 12s linear infinite; animation-delay: 6s; }
+    .mdr-st-6 { animation: mdr-state 12s linear infinite; animation-delay: 7.5s; }
+    .mdr-st-7 { animation: mdr-state 12s linear infinite; animation-delay: 9s; }
+  `}</style>
+  <rect x="0" y="0" width="780" height="360" fill="#ffffff"/>
+  <g>
+    <rect x="0" y="0" width="780" height="32" fill="#141413"/>
+    <circle cx="14" cy="16" r="3" fill="#ff5f57"/>
+    <circle cx="26" cy="16" r="3" fill="#febc2e"/>
+    <circle cx="38" cy="16" r="3" fill="#28c840"/>
+    <text x="54" y="20" fill="#9a9893" font-family="ui-monospace, monospace" font-size="11">medera/intake-state.svg</text>
+    <text x="766" y="20" text-anchor="end" fill="#9a9893" font-family="ui-monospace, monospace" font-size="10">conversation state</text>
+  </g>
+  <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/>
+  <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" stroke-opacity="0.18"/>
 
-  IDENTITY_VERIFICATION --> ESCALATED: escalate_urgent()
-  GATHERING_INFO --> ESCALATED: escalate_urgent()
-  MENTAL_HEALTH_SCREENING --> ESCALATED: crisis-language
-  ESCALATED --> [*]
-```
+  <rect x="40" y="70" width="120" height="36" class="mdr-st-1" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
+  <text x="100" y="92" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">GREETING</text>
+  <rect x="200" y="70" width="170" height="36" class="mdr-st-2" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
+  <text x="285" y="92" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">IDENTITY_VERIFICATION</text>
+  <rect x="410" y="70" width="160" height="36" class="mdr-st-3" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
+  <text x="490" y="92" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">GATHERING_INFO</text>
+  <rect x="610" y="70" width="160" height="36" class="mdr-st-4" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
+  <text x="690" y="92" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="8" font-weight="600">MENTAL_HEALTH_SCREENING</text>
+
+  <rect x="40" y="180" width="180" height="36" class="mdr-st-5" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
+  <text x="130" y="202" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">APPOINTMENT_SCHEDULING</text>
+  <rect x="260" y="180" width="180" height="36" class="mdr-st-6" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
+  <text x="350" y="202" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">SUMMARY_CONFIRMATION</text>
+  <rect x="480" y="180" width="120" height="36" class="mdr-st-7" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
+  <text x="540" y="202" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">CLOSING</text>
+  <rect x="640" y="180" width="120" height="36" fill="#76a1fc" stroke="#4f7be0"/>
+  <text x="700" y="202" text-anchor="middle" fill="#fafafa" font-family="ui-monospace, monospace" font-size="9" font-weight="700">COMPLETED</text>
+
+  <defs><marker id="arr_in" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#141413" fill-opacity="0.55"/></marker></defs>
+  <path d="M 160 88 L 200 88" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
+  <path d="M 370 88 L 410 88" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
+  <path d="M 570 88 L 610 88" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
+  <path d="M 690 106 Q 690 145 130 145 L 130 180" stroke="#141413" stroke-opacity="0.45" stroke-width="1" fill="none" marker-end="url(#arr_in)"/>
+  <path d="M 220 198 L 260 198" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
+  <path d="M 440 198 L 480 198" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
+  <path d="M 600 198 L 640 198" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
+
+  {/* Flowing dot showing state progression */}
+  <circle r="3" fill="#76a1fc">
+    <animateMotion dur="12s" repeatCount="indefinite" path="M 100 88 L 285 88 L 490 88 L 690 88 L 130 198 L 350 198 L 540 198 L 700 198"/>
+  </circle>
+
+  {/* Escalation */}
+  <rect x="290" y="285" width="200" height="36" fill="#fafaf6" stroke="#c44040"/>
+  <text x="390" y="307" text-anchor="middle" fill="#c44040" font-family="ui-monospace, monospace" font-size="10" font-weight="600">ESCALATED (any state → terminal)</text>
+</svg>
+</Frame>
 
 ## Task types (`TaskType` enum)
 

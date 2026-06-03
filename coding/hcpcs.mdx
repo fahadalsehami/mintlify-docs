@@ -1,7 +1,48 @@
 ---
 title: "HCPCS Level II"
-description: "Healthcare Common Procedure Coding System, Level II"
+description: "Non-physician services with BH-specific H- and S-code coverage."
 ---
 
 
-The US standard for non-physician products, supplies, and services, including durable medical equipment, drugs, and ambulance services.
+HCPCS Level II is the US standard for non-physician products, supplies, and services. Medera's BH calibration covers the **H- and S-codes** that BH practices use most.
+
+## BH-specific HCPCS subset
+
+### Assessment + intervention
+| Code | Description |
+| :--- | :--- |
+| `H0001` | Alcohol and / or drug assessment |
+| `H0004` | BH counseling and therapy, per 15 min |
+| `H0031` | Mental health assessment, by non-physician |
+| `H0036` | Community psychiatric supportive treatment, per 15 min |
+| `H2011` | Crisis intervention service, per 15 min |
+| `H2015` | Comprehensive community support services, per 15 min |
+| `H2017` | Psychosocial rehabilitation services, per 15 min |
+| `H2019` | Therapeutic behavioral services, per 15 min |
+
+### Intensive programs
+| Code | Description |
+| :--- | :--- |
+| `S0201` | Partial hospitalization services (PHP) |
+| `S9480` | Intensive outpatient psychiatric services (IOP) |
+
+### Peer support
+| Code | Description |
+| :--- | :--- |
+| `H0038` | Self-help / peer services, per 15 min |
+| `H0046` | Mental health services, NOS |
+
+## Use case
+
+The Medical Coding Agent surfaces HCPCS when the note documents IOP / PHP / peer support — services CPT doesn't cover well. PA detection is enabled on H- and S-codes for the configured payers.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="CPT" icon="hashtag" href="/coding/cpt">Psychotherapy + E/M.</Card>
+  <Card title="ICD-10-CM" icon="hashtag" href="/coding/icd-10-cm">F-code diagnosis.</Card>
+  <Card title="Revenue cycle" icon="chart-line" href="/coding/revenue-cycle">Sweeps + audits.</Card>
+  <Card title="Prior Authorization" icon="file-check" href="/agentic/agents/prior-authorization">PA detection.</Card>
+</CardGroup>

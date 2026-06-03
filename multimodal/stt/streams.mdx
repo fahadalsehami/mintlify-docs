@@ -1,33 +1,47 @@
 ---
-title: "Streams endpoint"
-description: "Real-time conversational clinical intelligence"
+title: "/sessions endpoint"
+description: "WSS · real-time stateful live therapy capture with 2-speaker diarization."
 ---
 
 
-`wss://api.medera.ai/streams` is a stateful conversational STT WebSocket optimized for diarized encounter audio with real-time SOAP drafting.
+`wss://api.medera.info/sessions` is the **stateful, diarized live-capture WebSocket** for therapy sessions. Same engine, same calibration, same structured output as `/transcribe` and `/transcripts` — but architected for the full 50-minute encounter with 2-speaker diarization, in-line C-SSRS markers, and structured instrument-score emission.
 
 ## Connection
 
 ```
-wss://api.medera.ai/streams?session_id=<id>&token=<jwt>
+wss://api.medera.info/sessions?session_id=<id>&token=<jwt>
 ```
 
-## Client → Server
-
-Send PCM frames as binary messages, or control messages as JSON:
+## Configuration (client → server)
 
 ```json
-{ "type": "configure", "language": "en-US", "diarization": true, "features": ["soap", "codes"] }
+{
+  "type": "configure",
+  "language": "en-US",
+  "diarization": true,
+  "speakers": 2,
+  "interim_results": true,
+  "instruments": ["phq-9", "gad-7", "audit-c", "c-ssrs"],
+  "vocabulary": {
+    "formulary": ["sertraline", "escitalopram", "lamotrigine"],
+    "programs": ["IOP", "PHP", "PHP-step-down"],
+    "clinicians": ["Dr. Khalil", "Dr. Patel"]
+  },
+  "features": ["soap", "codes", "span_anchors", "crisis_markers"]
+}
 ```
 
-## Server → Client events
+## Events (server → client)
 
 | Event | Schema |
 | :--- | :--- |
 | `transcript.partial` | `{ text, speaker, start_ms, end_ms }` |
-| `transcript.final` | `{ text, speaker, start_ms, end_ms, span_id }` |
+| `transcript.final` | `{ text, speaker: "clinician" | "patient", start_ms, end_ms, span_id }` |
+| `instrument.item_scored` | `{ instrument, item, score, transcript_anchor }` |
+| `instrument.completed` | `{ instrument, total_score, severity, items, anchors }` |
+| `crisis.detected` | `{ band, criteria, transcript_anchor, escalation_id }` (C-SSRS) |
 | `note.section.update` | `{ section, text, anchors: [span_id] }` |
-| `code.suggestion` | `{ system, code, display, anchor: { span_id, quote } }` |
+| `code.suggestion` | `{ system, code, display, anchor }` (ICD-10, CPT) |
 | `audio.event` | `{ kind: "silence" | "clipping" | "low_snr" }` |
 | `error` | `{ code, message, recoverable }` |
 
@@ -38,8 +52,53 @@ client opens WS
   → server: { connected, session_id }
   → client: { configure, ... }
   → server: { configured }
-  → client: <PCM binary>...
-  → server: { transcript.partial }, { transcript.final }, { note.section.update }, { code.suggestion }
+  → client: <PCM binary frames>...
+  → server: { transcript.partial }, { transcript.final }
+  → server: { instrument.item_scored } (continuous)
+  → server: { instrument.completed }
+  → server: { crisis.detected }     ← never gated
+  → server: { note.section.update }
+  → server: { code.suggestion }
   → client: { close }
-  → server: { finalized }
+  → server: { finalized, session_id }
 ```
+
+## Audio
+
+- 16 kHz 16-bit PCM mono recommended
+- Opus at 32 kbps for bandwidth-constrained edges
+- 20 ms frames (320 samples at 16 kHz)
+- See [Audio Configuration](/multimodal/stt/audio) for full formats
+
+## What you get back at session close
+
+```json
+{
+  "session_id": "ses_abc",
+  "transcript": { "segments": [...], "spans": [...] },
+  "diarization": { "speakers": 2, "speaker_time_ms": { "clinician": 1820000, "patient": 720000 } },
+  "instruments": {
+    "phq-9": { "total": 14, "severity": "moderate", "items": [...] },
+    "gad-7": { "total": 11, "severity": "moderate" },
+    "c-ssrs": { "risk_band": "low", "items": [...] }
+  },
+  "codes": { "icd10": [...], "cpt": [...] },
+  "notes": { "soap": {...} },
+  "crisis_events": []
+}
+```
+
+<Warning>
+  **C-SSRS crisis markers are non-bypassable.** When `crisis.detected` fires, the practice escalation tree is invoked immediately. The agent cannot gate, suppress, or delay the event.
+</Warning>
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="/transcribe" icon="microphone" href="/multimodal/stt/transcribe">Stateless between-visit dictation.</Card>
+  <Card title="/transcripts" icon="file-audio" href="/multimodal/stt/transcripts">Async batch processing.</Card>
+  <Card title="Diarization" icon="users" href="/multimodal/stt/diarization">2-speaker separation.</Card>
+  <Card title="Audio configuration" icon="settings" href="/multimodal/stt/audio">Formats and frame size.</Card>
+</CardGroup>

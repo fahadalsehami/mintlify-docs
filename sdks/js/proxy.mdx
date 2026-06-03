@@ -22,6 +22,6 @@ app.all('/api/medera-proxy/*', async (req, res) => {
     clientSecret: process.env.MEDERA_CLIENT_SECRET!,
   });
   const token = await auth.getAccessToken();
-  // forward req to api.medera.ai with bearer token
+  // forward req to api.medera.info with bearer token
 });
 ```

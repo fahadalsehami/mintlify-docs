@@ -8,23 +8,25 @@ Canvas workflows are semver-versioned. Publishing creates an immutable snapshot 
 
 ## Deployment lifecycle
 
-```mermaid
-stateDiagram-v2
-  [*] --> pending
-  pending --> deploying
-  deploying --> running
-  running --> testing
-  testing --> passed
-  testing --> failed
-  passed --> promoting: explicit promote
-  promoting --> promoted
-  promoted --> [*]
-  running --> stopping
-  stopping --> stopped
-  stopped --> [*]
-  passed --> expired: 72h auto-expire
-  running --> rolled_back: auto-rollback
-```
+<Frame>
+<svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/deployment-lifecycle.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
+  <defs>
+    <pattern id="dots_89580" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.6" fill="rgba(20,20,19,0.18)"/>
+    </pattern>
+  </defs>
+  <rect x="0" y="0" width="780" height="320" fill="#ffffff"/>
+  <g>
+  <rect x="0" y="0" width="780" height="32" fill="#141413"/>
+  <circle cx="14" cy="16" r="2" fill="#76a1fc"/>
+  <text x="26" y="20" fill="#fafafa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="500">medera/deployment-lifecycle.svg</text>
+  <text x="766" y="20" text-anchor="end" fill="#9a9893" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">statuses</text>
+</g>
+  <rect x="0" y="32" width="780" height="288" fill="#fafaf6"/>
+  <rect x="0.5" y="0.5" width="779" height="319" fill="none" stroke="#141413" stroke-opacity="0.18" stroke-width="1"/>
+  <rect x="40" y="70" width="120" height="40" fill="#fafaf6" stroke="rgba(20,20,19,0.18)"/><text x="100" y="94" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">pending</text><rect x="170" y="70" width="120" height="40" fill="#fafaf6" stroke="rgba(20,20,19,0.18)"/><text x="230" y="94" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">deploying</text><rect x="300" y="70" width="120" height="40" fill="#dbe5ff" stroke="rgba(20,20,19,0.18)"/><text x="360" y="94" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">running</text><rect x="430" y="70" width="120" height="40" fill="#fafaf6" stroke="rgba(20,20,19,0.18)"/><text x="490" y="94" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">testing</text><rect x="560" y="70" width="120" height="40" fill="#76a1fc" stroke="#4f7be0"/><text x="620" y="94" text-anchor="middle" fill="#fafafa" font-family="ui-monospace, monospace" font-size="10" font-weight="600">passed</text><rect x="170" y="170" width="120" height="40" fill="#fafaf6" stroke="rgba(20,20,19,0.18)"/><text x="230" y="194" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">failed</text><rect x="300" y="170" width="120" height="40" fill="#fafaf6" stroke="rgba(20,20,19,0.18)"/><text x="360" y="194" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">stopping</text><rect x="430" y="170" width="120" height="40" fill="#fafaf6" stroke="rgba(20,20,19,0.18)"/><text x="490" y="194" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">stopped</text><rect x="430" y="250" width="120" height="40" fill="#fafaf6" stroke="rgba(20,20,19,0.18)"/><text x="490" y="274" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">expired</text><rect x="560" y="250" width="120" height="40" fill="#fafaf6" stroke="rgba(20,20,19,0.18)"/><text x="620" y="274" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="10" font-weight="600">rolled_back</text><rect x="560" y="170" width="120" height="40" fill="#4f7be0" stroke="#4f7be0"/><text x="620" y="194" text-anchor="middle" fill="#fafafa" font-family="ui-monospace, monospace" font-size="10" font-weight="600">promoted</text><defs><marker id="arrow_dl" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#141413" fill-opacity="0.5"/></marker></defs><path d="M 160 90 L 170 90" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 290 90 L 300 90" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 420 90 L 430 90" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 550 90 L 560 90" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 490 110 L 230 170" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 620 110 L 620 170" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 360 110 L 360 170" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 360 210 L 430 210" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 360 210 L 430 250" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/><path d="M 360 210 L 560 250" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_dl)"/>
+</svg>
+</Frame>
 
 ## Tables
 

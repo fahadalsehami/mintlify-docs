@@ -1,23 +1,64 @@
 ---
 title: "Languages"
-description: "Language support across Medera APIs"
+description: "Language support per surface — STT, multimodal, text generation, validated screeners."
 ---
 
 
-Medera supports the following languages across speech-to-text, text generation, and patient-facing agents. Language support varies by surface — check the table below.
+Medera ships a **BH-tuned speech engine** (Speech-to-Behavioral-Text) and a **language-agnostic vocal-acoustic engine**. Language support varies by surface — the matrices below show what's GA, what's in private beta, and what's on the roadmap.
 
-| Language | STT | Text Gen | Patient-facing | Validated screeners |
-| :--- | :--- | :--- | :--- | :--- |
-| English (US) | ✓ | ✓ | ✓ | PHQ-9, GAD-7, AUDIT-C, C-SSRS |
-| English (UK) | ✓ | ✓ | ✓ | PHQ-9, GAD-7 |
-| Spanish (US) | ✓ | ✓ | ✓ | PHQ-9, GAD-7 |
-| Spanish (LATAM) | ✓ | ✓ | ✓ | PHQ-9, GAD-7 |
-| Arabic (MSA) | ✓ | ✓ | ✓ | PHQ-9, GAD-7 |
-| French (FR) | ✓ | ✓ | ✓ | PHQ-9 |
-| German (DE) | ✓ | ✓ | ✓ | PHQ-9 |
-| Portuguese (BR) | ✓ | ✓ | ✓ | PHQ-9 |
-| Mandarin (Simplified) | ✓ | ✓ | beta | — |
-| Vietnamese | ✓ | beta | beta | — |
-| Tagalog | ✓ | beta | beta | — |
+<Note>
+  The vocal-acoustic engine — F0, jitter, shimmer, HNR, prosodic flatness, depression / anxiety / distress indices — is **language-agnostic** and ships unchanged across every locale. The same is true for the facial physiological engine and the RDoC computer.
+</Note>
 
-Patient-facing translations preserve clinical fidelity — validated screeners use the published validated translation, never a model-generated one.
+## Speech-to-Behavioral-Text — per locale
+
+| Locale | Status | DSM-5-TR vocab | C-SSRS | Validated screeners | Region |
+| :--- | :--- | :---: | :---: | :--- | :--- |
+| `en-US` | GA | ✓ | ✓ | PHQ-9, GAD-7, AUDIT-C, C-SSRS | US |
+| `en-GB` | GA | ✓ | ✓ | PHQ-9, GAD-7 | EU |
+| `en-AU` | GA | ✓ | ✓ | PHQ-9, GAD-7 | AU |
+| `en-CA` | GA | ✓ | ✓ | PHQ-9, GAD-7 | US / CA |
+| `ar-SA` | GA · MENA | ✓ (MSA) | ✓ | PHQ-9, GAD-7 (validated Arabic) | MENA / VPC |
+| `es-MX` | private beta | ✓ | ✓ | PHQ-9, GAD-7 | US / VPC |
+| `es-ES` | private beta | ✓ | ✓ | PHQ-9, GAD-7 | EU |
+| `fr-FR` | private beta | ✓ | ✓ | PHQ-9 | EU |
+| `fr-CA` | private beta | ✓ | ✓ | PHQ-9 | US / CA |
+| `de-DE` | private beta | ✓ | beta | PHQ-9 | EU |
+| `pt-BR` | roadmap | — | — | — | Q3 2026 |
+| `it-IT` | roadmap | — | — | — | Q4 2026 |
+| `sv-SE`, `da-DK`, `no-NO`, `nl-NL`, `fi-FI` | roadmap | — | — | — | 2027 |
+| `zh-CN`, `vi-VN`, `tl-PH` | roadmap | — | — | — | 2027 |
+
+## Surface coverage matrix
+
+| Surface | English (US/UK/AU/CA) | Arabic (MSA) | Spanish (beta) | French (beta) | German (beta) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **/transcribe — dictation** | GA | GA | beta | beta | beta |
+| **/sessions — live capture** | GA | GA | beta | beta | beta |
+| **/transcripts — batch** | GA | GA | beta | beta | beta |
+| **Vocal Acoustic Engine** | language-agnostic | language-agnostic | language-agnostic | language-agnostic | language-agnostic |
+| **Facial Physiological Engine** | language-agnostic | language-agnostic | language-agnostic | language-agnostic | language-agnostic |
+| **RDoC Construct Computer** | language-agnostic | language-agnostic | language-agnostic | language-agnostic | language-agnostic |
+| **Text generation (SOAP, etc.)** | GA | GA | beta | beta | beta |
+| **Validated screeners** | GA (PHQ-9, GAD-7, AUDIT-C, C-SSRS) | GA (PHQ-9, GAD-7) | beta | beta | beta (PHQ-9) |
+| **Voice agents (Grace, Alex, Jordan, Taylor)** | GA | GA | beta | beta | roadmap |
+| **Intake call function calls** | GA | GA | beta | beta | roadmap |
+
+## Translation policy
+
+Patient-facing translations preserve clinical fidelity. **Validated screeners use the published validated translation** (Spitzer et al. for PHQ-9, Sawaya et al. for the Arabic validation) — never a model-generated one.
+
+## Output language
+
+Even when the input language is non-English, **structured emission stays in clinical English** — DSM-5-TR labels, ICD-10 codes, C-SSRS bands, instrument names — so the data slots directly into your EHR. This is configurable: set `output_language: "source"` to emit labels in the source language.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Speech-to-Behavioral-Text" icon="audio-lines" href="/multimodal/stt/overview">Three endpoints, one BH-tuned engine.</Card>
+  <Card title="Data residency" icon="globe" href="/compliance/data-residency">US / EU / MENA / customer VPC.</Card>
+  <Card title="Sub-processors" icon="link" href="/compliance/sub-processors">Per-region sub-processor list.</Card>
+  <Card title="Compliance overview" icon="shield-check" href="/compliance/overview">HIPAA + 42 CFR Part 2.</Card>
+</CardGroup>

@@ -7,7 +7,7 @@ description: "Run an end-to-end multimodal analysis"
 ## 1. Start a therapy session
 
 ```bash
-curl -X POST https://api.medera.ai/api/co-therapy-sessions \
+curl -X POST https://api.medera.info/api/co-therapy-sessions \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
     "patientId": "pat_abc",
@@ -23,7 +23,7 @@ curl -X POST https://api.medera.ai/api/co-therapy-sessions \
 ## 2. Analyze a recorded session
 
 ```bash
-curl -X POST https://api.medera.ai/api/multimodal-therapy/analyze-session \
+curl -X POST https://api.medera.info/api/multimodal-therapy/analyze-session \
   -H "Authorization: Bearer $TOKEN" \
   -F "session_id=ses_abc" \
   -F "audio_file=@session.wav" \
@@ -38,7 +38,7 @@ The response is the canonical payload — flat `ClinicalMetric` envelopes for th
 ## 3. Audio-only
 
 ```bash
-curl -X POST https://api.medera.ai/api/multimodal-therapy/analyze-audio-only \
+curl -X POST https://api.medera.info/api/multimodal-therapy/analyze-audio-only \
   -H "Authorization: Bearer $TOKEN" \
   -F "session_id=ses_abc" \
   -F "audio_file=@session.wav"

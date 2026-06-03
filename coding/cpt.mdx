@@ -1,7 +1,86 @@
 ---
 title: "CPT"
-description: "Current Procedural Terminology"
+description: "Current Procedural Terminology — BH-focused coverage."
 ---
 
 
-The universal language for describing medical, surgical, and diagnostic services in the US outpatient setting. Includes E&M, behavioral health (9080x, 9083x), and procedural codes.
+CPT is the US standard for medical, surgical, and diagnostic procedures. Medera's BH calibration covers psychotherapy, E/M, crisis intervention, family / group therapy, psychological testing, and CoCM codes.
+
+## Behavioral health CPT subset
+
+### Diagnostic evaluation
+| Code | Description |
+| :--- | :--- |
+| `90791` | Psychiatric diagnostic evaluation |
+| `90792` | Psychiatric diagnostic evaluation with medical services |
+
+### Psychotherapy (individual)
+| Code | Description |
+| :--- | :--- |
+| `90832` | Psychotherapy, 30 min |
+| `90834` | Psychotherapy, 45 min |
+| `90837` | Psychotherapy, 60 min |
+| `90838` | Psychotherapy with E/M, 60 min |
+
+### Crisis psychotherapy
+| Code | Description |
+| :--- | :--- |
+| `90839` | Crisis psychotherapy, first 60 min |
+| `90840` | Crisis psychotherapy, each additional 30 min |
+
+### Family / group
+| Code | Description |
+| :--- | :--- |
+| `90846` | Family psychotherapy without patient |
+| `90847` | Family psychotherapy with patient |
+| `90853` | Group psychotherapy |
+
+### Assessment
+| Code | Description |
+| :--- | :--- |
+| `96127` | Brief emotional / behavioral assessment |
+| `96130` | Psychological testing evaluation, first hour |
+| `96131` | Psychological testing evaluation, each additional hour |
+
+### E/M (established patient)
+| Code | Description |
+| :--- | :--- |
+| `99211` – `99215` | Established patient office visit, increasing complexity |
+
+### CoCM (Collaborative Care)
+| Code | Description |
+| :--- | :--- |
+| `99491` | Care management, first 30 min |
+| `99492` – `99494` | CoCM initial / subsequent / additional time |
+| `G2214` | Behavioral health integration, 30 min |
+
+## E/M level selection
+
+The engine selects E/M level based on **documented time + MDM** per the 2021 office E/M guidelines. The selection rationale is included in the response:
+
+```json
+{
+  "code": "99214",
+  "display": "Established patient E/M, moderate complexity",
+  "em_selection_rationale": {
+    "method": "time",
+    "documented_minutes": 32,
+    "threshold_range": "30-39 min"
+  }
+}
+```
+
+## Telehealth modifier
+
+For telehealth visits in 2026, append modifier `95` for synchronous audio-video. See payer-specific rules in the Prior Authorization Agent.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="ICD-10-CM" icon="hashtag" href="/coding/icd-10-cm">F-code diagnosis.</Card>
+  <Card title="HCPCS Level II" icon="hashtag" href="/coding/hcpcs">BH-specific H- and S-codes.</Card>
+  <Card title="Encounter coding" icon="clipboard-check" href="/coding/encounter-coding">Per-encounter use cases.</Card>
+  <Card title="Revenue cycle" icon="chart-line" href="/coding/revenue-cycle">Sweeps + audits.</Card>
+</CardGroup>

@@ -1,25 +1,51 @@
 ---
 title: "Supported Coding Systems"
-description: "Feature availability and typical combinations"
+description: "Feature availability per coding system and recommended pairings."
 ---
 
 
-| System | Realm | Use case |
-| :--- | :--- | :--- |
-| ICD-10-CM | US | Outpatient + inpatient diagnosis |
-| ICD-10-PCS | US | Inpatient procedure |
-| ICD-10 (International) | WHO | International diagnosis |
-| CPT | US | Outpatient procedure, E&M |
-| HCPCS Level II | US | DME, drugs, ambulance |
-| SNOMED CT | International | Clinical terminology |
-| LOINC | International | Lab observations |
-| RxNorm | US | Medication terminology |
+Medera coding systems and their feature availability.
 
-## Typical combinations
+## Feature matrix
+
+| System | Realm | BH calibrated | Specificity expansion | PA detection | Span anchors | Status |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **ICD-10-CM** | US | ✓ (F-codes) | ✓ | ✓ | ✓ | GA |
+| **ICD-10-PCS** | US inpatient | beta | ✓ | — | ✓ | beta |
+| **ICD-10 (WHO)** | International | ✓ (F-codes) | ✓ | — | ✓ | GA |
+| **CPT** | US outpatient | ✓ (psychotherapy + E/M) | ✓ (E&M level) | ✓ | ✓ | GA |
+| **HCPCS Level II** | US | ✓ (BH-specific H- and S-codes) | — | ✓ | ✓ | GA |
+| **SNOMED CT** | International | ✓ (BH concepts) | ✓ | — | ✓ | GA |
+| **LOINC** | International | ✓ (PHQ-9, GAD-7, AUDIT-C, C-SSRS instruments) | — | — | ✓ | GA |
+| **RxNorm** | US | ✓ (psychotropics + general) | — | ✓ (formulary check) | ✓ | GA |
+
+## Recommended pairings
 
 | Encounter type | Code systems |
 | :--- | :--- |
-| BH outpatient | ICD-10-CM + CPT (E&M + 9083x) |
-| BH telehealth | ICD-10-CM + CPT (with modifier 95) |
-| Lab order | LOINC + ICD-10-CM |
-| Prescription | RxNorm + ICD-10-CM |
+| **BH outpatient (psychiatry)** | ICD-10-CM (F-codes) + CPT (E/M + 90791 / 90792 + 9083x) + RxNorm |
+| **BH telehealth** | ICD-10-CM + CPT (with modifier 95) + RxNorm |
+| **CoCM (Collaborative Care)** | ICD-10-CM + CPT (99491–99494, G2214) |
+| **Psychotherapy (LCSW/LMFT)** | ICD-10-CM + CPT (9083x) |
+| **Crisis intervention** | ICD-10-CM + CPT (90839/90840) or HCPCS H2011 |
+| **Lab order (BH)** | LOINC + ICD-10-CM |
+| **Prescription (psychotropic)** | RxNorm + ICD-10-CM |
+
+## Sequencing
+
+For systems where order affects reimbursement — ICD-10-CM and ICD-10-PCS — Medera returns codes in clinical-significance order. The principal diagnosis or principal procedure appears first, followed by secondary diagnoses and additional procedures.
+
+<Note>
+  Sequencing is currently in alpha for ICD-10-CM and ICD-10-PCS. See the [Core Concepts](/coding/introduction) page for the sequencing semantics.
+</Note>
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="zap" href="/coding/quickstart">Suggest codes for your first note.</Card>
+  <Card title="Encounter Coding" icon="clipboard-check" href="/coding/encounter-coding">Per-encounter use cases.</Card>
+  <Card title="CDI" icon="file-pen" href="/coding/cdi">Documentation gaps as queries.</Card>
+  <Card title="Revenue Cycle" icon="chart-line" href="/coding/revenue-cycle">Sweeps + audits.</Card>
+</CardGroup>

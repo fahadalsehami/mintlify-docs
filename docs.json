@@ -7,7 +7,7 @@
   "logo": {
     "light": "/logo/light.svg",
     "dark": "/logo/dark.svg",
-    "href": "https://medera.ai"
+    "href": "https://medera.info"
   },
   "colors": {
     "primary": "#141413",
@@ -47,21 +47,21 @@
     "links": [
       {
         "label": "Console",
-        "href": "https://app.medera.ai"
+        "href": "https://app.medera.info"
       },
       {
         "label": "Status",
-        "href": "https://status.medera.ai"
+        "href": "https://status.medera.info"
       },
       {
         "label": "Support",
-        "href": "https://help.medera.ai"
+        "href": "https://help.medera.info"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Start building",
-      "href": "https://app.medera.ai/signup"
+      "href": "https://app.medera.info/signup"
     }
   },
   "footer": {
@@ -94,7 +94,7 @@
         "items": [
           { "label": "Compliance", "href": "/compliance/overview" },
           { "label": "Security", "href": "/compliance/encryption" },
-          { "label": "Status", "href": "https://status.medera.ai" },
+          { "label": "Status", "href": "https://status.medera.info" },
           { "label": "BAA / DPA", "href": "/compliance/baa" }
         ]
       }
@@ -686,7 +686,7 @@
     "indexing": "all",
     "metatags": {
       "og:site_name": "Medera Docs",
-      "og:image": "https://docs.medera.ai/images/og.png",
+      "og:image": "https://docs.medera.info/images/og.png",
       "theme-color": "#141413"
     }
   },

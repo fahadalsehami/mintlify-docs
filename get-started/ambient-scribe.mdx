@@ -25,7 +25,7 @@ This guide walks you through building a real-time ambient scribe — diarized ca
     `POST /api/sessions` with the patient, provider, and visit type. The session ID anchors the transcript, note, and code suggestions.
   </Step>
   <Step title="Connect the audio stream">
-    Open a WebSocket to `wss://api.medera.ai/streams?session_id=...&token=...` and stream PCM audio at 16 kHz. See [Streams endpoint](/multimodal/stt/streams).
+    Open a WebSocket to `wss://api.medera.info/sessions?session_id=...&token=...` and stream PCM audio at 16 kHz. See [`/sessions` endpoint](/multimodal/stt/streams).
   </Step>
   <Step title="Receive transcript + note events">
     The stream emits `transcript.partial`, `transcript.final`, `note.draft`, and `code.suggestion` events. Render them as the clinician dictates.

@@ -1,13 +1,57 @@
 ---
 title: "Data Residency"
-description: "US, EU, and customer-VPC options"
+description: "US, EU, MENA, and customer-VPC residency options."
 ---
 
 
-| Region | Storage | Compute | Sub-processors |
-| :--- | :--- | :--- | :--- |
-| US (default) | US-East, US-West | US | US-only |
-| EU | EU-West (Ireland), EU-Central (Frankfurt) | EU | EU-only |
-| Customer VPC | Customer-managed AWS / GCP VPC | Customer | Per customer agreement |
+Medera tenants are pinned to a region at creation and **never cross region boundaries**. Audio, video, transcripts, and PHI columns are stored and processed only in the selected region's infrastructure.
 
-Region is selected at tenant creation and is immutable. PHI never crosses region boundaries.
+| Region | Storage | Compute | Sub-processors | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| **US (default)** | AWS US-East (Virginia), US-West (Oregon) | US | US-only | Default for new tenants |
+| **EU** | AWS EU-West (Ireland), EU-Central (Frankfurt) | EU | EU-only | GDPR-aligned DPA |
+| **MENA** | Customer VPC (typical) or AWS ME-South (Bahrain) | Customer / ME | Per agreement | Arabic (ar-SA) support |
+| **Customer VPC** | Customer-managed AWS / GCP VPC | Customer-managed | Per customer agreement | Enterprise plans |
+
+## What "never crosses" means
+
+- Audio streams terminate inside the region
+- Transcripts and PHI columns are stored only in the region's database
+- Backups stay in the region
+- LLM inference runs against region-pinned model endpoints
+- Audit log replication stays in-region
+- Email and SMS (Twilio) route through regional Twilio infrastructure where available
+
+## Immutable selection
+
+Region is chosen at tenant creation and is **immutable**. Migration between regions requires explicit export + re-onboard.
+
+## EU specifics
+
+- AWS EU sub-processor list applies
+- Sub-processors are EU-only (Anthropic / OpenAI EU endpoints, Datadog EU, Sentry EU, Stripe EU)
+- Data Processing Addendum (DPA) under GDPR Art. 28
+
+## MENA specifics
+
+- Customer VPC is the typical deployment for ME-South
+- Sub-processor list is per-customer agreement
+- Arabic (ar-SA) BH-tuned speech is GA in this region
+
+## Customer VPC
+
+Enterprise tenants can run the Medera stack inside their own AWS or GCP VPC:
+- Customer-managed encryption keys (CMK) for the KEK layer
+- Customer-managed sub-processors
+- Customer-controlled audit replication target
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Sub-processors" icon="link" href="/compliance/sub-processors">Per-region sub-processor list.</Card>
+  <Card title="Encryption" icon="lock" href="/compliance/encryption">Keys, rotation, BYOK.</Card>
+  <Card title="HIPAA" icon="shield-check" href="/compliance/hipaa">Security and Privacy Rule controls.</Card>
+  <Card title="BAA / DPA" icon="file-text" href="/compliance/baa">Business Associate Agreement.</Card>
+</CardGroup>

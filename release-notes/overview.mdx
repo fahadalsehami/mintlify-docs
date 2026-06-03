@@ -1,25 +1,29 @@
 ---
 title: "Medera Releases"
-description: "Updates across Medera products"
+description: "Latest updates across Medera products."
 ---
 
 
 Medera ships continuously. Release notes are indexed per product.
 
 <CardGroup cols={2}>
-  <Card title="Platform" href="/release-notes/platform">Backend, runtime, RLS, audit, encryption.</Card>
-  <Card title="Agentic Framework" href="/release-notes/agentic">Canvas, agents, experts, orchestrator.</Card>
-  <Card title="Multimodal Sensing" href="/release-notes/multimodal">Vocal, facial, RDoC engines.</Card>
-  <Card title="Text Generation" href="/release-notes/textgen">SOAP, templates, facts, RAG.</Card>
+  <Card title="Platform" icon="server" href="/release-notes/platform">Backend, runtime, RLS, audit, encryption.</Card>
+  <Card title="Agentic Framework" icon="layers" href="/release-notes/agentic">Canvas, agents, experts, orchestrator.</Card>
+  <Card title="Multimodal Sensing" icon="audio-lines" href="/release-notes/multimodal">Vocal, facial, RDoC engines.</Card>
+  <Card title="Text Generation" icon="text-align-start" href="/release-notes/textgen">SOAP, templates, facts, RAG.</Card>
 </CardGroup>
 
 ## Recent highlights
 
-- **2026-03-02** — Migration 158: FORCE ROW LEVEL SECURITY completeness sweep on all RLS-enabled tables
-- **2026-03-02** — Migration 157: GIN indexes (`jsonb_path_ops`) on JSONB columns for faster queries
-- **2026-03-02** — Migration 156: JSONB column defaults — 8 `JSON.stringify()` in `defaultTo()` calls fixed (prevents double-stringified `'"{}"'`)
-- **2026-03-02** — Migration 155: Dynamic FK index detection + creation for all missing FK indexes
-- **2026-03-02** — Migration 154: Standardized RLS policies on 12 tables — replaced non-standard 2-policy model with 4-policy `has_tenant_access()`
-- **2026-02-10** — Hardcoded service keys removed from 4 files (17 occurrences); now throws in production
-- **2026-02-10** — Auth rate limiting added to `/register`, `/login`, `/forgot-password` (10 req / 15 min)
-- **2026-02-10** — PII `console.log` removed from 4 files (patient phone, email, full objects)
+| Date | Release |
+| :--- | :--- |
+| 2026-03-02 | Migration 158 — FORCE ROW LEVEL SECURITY completeness sweep on all RLS-enabled tables |
+| 2026-03-02 | Migration 157 — GIN indexes (`jsonb_path_ops`) on JSONB columns |
+| 2026-03-02 | Migration 156 — JSONB column defaults audit (fix double-stringified defaults) |
+| 2026-03-02 | Migration 155 — Dynamic FK index detection + creation |
+| 2026-03-02 | Migration 154 — Standardized RLS on 12 tables — 4-policy `has_tenant_access()` |
+| 2026-02-10 | Hardcoded service keys removed from 4 files (17 occurrences) |
+| 2026-02-10 | Auth rate limiting added to `/register`, `/login`, `/forgot-password` |
+| 2026-02-10 | PII `console.log` purged from 4 files |
+
+See [Change Policy](/release-notes/change-policy) and [Upcoming Changes](/release-notes/changelog-upcoming).

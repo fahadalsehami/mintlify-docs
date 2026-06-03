@@ -4,13 +4,13 @@ description: "Sign up, provision your tenant, generate credentials"
 ---
 
 
-The [Medera Console](https://app.medera.ai) is the self-service portal for tenant management, agent canvas, deployments, integrations, and billing.
+The [Medera Console](https://app.medera.info) is the self-service portal for tenant management, agent canvas, deployments, integrations, and billing.
 
 ## Sign up
 
 <Steps>
   <Step title="Create an account">
-    Visit [app.medera.ai/signup](https://app.medera.ai/signup). Authentication is handled by Clerk. New tenants start in the **sandbox** environment.
+    Visit [app.medera.info/signup](https://app.medera.info/signup). Authentication is handled by Clerk. New tenants start in the **sandbox** environment.
   </Step>
   <Step title="Provision your organization">
     `OrganizationProvisioningService` (3,810 lines, 12-step state machine) handles tenant setup — branding, EHR integration scaffolding, payer rule defaults, screener defaults, crisis escalation policy, and Stripe subscription state.
@@ -27,9 +27,9 @@ The [Medera Console](https://app.medera.ai) is the self-service portal for tenan
 
 | Environment | Host | PHI policy |
 | :--- | :--- | :--- |
-| **sandbox** | `sandbox.api.medera.ai` | Synthetic only |
-| **staging** | `staging.api.medera.ai` | Real PHI under BAA |
-| **production** | `api.medera.ai` | Real PHI + full audit + Merkle integrity |
+| **sandbox** | `sandbox.api.medera.info` | Synthetic only |
+| **staging** | `staging.api.medera.info` | Real PHI under BAA |
+| **production** | `api.medera.info` | Real PHI + full audit + Merkle integrity |
 
 ## What's next
 

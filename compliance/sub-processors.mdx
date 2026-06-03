@@ -1,22 +1,61 @@
 ---
 title: "Sub-processors"
-description: "Current list of sub-processors"
+description: "Per-region sub-processor list."
 ---
 
 
-Current sub-processors (as of platform release):
+Sub-processors handle specific functions on Medera's behalf. The list below is current as of platform release; material changes trigger a **30-day notice** to security and compliance contacts on file.
 
-| Sub-processor | Purpose | Regions |
+## US tenants
+
+| Sub-processor | Purpose | Region |
 | :--- | :--- | :--- |
-| AWS | Compute, storage | US, EU |
-| Anthropic / OpenAI | LLM inference (via Medera-managed) | US |
+| AWS | Compute, storage, KMS | US-East, US-West |
+| Anthropic / OpenAI | LLM inference (Medera-managed) | US |
 | Twilio | Voice / SMS for intake agents | US |
 | Vapi | Voice orchestration | US |
-| Deepgram | STT (nova-2-medical) | US |
-| ElevenLabs | Voice synthesis | US |
-| Datadog | Observability | US, EU |
-| Sentry | Error tracking | US, EU |
+| Deepgram | nova-2-medical transcription (Co-Therapy pipeline) | US |
+| ElevenLabs | Voice synthesis (Grace, Alex, Jordan, Taylor) | US |
+| Datadog | Observability | US |
+| Sentry | Error tracking | US |
 | Stripe | Billing | US |
 | Clerk | Authentication | US |
 
-Sub-processors are vetted via the Trust Center process. Material changes to the list trigger a 30-day notice.
+## EU tenants
+
+| Sub-processor | Purpose | Region |
+| :--- | :--- | :--- |
+| AWS | Compute, storage, KMS | EU-West (Ireland), EU-Central (Frankfurt) |
+| Anthropic / OpenAI (EU endpoints) | LLM inference | EU |
+| Twilio | Voice / SMS | EU |
+| Vapi | Voice orchestration | EU |
+| Deepgram | Transcription | EU |
+| ElevenLabs | Voice synthesis | EU |
+| Datadog | Observability | EU |
+| Sentry | Error tracking | EU |
+| Stripe | Billing | EU |
+| Clerk | Authentication | EU |
+
+## MENA / Customer VPC
+
+Sub-processors per customer agreement. Typical setup keeps sub-processors region-local; LLM inference may use a customer-hosted endpoint.
+
+## Change notification
+
+Material changes (new sub-processor, region change, processing change) trigger:
+- 30-day advance notice to your tenant security contact
+- Update to this page
+- Optional Trust Center notification preference
+
+Contact [compliance@medera.info](mailto:compliance@medera.info) to subscribe to change notifications.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Data Residency" icon="globe" href="/compliance/data-residency">Region options + immutability.</Card>
+  <Card title="BAA / DPA" icon="file-text" href="/compliance/baa">Contracts under HIPAA + GDPR.</Card>
+  <Card title="Encryption" icon="lock" href="/compliance/encryption">Keys + BYOK.</Card>
+  <Card title="HIPAA" icon="shield-check" href="/compliance/hipaa">Security and Privacy Rule controls.</Card>
+</CardGroup>

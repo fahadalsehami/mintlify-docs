@@ -1,37 +1,38 @@
 ---
-title: "Text Generation Overview"
-description: "SOAP notes, documents, and clinical reasoning"
+title: "Overview of Medera Text Generation"
+description: "SOAP notes, documents, and clinical reasoning."
 ---
 
 
-Medera's Text Generation surface is exposed under `/api/therapy/*` (AI Services) for generation and `/api/clinical-notes` / `/api/note-templates` (Backend) for persistence.
+Medera Text Generation produces reliable, citation-anchored documentation in your practice templates — SOAP notes, referral letters, discharge summaries, prior authorization letters, and the full validated note lifecycle.
 
-## Capabilities
+## Endpoints
 
-| Capability | Endpoint |
-| :--- | :--- |
-| Post-visit analysis (tasks, summary, diagnoses, risk) | `POST /api/therapy/analyze-session` |
-| SOAP note generation | `POST /api/therapy/generate-soap-note` |
-| Specialty-tailored SOAP | `POST /api/therapy/generate-soap-note-enhanced` |
-| Post-visit insights | `POST /api/therapy/post-visit-insights` |
-| Note validation | `POST /api/therapy/validate-note` |
-| Code suggestions | `POST /api/therapy/suggest-codes` |
-| Note lifecycle | `POST /api/therapy/notes/{id}/transition · /approve · /finalize · /track-change` |
-| Templates | `GET /api/therapy/templates` |
-
-## Model
-
-| Use | Model | Settings |
+| Capability | Endpoint | Surface |
 | :--- | :--- | :--- |
-| SOAP notes, analysis | `gpt-4o` | T=0.3, JSON mode |
-| Real-time NLP / classify | `gpt-4o-mini` | T=0.3 |
-| Voice agent LLM | `gpt-4-turbo` | T=0.3, max 500 tokens |
+| Post-visit analysis | `POST /api/therapy/analyze-session` | AI Services |
+| SOAP note (standard) | `POST /api/therapy/generate-soap-note` | AI Services |
+| SOAP note (specialty / billing codes) | `POST /api/therapy/generate-soap-note-enhanced` | AI Services |
+| Post-visit insights | `POST /api/therapy/post-visit-insights` | AI Services |
+| Note validation | `POST /api/therapy/validate-note` | AI Services |
+| Code suggestions | `POST /api/therapy/suggest-codes` | AI Services |
+| Note lifecycle | `POST /api/therapy/notes/{id}/{transition|approve|finalize|track-change}` | AI Services |
+| Templates | `GET /api/therapy/templates` | AI Services |
+| Note persistence | `/api/clinical-notes` · `/api/note-templates` | Backend |
+
+## Model selection
+
+| Use | Model | Temperature | Response format |
+| :--- | :--- | :--- | :--- |
+| SOAP, post-visit analysis | `gpt-4o` | 0.3 | JSON object |
+| Real-time NLP / classify | `gpt-4o-mini` | 0.3 | text / JSON |
+| Voice agent LLM | `gpt-4-turbo` | 0.3 | text (max 500 tokens) |
 
 ## What's next
 
 <CardGroup cols={2}>
-  <Card title="Standard documents" href="/textgen/documents-standard">Generate via template.</Card>
-  <Card title="Advanced documents" href="/textgen/documents-advanced">Specialty templates.</Card>
-  <Card title="Facts" href="/textgen/factsr">Structured facts extraction.</Card>
-  <Card title="Clinical RAG" href="/textgen/rag-overview">Evidence retrieval.</Card>
+  <Card title="Standard documents" icon="file-text" href="/textgen/documents-standard">Generate via template.</Card>
+  <Card title="Specialty documents" icon="file-pen" href="/textgen/documents-advanced">Enhanced + billing codes.</Card>
+  <Card title="Facts & Reasoning" icon="search" href="/textgen/factsr">Structured facts extraction.</Card>
+  <Card title="Clinical RAG" icon="library" href="/textgen/rag-overview">Hybrid evidence retrieval.</Card>
 </CardGroup>

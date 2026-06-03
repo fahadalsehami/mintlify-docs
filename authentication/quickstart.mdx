@@ -19,7 +19,7 @@ End-user sign-in is handled by Clerk on the frontend. After sign-in, the Clerk J
 
     async function listPatients() {
       const token = await getToken();
-      const res = await fetch('https://api.medera.ai/api/patients', {
+      const res = await fetch('https://api.medera.info/api/patients', {
         headers: { Authorization: `Bearer ${token}` },
       });
       return res.json();
@@ -34,7 +34,7 @@ End-user sign-in is handled by Clerk on the frontend. After sign-in, the Clerk J
     const { getToken } = await auth();
     const token = await getToken();
 
-    const res = await fetch('https://api.medera.ai/api/patients', {
+    const res = await fetch('https://api.medera.info/api/patients', {
       headers: { Authorization: `Bearer ${token}` },
     });
     return <pre>{JSON.stringify(await res.json(), null, 2)}</pre>;
@@ -48,7 +48,7 @@ For backend integrations and batch jobs, use a Developer API Key created in the 
 
 <CodeGroup>
   ```bash cURL
-  curl https://api.medera.ai/api/agent-workflows \
+  curl https://api.medera.info/api/agent-workflows \
     -H "X-API-Key: $MEDERA_API_KEY"
   ```
 

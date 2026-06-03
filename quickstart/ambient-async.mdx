@@ -9,7 +9,7 @@ For workflows where the encounter audio is recorded first and processed later (a
 ## 1. Upload the recording
 
 ```bash
-curl -X POST https://api.medera.ai/api/sessions/{id}/recordings \
+curl -X POST https://api.medera.info/api/sessions/{id}/recordings \
   -H "Authorization: Bearer $TOKEN" \
   -F "audio=@encounter.wav"
 ```
@@ -19,7 +19,7 @@ Limits: 60 minutes per recording, 150 MB max, 16 kHz PCM or 22.05 kHz Opus.
 ## 2. Trigger the transcript
 
 ```bash
-curl -X POST https://api.medera.ai/api/sessions/{id}/transcripts \
+curl -X POST https://api.medera.info/api/sessions/{id}/transcripts \
   -H "Authorization: Bearer $TOKEN" \
   -d '{ "diarization": true, "language": "en-US" }'
 ```
@@ -29,7 +29,7 @@ Returns a `transcript_id` and a status of `processing`.
 ## 3. Poll for completion
 
 ```bash
-curl https://api.medera.ai/api/sessions/{id}/transcripts/{transcript_id}/status \
+curl https://api.medera.info/api/sessions/{id}/transcripts/{transcript_id}/status \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -38,7 +38,7 @@ Status transitions: `processing` → `completed` | `failed`.
 ## 4. Generate the document
 
 ```bash
-curl -X POST https://api.medera.ai/api/textgen/documents \
+curl -X POST https://api.medera.info/api/textgen/documents \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
     "template_key": "soap_outpatient_bh",

@@ -1,14 +1,18 @@
 ---
-title: "Transcribe endpoint"
-description: "Real-time speech-to-text and command-and-control"
+title: "/transcribe endpoint"
+description: "WSS · real-time stateless dictation built for the between-visit window."
 ---
 
 
-`wss://api.medera.ai/transcribe` is a stateless dictation WebSocket for clinical editors.
+`wss://api.medera.info/transcribe` is the **stateless dictation WebSocket** for clinical editors. No session, no patient context, no persistence server-side — just real-time BH-tuned recognition with command-and-control.
 
-## Why stateless
+Built for the 5-minute window between encounters when the clinician is finishing a previous chart, signing refills, or paging a colleague.
 
-No session is required. No transcript is persisted server-side. The endpoint is designed for clinical editor dictation where the editor owns the text.
+## Connection
+
+```
+wss://api.medera.info/transcribe?token=<jwt>
+```
 
 ## Configuration
 
@@ -17,8 +21,12 @@ No session is required. No transcript is persisted server-side. The endpoint is 
   "type": "configure",
   "language": "en-US",
   "punctuation": "smart",
-  "commands": ["new_paragraph", "next_section", "period", "comma"],
-  "interim_results": true
+  "commands": ["new_paragraph", "next_section", "period", "comma", "delete_last"],
+  "interim_results": true,
+  "vocabulary": {
+    "formulary": ["sertraline", "escitalopram", "lamotrigine"],
+    "clinicians": ["Dr. Khalil"]
+  }
 }
 ```
 
@@ -29,3 +37,40 @@ No session is required. No transcript is persisted server-side. The endpoint is 
 | `interim` | `{ text }` |
 | `final` | `{ text }` |
 | `command` | `{ command, args }` |
+| `audio.event` | `{ kind }` |
+| `error` | `{ code, message }` |
+
+## Why "stateless"
+
+No session is required. No transcript is persisted server-side. The endpoint is designed for clinical editor dictation where the editor owns the text. PHI never lands at rest from this endpoint.
+
+## Sample (JavaScript)
+
+```javascript
+import { MederaClient } from '@medera/sdk';
+const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY! });
+
+const ws = await client.transcribe.connect({
+  language: 'en-US',
+  punctuation: 'smart',
+  commands: ['new_paragraph', 'next_section', 'period'],
+});
+
+ws.on('interim', (e) => editor.previewText(e.text));
+ws.on('final',   (e) => editor.commitText(e.text));
+ws.on('command', (e) => editor.runCommand(e.command, e.args));
+
+const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
+ws.streamAudio(mic);
+```
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Commands" icon="terminal" href="/multimodal/stt/commands">Build voice commands.</Card>
+  <Card title="Smart punctuation" icon="quote" href="/multimodal/stt/punctuation">Punctuation modes.</Card>
+  <Card title="/sessions — live capture" icon="audio-lines" href="/multimodal/stt/streams">Stateful diarized session.</Card>
+  <Card title="Microphones" icon="microphone-2" href="/multimodal/stt/microphones">Recommended hardware.</Card>
+</CardGroup>

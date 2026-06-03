@@ -8,7 +8,7 @@ Completing this quickstart gets you a working code prediction response from the 
 
 ## Prerequisites
 
-- **A Medera Console account** — sign up at the [Medera Console](https://app.medera.ai/signup).
+- **A Medera Console account** — sign up at the [Medera Console](https://app.medera.info/signup).
 - **A Developer API Key** — see [Creating Clients](/authentication/creating-clients) to generate one with `read:phi` and `write:phi` scopes for the appropriate project.
 
 <Steps>
@@ -37,7 +37,7 @@ Completing this quickstart gets you a working code prediction response from the 
 
       const client = new MederaClient({
         apiKey: process.env.MEDERA_API_KEY!,
-        baseUrl: "https://api.medera.ai",
+        baseUrl: "https://api.medera.info",
       });
       ```
 
@@ -79,7 +79,7 @@ Completing this quickstart gets you a working code prediction response from the 
       ```
 
       ```bash cURL
-      curl -X POST https://api.medera.ai/api/therapy/suggest-codes \
+      curl -X POST https://api.medera.info/api/therapy/suggest-codes \
         -H "X-API-Key: $MEDERA_API_KEY" \
         -H "Content-Type: application/json" \
         -d '{
@@ -178,5 +178,5 @@ Completing this quickstart gets you a working code prediction response from the 
 </CardGroup>
 
 <Note>
-  Contact us if you need help getting started or run into issues. [help.medera.ai](https://help.medera.ai)
+  Contact us if you need help getting started or run into issues. [help.medera.info](https://help.medera.info)
 </Note>

@@ -1,7 +1,55 @@
 ---
 title: "LOINC"
-description: "Logical Observation Identifiers Names and Codes"
+description: "Lab observations + validated BH instrument codes."
 ---
 
 
-The international standard for identifying laboratory tests, clinical observations, and documents.
+LOINC (Logical Observation Identifiers Names and Codes) is the international standard for identifying lab tests, clinical observations, and documents. Medera codes both **lab orders / results** and **validated BH instruments** to LOINC for FHIR Observation interoperability.
+
+## Lab orders / results
+
+Standard LOINC applies — lipid panel, CBC, basic metabolic, TSH, drug screen, etc. The Medical Coding Agent surfaces the most-likely LOINC for any laboratory mention in the note.
+
+## BH instrument LOINC codes
+
+Validated BH instruments emit as LOINC-coded `Observation` resources so they round-trip cleanly through FHIR.
+
+| Instrument | LOINC | Notes |
+| :--- | :--- | :--- |
+| PHQ-9 total score | `44261-6` | Depression severity score |
+| PHQ-9 item 9 (suicide) | `44262-4` | Item-level flag |
+| GAD-7 total score | `70274-6` | Generalized anxiety severity |
+| AUDIT-C total score | `75624-7` | Alcohol use screen |
+| AUDIT total score | `75626-2` | Full AUDIT |
+| C-SSRS — past month severity | `93374-8` | Suicide-ideation severity |
+| C-SSRS — past month behavior | `93375-5` | Suicide-behavior severity |
+| MDQ total score | `71354-5` | Mood Disorder Questionnaire |
+| ASRS total score | `93446-4` | Adult ADHD self-report |
+| PCL-5 total score | `89204-2` | PTSD Checklist DSM-5 |
+| Edinburgh PND total | `71354-x` | Postnatal depression |
+
+## Emission
+
+When `/sessions` or `/transcripts` runs an instrument inline, each completed instrument emits as a FHIR `Observation`:
+
+```json
+{
+  "resourceType": "Observation",
+  "status": "final",
+  "code": { "coding": [{ "system": "http://loinc.org", "code": "44261-6", "display": "Patient Health Questionnaire 9 item (PHQ-9) total score" }] },
+  "valueQuantity": { "value": 14, "unit": "score" },
+  "interpretation": [{ "coding": [{ "code": "MOD", "display": "Moderate" }] }],
+  "derivedFrom": [{ "reference": "DocumentReference/doc_abc#span_412_489" }]
+}
+```
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="SNOMED CT" icon="hashtag" href="/coding/snomed-ct">Clinical terminology.</Card>
+  <Card title="Coding systems" icon="layers" href="/coding/coding-systems">Feature matrix + pairings.</Card>
+  <Card title="Encounter coding" icon="clipboard-check" href="/coding/encounter-coding">Use cases.</Card>
+  <Card title="Validated screeners" icon="clipboard" href="/agentic/experts/validated-screener">Screener Expert.</Card>
+</CardGroup>
