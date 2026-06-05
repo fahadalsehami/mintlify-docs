@@ -1,13 +1,55 @@
 ---
 title: "Automate Encounter Based Coding"
 description: "Automatically generate ICD-10, CPT, and HCPCS codes from clinical encounter context"
---- The Medera Coding API generates ICD-10-CM, ICD-10-PCS, CPT, HCPCS, SNOMED CT, and LOINC codes from clinical encounter context — each anchored to a quoted note span. ## Quick example ```bash
-curl -X POST https://api.medera.info/api/coding/predict \ -H "Authorization: Bearer $TOKEN" \ -H "Content-Type: application/json" \ -d '{ "code_systems": ["icd-10-cm", "cpt"], "context": { "documentId": "doc_abc123" } }'
-``` ```json
-{ "codes": [ { "system": "icd-10-cm", "code": "F32.1", "display": "Major depressive disorder, single episode, moderate", "confidence": 0.92, "anchor": { "documentId": "doc_abc123", "span": { "start": 412, "end": 489 }, "quote": "Patient reports persistent low mood for 6 weeks..." } } ]
+---
+
+
+The Medera Coding API generates ICD-10-CM, ICD-10-PCS, CPT, HCPCS, SNOMED CT, and LOINC codes from clinical encounter context — each anchored to a quoted note span.
+
+## Quick example
+
+```bash
+curl -X POST https://api.medera.info/api/coding/predict \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "code_systems": ["icd-10-cm", "cpt"],
+    "context": {
+      "documentId": "doc_abc123"
+    }
+  }'
+```
+
+```json
+{
+  "codes": [
+    {
+      "system": "icd-10-cm",
+      "code": "F32.1",
+      "display": "Major depressive disorder, single episode, moderate",
+      "confidence": 0.92,
+      "anchor": {
+        "documentId": "doc_abc123",
+        "span": { "start": 412, "end": 489 },
+        "quote": "Patient reports persistent low mood for 6 weeks..."
+      }
+    }
+  ]
 }
-``` ## What you can do - Encounter-based coding (signed or in-progress note)
+```
+
+## What you can do
+
+- Encounter-based coding (signed or in-progress note)
 - CDI review with documentation gap surfacing
 - Revenue cycle sweeps for missed codes
-- Population-level coding audits ## Related <CardGroup cols={2}> <Card title="Coding overview" href="/coding/overview">Capabilities and supported systems.</Card> <Card title="How it works" href="/coding/how-it-works">Request structure and best practices.</Card> <Card title="CDI" href="/coding/cdi">Clinical Documentation Improvement.</Card> <Card title="Revenue Cycle" href="/coding/revenue-cycle">Sweeps and retrospective audits.</Card>
+- Population-level coding audits
+
+## Related
+
+<CardGroup cols={2}>
+  <Card title="Coding overview" href="/coding/overview">Capabilities and supported systems.</Card>
+  <Card title="How it works" href="/coding/how-it-works">Request structure and best practices.</Card>
+  <Card title="CDI" href="/coding/cdi">Clinical Documentation Improvement.</Card>
+  <Card title="Revenue Cycle" href="/coding/revenue-cycle">Sweeps and retrospective audits.</Card>
 </CardGroup>

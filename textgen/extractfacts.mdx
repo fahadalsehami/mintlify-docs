@@ -1,8 +1,17 @@
 ---
 title: "Facts Extraction"
 description: "Standalone facts extraction"
---- Use the post-visit analyzer to extract facts from any transcript: ```
+---
+
+
+Use the post-visit analyzer to extract facts from any transcript:
+
+```
 POST /api/therapy/analyze-session
-{ "session_transcript": "...", "clinical_context": { "patient_id": "pat_abc" }
+{
+  "session_transcript": "...",
+  "clinical_context": { "patient_id": "pat_abc" }
 }
-``` The `aiTasks[]`, `visitSummary`, and `clinicalFindings[]` in the response are the extracted, structured facts.
+```
+
+The `aiTasks[]`, `visitSummary`, and `clinicalFindings[]` in the response are the extracted, structured facts.

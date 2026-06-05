@@ -1,8 +1,15 @@
 ---
 title: "Real-time facts"
 description: "Facts during the session"
---- The AI Services clinical session WebSocket streams facts alongside the transcript: ```
+---
+
+
+The AI Services clinical session WebSocket streams facts alongside the transcript:
+
+```
 POST /api/clinical/start
 POST /api/clinical/chunk
 POST /api/clinical/stop
-``` `/chunk` returns interim facts as the transcript builds; `/stop` finalizes them.
+```
+
+`/chunk` returns interim facts as the transcript builds; `/stop` finalizes them.

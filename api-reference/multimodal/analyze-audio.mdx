@@ -1,10 +1,19 @@
 ---
 title: "POST /api/multimodal-therapy/analyze-audio-only"
 description: "Audio-only multimodal analysis"
---- ```
+---
+
+
+```
 POST /api/multimodal-therapy/analyze-audio-only
-``` ### Body (multipart/form-data) | Field | Type |
+```
+
+### Body (multipart/form-data)
+
+| Field | Type |
 | :--- | :--- |
 | `session_id` | string |
 | `audio_file` | file |
-| `analysis_type` | string (optional) | Returns `VocalFeatures` payload + clinical markers.
+| `analysis_type` | string (optional) |
+
+Returns `VocalFeatures` payload + clinical markers.

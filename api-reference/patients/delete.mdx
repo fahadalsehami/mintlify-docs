@@ -1,9 +1,18 @@
 ---
 title: "DELETE /api/patients/{id}"
 description: "Soft delete a patient"
---- ```
+---
+
+
+```
 DELETE /api/patients/{patientId}
-``` Soft delete. PHI is tombstoned but retained in the audit log per HIPAA 6-year retention. ## FHIR adapter ```
-GET /api/patients/{patientId}/fhir
+```
+
+Soft delete. PHI is tombstoned but retained in the audit log per HIPAA 6-year retention.
+
+## FHIR adapter
+
+```
+GET  /api/patients/{patientId}/fhir
 POST /api/patients/{patientId}/ehr-sync
 ```

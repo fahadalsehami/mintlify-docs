@@ -1,17 +1,44 @@
 ---
 title: "JavaScript / TypeScript SDK"
 description: "Install, configure, and use the Medera JavaScript SDK"
---- The Medera JavaScript SDK works in Node.js 18+, modern browsers, Bun, Deno, and edge runtimes (Cloudflare Workers, Vercel Edge). ## Install ```bash
+---
+
+
+The Medera JavaScript SDK works in Node.js 18+, modern browsers, Bun, Deno, and edge runtimes (Cloudflare Workers, Vercel Edge).
+
+## Install
+
+```bash
 npm install @medera/sdk
 # or
 pnpm add @medera/sdk
 # or
 yarn add @medera/sdk
-``` ## Quick start ```typescript
-import { MederaAuth, MederaClient } from '@medera/sdk'; const auth = new MederaAuth({ clientId: process.env.MEDERA_CLIENT_ID!, clientSecret: process.env.MEDERA_CLIENT_SECRET!, audience: 'api.medera.info',
-}); const client = new MederaClient({ auth }); const session = await client.sessions.create({ patient_id: 'pat_abc', provider_id: 'prv_xyz', visit_type: 'psychiatry_followup',
+```
+
+## Quick start
+
+```typescript
+import { MederaAuth, MederaClient } from '@medera/sdk';
+
+const auth = new MederaAuth({
+  clientId: process.env.MEDERA_CLIENT_ID!,
+  clientSecret: process.env.MEDERA_CLIENT_SECRET!,
+  audience: 'api.medera.info',
 });
-``` ## What's in the box - REST client for every API resource
+
+const client = new MederaClient({ auth });
+
+const session = await client.sessions.create({
+  patient_id: 'pat_abc',
+  provider_id: 'prv_xyz',
+  visit_type: 'psychiatry_followup',
+});
+```
+
+## What's in the box
+
+- REST client for every API resource
 - WebSocket clients for `/streams`, `/transcribe`, and `/therapy`
 - Auth helpers with automatic token refresh
 - Webhook signature verification

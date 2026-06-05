@@ -1,10 +1,17 @@
 ---
 title: "Audio Events"
 description: "Feedback sent to clients about audio health"
---- The real-time endpoints emit `audio.event` messages so the client can react to quality problems. | Event kind | When |
+---
+
+
+The real-time endpoints emit `audio.event` messages so the client can react to quality problems.
+
+| Event kind | When |
 | :--- | :--- |
 | `silence` | No speech detected for > 5 s |
 | `clipping` | Peak amplitude > -1 dBFS sustained |
 | `low_snr` | SNR < 10 dB sustained for > 3 s |
 | `voice_activity_start` | Speech onset detected |
-| `voice_activity_end` | Speech offset detected | Use these to drive UI feedback (e.g. flash the mic icon when clipping) without polling.
+| `voice_activity_end` | Speech offset detected |
+
+Use these to drive UI feedback (e.g. flash the mic icon when clipping) without polling.

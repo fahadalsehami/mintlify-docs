@@ -1,9 +1,30 @@
 ---
 title: "Standard Document Generation"
 description: "Generate documents via template"
---- ```
+---
+
+
+```
 POST /api/therapy/generate-soap-note
-``` ### Body ```json
-{ "session_data": { "session_id": "ses_abc", "transcript": "...", "duration_minutes": 45 }, "patient_context": { "patient_id": "pat_abc", "diagnoses": ["F32.1"], "medications": [...] }
+```
+
+### Body
+
+```json
+{
+  "session_data": {
+    "session_id": "ses_abc",
+    "transcript": "...",
+    "duration_minutes": 45
+  },
+  "patient_context": {
+    "patient_id": "pat_abc",
+    "diagnoses": ["F32.1"],
+    "medications": [...]
+  }
 }
-``` ### Response Structured SOAP (Subjective / Objective / Assessment / Plan) with section anchors back to the transcript.
+```
+
+### Response
+
+Structured SOAP (Subjective / Objective / Assessment / Plan) with section anchors back to the transcript.

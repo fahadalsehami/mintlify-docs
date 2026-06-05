@@ -1,13 +1,32 @@
 ---
 title: "Beginners' Guide to Agents"
 description: "How agents work in Medera, without jargon"
---- This guide is for product and clinical teams new to LLM agents. ## What is an agent? In Medera, an **agent** is a task-specific actor with: 1. A **typed configuration** — practice template, screener set, escalation policy, voice settings
+---
+
+
+This guide is for product and clinical teams new to LLM agents.
+
+## What is an agent?
+
+In Medera, an **agent** is a task-specific actor with:
+
+1. A **typed configuration** — practice template, screener set, escalation policy, voice settings
 2. A **documented execution flow** — every step is in this documentation
 3. A bundle of **typed experts** — PHQ-9, C-SSRS, ICD-10, PubMed, Payer Policy, …
-4. **Compliance guarantees** — e.g. crisis-language detection bypasses agent gating ## Why this matters Generic LLMs hallucinate clinical claims. Medera agents: - Anchor claims to quoted spans, screener scores, or peer-reviewed citations
+4. **Compliance guarantees** — e.g. crisis-language detection bypasses agent gating
+
+## Why this matters
+
+Generic LLMs hallucinate clinical claims. Medera agents:
+
+- Anchor claims to quoted spans, screener scores, or peer-reviewed citations
 - Report confidence in calibrated bands (`VERY_HIGH` → `VERY_LOW`)
 - Surface `unavailable` rather than fabricated values when signal quality is low
-- Log every step to an immutable audit trail (`deployment_audit_log` for deployment actions, `phi_audit_logs` for PHI) ## First steps 1. Pick an agent from the [Agent Library](/agentic/agents/patient-intake)
+- Log every step to an immutable audit trail (`deployment_audit_log` for deployment actions, `phi_audit_logs` for PHI)
+
+## First steps
+
+1. Pick an agent from the [Agent Library](/agentic/agents/patient-intake)
 2. Read the agent's configuration section
 3. Use the Canvas to compose a workflow that includes the agent
 4. Publish a version, deploy to sandbox, and execute via [/agentic/quickstart](/agentic/quickstart)

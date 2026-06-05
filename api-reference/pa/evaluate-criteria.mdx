@@ -1,7 +1,12 @@
 ---
 title: "POST /api/prior-auth/evaluate"
 description: "Evaluate PA criteria"
---- ```
-POST /api/prior-auth/evaluate # full evaluation
-POST /api/prior-auth/evaluate/quick # quick (PHQ-9 / GAD-7 scores)
-``` Returns a `recommendation` (`AUTO_APPROVE`, `LIKELY_APPROVE`, `NEEDS_REVIEW`, `LIKELY_DENY`) plus `match_result` (`ALL_MET`, `MOSTLY_MET`, `PARTIALLY_MET`, `NOT_MET`).
+---
+
+
+```
+POST /api/prior-auth/evaluate          # full evaluation
+POST /api/prior-auth/evaluate/quick    # quick (PHQ-9 / GAD-7 scores)
+```
+
+Returns a `recommendation` (`AUTO_APPROVE`, `LIKELY_APPROVE`, `NEEDS_REVIEW`, `LIKELY_DENY`) plus `match_result` (`ALL_MET`, `MOSTLY_MET`, `PARTIALLY_MET`, `NOT_MET`).

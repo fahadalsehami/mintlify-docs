@@ -1,7 +1,14 @@
 ---
 title: "ICD-10-CM"
 description: "US diagnosis coding — full F-code coverage."
---- ICD-10-CM is the US standard for diagnosis coding. Maintained by NCHS + CMS, updated annually on October 1. Medera covers the full ICD-10-CM surface with **calibration on the F-code (mental, behavioral, and neurodevelopmental disorders) chapter**. ## F-code chapter coverage | Range | Domain |
+---
+
+
+ICD-10-CM is the US standard for diagnosis coding. Maintained by NCHS + CMS, updated annually on October 1. Medera covers the full ICD-10-CM surface with **calibration on the F-code (mental, behavioral, and neurodevelopmental disorders) chapter**.
+
+## F-code chapter coverage
+
+| Range | Domain |
 | :--- | :--- |
 | `F01` – `F09` | Mental disorders due to known physiological conditions |
 | `F10` – `F19` | Mental and behavioral disorders due to psychoactive substance use |
@@ -13,8 +20,32 @@ description: "US diagnosis coding — full F-code coverage."
 | `F70` – `F79` | Intellectual disabilities |
 | `F80` – `F89` | Pervasive and specific developmental disorders |
 | `F90` – `F98` | Behavioral disorders with onset in childhood |
-| `F99` | Unspecified mental disorder | ## Specificity expansion The Medera engine surfaces specificity gaps as `severity_qualifier_suggestions`. Example: ```json
-{ "code": "F32.0", "display": "MDD single episode, mild", "severity_qualifier_suggestions": ["F32.1 (moderate)", "F32.2 (severe without psychotic)"], "documentation_gap": "Severity qualifier (mild / moderate / severe) not explicitly documented"
+| `F99` | Unspecified mental disorder |
+
+## Specificity expansion
+
+The Medera engine surfaces specificity gaps as `severity_qualifier_suggestions`. Example:
+
+```json
+{
+  "code": "F32.0",
+  "display": "MDD single episode, mild",
+  "severity_qualifier_suggestions": ["F32.1 (moderate)", "F32.2 (severe without psychotic)"],
+  "documentation_gap": "Severity qualifier (mild / moderate / severe) not explicitly documented"
 }
-``` ## Pair with CPT For US outpatient BH encounters, pair ICD-10-CM with CPT 9079x (eval) / 9083x (psychotherapy) / 9921x (E/M). See [Coding Systems](/coding/coding-systems) for recommended pairings. --- ## What's next <CardGroup cols={2}> <Card title="CPT" icon="hashtag" href="/coding/cpt">Procedure + E/M.</Card> <Card title="HCPCS Level II" icon="hashtag" href="/coding/hcpcs">BH-specific H- and S-codes.</Card> <Card title="CDI" icon="file-pen" href="/coding/cdi">Documentation gaps.</Card> <Card title="Encounter coding" icon="clipboard-check" href="/coding/encounter-coding">Use cases.</Card>
+```
+
+## Pair with CPT
+
+For US outpatient BH encounters, pair ICD-10-CM with CPT 9079x (eval) / 9083x (psychotherapy) / 9921x (E/M). See [Coding Systems](/coding/coding-systems) for recommended pairings.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="CPT" icon="hashtag" href="/coding/cpt">Procedure + E/M.</Card>
+  <Card title="HCPCS Level II" icon="hashtag" href="/coding/hcpcs">BH-specific H- and S-codes.</Card>
+  <Card title="CDI" icon="file-pen" href="/coding/cdi">Documentation gaps.</Card>
+  <Card title="Encounter coding" icon="clipboard-check" href="/coding/encounter-coding">Use cases.</Card>
 </CardGroup>

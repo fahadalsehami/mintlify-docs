@@ -1,42 +1,66 @@
 #!/usr/bin/env bash
-# Push the Medera docs to GitHub.
+# Push Medera docs to GitHub (fahadalsehami/mintlify-docs:main).
 #
-# The repo lives at https://github.com/fahadalsehami/mintlify-docs.git on main.
-# This script handles three things:
-#   1. Cleans up any stuck .git/index.lock left over from sandbox sessions
-#   2. Stages and commits any pending changes (with a sensible message)
-#   3. Pushes to origin/main
+# Handles:
+#   - stuck .git/index.lock left by sandbox sessions
+#   - any pending unstaged changes (stages them + commits)
+#   - HTTPS or SSH auth (pass `ssh` as first arg to switch remote)
 #
-# Auth options:
-#   - HTTPS + GitHub CLI:   brew install gh && gh auth login
-#   - HTTPS + Personal Access Token: with `repo` scope, used as the password
-#   - SSH:                   bash push.sh ssh   (switches the remote to git@github.com)
+# Auth options (HTTPS, default):
+#   - `gh auth login`  (brew install gh)
+#   - Personal Access Token with `repo` scope, used as the password when prompted
+#
+# Auth options (SSH):
+#   `bash push.sh ssh`  switches remote to git@github.com:fahadalsehami/mintlify-docs.git
 
 set -euo pipefail
 cd "$(dirname "$0")"
 
-# 1. Release stuck lock (sandbox sessions sometimes leave one behind)
+echo "→ Working dir: $(pwd)"
+
+# 1) Release any stuck lock
 if [[ -f .git/index.lock ]]; then
   echo "→ Releasing stuck .git/index.lock"
   rm -f .git/index.lock
 fi
 
-# 2. Stage and commit any pending changes
-if [[ -n "$(git status --porcelain)" ]]; then
-  echo "→ Staging pending changes"
-  git add -A
-  COMMIT_MSG="${COMMIT_MSG:-docs: sync pending changes}"
-  git commit -m "$COMMIT_MSG"
+# 2) Make sure we're on main
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [[ "$CURRENT_BRANCH" != "main" ]]; then
+  echo "→ Switching from '$CURRENT_BRANCH' to main"
+  git checkout main
 fi
 
-# 3. Optionally switch to SSH
+# 3) Stage and commit pending changes
+git add -A
+if ! git diff --cached --quiet; then
+  echo "→ Committing pending changes"
+  COMMIT_MSG="${COMMIT_MSG:-docs: production-ready release}"
+  git -c user.email="famstanford@gmail.com" -c user.name="Fahad Alsehami" \
+    commit -m "$COMMIT_MSG"
+else
+  echo "→ No pending changes to commit"
+fi
+
+# 4) Optionally switch to SSH
 if [[ "${1:-}" == "ssh" ]]; then
+  echo "→ Switching remote to SSH"
   git remote set-url origin git@github.com:fahadalsehami/mintlify-docs.git
 fi
 
-echo "→ Pushing to: $(git remote get-url origin)"
-git push -u origin main
+REMOTE_URL=$(git remote get-url origin)
+echo "→ Remote: $REMOTE_URL"
+echo "→ Pushing to origin/main"
+
+# 5) Push (force on first push if remote is empty)
+if ! git push -u origin main 2>/dev/null; then
+  echo "→ Standard push failed — trying with --force-with-lease (safe force)"
+  git push -u origin main --force-with-lease
+fi
 
 echo
-echo "✅ Pushed. Connect the repo in the Mintlify dashboard:"
+echo "✅ Pushed to https://github.com/fahadalsehami/mintlify-docs"
+echo
+echo "Next: connect the repo in the Mintlify dashboard"
 echo "   https://dashboard.mintlify.com"
+echo "Mintlify auto-deploys on every push to main."

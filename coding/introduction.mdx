@@ -1,12 +1,62 @@
 ---
 title: "Core Concepts"
 description: "Understand the key fields in every code prediction response."
---- The Medera Coding API converts unstructured clinical contexts (encounter notes, discharge summaries, transcripts) into structured medical codes. Every response contains two top-level lists, `codes` and `candidates`, each holding code objects with `system`, `code`, `display`, `confidence`, `anchor`, and `severity_qualifier_suggestions`. ```json
-{ "codes": [ { "system": "icd-10-cm", "code": "F32.1", "display": "Major depressive disorder, single episode, moderate", "confidence": 0.92, "anchor": { "documentId": "doc_abc", "span": { "start": 412, "end": 489 }, "quote": "Patient reports persistent low mood for 6 weeks..." }, "severity_qualifier_suggestions": ["severe"] } ], "candidates": [ { "system": "icd-10-cm", "code": "Z71.1", "display": "Person with feared health complaint in whom no diagnosis is made", "confidence": 0.58, "anchor": { "documentId": "doc_abc", "span": { "start": 502, "end": 540 }, "quote": "..." } } ], "usageInfo": { "creditsConsumed": 1.0 }
+---
+
+
+The Medera Coding API converts unstructured clinical contexts (encounter notes, discharge summaries, transcripts) into structured medical codes. Every response contains two top-level lists, `codes` and `candidates`, each holding code objects with `system`, `code`, `display`, `confidence`, `anchor`, and `severity_qualifier_suggestions`.
+
+```json
+{
+  "codes": [
+    {
+      "system": "icd-10-cm",
+      "code": "F32.1",
+      "display": "Major depressive disorder, single episode, moderate",
+      "confidence": 0.92,
+      "anchor": {
+        "documentId": "doc_abc",
+        "span": { "start": 412, "end": 489 },
+        "quote": "Patient reports persistent low mood for 6 weeks..."
+      },
+      "severity_qualifier_suggestions": ["severe"]
+    }
+  ],
+  "candidates": [
+    {
+      "system": "icd-10-cm",
+      "code": "Z71.1",
+      "display": "Person with feared health complaint in whom no diagnosis is made",
+      "confidence": 0.58,
+      "anchor": { "documentId": "doc_abc", "span": { "start": 502, "end": 540 }, "quote": "..." }
+    }
+  ],
+  "usageInfo": {
+    "creditsConsumed": 1.0
+  }
 }
-``` ## The top level Deciding whether a medical entity should be coded is a difficult and often subjective decision. Every diagnosis, symptom, or health context in a clinical note should not be coded. For instance, a symptom should only be coded if it is not commonly associated with one of the patient's diagnoses. A chronic condition should only be coded if it affects patient care. Therefore, two lists are returned at the top level: `codes` and `candidates`. - **`codes`** contains the medical entities that the model confidently predicts **should be coded**.
-- **`candidates`** contains entities that are clinically relevant but not strictly required — optional codes that may warrant human review. <Tip> **Recommendation:** When building a coding interface, include both lists but visualize them differently. To present all entities indicated by a clinical note without concern for billing rules, merge the two lists into one display.
-</Tip> ## Each code object Each list contains code objects. Each object represents one medical entity (condition, symptom, health context, medication, or procedure, depending on the coding system). | Field | Description |
+```
+
+## The top level
+
+Deciding whether a medical entity should be coded is a difficult and often subjective decision. Every diagnosis, symptom, or health context in a clinical note should not be coded.
+
+For instance, a symptom should only be coded if it is not commonly associated with one of the patient's diagnoses. A chronic condition should only be coded if it affects patient care.
+
+Therefore, two lists are returned at the top level: `codes` and `candidates`.
+
+- **`codes`** contains the medical entities that the model confidently predicts **should be coded**.
+- **`candidates`** contains entities that are clinically relevant but not strictly required — optional codes that may warrant human review.
+
+<Tip>
+  **Recommendation:** When building a coding interface, include both lists but visualize them differently. To present all entities indicated by a clinical note without concern for billing rules, merge the two lists into one display.
+</Tip>
+
+## Each code object
+
+Each list contains code objects. Each object represents one medical entity (condition, symptom, health context, medication, or procedure, depending on the coding system).
+
+| Field | Description |
 | :--- | :--- |
 | `system` | The coding system the code belongs to (e.g. `icd-10-cm`, `cpt`). |
 | `code` | The code that best describes the entity. |
@@ -14,12 +64,37 @@ description: "Understand the key fields in every code prediction response."
 | `confidence` | Calibrated 0–1 confidence in the code prediction. |
 | `anchor` | The document span supporting the prediction: `documentId`, `span` (`start`, `end`), and `quote` of the relevant text. |
 | `severity_qualifier_suggestions` | Optional severity / specificity upgrades the coder may consider. |
-| `documentation_gap` | What documentation would strengthen the code if applied. | ## Sequencing For coding systems where order affects reimbursement — ICD-10-CM and ICD-10-PCS — Medera returns codes in clinical-significance order. The principal diagnosis or principal procedure appears first, followed by secondary diagnoses and additional procedures. You can use the position of a code in the `codes` array directly without re-sorting. <Note> Sequencing is currently in alpha for ICD-10-CM and ICD-10-PCS. See the [feature matrix](/coding/coding-systems) for availability per system.
-</Note> ## Confidence calibration | Band | Range | Behavior |
+| `documentation_gap` | What documentation would strengthen the code if applied. |
+
+## Sequencing
+
+For coding systems where order affects reimbursement — ICD-10-CM and ICD-10-PCS — Medera returns codes in clinical-significance order. The principal diagnosis or principal procedure appears first, followed by secondary diagnoses and additional procedures.
+
+You can use the position of a code in the `codes` array directly without re-sorting.
+
+<Note>
+  Sequencing is currently in alpha for ICD-10-CM and ICD-10-PCS. See the [feature matrix](/coding/coding-systems) for availability per system.
+</Note>
+
+## Confidence calibration
+
+| Band | Range | Behavior |
 | :--- | :--- | :--- |
 | `VERY_HIGH` | ≥ 0.95 | Auto-include in `codes` |
 | `HIGH` | ≥ 0.85 | Auto-include in `codes` |
 | `MODERATE` | ≥ 0.70 | Include in `codes` |
 | `LOW` | ≥ 0.50 | Move to `candidates` |
-| `VERY_LOW` | < 0.50 | Filtered (unless `min_confidence` lowered) | Codes without an anchor are never returned. Codes that score `LOW` or below are filtered or moved to `candidates`. --- ## What's next <CardGroup cols={2}> <Card title="Quickstart" icon="zap" href="/coding/quickstart">Send your first request.</Card> <Card title="How it works" icon="settings" href="/coding/how-it-works">Request structure, best practices.</Card> <Card title="Coding Systems" icon="layers" href="/coding/coding-systems">Feature matrix per system.</Card> <Card title="Encounter Coding" icon="clipboard-check" href="/coding/encounter-coding">Use case walkthrough.</Card>
+| `VERY_LOW` | < 0.50 | Filtered (unless `min_confidence` lowered) |
+
+Codes without an anchor are never returned. Codes that score `LOW` or below are filtered or moved to `candidates`.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="zap" href="/coding/quickstart">Send your first request.</Card>
+  <Card title="How it works" icon="settings" href="/coding/how-it-works">Request structure, best practices.</Card>
+  <Card title="Coding Systems" icon="layers" href="/coding/coding-systems">Feature matrix per system.</Card>
+  <Card title="Encounter Coding" icon="clipboard-check" href="/coding/encounter-coding">Use case walkthrough.</Card>
 </CardGroup>

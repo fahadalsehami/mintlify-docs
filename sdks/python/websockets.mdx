@@ -1,6 +1,12 @@
 ---
 title: "Python SDK — WebSockets"
 description: "Streaming APIs in Python"
---- ```python
-async with client.streams.open(session_id=session_id) as stream: async for event in stream: if event.type == "transcript.final": print(event.text)
+---
+
+
+```python
+async with client.streams.open(session_id=session_id) as stream:
+    async for event in stream:
+        if event.type == "transcript.final":
+            print(event.text)
 ```

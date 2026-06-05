@@ -1,6 +1,16 @@
 ---
 title: "POST /api/organizations/provision"
 description: "Provision an organization"
---- ## `POST /api/organizations/provision` Run the 16-step organization provisioning state machine. Returns a `job_id` for polling. ### Example ```bash
-curl -X POST https://api.medera.info/api/organizations/provision \ -H "Authorization: Bearer $TOKEN" \ -H "Content-Type: application/json"
+---
+
+## `POST /api/organizations/provision`
+
+Run the 16-step organization provisioning state machine. Returns a `job_id` for polling.
+
+### Example
+
+```bash
+curl -X POST https://api.medera.info/api/organizations/provision \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json"
 ```

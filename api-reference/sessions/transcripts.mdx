@@ -1,14 +1,23 @@
 ---
 title: "Session transcripts"
 description: "Manage transcripts"
---- Backend (Express): ```
+---
+
+
+Backend (Express):
+
+```
 POST /api/sessions/{id}/transcripts
-GET /api/sessions/{id}/transcripts/{transcript_id}
-GET /api/sessions/{id}/transcripts/{transcript_id}/status
-``` AI Services real-time transcription: ```
+GET  /api/sessions/{id}/transcripts/{transcript_id}
+GET  /api/sessions/{id}/transcripts/{transcript_id}/status
+```
+
+AI Services real-time transcription:
+
+```
 POST /api/clinical/start
 POST /api/clinical/chunk
 POST /api/clinical/stop
 POST /api/clinical/transcribe-full
-GET /api/clinical/session/{session_id}
+GET  /api/clinical/session/{session_id}
 ```

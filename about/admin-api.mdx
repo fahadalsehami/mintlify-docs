@@ -1,11 +1,28 @@
 ---
 title: "Introduction to the Administration API"
 description: "Programmatic access to manage your Medera Console account"
---- The Medera Administration API exposes programmatic management for your Console account — projects, customers, users, usage, and quotas. <Warning>
+---
+
+
+The Medera Administration API exposes programmatic management for your Console account — projects, customers, users, usage, and quotas.
+
+<Warning>
 The Admin API requires a dedicated admin client credential, separate from your application credentials. Admin keys carry tenant-wide privileges and should be stored in a hardened secret store.
-</Warning> ## Capabilities | Resource | Operations |
+</Warning>
+
+## Capabilities
+
+| Resource | Operations |
 | :--- | :--- |
 | Customers (tenants) | Create, update, delete, list, get quotas |
 | Users | Create, update, delete, list, usage consumption |
 | Projects | Get quotas across all tenants |
-| Auth | Authenticate as an admin user | ## Endpoints See the [Admin API reference](/api-reference/welcome) for full schema. ## Authentication Admin endpoints use a separate `admin.medera.info/oauth/token` issuer with audience `admin.medera.info`. Tokens are short-lived (15 minutes) and must be refreshed.
+| Auth | Authenticate as an admin user |
+
+## Endpoints
+
+See the [Admin API reference](/api-reference/welcome) for full schema.
+
+## Authentication
+
+Admin endpoints use a separate `admin.medera.info/oauth/token` issuer with audience `admin.medera.info`. Tokens are short-lived (15 minutes) and must be refreshed.

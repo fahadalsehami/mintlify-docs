@@ -1,6 +1,19 @@
 ---
 title: "Quickstart — Transcription"
 description: "Speech to text from a pre-recorded audio file"
---- Batch transcription for pre-recorded audio. ```bash
-curl -X POST https://api.medera.info/api/transcribe/batch \ -H "Authorization: Bearer $TOKEN" \ -F "audio=@recording.wav" \ -F "language=en-US" \ -F "diarization=true"
-``` Returns a `job_id`. Poll `/api/transcribe/batch/{job_id}` until `status=completed`, then retrieve the transcript at `/api/transcribe/batch/{job_id}/transcript`. Supports WAV, MP3, M4A, OGG, FLAC up to 150 MB and 60 minutes.
+---
+
+
+Batch transcription for pre-recorded audio.
+
+```bash
+curl -X POST https://api.medera.info/api/transcribe/batch \
+  -H "Authorization: Bearer $TOKEN" \
+  -F "audio=@recording.wav" \
+  -F "language=en-US" \
+  -F "diarization=true"
+```
+
+Returns a `job_id`. Poll `/api/transcribe/batch/{job_id}` until `status=completed`, then retrieve the transcript at `/api/transcribe/batch/{job_id}/transcript`.
+
+Supports WAV, MP3, M4A, OGG, FLAC up to 150 MB and 60 minutes.

@@ -1,9 +1,20 @@
 ---
 title: "42 CFR Part 2"
 description: "Substance use disorder data controls"
---- 42 CFR Part 2 is more restrictive than HIPAA. SUD data requires: - **Explicit consent** for every disclosure (not the HIPAA TPO carve-out)
+---
+
+
+42 CFR Part 2 is more restrictive than HIPAA. SUD data requires:
+
+- **Explicit consent** for every disclosure (not the HIPAA TPO carve-out)
 - **Re-disclosure notice** appended to every shared SUD record
-- **Specific recipient** named in the consent ## Medera's implementation - Guardrail rule `substance_use_42cfr2` runs on every workflow that touches SUD data
+- **Specific recipient** named in the consent
+
+## Medera's implementation
+
+- Guardrail rule `substance_use_42cfr2` runs on every workflow that touches SUD data
 - Consent state is stored per patient per recipient
 - Re-disclosure notices are generated automatically on every export
-- Audit log records every consent grant, revocation, and disclosure See [Guardrails](/agentic/canvas/guardrails).
+- Audit log records every consent grant, revocation, and disclosure
+
+See [Guardrails](/agentic/canvas/guardrails).

@@ -1,19 +1,47 @@
 ---
 title: "JavaScript SDK — WebSockets"
 description: "Connect to Stream and Transcribe APIs"
---- ## Streams ```typescript
-const stream = await client.streams.open({ sessionId, audio: { sampleRate: 16000, encoding: 'pcm_s16le' }, features: ['transcript', 'soap', 'codes', 'span_anchors'],
-}); stream.on('transcript.final', (e) => {});
+---
+
+
+## Streams
+
+```typescript
+const stream = await client.streams.open({
+  sessionId,
+  audio: { sampleRate: 16000, encoding: 'pcm_s16le' },
+  features: ['transcript', 'soap', 'codes', 'span_anchors'],
+});
+
+stream.on('transcript.final', (e) => {});
 stream.on('note.section.update', (e) => {});
-stream.on('code.suggestion', (e) => {}); const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
+stream.on('code.suggestion', (e) => {});
+
+const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
 stream.streamAudio(mic);
-``` ## Transcribe (stateless dictation) ```typescript
-const ws = await client.transcribe.connect({ language: 'en-US', punctuation: 'smart',
-}); ws.on('interim', (e) => {});
+```
+
+## Transcribe (stateless dictation)
+
+```typescript
+const ws = await client.transcribe.connect({
+  language: 'en-US',
+  punctuation: 'smart',
+});
+
+ws.on('interim', (e) => {});
 ws.on('final', (e) => {});
-ws.on('command', (e) => {}); ws.streamAudio(mic);
-``` ## Therapy (multimodal) ```typescript
-const ws = await client.therapy.connect({ sessionId }); ws.on('rdoc.activation', (e) => {});
+ws.on('command', (e) => {});
+
+ws.streamAudio(mic);
+```
+
+## Therapy (multimodal)
+
+```typescript
+const ws = await client.therapy.connect({ sessionId });
+
+ws.on('rdoc.activation', (e) => {});
 ws.streamAudio(audioStream);
 ws.streamVideo(videoEl, { fps: 15 });
 ```

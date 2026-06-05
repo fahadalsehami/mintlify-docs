@@ -1,9 +1,27 @@
 ---
 title: "Facts & Reasoning"
 description: "Structured facts extraction"
---- Medera's facts pipeline extracts structured `Fact` objects from the encounter — every clinically relevant claim, who said it, and supporting evidence. Documents generate against the fact set rather than raw transcripts so every claim ties back to a source. The real-time fact stream rides the same WebSocket as the transcript on the clinical session and intake pipelines. ```
-POST /api/therapy/analyze-session # extracts facts + downstream synthesis
-``` A `Fact` includes: ```json
-{ "fact_id": "fact_abc", "group": "presenting_problem", "claim": "Persistent low mood for 6 weeks", "evidence_spans": ["span_004"], "source_speaker": "patient", "certainty": "asserted", "timestamp_ms": 84300
+---
+
+
+Medera's facts pipeline extracts structured `Fact` objects from the encounter — every clinically relevant claim, who said it, and supporting evidence. Documents generate against the fact set rather than raw transcripts so every claim ties back to a source.
+
+The real-time fact stream rides the same WebSocket as the transcript on the clinical session and intake pipelines.
+
+```
+POST /api/therapy/analyze-session   # extracts facts + downstream synthesis
+```
+
+A `Fact` includes:
+
+```json
+{
+  "fact_id": "fact_abc",
+  "group": "presenting_problem",
+  "claim": "Persistent low mood for 6 weeks",
+  "evidence_spans": ["span_004"],
+  "source_speaker": "patient",
+  "certainty": "asserted",
+  "timestamp_ms": 84300
 }
 ```

@@ -1,7 +1,10 @@
 ---
 title: "Documentation Modes"
 description: "Real-time vs. async generation"
---- | Mode | Use | Endpoint |
+---
+
+
+| Mode | Use | Endpoint |
 | :--- | :--- | :--- |
 | Real-time | In-encounter drafting | `/api/clinical/chunk` then `/api/therapy/generate-soap-note` |
 | Async / Batch | Post-visit assembly | `/api/therapy/analyze-session` → `/api/therapy/generate-soap-note-enhanced` |

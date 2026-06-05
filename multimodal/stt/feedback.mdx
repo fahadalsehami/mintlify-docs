@@ -1,8 +1,17 @@
 ---
 title: "Submit Feedback"
 description: "Submit STT feedback to improve the model"
---- Submit STT feedback when the transcript was wrong. Feedback is used to improve the model on a quarterly cadence under your BAA. ```bash
+---
+
+
+Submit STT feedback when the transcript was wrong. Feedback is used to improve the model on a quarterly cadence under your BAA.
+
+```bash
 POST /api/stt/feedback
-{ "transcript_id": "tx_abc", "original_text": "The patient denies suicide ideation.", "corrected_text": "The patient denies suicidal ideation.", "category": "medical_term"
+{
+  "transcript_id": "tx_abc",
+  "original_text": "The patient denies suicide ideation.",
+  "corrected_text": "The patient denies suicidal ideation.",
+  "category": "medical_term"
 }
 ```

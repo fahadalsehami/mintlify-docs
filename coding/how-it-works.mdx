@@ -1,15 +1,36 @@
 ---
 title: "How it Works"
 description: "Request structure and best practices"
---- The Code Prediction endpoint is stateless and accepts either a `documentId` or a free-form `text` block. ```bash
+---
+
+
+The Code Prediction endpoint is stateless and accepts either a `documentId` or a free-form `text` block.
+
+```bash
 POST /api/coding/predict
-{ "code_systems": ["icd-10-cm", "cpt"], "context": { "documentId": "doc_abc" }
+{
+  "code_systems": ["icd-10-cm", "cpt"],
+  "context": {
+    "documentId": "doc_abc"
+  }
 }
-``` Or: ```bash
+```
+
+Or:
+
+```bash
 POST /api/coding/predict
-{ "code_systems": ["icd-10-cm"], "context": { "text": "Patient presents with persistent low mood..." }
+{
+  "code_systems": ["icd-10-cm"],
+  "context": {
+    "text": "Patient presents with persistent low mood..."
+  }
 }
-``` ## Best practices - Always pass `documentId` over `text` when available — span anchors require the document context
+```
+
+## Best practices
+
+- Always pass `documentId` over `text` when available — span anchors require the document context
 - Restrict `code_systems` to what you need; more systems = more work
 - Set `min_confidence` to filter low-confidence predictions
 - For CDI, use `/api/coding/cdi/review` not `/predict`
