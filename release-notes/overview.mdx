@@ -1,29 +1,14 @@
 ---
 title: "Medera Releases"
 description: "Latest updates across Medera products."
----
-
-
-Medera ships continuously. Release notes are indexed per product.
-
-<CardGroup cols={2}>
-  <Card title="Platform" icon="server" href="/release-notes/platform">Backend, runtime, RLS, audit, encryption.</Card>
-  <Card title="Agentic Framework" icon="layers" href="/release-notes/agentic">Canvas, agents, experts, orchestrator.</Card>
-  <Card title="Multimodal Sensing" icon="audio-lines" href="/release-notes/multimodal">Vocal, facial, RDoC engines.</Card>
-  <Card title="Text Generation" icon="text-align-start" href="/release-notes/textgen">SOAP, templates, facts, RAG.</Card>
-</CardGroup>
-
-## Recent highlights
-
-| Date | Release |
+--- Medera ships continuously. Release notes are indexed per product. <CardGroup cols={2}> <Card title="Platform" icon="server" href="/release-notes/platform">Backend, runtime, RLS, audit, encryption.</Card> <Card title="Agentic Framework" icon="layers" href="/release-notes/agentic">Canvas, agents, experts, orchestrator.</Card> <Card title="Multimodal Sensing" icon="audio-lines" href="/release-notes/multimodal">Vocal, facial, Neurobehavioral Construct engines.</Card> <Card title="Text Generation" icon="text-align-start" href="/release-notes/textgen">SOAP, templates, facts, RAG.</Card>
+</CardGroup> ## Recent highlights | Date | Release |
 | :--- | :--- |
-| 2026-03-02 | Migration 158 — FORCE ROW LEVEL SECURITY completeness sweep on all RLS-enabled tables |
-| 2026-03-02 | Migration 157 — GIN indexes (`jsonb_path_ops`) on JSONB columns |
-| 2026-03-02 | Migration 156 — JSONB column defaults audit (fix double-stringified defaults) |
-| 2026-03-02 | Migration 155 — Dynamic FK index detection + creation |
-| 2026-03-02 | Migration 154 — Standardized RLS on 12 tables — 4-policy `has_tenant_access()` |
+| 2026-03-02 | • FORCE ROW LEVEL SECURITY completeness sweep on all RLS-enabled tables |
+| 2026-03-02 | • GIN indexes (`jsonb_path_ops`) on JSONB columns |
+| 2026-03-02 | • JSONB column defaults audit (fix double-stringified defaults) |
+| 2026-03-02 | • Dynamic FK index detection + creation |
+| 2026-03-02 | • Standardized RLS on 12 tables — 4-policy `has_tenant_access` |
 | 2026-02-10 | Hardcoded service keys removed from 4 files (17 occurrences) |
 | 2026-02-10 | Auth rate limiting added to `/register`, `/login`, `/forgot-password` |
-| 2026-02-10 | PII `console.log` purged from 4 files |
-
-See [Change Policy](/release-notes/change-policy) and [Upcoming Changes](/release-notes/changelog-upcoming).
+| 2026-02-10 | PII `console.log` purged from 4 files | See [Change Policy](/release-notes/change-policy) and [Upcoming Changes](/release-notes/changelog-upcoming).

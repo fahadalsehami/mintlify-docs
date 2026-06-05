@@ -1,19 +1,10 @@
 ---
 title: "Register a new user"
-description: "Clerk-mediated registration"
----
-
-
-End-user registration is handled by Clerk on the frontend (`<SignUp />`). After sign-up, Clerk sends a `user.created` webhook to:
-
-```
-POST /api/clerk-webhooks
-```
-
-`clerkUserSyncService` reflects the user into Medera's `users` table under the inviting organization. Backend route helpers:
-
-```
-POST /api/auth/register         # rate limited 10 req / 15 min
-POST /api/auth/forgot-password  # rate limited 10 req / 15 min
-POST /api/auth/login            # rate limited 10 req / 15 min
+description: "Identity-provider-mediated registration"
+--- End-user registration uses your tenant's managed identity provider. After sign-up, The identity provider sends a `user.created` webhook to: ```
+POST /api/identity-webhooks
+``` `identitySyncService` reflects the user into Medera's `users` table under the inviting organization. Backend route helpers: ```
+POST /api/auth/register # rate limited 10 req / 15 min
+POST /api/auth/forgot-password # rate limited 10 req / 15 min
+POST /api/auth/login # rate limited 10 req / 15 min
 ```

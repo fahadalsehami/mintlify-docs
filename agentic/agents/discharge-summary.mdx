@@ -1,59 +1,24 @@
 ---
 title: "Discharge Summary Agent"
 description: "Comprehensive, patient-ready discharge summaries."
----
-
-<Info>
-  **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Episode timeline · Active diagnoses · Medications · Patient reading level
-</Info>
-
-Generate clinician-grade and patient-grade summaries from a complete episode.
-
-## Configuration
-
-| Field | Description |
+--- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="1" width="4" height="1" fill="#141413"/><rect x="5" y="2" width="6" height="1" fill="#141413"/><rect x="3" y="3" width="10" height="1" fill="#141413"/><rect x="3" y="3" width="1" height="11" fill="#141413"/><rect x="3" y="14" width="10" height="1" fill="#141413"/><rect x="12" y="3" width="1" height="11" fill="#141413"/><rect x="5" y="6" width="6" height="1" fill="#141413"/><rect x="5" y="8" width="6" height="1" fill="#141413"/><rect x="5" y="11" width="4" height="1" fill="#76a1fc"/><rect x="8" y="10" width="1" height="1" fill="#76a1fc"/><rect x="9" y="11" width="1" height="1" fill="#76a1fc"/><rect x="8" y="12" width="1" height="1" fill="#76a1fc"/></svg></div> <Info> **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Episode timeline · Active diagnoses · Medications · Patient reading level
+</Info> Generate clinician-grade and patient-grade summaries from a complete episode. ## Configuration | Field | Description |
 | :--- | :--- |
 | `template_id` | Practice discharge template |
 | `reading_level` | Patient reading-level constraints |
 | `languages` | Translation language set |
-| `medication_policy` | Attachment + medication list policy |
-
-## Execution
-
-1. Reads the complete episode timeline and active state
+| `medication_policy` | Attachment + medication list policy | ## Execution 1. Reads the complete episode timeline and active state
 2. Drafts a clinician-grade discharge summary in the template
 3. Drafts a patient-grade summary at the configured reading level
 4. Translates both if needed
-5. Posts to the EHR and to the patient portal
-
-## Composable experts
-
-| Expert | Role |
+5. Posts to the EHR and to the patient portal ## Composable experts | Expert | Role |
 | :--- | :--- |
 | **Episode Timeline Expert** | Complete episode synthesis |
 | **Medication Reconciliation Expert** | Active list at discharge |
 | **Plain-Language Expert** | Reading-level + translation |
-| **Documentation Quality Expert** | Template adherence + completeness |
-
-## Compliance guarantees
-
-<Warning>
+| **Documentation Quality Expert** | Template adherence + completeness | ## Compliance guarantees <Warning>
 - Both clinician and patient summaries are generated
 - Medication reconciliation is documented at discharge
 - Patient summary is at the configured reading level
-</Warning>
-
-## Endpoints
-
-REST: `POST /api/therapy/generate-soap-note-enhanced` with `template_key='discharge_summary_v3'`.
-
----
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
-  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
-  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
-  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning> ## Endpoints REST: `POST /api/therapy/generate-soap-note-enhanced` with `template_key='discharge_summary_v3'`. --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

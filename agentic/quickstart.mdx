@@ -1,55 +1,14 @@
 ---
 title: "Agentic Quickstart"
 description: "Execute a published workflow"
----
-
-
-This quickstart shows how to publish a workflow, deploy it to sandbox, and execute it.
-
-## 1. List existing workflows
-
-```bash
-curl https://api.medera.info/api/agent-workflows \
-  -H "X-API-Key: $MEDERA_API_KEY"
-```
-
-Response includes published / draft workflows scoped to your accessible organizations.
-
-## 2. Publish a workflow
-
-```bash
-curl -X POST https://api.medera.info/api/agent-workflows/{id}/publish \
-  -H "X-API-Key: $MEDERA_API_KEY" \
-  -d '{ "changeDescription": "Initial release" }'
-```
-
-Publishing snapshots the canvas into `agent_workflow_versions` and immediately deploys to sandbox.
-
-## 3. Execute (sandbox)
-
-```bash
-curl -X POST https://api.medera.info/api/agent-workflows/{id}/execute \
-  -H "X-API-Key: $MEDERA_API_KEY" \
-  -d '{
-    "inputValues": { "patient_id": "pat_abc" },
-    "triggerType": "api",
-    "mode": "async"
-  }'
-```
-
-Response: `{ "executionId": "..." }`. Poll status:
-
-```bash
-curl https://api.medera.info/api/agent-workflows/executions/{executionId} \
-  -H "X-API-Key: $MEDERA_API_KEY"
-```
-
-## 4. Deploy to production
-
-```bash
-curl -X POST https://api.medera.info/api/agent-workflows/{id}/deploy/{version} \
-  -H "X-API-Key: $MEDERA_API_KEY" \
-  -d '{ "environment": "live" }'
-```
-
-The promotion writes a `event_type='promoted'` row to `deployment_audit_log`. Subsequent calls flow to `https://agents.medera.info/{org_slug}/{agent_slug}`.
+--- This quickstart shows how to publish a workflow, deploy it to sandbox, and execute it. ## 1. List existing workflows ```bash
+curl https://api.medera.info/api/agent-workflows \ -H "X-API-Key: $MEDERA_API_KEY"
+``` Response includes published / draft workflows scoped to your accessible organizations. ## 2. Publish a workflow ```bash
+curl -X POST https://api.medera.info/api/agent-workflows/{id}/publish \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "changeDescription": "Initial release" }'
+``` Publishing snapshots the canvas into `agent_workflow_versions` and immediately deploys to sandbox. ## 3. Execute (sandbox) ```bash
+curl -X POST https://api.medera.info/api/agent-workflows/{id}/execute \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "inputValues": { "patient_id": "pat_abc" }, "triggerType": "api", "mode": "async" }'
+``` Response: `{ "executionId": "..." }`. Poll status: ```bash
+curl https://api.medera.info/api/agent-workflows/executions/{executionId} \ -H "X-API-Key: $MEDERA_API_KEY"
+``` ## 4. Deploy to production ```bash
+curl -X POST https://api.medera.info/api/agent-workflows/{id}/deploy/{version} \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "environment": "live" }'
+``` The promotion writes a `event_type='promoted'` row to `deployment_audit_log`. Subsequent calls flow to `https://agents.medera.info/{org_slug}/{agent_slug}`.

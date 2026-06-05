@@ -1,35 +1,18 @@
 ---
 title: "Environments & Tenants"
 description: "Sandbox, staging, production, and tenant isolation"
----
-
-
-Every Medera customer is a **tenant** (organization). Tenant ID flows through the entire stack:
-
-- Injected by `setTenantContext` middleware on every request
-- Set on the PostgreSQL session via `SET LOCAL app.current_organization_id = ...`
-- Enforced by Row-Level Security policies on every PHI-touching table (`tenant_isolation` using `has_tenant_access()`)
-- Carried into background workers via `executeInOrgScope()` transaction context
-
-## Environments
-
-| Environment | Host | Database | PHI |
+--- Every Medera customer is a **tenant** (organization). Tenant ID flows through the entire stack: - Injected by `setTenantContext` middleware on every request
+- Set on the managed Postgres session via `SET LOCAL app.current_organization_id =...`
+- Enforced by Row-Level Security policies on every PHI-touching table (`tenant_isolation` using `has_tenant_access`)
+- Carried into background workers via `executeInOrgScope` transaction context ## Environments | Environment | Host | Database | PHI |
 | :--- | :--- | :--- | :--- |
 | sandbox | `sandbox.api.medera.info` | Shared sandbox cluster | Synthetic only |
 | staging | `staging.api.medera.info` | Tenant-scoped under BAA | Real PHI under BAA |
-| production | `api.medera.info` | Tenant-scoped under BAA | Real PHI + full audit + Merkle integrity |
-
-## Tenant-scoped tables
-
-The following tables enforce tenant isolation via RLS (migrations 124, 125, 154):
-
-| Domain | Tables |
+| production | `api.medera.info` | Tenant-scoped under BAA | Real PHI + full audit + Merkle integrity | ## Tenant-scoped tables The following tables enforce tenant isolation via RLS (migrations 124, 125, 154): | Domain | Tables |
 | :--- | :--- |
 | Identity | `users`, `organizations`, `developer_api_keys` |
 | Patient | `patients`, `phi_token_vault`, `phi_audit_logs` |
 | Clinical | `sessions`, `clinical_notes`, `intake_calls`, `co_therapy_sessions`, `therapy_sessions` |
 | Workflow | `agent_workflows`, `agent_workflow_versions`, `agent_workflow_executions`, `workflow_approvals`, `workflow_schedules` |
 | Deployment | `agent_deployments`, `agent_links`, `agent_calls`, `agent_call_function_logs`, `deployment_audit_log`, `deployment_metrics`, `deployment_alerts` |
-| PA | `pa_requests`, `pa_documents`, `payer_rules` |
-
-A misconfigured tenant ID cannot read another tenant's data — the row simply does not exist from the perspective of the query.
+| PA | `pa_requests`, `pa_documents`, `payer_rules` | A misconfigured tenant ID cannot read another tenant's data — the row simply does not exist from the perspective of the query.

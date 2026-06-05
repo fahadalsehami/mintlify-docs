@@ -1,62 +1,22 @@
 ---
 title: "Welcome to the Medera API Reference"
 description: "REST + WebSocket API for behavioral and mental health."
----
-
-
-The Medera API is split across two services that share authentication, tenant context, and audit infrastructure.
-
-<CardGroup cols={2}>
-  <Card title="Backend (Port 3001)" icon="server" horizontal>
-    Tenant + PHI persistence, workflow + deployment lifecycle, EHR + billing integration, Socket.IO.
-  </Card>
-  <Card title="AI Services (Port 8000)" icon="brain" horizontal>
-    Multimodal engines, RDoC, Care Orchestrator, Vapi orchestration, clinical NLP.
-  </Card>
-</CardGroup>
-
-In production the public host is `api.medera.info` and routes to both services through the API gateway.
-
-## Base URLs
-
-| Environment | Backend host | AI Services host |
+--- The Medera API is split across two services that share authentication, tenant context, and audit infrastructure. <CardGroup cols={2}> <Card title="Backend " icon="server" horizontal> Tenant + PHI persistence, workflow + deployment lifecycle, EHR + billing integration, real-time channel. </Card> <Card title="AI Services " icon="brain" horizontal> Multimodal engines, Neurobehavioral Construct, Care Orchestrator, Medera Voice, clinical NLP. </Card>
+</CardGroup> In production the public host is `api.medera.info` and routes to both services through the API gateway. ## Base URLs | Environment | Backend host | AI Services host |
 | :--- | :--- | :--- |
 | Production | `https://api.medera.info` | `https://api.medera.info` (proxied) |
 | Staging | `https://staging.api.medera.info` | `https://staging.api.medera.info` |
-| Sandbox | `https://sandbox.api.medera.info` | `https://sandbox.api.medera.info` |
-
-Internally:
-- Backend: `http://localhost:3001` (dev) / `http://backend:3001` (Docker)
-- AI Services: `http://localhost:8000` (dev) / `http://ai-services:8000` (Docker)
-
-## Authentication
-
-| Surface | Credential | Header |
+| Sandbox | `https://sandbox.api.medera.info` | `https://sandbox.api.medera.info` | Internally:
+- Backend: `http://localhost` (dev) / `http://backend` (Docker)
+- AI Services: `http://localhost` (dev) / `http://ai-services` (Docker) ## Authentication | Surface | Credential | Header |
 | :--- | :--- | :--- |
-| End-user requests | Clerk JWT | `Authorization: Bearer <jwt>` |
+| End-user requests | session JWT | `Authorization: Bearer <jwt>` |
 | Server-to-server | Developer API Key | `X-API-Key: <key>` |
-| Service-to-service | Internal service key | `X-Service-Key: <key>` (internal only) |
-
-See [Authentication Overview](/authentication/overview).
-
-## Content type
-
-Request and response bodies are JSON. File uploads use `multipart/form-data`. Recordings, audio, and video uploads use `multer` (Backend) or `UploadFile` (AI Services). Max 150 MB per file.
-
-## Conventions
-
-| Convention | Detail |
+| Service-to-service | Internal service key | `X-Service-Key: <key>` (internal only) | See [Authentication Overview](/authentication/overview). ## Content type Request and response bodies are JSON. File uploads use `multipart/form-data`. Recordings, audio, and video uploads use `multer` (Backend) or `UploadFile` (AI Services). Max 150 MB per file. ## Conventions | Convention | Detail |
 | :--- | :--- |
 | Pagination | Cursor-based — `?cursor=...&limit=50` |
 | Idempotency | Optional `Idempotency-Key` header on POST / PATCH |
 | Versioning | URL path — `/api/v1/...` implicit, `/api/v2/...` explicit |
 | Rate limits | Per-endpoint, see [Rate Limits](/api-reference/rate-limits) |
-| Errors | JSON `{ error: { code, message, request_id } }` |
-
-## What's next
-
-<CardGroup cols={3}>
-  <Card title="Errors" icon="circle-x" href="/api-reference/errors">Error format and common codes.</Card>
-  <Card title="Rate Limits" icon="gauge" href="/api-reference/rate-limits">Per-tenant limits.</Card>
-  <Card title="Pagination" icon="list" href="/api-reference/pagination">Cursor-based pagination.</Card>
+| Errors | JSON `{ error: { code, message, request_id } }` | ## What's next <CardGroup cols={3}> <Card title="Errors" icon="circle-x" href="/api-reference/errors">Error format and common codes.</Card> <Card title="Rate Limits" icon="gauge" href="/api-reference/rate-limits">Per-tenant limits.</Card> <Card title="Pagination" icon="list" href="/api-reference/pagination">Cursor-based pagination.</Card>
 </CardGroup>

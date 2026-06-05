@@ -1,25 +1,10 @@
 ---
-title: "Clerk session login"
-description: "Authenticate as an end user via Clerk"
----
-
-
-End-user authentication is handled by Clerk. The frontend uses `@clerk/clerk-react` to sign the user in and obtains a session JWT on demand.
-
-```javascript
+title: "Session login"
+description: "Authenticate as an end user"
+--- End-user authentication uses your tenant's managed identity provider. The frontend uses `@clerk/clerk-react` to sign the user in and obtains a session JWT on demand. ```javascript
 import { useAuth } from '@clerk/clerk-react';
-const { getToken } = useAuth();
-const jwt = await getToken();
-```
-
-Send the JWT to backend endpoints as `Authorization: Bearer <jwt>`. The backend validates via `clerkAuth` middleware and writes a `phi_audit_logs` entry for every PHI-touching request.
-
-## Backend webhooks
-
-The backend receives Clerk lifecycle webhooks at:
-
-```
-POST /api/clerk-webhooks
-```
-
-Validated via Svix HMAC signatures.
+const { getToken } = useAuth;
+const jwt = await getToken;
+``` Send the JWT to backend endpoints as `Authorization: Bearer <jwt>`. The backend validates via `tenantAuth` middleware and writes a `phi_audit_logs` entry for every PHI-touching request. ## Backend webhooks The backend receives identity lifecycle webhooks at: ```
+POST /api/identity-webhooks
+``` Validated via HMAC signature verification.

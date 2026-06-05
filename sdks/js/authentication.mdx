@@ -1,31 +1,13 @@
 ---
 title: "JavaScript SDK — Authentication"
 description: "All authentication methods for the Medera JavaScript SDK"
----
-
-
-## Client credentials (server-side)
-
-```typescript
-const auth = new MederaAuth({
-  clientId: process.env.MEDERA_CLIENT_ID!,
-  clientSecret: process.env.MEDERA_CLIENT_SECRET!,
-  audience: 'api.medera.info',
+--- ## Client credentials (server-side) ```typescript
+const auth = new MederaAuth({ clientId: process.env.MEDERA_CLIENT_ID!, clientSecret: process.env.MEDERA_CLIENT_SECRET!, audience: 'api.medera.info',
 });
-```
-
-## Bearer token (already obtained)
-
-```typescript
-const client = new MederaClient({
-  accessToken: 'eyJhbGciOi...',
+``` ## Bearer token (already obtained) ```typescript
+const client = new MederaClient({ accessToken: 'eyJhbGciOi...',
 });
-```
-
-## End-user JWT (acting on behalf of a clinician)
-
-```typescript
-const client = new MederaClient({
-  accessToken: userClerkJwt,
+``` ## End-user JWT (acting on behalf of a clinician) ```typescript
+const client = new MederaClient({ accessToken: userSessionJwt,
 });
 ```

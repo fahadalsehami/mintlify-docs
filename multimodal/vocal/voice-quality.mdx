@@ -1,16 +1,9 @@
 ---
 title: "Voice Quality"
 description: "Jitter, shimmer, and HNR"
----
-
-
-Voice quality features are computed by `_extract_voice_quality(sound)` using Praat point-process analysis.
-
-| Feature | Unit | Normal range |
+--- Voice quality features are computed by `_extract_voice_quality(sound)` using Praat point-process analysis. | Feature | Unit | Normal range |
 | :--- | :--- | :--- |
 | `jitter` | % | < 1.04 % |
 | `shimmer` | % | < 3.81 % |
 | `hnr` | dB | > 20 dB |
-| `voice_quality_confidence` | 0–1 | |
-
-Elevated jitter and shimmer correlate with vocal effort, fatigue, and emotional distress. Decreased HNR signals breathiness or hoarseness.
+| `voice_quality_confidence` | 0–1 | | Elevated jitter and shimmer correlate with vocal effort, fatigue, and emotional distress. Decreased HNR signals breathiness or hoarseness.

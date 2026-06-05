@@ -1,59 +1,24 @@
 ---
 title: "Quality Reporting Agent"
 description: "HEDIS, MIPS, and program reporting from chart data."
----
-
-<Info>
-  **Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Chart facts · Program measure set · Reporting period · Data completeness
-</Info>
-
-Assemble quality-program submissions from the chart, not a spreadsheet.
-
-## Configuration
-
-| Field | Description |
+--- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="1" width="1" height="13" fill="#141413"/><rect x="1" y="13" width="14" height="1" fill="#141413"/><rect x="3" y="9" width="2" height="4" fill="#141413"/><rect x="6" y="6" width="2" height="7" fill="#76a1fc"/><rect x="9" y="3" width="2" height="10" fill="#76a1fc"/><rect x="12" y="7" width="2" height="6" fill="#141413"/></svg></div> <Info> **Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Chart facts · Program measure set · Reporting period · Data completeness
+</Info> Assemble quality-program submissions from the chart, not a spreadsheet. ## Configuration | Field | Description |
 | :--- | :--- |
 | `programs` | Active quality programs (HEDIS, MIPS, …) |
 | `reporting_period` | Reporting period + submission cadence |
 | `thresholds` | Data completeness thresholds |
-| `destinations` | Reporting destinations |
-
-## Execution
-
-1. Reads the chart for the program measure set
+| `destinations` | Reporting destinations | ## Execution 1. Reads the chart for the program measure set
 2. Identifies data gaps that block measure completion
 3. Surfaces gaps to the care team for remediation
 4. Assembles the submission once complete
-5. Submits to the program destination
-
-## Composable experts
-
-| Expert | Role |
+5. Submits to the program destination ## Composable experts | Expert | Role |
 | :--- | :--- |
 | **HEDIS Measure Expert** | HEDIS measure set + logic |
 | **MIPS Measure Expert** | MIPS measure set + scoring |
 | **Data Completeness Expert** | Gap analysis + remediation |
-| **Submission Expert** | Program submission formats |
-
-## Compliance guarantees
-
-<Warning>
+| **Submission Expert** | Program submission formats | ## Compliance guarantees <Warning>
 - Submissions are assembled from the chart, not a separate workflow
 - Gaps surface to the care team for remediation
 - Every submission is documented for audit
-</Warning>
-
-## Endpoints
-
-Canvas: `rails/quality`.
-
----
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
-  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
-  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
-  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning> ## Endpoints Canvas: `rails/quality`. --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

@@ -1,29 +1,9 @@
 ---
 title: "POST /api/agent-workflows"
 description: "Create a workflow"
----
-
-
-```
+--- ```
 POST /api/agent-workflows
-```
-
-Creates a workflow draft.
-
-### Body
-
-```json
-{
-  "name": "My Intake Flow",
-  "description": "...",
-  "projectId": "prj_abc",
-  "nodes": [...],
-  "connections": [...],
-  "input_variables": [...],
-  "state_variables": [...],
-  "settings": {...},
-  "status": "draft"
+``` Creates a workflow draft. ### Body ```json
+{ "name": "My Intake Flow", "description": "...", "projectId": "prj_abc", "nodes": [...], "connections": [...], "input_variables": [...], "state_variables": [...], "settings": {...}, "status": "draft"
 }
-```
-
-`lock_version` is initialized to 0. Subsequent updates must provide `lockVersion` to avoid `409 idempotency_conflict`.
+``` `lock_version` is initialized to 0. Subsequent updates must provide `lockVersion` to avoid `409 idempotency_conflict`.

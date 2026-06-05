@@ -1,51 +1,21 @@
 ---
 title: "Vocal Acoustic Engine"
 description: "F0, jitter, shimmer, HNR, MFCC, and clinical markers"
----
-
-
-`VocalAcousticEngine` extracts ~70 acoustic features using Librosa and Parselmouth (Praat).
-
-## Constructor
-
-```python
-engine = VocalAcousticEngine(
-    sample_rate=16000,
-    frame_length_ms=25,
-    hop_length_ms=10,
-    gender=None,  # 'male' (85–180 Hz), 'female' (165–255 Hz), or None (auto 75–300 Hz)
-)
-```
-
-## Primary method
-
-```python
+--- extracts ~70 acoustic features using audio analysis library and speech analysis library (Praat). ## Constructor ```python
+engine = VocalAcousticEngine(sample_rate=16000, frame_length_ms=25, hop_length_ms=10, gender=None, # 'male' (85–180 Hz), 'female' (165–255 Hz), or None (auto 75–300 Hz))
+``` ## Primary method ```python
 features: VocalFeatures = engine.extract_features(audio: np.ndarray, sr: Optional[int])
-```
-
-## VocalFeatures dataclass
-
-### F0 (fundamental frequency)
-
-| Field | Unit |
+``` ## VocalFeatures dataclass ### F0 (fundamental frequency) | Field | Unit |
 | :--- | :--- |
 | `f0_mean` | Hz |
 | `f0_std` | Hz |
 | `f0_min`, `f0_max`, `f0_range` | Hz |
-| `f0_confidence` | 0–1 |
-
-### Voice quality
-
-| Field | Unit | Normal range |
+| `f0_confidence` | 0–1 | ### Voice quality | Field | Unit | Normal range |
 | :--- | :--- | :--- |
 | `jitter` | % | < 1.04 % |
 | `shimmer` | % | < 3.81 % |
 | `hnr` | dB | > 20 dB |
-| `voice_quality_confidence` | 0–1 | |
-
-### Prosody
-
-| Field | Unit |
+| `voice_quality_confidence` | 0–1 | | ### Prosody | Field | Unit |
 | :--- | :--- |
 | `speaking_rate` | syllables / sec |
 | `articulation_rate` | syllables / sec (excluding pauses) |
@@ -53,41 +23,25 @@ features: VocalFeatures = engine.extract_features(audio: np.ndarray, sr: Optiona
 | `pause_duration_mean`, `pause_duration_total` | seconds |
 | `pitch_variability` | coefficient of variation |
 | `intensity_mean`, `intensity_std` | dB |
-| `prosody_confidence` | 0–1 |
-
-### Spectral
-
-| Field | Unit |
+| `prosody_confidence` | 0–1 | ### Spectral | Field | Unit |
 | :--- | :--- |
 | `mfcc` | 13-element list |
 | `spectral_centroid` | Hz |
 | `spectral_bandwidth` | Hz |
 | `spectral_rolloff` | Hz |
 | `spectral_flatness` | 0–1 |
-| `spectral_confidence` | 0–1 |
-
-### Clinical markers
-
-| Field | Range |
+| `spectral_confidence` | 0–1 | ### Clinical markers | Field | Range |
 | :--- | :--- |
 | `vocal_depression_index` | 0–1 |
 | `vocal_anxiety_index` | 0–1 |
 | `vocal_distress_index` | 0–1 |
 | `prosodic_flatness` | 0–1 (anhedonia marker) |
-| `clinical_confidence` | 0–1 |
-
-### Quality
-
-| Field | Notes |
+| `clinical_confidence` | 0–1 | ### Quality | Field | Notes |
 | :--- | :--- |
 | `overall_quality` | 0–100 |
 | `voiced_fraction` | 0–1 |
 | `snr` | dB |
-| `audio_duration` | seconds |
-
-## Library dependencies
-
-- Librosa
-- Parselmouth (Praat)
+| `audio_duration` | seconds | ## Library dependencies - audio analysis library
+- speech analysis library (Praat)
 - SciPy (`scipy.signal`, `scipy.stats`)
 - NumPy

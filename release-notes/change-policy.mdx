@@ -1,19 +1,10 @@
 ---
 title: "Change Policy"
 description: "How Medera approaches changes to the API"
----
-
-
-Medera makes the following commitments for API changes:
-
-| Change type | Notice |
+--- Medera makes the following commitments for API changes: | Change type | Notice |
 | :--- | :--- |
 | Breaking (removal, signature change) | 90 days minimum |
 | Field deprecation | 90 days, `Deprecation` header on every response |
 | New endpoint | None — always backward-compatible |
 | New optional field | None |
-| Bug fix preserving semantics | None |
-
-## Headers
-
-Deprecated endpoints emit `Deprecation` and `Sunset` response headers. Monitor these in your client.
+| Bug fix preserving semantics | None | ## Headers Deprecated endpoints emit `Deprecation` and `Sunset` response headers. Monitor these in your client.

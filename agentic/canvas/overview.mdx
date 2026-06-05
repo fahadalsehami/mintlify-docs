@@ -1,104 +1,27 @@
 ---
 title: "Agent Builder Canvas"
 description: "Visual workflow editor for composable behavioral-health agents."
----
-
-
-The Agent Builder Canvas is a visual workflow editor backed by a production workflow engine. It composes **16 core node types** plus **8 BH-OS rails** into clinical workflows that ship safely from sandbox to production with WORM audit.
-
-<CardGroup cols={4}>
-  <Card title="WorkflowExecutor" icon="play" horizontal>
-    471 lines · graph traversal · RLS-scoped
-  </Card>
-  <Card title="ExecutionContext" icon="memory" horizontal>
-    354 lines · 5 variable scopes
-  </Card>
-  <Card title="WorkflowQueue" icon="list" horizontal>
-    285 lines · Bull queue · 5 workers
-  </Card>
-  <Card title="BaseNodeRunner" icon="puzzle" horizontal>
-    15 runners + StudioBlockRunner
-  </Card>
-</CardGroup>
-
----
-
-## Lifecycle
-
-<Frame>
-<svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/canvas-lifecycle.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
-  <defs>
-    <pattern id="dots_91569" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
-      <circle cx="1" cy="1" r="0.6" fill="rgba(20,20,19,0.18)"/>
-    </pattern>
-  </defs>
-  <rect x="0" y="0" width="780" height="320" fill="#ffffff"/>
-  <g>
-  <rect x="0" y="0" width="780" height="32" fill="#141413"/>
-  <circle cx="14" cy="16" r="2" fill="#76a1fc"/>
-  <text x="26" y="20" fill="#fafafa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="500">medera/canvas-lifecycle.svg</text>
-  <text x="766" y="20" text-anchor="end" fill="#9a9893" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">lifecycle</text>
-</g>
-  <rect x="0" y="32" width="780" height="288" fill="#fafaf6"/>
-  <rect x="0.5" y="0.5" width="779" height="319" fill="none" stroke="#141413" stroke-opacity="0.18" stroke-width="1"/>
-  <rect x="60" y="80" width="140" height="60" fill="#fafaf6" stroke="rgba(20,20,19,0.18)" stroke-width="1"/><text x="130" y="110.0" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">draft</text><rect x="220" y="80" width="140" height="60" fill="#dbe5ff" stroke="rgba(20,20,19,0.18)" stroke-width="1"/><text x="290" y="110.0" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">published</text><rect x="400" y="80" width="140" height="60" fill="#76a1fc" stroke="#4f7be0" stroke-width="1"/><text x="470" y="103.0" text-anchor="middle" fill="#fafafa" font-family="Inter, sans-serif" font-size="12" font-weight="600">deployed</text><text x="470" y="117.0" text-anchor="middle" fill="#fafafa" font-family="Inter, sans-serif" font-size="12" font-weight="600">sandbox</text><rect x="580" y="80" width="140" height="60" fill="#4f7be0" stroke="#4f7be0" stroke-width="1"/><text x="650" y="103.0" text-anchor="middle" fill="#fafafa" font-family="Inter, sans-serif" font-size="12" font-weight="600">deployed</text><text x="650" y="117.0" text-anchor="middle" fill="#fafafa" font-family="Inter, sans-serif" font-size="12" font-weight="600">production</text><rect x="220" y="220" width="140" height="60" fill="#fafaf6" stroke="rgba(20,20,19,0.18)" stroke-width="1"/><text x="290" y="250.0" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">archived</text><rect x="400" y="220" width="140" height="60" fill="#fafaf6" stroke="rgba(20,20,19,0.18)" stroke-width="1"/><text x="470" y="250.0" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">disabled</text><defs><marker id="arrow_cv" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#141413" fill-opacity="0.5"/></marker></defs><path d="M 200 110 L 220 110" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_cv)"/><path d="M 360 110 L 400 110" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_cv)"/><path d="M 540 110 L 580 110" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_cv)"/><path d="M 290 250 L 290 220" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none"/><path d="M 470 250 L 470 220" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none"/><path d="M 650 140 Q 650 180 470 250" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_cv)"/><path d="M 650 140 Q 650 180 290 250" stroke="#141413" stroke-opacity="0.4" stroke-width="1" fill="none" marker-end="url(#arrow_cv)"/><text x="290" y="70" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">publish()</text><text x="470" y="70" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">auto · 72h expiry</text><text x="650" y="70" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">promote</text>
+--- The Agent Builder Canvas is a visual workflow editor backed by a production workflow engine. It composes **16 core node types** plus **8 BH-OS rails** into clinical workflows that ship safely from sandbox to production with WORM audit. <CardGroup cols={4}> <Card title="Workflow runtime" icon="play" horizontal> · graph traversal · RLS-scoped </Card> <Card title="Execution context" icon="memory" horizontal> · 5 variable scopes </Card> <Card title="Workflow queue" icon="list" horizontal> · managed job queue · 5 workers </Card> <Card title="Node runtime" icon="puzzle" horizontal> node runners + Block runtime </Card>
+</CardGroup> --- ## Lifecycle <Frame>
+<svg viewBox="0 0 780 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/canvas-lifecycle.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_91569" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="320" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/canvas-lifecycle.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">lifecycle</text>
+</g> <rect x="0" y="32" width="780" height="288" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="319" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="60" y="80" width="140" height="60" fill="#fafaf6" stroke="rgba(20,19,0.18)" strokeWidth="1"/><text x="130" y="110.0" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">draft</text><rect x="220" y="80" width="140" height="60" fill="#dbe5ff" stroke="rgba(20,19,0.18)" strokeWidth="1"/><text x="290" y="110.0" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">published</text><rect x="400" y="80" width="140" height="60" fill="#76a1fc" stroke="#4f7be0" strokeWidth="1"/><text x="470" y="103.0" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">deployed</text><text x="470" y="117.0" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">sandbox</text><rect x="580" y="80" width="140" height="60" fill="#4f7be0" stroke="#4f7be0" strokeWidth="1"/><text x="650" y="103.0" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">deployed</text><text x="650" y="117.0" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">production</text><rect x="220" y="220" width="140" height="60" fill="#fafaf6" stroke="rgba(20,19,0.18)" strokeWidth="1"/><text x="290" y="250.0" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">archived</text><rect x="400" y="220" width="140" height="60" fill="#fafaf6" stroke="rgba(20,19,0.18)" strokeWidth="1"/><text x="470" y="250.0" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">disabled</text><defs><marker id="arrow_cv" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#141413" fillOpacity="0.5"/></marker></defs><path d="M 200 110 L 220 110" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_cv)"/><path d="M 360 110 L 400 110" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_cv)"/><path d="M 540 110 L 580 110" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_cv)"/><path d="M 290 250 L 290 220" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none"/><path d="M 470 250 L 470 220" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none"/><path d="M 650 140 Q 650 180 470 250" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_cv)"/><path d="M 650 140 Q 650 180 290 250" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_cv)"/><text x="290" y="70" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">publish</text><text x="470" y="70" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">auto · 72h expiry</text><text x="650" y="70" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">promote</text>
 </svg>
-</Frame>
-
-`agent_workflows` carries the current draft. Publishing snapshots the canvas into `agent_workflow_versions` and immediately deploys to sandbox. Promotion to production is explicit.
-
-## Optimistic concurrency
-
-Every draft update is guarded by `lock_version`. Concurrent edits to the same workflow return `409 idempotency_conflict`. Draft auto-save is hash-deduped — identical payloads do not create new versions.
-
-## Tenant isolation
-
-The canvas is tenant-scoped end to end:
-
-- `agent_workflows.organization_id` is RLS-enforced
+</Frame> `agent_workflows` carries the current draft. Publishing snapshots the canvas into `agent_workflow_versions` and immediately deploys to sandbox. Promotion to production is explicit. ## Optimistic concurrency Every draft update is guarded by `lock_version`. Concurrent edits to the same workflow return `409 idempotency_conflict`. Draft auto-save is hash-deduped — identical payloads do not create new versions. ## Tenant isolation The canvas is tenant-scoped end to end: - `agent_workflows.organization_id` is RLS-enforced
 - Published versions inherit the org
 - Deployments expose `https://sandbox.medera.info/{org}/{agent}-v{ver}` (sandbox) or `https://agents.medera.info/{org}/{agent}` (production)
-- Sandbox deployments auto-expire 72 h after deploy
-
----
-
-## Variable scopes
-
-Canvas nodes can reference variables using `{{scope.path}}` syntax. Five scopes are available:
-
-| Scope | Lifetime | Mutability | Example |
+- Sandbox deployments auto-expire 72 h after deploy --- ## Variable scopes Canvas nodes can reference variables using `{{scope.path}}` syntax. Five scopes are available: | Scope | Lifetime | Mutability | Example |
 | :--- | :--- | :--- | :--- |
 | `workflow.input` | Per execution | Immutable | `{{input.patient_id}}` |
 | `state.<name>` | Per execution | Mutable | `{{state.phq9_score}}` |
 | `nodes.<id>.output` | Per execution | Immutable | `{{nodes.intake_1.output.transcript}}` |
 | `runtime.context` | Per execution | Immutable | `{{runtime.organization_id}}` |
-| `tenant.secret` | Persistent | Read-only | `{{tenant.secret.epic_oauth_client_id}}` |
-
-`tenant.secret` is sourced from your configured secret store (SSM / Vault) — secrets are never inlined into versions or deployments.
-
----
-
-## Real-time events (Socket.IO)
-
-The executor emits the following events to the org room and per-execution room:
-
-| Event | When |
+| `tenant.secret` | Persistent | Read-only | `{{tenant.secret.epic_oauth_client_id}}` | `tenant.secret` is sourced from your configured secret store (SSM / Vault) — secrets are never inlined into versions or deployments. --- ## Real-time events (real-time channel) The executor emits the following events to the org room and per-execution room: | Event | When |
 | :--- | :--- |
 | `workflow:execution:started` | Execution claimed by a worker |
 | `workflow:node:executing` | Node `_executeNode` invoked |
-| `workflow:node:completed` | Node returned `success()` |
+| `workflow:node:completed` | Node returned `success` |
 | `workflow:ehr-sync` | An `ehr-sync` node read or wrote to a connected EHR |
 | `workflow:execution:paused` | A `user-approval` node returned `{ paused: true }` |
 | `workflow:execution:completed` | Reached `end` node |
-| `workflow:execution:failed` | Node threw without an error handler |
-
----
-
-## What's next
-
-<CardGroup cols={2}>
-  <Card title="Node Types" icon="puzzle" href="/agentic/canvas/node-types">16 core nodes + 8 BH-OS rails.</Card>
-  <Card title="Variables & Scopes" icon="code" href="/agentic/canvas/variables-scopes">Variable resolution and template syntax.</Card>
-  <Card title="Versioning & Deployment" icon="rocket" href="/agentic/canvas/versioning-deployment">Sandbox-first deployment with WORM audit.</Card>
-  <Card title="Guardrails" icon="shield-check" href="/agentic/canvas/guardrails">HIPAA + 42 CFR Part 2 enforcement.</Card>
+| `workflow:execution:failed` | Node threw without an error handler | --- ## What's next <CardGroup cols={2}> <Card title="Node Types" icon="puzzle" href="/agentic/canvas/node-types">16 core nodes + 8 BH-OS rails.</Card> <Card title="Variables & Scopes" icon="code" href="/agentic/canvas/variables-scopes">Variable resolution and template syntax.</Card> <Card title="Versioning & Deployment" icon="rocket" href="/agentic/canvas/versioning-deployment">Sandbox-first deployment with WORM audit.</Card> <Card title="Guardrails" icon="shield-check" href="/agentic/canvas/guardrails">HIPAA + 42 CFR Part 2 enforcement.</Card>
 </CardGroup>

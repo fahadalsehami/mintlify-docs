@@ -1,16 +1,9 @@
 ---
 title: "Clinical Markers"
 description: "Depression, anxiety, distress, prosodic flatness"
----
-
-
-Fused by `_compute_clinical_markers(f0_features, voice_quality, prosody, spectral)`.
-
-| Marker | Composite |
+--- Fused by `_compute_clinical_markers(f0_features, voice_quality, prosody, spectral)`. | Marker | Composite |
 | :--- | :--- |
 | `vocal_depression_index` | F0 range ↓, speaking rate ↓, jitter ↑ |
 | `vocal_anxiety_index` | F0 mean ↑, shimmer irregularity ↑ |
 | `vocal_distress_index` | Jitter ↑, shimmer ↑, HNR ↓ |
-| `prosodic_flatness` | F0 std ↓ (anhedonia marker) |
-
-Every marker reports `clinical_confidence` and the feature contributions that drove it. **The markers are signal for the clinician — not a diagnosis.**
+| `prosodic_flatness` | F0 std ↓ (anhedonia marker) | Every marker reports `clinical_confidence` and the feature contributions that drove it. **The markers are signal for the clinician — not a diagnosis.**

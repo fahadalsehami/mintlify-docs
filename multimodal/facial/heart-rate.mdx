@@ -1,16 +1,9 @@
 ---
 title: "Heart Rate"
 description: "rPPG-derived HR with < 5 bpm MAE"
----
-
-
-HR is extracted by `_extract_heart_rate(signal, fps)` from the CHROM-processed rPPG signal.
-
-| Aspect | Value |
+--- HR is extracted by `_extract_heart_rate(signal, fps)` from the CHROM-processed rPPG signal. | Aspect | Value |
 | :--- | :--- |
 | Accuracy | < 5 bpm MAE at SNR > 3.0 |
 | Minimum duration | 30 s (set via `min_hr_duration`) |
 | Signal | CHROM rPPG → bandpass [0.7, 4.0] Hz → SciPy FFT peak |
-| Output | `heart_rate` (bpm), `heart_rate_confidence` (0–1) |
-
-If the minimum duration is not met or SNR ≤ 3.0, the engine returns `heart_rate = None` and `heart_rate_confidence = 0.0`. There is no fabrication.
+| Output | `heart_rate` (bpm), `heart_rate_confidence` (0–1) | If the minimum duration is not met or SNR ≤ 3.0, the engine returns `heart_rate = None` and `heart_rate_confidence = 0.0`. There is no fabrication.

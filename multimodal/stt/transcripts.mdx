@@ -1,62 +1,17 @@
 ---
 title: "/transcripts endpoint"
 description: "REST · async batch transcription with the same BH calibration as the live endpoints."
----
-
-
-`/api/transcripts` is the **REST batch transcription** surface — upload a recorded encounter, get a structured transcript + instrument scores back. Same engine, same DSM-5-TR vocabulary bias, same C-SSRS safety check as `/sessions` and `/transcribe`.
-
-## Upload
-
-```http
+--- `/api/transcripts` is the **REST batch transcription** surface — upload a recorded encounter, get a structured transcript + instrument scores back. Same engine, same DSM-5-TR vocabulary bias, same C-SSRS safety check as `/sessions` and `/transcribe`. ## Upload ```http
 POST /api/sessions/{id}/recordings
 Content-Type: multipart/form-data
-```
-
-Limits: 60 minutes audio, 150 MB file. See [Audio Configuration](/multimodal/stt/audio).
-
-## Trigger transcript
-
-```http
+``` Limits: 60 minutes audio, 150 MB file. See [Audio Configuration](/multimodal/stt/audio). ## Trigger transcript ```http
 POST /api/sessions/{id}/transcripts
-Content-Type: application/json
-
-{
-  "language": "en-US",
-  "diarization": true,
-  "speakers": 2,
-  "instruments": ["phq-9", "gad-7", "c-ssrs"],
-  "vocabulary": { "formulary": [...], "programs": [...] }
+Content-Type: application/json { "language": "en-US", "diarization": true, "speakers": 2, "instruments": ["phq-9", "gad-7", "c-ssrs"], "vocabulary": { "formulary": [...], "programs": [...] }
 }
-```
-
-## Poll status
-
-```http
+``` ## Poll status ```http
 GET /api/sessions/{id}/transcripts/{transcript_id}/status
-```
-
-Status: `processing` → `completed` | `failed`.
-
-## Retrieve
-
-```http
+``` Status: `processing` → `completed` | `failed`. ## Retrieve ```http
 GET /api/sessions/{id}/transcripts/{transcript_id}
-```
-
-Returns the same structured shape `/sessions` returns at finalize — transcript, diarization, instrument scores, codes, SOAP draft.
-
-<Note>
-  Async batch accuracy may be slightly lower than the real-time endpoints because batch loses interactive context (no in-the-moment vocabulary biasing). Pass the practice vocabulary on every request for parity.
-</Note>
-
----
-
-## What's next
-
-<CardGroup cols={2}>
-  <Card title="/sessions — live capture" icon="audio-lines" href="/multimodal/stt/streams">Stateful diarized session.</Card>
-  <Card title="/transcribe — dictation" icon="microphone" href="/multimodal/stt/transcribe">Between-visit dictation.</Card>
-  <Card title="Audio configuration" icon="settings" href="/multimodal/stt/audio">Formats and limits.</Card>
-  <Card title="Ambient async quickstart" icon="zap" href="/quickstart/ambient-async">End-to-end async walkthrough.</Card>
+``` Returns the same structured shape `/sessions` returns at finalize — transcript, diarization, instrument scores, codes, SOAP draft. <Note> Async batch accuracy may be slightly lower than the real-time endpoints because batch loses interactive context (no in-the-moment vocabulary biasing). Pass the practice vocabulary on every request for parity.
+</Note> --- ## What's next <CardGroup cols={2}> <Card title="/sessions — live capture" icon="audio-lines" href="/multimodal/stt/streams">Stateful diarized session.</Card> <Card title="/transcribe — dictation" icon="microphone" href="/multimodal/stt/transcribe">Between-visit dictation.</Card> <Card title="Audio configuration" icon="settings" href="/multimodal/stt/audio">Formats and limits.</Card> <Card title="Ambient async quickstart" icon="zap" href="/quickstart/ambient-async">End-to-end async walkthrough.</Card>
 </CardGroup>

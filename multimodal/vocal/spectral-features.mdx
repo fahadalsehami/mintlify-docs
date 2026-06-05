@@ -1,18 +1,11 @@
 ---
 title: "Spectral Features"
 description: "MFCC, centroid, bandwidth, rolloff, flatness"
----
-
-
-Computed by `_extract_spectral_features(audio)` using Librosa.
-
-| Feature | Unit |
+--- Computed by `_extract_spectral_features(audio)` using audio analysis library. | Feature | Unit |
 | :--- | :--- |
 | `mfcc` | 13 coefficients (list) |
 | `spectral_centroid` | Hz |
 | `spectral_bandwidth` | Hz |
 | `spectral_rolloff` | Hz |
 | `spectral_flatness` | 0–1 (tonal ↔ noise-like) |
-| `spectral_confidence` | 0–1 |
-
-MFCCs power downstream classifiers (emotion, depression risk) and are also passed into the RDoC fusion as feature contributions.
+| `spectral_confidence` | 0–1 | MFCCs power downstream classifiers (emotion, depression risk) and are also passed into the neurobehavioral fusion as feature contributions.

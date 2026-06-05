@@ -1,22 +1,7 @@
 ---
 title: "POST /api/sessions"
 description: "Create a clinical session"
----
-
-
-## `POST /api/sessions`
-
-Create a clinical session (encounter).
-
-**Mount stack:** `resolveDeploymentScope, authenticateToken, setTenantContext, sessionTimeoutMiddleware, phiAuditMiddleware, consentGate, purposeBasedAccess('sessions', 'TREATMENT', 'OPERATIONS', 'EMERGENCY')`
-
-### Request body
-
-```json
-{
-  "patient_id": "pat_abc",
-  "provider_id": "prv_xyz",
-  "visit_type": "psychiatry_followup",
-  "modality": "telehealth"
+--- ## `POST /api/sessions` Create a clinical session (encounter). **Mount stack:** `resolveDeploymentScope, authenticateToken, setTenantContext, sessionTimeoutMiddleware, phiAuditMiddleware, consentGate, purposeBasedAccess('sessions', 'TREATMENT', 'OPERATIONS', 'EMERGENCY')` ### Request body ```json
+{ "patient_id": "pat_abc", "provider_id": "prv_xyz", "visit_type": "psychiatry_followup", "modality": "telehealth"
 }
 ```

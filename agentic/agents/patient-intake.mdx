@@ -1,145 +1,32 @@
 ---
-title: "Patient Intake Agent (Grace)"
+title: "Patient Intake Agent"
 description: "Voice-first adaptive intake for behavioral health."
----
-
-
-<Info>
-  **Category:** Clinical Operations &nbsp;·&nbsp; **Voice agent:** Grace (`AgentType.INTAKE`) &nbsp;·&nbsp; **Voice ID:** ElevenLabs `21m00Tcm4TlvDq8ikWAM` (Rachel)
-</Info>
-
-The Patient Intake Agent runs the first contact a patient has with the practice. It is voice-first, orchestrated via Vapi with Deepgram `nova-2-medical` transcription and an ElevenLabs voice, and follows a documented 7-state conversation state machine.
-
-## Conversation state machine
-
-<Frame>
-<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/intake-state.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
-  <style>{`
-    @keyframes mdr-state { 0%, 8% { fill: #ffffff; stroke: rgba(20,20,19,0.18); } 10%, 18% { fill: #dbe5ff; stroke: #76a1fc; } 20%, 100% { fill: #ffffff; stroke: rgba(20,20,19,0.18); } }
-    @keyframes mdr-state-final { 0%, 95% { fill: #ffffff; } 100% { fill: #76a1fc; } }
-    .mdr-st-1 { animation: mdr-state 12s linear infinite; animation-delay: 0s; }
-    .mdr-st-2 { animation: mdr-state 12s linear infinite; animation-delay: 1.5s; }
-    .mdr-st-3 { animation: mdr-state 12s linear infinite; animation-delay: 3s; }
-    .mdr-st-4 { animation: mdr-state 12s linear infinite; animation-delay: 4.5s; }
-    .mdr-st-5 { animation: mdr-state 12s linear infinite; animation-delay: 6s; }
-    .mdr-st-6 { animation: mdr-state 12s linear infinite; animation-delay: 7.5s; }
-    .mdr-st-7 { animation: mdr-state 12s linear infinite; animation-delay: 9s; }
-  `}</style>
-  <rect x="0" y="0" width="780" height="360" fill="#ffffff"/>
-  <g>
-    <rect x="0" y="0" width="780" height="32" fill="#141413"/>
-    <circle cx="14" cy="16" r="3" fill="#ff5f57"/>
-    <circle cx="26" cy="16" r="3" fill="#febc2e"/>
-    <circle cx="38" cy="16" r="3" fill="#28c840"/>
-    <text x="54" y="20" fill="#9a9893" font-family="ui-monospace, monospace" font-size="11">medera/intake-state.svg</text>
-    <text x="766" y="20" text-anchor="end" fill="#9a9893" font-family="ui-monospace, monospace" font-size="10">conversation state</text>
-  </g>
-  <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/>
-  <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" stroke-opacity="0.18"/>
-
-  <rect x="40" y="70" width="120" height="36" class="mdr-st-1" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
-  <text x="100" y="92" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">GREETING</text>
-  <rect x="200" y="70" width="170" height="36" class="mdr-st-2" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
-  <text x="285" y="92" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">IDENTITY_VERIFICATION</text>
-  <rect x="410" y="70" width="160" height="36" class="mdr-st-3" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
-  <text x="490" y="92" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">GATHERING_INFO</text>
-  <rect x="610" y="70" width="160" height="36" class="mdr-st-4" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
-  <text x="690" y="92" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="8" font-weight="600">MENTAL_HEALTH_SCREENING</text>
-
-  <rect x="40" y="180" width="180" height="36" class="mdr-st-5" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
-  <text x="130" y="202" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">APPOINTMENT_SCHEDULING</text>
-  <rect x="260" y="180" width="180" height="36" class="mdr-st-6" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
-  <text x="350" y="202" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">SUMMARY_CONFIRMATION</text>
-  <rect x="480" y="180" width="120" height="36" class="mdr-st-7" fill="#ffffff" stroke="rgba(20,20,19,0.18)"/>
-  <text x="540" y="202" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="9" font-weight="600">CLOSING</text>
-  <rect x="640" y="180" width="120" height="36" fill="#76a1fc" stroke="#4f7be0"/>
-  <text x="700" y="202" text-anchor="middle" fill="#fafafa" font-family="ui-monospace, monospace" font-size="9" font-weight="700">COMPLETED</text>
-
-  <defs><marker id="arr_in" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#141413" fill-opacity="0.55"/></marker></defs>
-  <path d="M 160 88 L 200 88" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
-  <path d="M 370 88 L 410 88" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
-  <path d="M 570 88 L 610 88" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
-  <path d="M 690 106 Q 690 145 130 145 L 130 180" stroke="#141413" stroke-opacity="0.45" stroke-width="1" fill="none" marker-end="url(#arr_in)"/>
-  <path d="M 220 198 L 260 198" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
-  <path d="M 440 198 L 480 198" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
-  <path d="M 600 198 L 640 198" stroke="#141413" stroke-opacity="0.45" stroke-width="1" marker-end="url(#arr_in)"/>
-
-  {/* Flowing dot showing state progression */}
-  <circle r="3" fill="#76a1fc">
-    <animateMotion dur="12s" repeatCount="indefinite" path="M 100 88 L 285 88 L 490 88 L 690 88 L 130 198 L 350 198 L 540 198 L 700 198"/>
-  </circle>
-
-  {/* Escalation */}
-  <rect x="290" y="285" width="200" height="36" fill="#fafaf6" stroke="#c44040"/>
-  <text x="390" y="307" text-anchor="middle" fill="#c44040" font-family="ui-monospace, monospace" font-size="10" font-weight="600">ESCALATED (any state → terminal)</text>
+--- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="6" y="2" width="4" height="1" fill="#141413"/><rect x="5" y="3" width="1" height="5" fill="#141413"/><rect x="10" y="3" width="1" height="5" fill="#141413"/><rect x="6" y="3" width="4" height="5" fill="#76a1fc"/><rect x="6" y="3" width="1" height="5" fill="#141413"/><rect x="8" y="3" width="1" height="5" fill="#141413"/><rect x="3" y="8" width="1" height="2" fill="#141413"/><rect x="12" y="8" width="1" height="2" fill="#141413"/><rect x="4" y="10" width="2" height="1" fill="#141413"/><rect x="10" y="10" width="2" height="1" fill="#141413"/><rect x="6" y="11" width="4" height="1" fill="#141413"/><rect x="7" y="12" width="2" height="1" fill="#141413"/><rect x="5" y="13" width="6" height="1" fill="#141413"/></svg></div> <Info> **Category:** Clinical Operations &nbsp;·&nbsp; **Voice agent:** Intake (`agent type.INTAKE`) &nbsp;·&nbsp; **Voice ID:** Medera voice </Info> The Patient Intake Agent runs the first contact a patient has with the practice. It is voice-first, orchestrated via Medera Voice with Medera STT `nova-2-medical` transcription and an Medera voice, and follows a documented 7-state conversation state machine. ## Conversation state machine <Frame>
+<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/intake-state.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <style>{` @keyframes mdr-state { 0%, 8% { fill: #ffffff; stroke: rgba(20,19,0.18); } 10%, 18% { fill: #dbe5ff; stroke: #76a1fc; } 20%, 100% { fill: #ffffff; stroke: rgba(20,19,0.18); } } @keyframes mdr-state-final { 0%, 95% { fill: #ffffff; } 100% { fill: #76a1fc; } }.mdr-st-1 { animation: mdr-state 12s linear infinite; animation-delay: 0s; }.mdr-st-2 { animation: mdr-state 12s linear infinite; animation-delay: 1.5s; }.mdr-st-3 { animation: mdr-state 12s linear infinite; animation-delay: 3s; }.mdr-st-4 { animation: mdr-state 12s linear infinite; animation-delay: 4.5s; }.mdr-st-5 { animation: mdr-state 12s linear infinite; animation-delay: 6s; }.mdr-st-6 { animation: mdr-state 12s linear infinite; animation-delay: 7.5s; }.mdr-st-7 { animation: mdr-state 12s linear infinite; animation-delay: 9s; } `}</style> <rect x="0" y="0" width="780" height="360" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="3" fill="#ff5f57"/> <circle cx="26" cy="16" r="3" fill="#febc2e"/> <circle cx="38" cy="16" r="3" fill="#28c840"/> <text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, monospace" fontSize="11">medera/intake-state.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, monospace" fontSize="10">conversation state</text> </g> <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" strokeOpacity="0.18"/> <rect x="40" y="70" width="120" height="36" className="mdr-st-1" fill="#ffffff" stroke="rgba(20,19,0.18)"/> <text x="100" y="92" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">GREETING</text> <rect x="200" y="70" width="170" height="36" className="mdr-st-2" fill="#ffffff" stroke="rgba(20,19,0.18)"/> <text x="285" y="92" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">IDENTITY_VERIFICATION</text> <rect x="410" y="70" width="160" height="36" className="mdr-st-3" fill="#ffffff" stroke="rgba(20,19,0.18)"/> <text x="490" y="92" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">GATHERING_INFO</text> <rect x="610" y="70" width="160" height="36" className="mdr-st-4" fill="#ffffff" stroke="rgba(20,19,0.18)"/> <text x="690" y="92" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="8" fontWeight="600">MENTAL_HEALTH_SCREENING</text> <rect x="40" y="180" width="180" height="36" className="mdr-st-5" fill="#ffffff" stroke="rgba(20,19,0.18)"/> <text x="130" y="202" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">APPOINTMENT_SCHEDULING</text> <rect x="260" y="180" width="180" height="36" className="mdr-st-6" fill="#ffffff" stroke="rgba(20,19,0.18)"/> <text x="350" y="202" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">SUMMARY_CONFIRMATION</text> <rect x="480" y="180" width="120" height="36" className="mdr-st-7" fill="#ffffff" stroke="rgba(20,19,0.18)"/> <text x="540" y="202" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">CLOSING</text> <rect x="640" y="180" width="120" height="36" fill="#76a1fc" stroke="#4f7be0"/> <text x="700" y="202" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="700">COMPLETED</text> <defs><marker id="arr_in" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#141413" fillOpacity="0.55"/></marker></defs> <path d="M 160 88 L 200 88" stroke="#141413" strokeOpacity="0.45" strokeWidth="1" markerEnd="url(#arr_in)"/> <path d="M 370 88 L 410 88" stroke="#141413" strokeOpacity="0.45" strokeWidth="1" markerEnd="url(#arr_in)"/> <path d="M 570 88 L 610 88" stroke="#141413" strokeOpacity="0.45" strokeWidth="1" markerEnd="url(#arr_in)"/> <path d="M 690 106 Q 690 145 130 145 L 130 180" stroke="#141413" strokeOpacity="0.45" strokeWidth="1" fill="none" markerEnd="url(#arr_in)"/> <path d="M 220 198 L 260 198" stroke="#141413" strokeOpacity="0.45" strokeWidth="1" markerEnd="url(#arr_in)"/> <path d="M 440 198 L 480 198" stroke="#141413" strokeOpacity="0.45" strokeWidth="1" markerEnd="url(#arr_in)"/> <path d="M 600 198 L 640 198" stroke="#141413" strokeOpacity="0.45" strokeWidth="1" markerEnd="url(#arr_in)"/> <circle r="3" fill="#76a1fc"> <animateMotion dur="12s" repeatCount="indefinite" path="M 100 88 L 285 88 L 490 88 L 690 88 L 130 198 L 350 198 L 540 198 L 700 198"/> </circle> <rect x="290" y="285" width="200" height="36" fill="#fafaf6" stroke="#c44040"/> <text x="390" y="307" textAnchor="middle" fill="#c44040" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">ESCALATED (any state → terminal)</text>
 </svg>
-</Frame>
-
-## Task types (`TaskType` enum)
-
-`IDENTITY_VERIFICATION`, `INSURANCE_VERIFICATION`, `APPOINTMENT_SCHEDULING`, `REFERRAL_PROCESSING`, `PRE_AUTHORIZATION`, `PRESCRIPTION_REFILL`, `BILLING_CALCULATION`, `SYMPTOM_DOCUMENTATION`, `CHIEF_COMPLAINT`, `URGENT_CARE_TRIAGE`.
-
-## Grace's 4 function calls
-
-| Function | Signature | Purpose |
+</Frame> ## Task types (`TaskType` enum) `IDENTITY_VERIFICATION`, `INSURANCE_VERIFICATION`, `APPOINTMENT_SCHEDULING`, `REFERRAL_PROCESSING`, `PRE_AUTHORIZATION`, `PRESCRIPTION_REFILL`, `BILLING_CALCULATION`, `SYMPTOM_DOCUMENTATION`, `CHIEF_COMPLAINT`, `URGENT_CARE_TRIAGE`. ## The Intake Agent's 4 function calls | Function | Signature | Purpose |
 | :--- | :--- | :--- |
 | `verify_identity` | `(patient_id, verification_data)` | 2-of-3 ID confirmation (DOB, address, SSN last 4) |
 | `document_symptom` | `(symptom_description, severity_level, onset_date)` | Capture chief complaint |
 | `flag_for_review` | `(reason, urgency_level)` | Flag for clinical review queue |
-| `escalate_urgent` | `(escalation_reason, call_action)` | Hard escalation — no agent gating |
-
-## Workflow modules
-
-| Module | Purpose |
+| `escalate_urgent` | `(escalation_reason, call_action)` | Hard escalation — no agent gating | ## Workflow modules | Module | Purpose |
 | :--- | :--- |
 | `general_intake` | Baseline demographics + insurance + chief complaint |
 | `prescription_refill` | Medication history + formulary checks |
-| `lab_flagged` | Lab requisition + specimen handling |
-
-## System prompt structure
-
-`GRACE_SYSTEM_PROMPT_TEMPLATE` is composed of 13 sections, including:
-
-1. **Patient context** (name, DOB, provider, conditions, meds, allergies)
+| `lab_flagged` | Lab requisition + specimen handling | ## System prompt structure `INTAKE_SYSTEM_PROMPT_TEMPLATE` is composed of 13 sections, including: 1. **Patient context** (name, DOB, provider, conditions, meds, allergies)
 2. **Call scenario** (type + scenario details)
-3. **Conversation guidelines** (tone, opening, AI / recording disclosure — **mandatory**, identity verification, info gathering, sensitive topics, urgent situations, closing)
-
-## Configuration
-
-| Field | Description |
+3. **Conversation guidelines** (tone, opening, AI / recording disclosure — **mandatory**, identity verification, info gathering, sensitive topics, urgent situations, closing) ## Configuration | Field | Description |
 | :--- | :--- |
 | `intake_template_id` | Practice intake template |
 | `screeners` | Default `["phq-9", "gad-7", "audit-c", "c-ssrs"]` |
 | `routing_matrix` | Practice routing rules by acuity and payer |
 | `language` | Preferred language for the call |
 | `crisis_escalation_tree_id` | Practice escalation policy |
-| `workflow_modules` | `["general_intake"]` by default |
-
-## Composable experts
-
-| Expert | Role |
+| `workflow_modules` | `["general_intake"]` by default | ## Composable experts | Expert | Role |
 | :--- | :--- |
 | **Vocal Prosody Expert** | F0, jitter, shimmer for affect and acuity inference |
 | **Linguistic Content Expert** | Topic, valence, certainty, pronoun-shift markers |
 | **Validated Screener Expert** | PHQ-9, GAD-7, AUDIT-C, C-SSRS administration and scoring |
-| **C-SSRS Risk Expert** | Suicide-risk classification with documented rationale |
-
-## Compliance guarantees
-
-<Warning>
-  - **Verbal recording + AI disclosure** is mandatory before any clinical questions.
-  - **Identity verification** requires 2-of-3 confirmation.
-  - **Crisis-language detection** bypasses agent gating and triggers `escalate_urgent` immediately.
-  - **Every claim** in the summary is anchored to a quoted span in the transcript.
-</Warning>
-
----
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Quickstart" icon="zap" href="/quickstart/intake-agent">Deploy Grace in 15 minutes.</Card>
-  <Card title="Vapi Webhooks" icon="webhook" href="/api-reference/intake/webhooks-vapi">Webhook schema.</Card>
-  <Card title="Intake API" icon="terminal" href="/api-reference/intake/create-call">REST surface.</Card>
-  <Card title="Care Orchestrator" icon="grid-2x2" href="/agentic/orchestrator">Multi-agent runtime.</Card>
+| **C-SSRS Risk Expert** | Suicide-risk classification with documented rationale | ## Compliance guarantees <Warning> - **Verbal recording + AI disclosure** is mandatory before any clinical questions. - **Identity verification** requires 2-of-3 confirmation. - **Crisis-language detection** bypasses agent gating and triggers `escalate_urgent` immediately. - **Every claim** in the summary is anchored to a quoted span in the transcript.
+</Warning> --- ## Related <CardGroup cols={2}> <Card title="Quickstart" icon="zap" href="/quickstart/intake-agent">Deploy the Intake Agent in 15 minutes.</Card> <Card title="Medera Voice Webhooks" icon="webhook" href="/api-reference/intake/webhooks-voice">Webhook schema.</Card> <Card title="Intake API" icon="terminal" href="/api-reference/intake/create-call">REST surface.</Card> <Card title="Care Orchestrator" icon="grid-2x2" href="/agentic/orchestrator">Multi-agent runtime.</Card>
 </CardGroup>

@@ -1,23 +1,5 @@
 ---
 title: "Security Best Practices"
 description: "Five rules for credentials and PHI"
----
-
-
-<Steps>
-  <Step title="Never embed credentials in client code">
-    Developer API Keys and internal service keys must never ship in a browser, mobile app, or any client-controlled binary. Always exchange through a backend you control. The frontend uses Clerk JWTs only.
-  </Step>
-  <Step title="Use the smallest possible scope">
-    A key with `read:data` cannot mutate. A key with `read:phi` cannot trigger workflows. The smallest scope contains blast radius.
-  </Step>
-  <Step title="Rotate every 90 days">
-    The Console enforces rotation reminders. Old keys must be revoked, not retired in place.
-  </Step>
-  <Step title="Store secrets in a hardened secret store">
-    AWS Secrets Manager, GCP Secret Manager, HashiCorp Vault — never in source control, never in environment variables that get baked into images.
-  </Step>
-  <Step title="Verify webhook signatures">
-    Every Medera webhook ships with `Medera-Signature: sha256=...` (HMAC-SHA256). Webhooks without verified signatures must be discarded. Vapi inbound webhooks are verified separately by the `vapi_integration` HMAC validator.
-  </Step>
+--- <Steps> <Step title="Never embed credentials in client code"> Developer API Keys and internal service keys must never ship in a browser, mobile app, or any client-controlled binary. Always exchange through a backend you control. The frontend uses the identity provider JWTs only. </Step> <Step title="Use the smallest possible scope"> A key with `read:data` cannot mutate. A key with `read:phi` cannot trigger workflows. The smallest scope contains blast radius. </Step> <Step title="Rotate every 90 days"> The Console enforces rotation reminders. Old keys must be revoked, not retired in place. </Step> <Step title="Store secrets in a hardened secret store"> AWS Secrets Manager, GCP Secret Manager, HashiCorp Vault — never in source control, never in environment variables that get baked into images. </Step> <Step title="Verify webhook signatures"> Every Medera webhook ships with `Medera-Signature: sha256=...` (HMAC-SHA256). Webhooks without verified signatures must be discarded. Medera Voice inbound webhooks are verified separately by the `vapi_integration` HMAC validator. </Step>
 </Steps>

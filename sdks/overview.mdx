@@ -1,52 +1,11 @@
 ---
 title: "SDKs & Tools"
 description: "Official SDKs, web components, and developer tools."
----
-
-
-Medera ships SDKs in JavaScript / TypeScript and Python plus web components for embedded experiences. All SDKs handle authentication, automatic token refresh, retries with exponential backoff, and webhook signature verification.
-
-<CardGroup cols={2}>
-  <Card title="JavaScript / TypeScript SDK" icon="square-code" href="/sdks/js/overview">
-    `@medera/sdk` for Node 18+, modern browsers, Bun, Deno, and edge runtimes (Cloudflare Workers, Vercel Edge).
-  </Card>
-  <Card title="Python SDK" icon="square-code" href="/sdks/python/overview">
-    `medera` — async-first via httpx + Pydantic models. Python 3.10+.
-  </Card>
-  <Card title="Dictation Web Component" icon="microphone" href="/sdks/dictation-component">
-    `<medera-dictation>` — drop-in dictation UI with microphone management and command parsing.
-  </Card>
-  <Card title="Co-Therapy Web Component" icon="users" href="/sdks/co-therapy-component">
-    `<medera-cotherapy>` — multimodal capture UI with private clinician channel.
-  </Card>
-  <Card title="Postman" icon="package" href="/sdks/postman">
-    Pre-built Postman collection with the full Medera API.
-  </Card>
-  <Card title="CLI" icon="terminal" href="/sdks/cli">
-    `medera` CLI for deployments, evaluations, and code generation.
-  </Card>
-</CardGroup>
-
-## Common patterns
-
-| Pattern | JS SDK | Python SDK |
+--- Medera ships SDKs in JavaScript / TypeScript and Python plus web components for embedded experiences. All SDKs handle authentication, automatic token refresh, retries with exponential backoff, and webhook signature verification. <CardGroup cols={2}> <Card title="JavaScript / TypeScript SDK" icon="square-code" href="/sdks/js/overview"> `@medera/sdk` for Node 18+, modern browsers, Bun, Deno, and edge runtimes (Cloudflare Workers, Vercel Edge). </Card> <Card title="Python SDK" icon="square-code" href="/sdks/python/overview"> `medera` — async-first via httpx + Pydantic models. Python 3.10+. </Card> <Card title="Dictation Web Component" icon="microphone" href="/sdks/dictation-component"> `<medera-dictation>` — drop-in dictation UI with microphone management and command parsing. </Card> <Card title="Co-Therapy Web Component" icon="users" href="/sdks/co-therapy-component"> `<medera-cotherapy>` — multimodal capture UI with private clinician channel. </Card> <Card title="Postman" icon="package" href="/sdks/postman"> Pre-built Postman collection with the full Medera API. </Card> <Card title="CLI" icon="terminal" href="/sdks/cli"> `medera` CLI for deployments, evaluations, and code generation. </Card>
+</CardGroup> ## Common patterns | Pattern | JS SDK | Python SDK |
 | :--- | :--- | :--- |
 | Auth | `MederaClient({ apiKey })` | `MederaClient(api_key=...)` |
 | Cancel a request | `AbortController` | `httpx.Timeout` |
 | Pagination | `client.X.list({ cursor })` | `client.X.list(cursor=...)` |
-| Webhooks | `verifyMederaSignature(...)` | `verify_medera_signature(...)` |
-
-## Examples repository
-
-[github.com/medera-ai/examples](https://github.com/medera-ai/examples) — working code in TypeScript, Python, Swift, and Kotlin.
-
----
-
-## What's next
-
-<CardGroup cols={2}>
-  <Card title="JavaScript SDK" icon="square-code" href="/sdks/js/overview">Install + first call.</Card>
-  <Card title="Python SDK" icon="square-code" href="/sdks/python/overview">Install + first call.</Card>
-  <Card title="Authentication" icon="key" href="/authentication/overview">Credential types + scopes.</Card>
-  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">Every endpoint.</Card>
+| Webhooks | `verifyMederaSignature(...)` | `verify_medera_signature(...)` | ## Examples repository [github.com/medera-ai/examples](https://github.com/medera-ai/examples) — working code in TypeScript, Python, Swift, and Kotlin. --- ## What's next <CardGroup cols={2}> <Card title="JavaScript SDK" icon="square-code" href="/sdks/js/overview">Install + first call.</Card> <Card title="Python SDK" icon="square-code" href="/sdks/python/overview">Install + first call.</Card> <Card title="Authentication" icon="key" href="/authentication/overview">Credential types + scopes.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">Every endpoint.</Card>
 </CardGroup>

@@ -1,52 +1,14 @@
 ---
 title: "Building Your Ambient Scribe"
 description: "Implementation guide for building an ambient scribe application"
----
-
-
-This guide walks you through building a real-time ambient scribe — diarized capture, in-encounter SOAP drafting in the practice template, and EHR sync — on the Medera platform.
-
-## Architecture
-
-```
-┌───────────┐   ┌─────────────┐   ┌──────────────┐   ┌─────────────┐
-│ Encounter │ → │  /streams   │ → │ Visit Scribe │ → │     EHR     │
-│   audio   │   │ (WebSocket) │   │    Agent     │   │  (FHIR R4)  │
-└───────────┘   └─────────────┘   └──────────────┘   └─────────────┘
-```
-
-## Steps
-
-<Steps>
-  <Step title="Authenticate">
-    Exchange your client credentials for an access token. See [Authentication Quickstart](/authentication/quickstart).
-  </Step>
-  <Step title="Create an encounter">
-    `POST /api/sessions` with the patient, provider, and visit type. The session ID anchors the transcript, note, and code suggestions.
-  </Step>
-  <Step title="Connect the audio stream">
-    Open a WebSocket to `wss://api.medera.info/sessions?session_id=...&token=...` and stream PCM audio at 16 kHz. See [`/sessions` endpoint](/multimodal/stt/streams).
-  </Step>
-  <Step title="Receive transcript + note events">
-    The stream emits `transcript.partial`, `transcript.final`, `note.draft`, and `code.suggestion` events. Render them as the clinician dictates.
-  </Step>
-  <Step title="Sign and post">
-    After clinician sign-off, `POST /api/clinical/notes/{id}/sign` posts the structured note and code set to the configured EHR target via the integration adapter.
-  </Step>
-</Steps>
-
-## Best practices
-
-- Capture audio at 16 kHz 16-bit PCM. Higher rates work but waste bandwidth.
+--- This guide walks you through building a real-time ambient scribe — diarized capture, in-encounter SOAP drafting in the practice template, and EHR sync — on the Medera platform. ## Architecture ```
+┌───────────┐ ┌─────────────┐ ┌──────────────┐ ┌─────────────┐
+│ Encounter │ → │ /streams │ → │ Visit Scribe │ → │ EHR │
+│ audio │ │ (WebSocket) │ │ Agent │ │ (FHIR R4) │
+└───────────┘ └─────────────┘ └──────────────┘ └─────────────┘
+``` ## Steps <Steps> <Step title="Authenticate"> Exchange your client credentials for an access token. See [Authentication Quickstart](/authentication/quickstart). </Step> <Step title="Create an encounter"> `POST /api/sessions` with the patient, provider, and visit type. The session ID anchors the transcript, note, and code suggestions. </Step> <Step title="Connect the audio stream"> Open a WebSocket to `wss://api.medera.info/sessions?session_id=...&token=...` and stream PCM audio at 16 kHz. See [`/sessions` endpoint](/multimodal/stt/streams). </Step> <Step title="Receive transcript + note events"> The stream emits `transcript.partial`, `transcript.final`, `note.draft`, and `code.suggestion` events. Render them as the clinician dictates. </Step> <Step title="Sign and post"> After clinician sign-off, `POST /api/clinical/notes/{id}/sign` posts the structured note and code set to the configured EHR target via the integration adapter. </Step>
+</Steps> ## Best practices - Capture audio at 16 kHz 16-bit PCM. Higher rates work but waste bandwidth.
 - Use a dedicated lavalier or beamforming mic. See [Microphone Devices](/multimodal/stt/microphones).
 - Always require clinician sign-off before posting. Never auto-post to the EHR.
-- Use the `transcript.span` IDs to render the documentation anchor next to every code suggestion.
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Streams endpoint" href="/multimodal/stt/streams">WebSocket schema and event reference.</Card>
-  <Card title="Visit Scribe Agent" href="/agentic/agents/visit-scribe">Agent-level documentation.</Card>
-  <Card title="EHR Integrations" href="/api-reference/integrations/overview">Connect Epic, Cerner, athenahealth, and more.</Card>
-  <Card title="Encounter Coding" href="/coding/encounter-coding">ICD-10 and CPT from clinical context.</Card>
+- Use the `transcript.span` IDs to render the documentation anchor next to every code suggestion. ## Related <CardGroup cols={2}> <Card title="Streams endpoint" href="/multimodal/stt/streams">WebSocket schema and event reference.</Card> <Card title="Visit Scribe Agent" href="/agentic/agents/visit-scribe">Agent-level documentation.</Card> <Card title="EHR Integrations" href="/api-reference/integrations/overview">Connect Epic, Cerner, athenahealth, and more.</Card> <Card title="Encounter Coding" href="/coding/encounter-coding">ICD-10 and CPT from clinical context.</Card>
 </CardGroup>

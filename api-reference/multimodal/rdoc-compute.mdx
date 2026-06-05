@@ -1,13 +1,6 @@
 ---
-title: "RDoC compute (internal)"
-description: "RDoC profile computation"
----
-
-
-RDoC computation is internal to `MultimodalTherapyAnalyzer.analyze_session_with_multimodal()` and is not exposed as a standalone endpoint. To trigger RDoC computation, use:
-
-```
+title: "Neurobehavioral Construct compute (internal)"
+description: "neurobehavioral profile computation"
+--- Neurobehavioral Construct computation is internal to `MultimodalTherapyAnalyzer.analyze_session_with_multimodal` and is not exposed as a standalone endpoint. To trigger Neurobehavioral Construct computation, use: ```
 POST /api/multimodal-therapy/analyze-session
-```
-
-The response includes `rdoc.constructs[]` with one entry per construct.
+``` The response includes `rdoc.constructs[]` with one entry per construct.

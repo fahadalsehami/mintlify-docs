@@ -1,61 +1,30 @@
 ---
 title: "Sub-processors"
 description: "Per-region sub-processor list."
----
-
-
-Sub-processors handle specific functions on Medera's behalf. The list below is current as of platform release; material changes trigger a **30-day notice** to security and compliance contacts on file.
-
-## US tenants
-
-| Sub-processor | Purpose | Region |
+--- Sub-processors handle specific functions on Medera's behalf. The list below is current as of platform release; material changes trigger a **30-day notice** to security and compliance contacts on file. ## US tenants | Sub-processor | Purpose | Region |
 | :--- | :--- | :--- |
-| AWS | Compute, storage, KMS | US-East, US-West |
-| Anthropic / OpenAI | LLM inference (Medera-managed) | US |
-| Twilio | Voice / SMS for intake agents | US |
-| Vapi | Voice orchestration | US |
-| Deepgram | nova-2-medical transcription (Co-Therapy pipeline) | US |
-| ElevenLabs | Voice synthesis (Grace, Alex, Jordan, Taylor) | US |
-| Datadog | Observability | US |
-| Sentry | Error tracking | US |
-| Stripe | Billing | US |
-| Clerk | Authentication | US |
-
-## EU tenants
-
-| Sub-processor | Purpose | Region |
+| AWS | Compute, storage, KMS | US region |
+| Medera reasoning | LLM inference (Medera-managed) | US |
+| voice carrier | Voice / SMS for intake agents | US |
+| Medera Voice | Voice orchestration | US |
+| Medera STT | Medera STT transcription (Co-Therapy pipeline) | US |
+| Medera voice | Voice synthesis (Intake, Care Coordinator, Referral Specialist, PA Specialist) | US |
+| observability platform | Observability | US |
+| error tracking | Error tracking | US |
+| payment processor | Billing | US |
+| the identity provider | Authentication | US | ## EU tenants | Sub-processor | Purpose | Region |
 | :--- | :--- | :--- |
 | AWS | Compute, storage, KMS | EU-West (Ireland), EU-Central (Frankfurt) |
-| Anthropic / OpenAI (EU endpoints) | LLM inference | EU |
-| Twilio | Voice / SMS | EU |
-| Vapi | Voice orchestration | EU |
-| Deepgram | Transcription | EU |
-| ElevenLabs | Voice synthesis | EU |
-| Datadog | Observability | EU |
-| Sentry | Error tracking | EU |
-| Stripe | Billing | EU |
-| Clerk | Authentication | EU |
-
-## MENA / Customer VPC
-
-Sub-processors per customer agreement. Typical setup keeps sub-processors region-local; LLM inference may use a customer-hosted endpoint.
-
-## Change notification
-
-Material changes (new sub-processor, region change, processing change) trigger:
+| Medera reasoning (EU endpoints) | LLM inference | EU |
+| voice carrier | Voice / SMS | EU |
+| Medera Voice | Voice orchestration | EU |
+| Medera STT | Transcription | EU |
+| Medera voice | Voice synthesis | EU |
+| observability platform | Observability | EU |
+| error tracking | Error tracking | EU |
+| payment processor | Billing | EU |
+| the identity provider | Authentication | EU | ## MENA / Customer VPC Sub-processors per customer agreement. Typical setup keeps sub-processors region-local; LLM inference may use a customer-hosted endpoint. ## Change notification Material changes (new sub-processor, region change, processing change) trigger:
 - 30-day advance notice to your tenant security contact
 - Update to this page
-- Optional Trust Center notification preference
-
-Contact [compliance@medera.info](mailto:compliance@medera.info) to subscribe to change notifications.
-
----
-
-## What's next
-
-<CardGroup cols={2}>
-  <Card title="Data Residency" icon="globe" href="/compliance/data-residency">Region options + immutability.</Card>
-  <Card title="BAA / DPA" icon="file-text" href="/compliance/baa">Contracts under HIPAA + GDPR.</Card>
-  <Card title="Encryption" icon="lock" href="/compliance/encryption">Keys + BYOK.</Card>
-  <Card title="HIPAA" icon="shield-check" href="/compliance/hipaa">Security and Privacy Rule controls.</Card>
+- Optional Trust Center notification preference Contact [hi@medera.info](mailto:hi@medera.info) to subscribe to change notifications. --- ## What's next <CardGroup cols={2}> <Card title="Data Residency" icon="globe" href="/compliance/data-residency">Region options + immutability.</Card> <Card title="BAA / DPA" icon="file-text" href="/compliance/baa">Contracts under HIPAA + GDPR.</Card> <Card title="Encryption" icon="lock" href="/compliance/encryption">Keys + BYOK.</Card> <Card title="HIPAA" icon="shield-check" href="/compliance/hipaa">Security and Privacy Rule controls.</Card>
 </CardGroup>

@@ -1,16 +1,9 @@
 ---
 title: "Session recordings"
 description: "Manage session recordings"
----
-
-
-| Method | Path |
+--- | Method | Path |
 | :--- | :--- |
 | `POST` | `/api/session-recordings` (or `/api/sessions/{id}/recordings`) |
 | `GET` | `/api/session-recordings` |
 | `GET` | `/api/session-recordings/{id}` |
-| `DELETE` | `/api/session-recordings/{id}` |
-
-Limits: 60 minutes per recording, 150 MB max. Supported formats: WAV, MP3, M4A, OGG, FLAC, Opus.
-
-Mount stack includes `purposeBasedAccess('session_recordings', ...)`.
+| `DELETE` | `/api/session-recordings/{id}` | Limits: 60 minutes per recording, 150 MB max. Supported formats: WAV, MP3, M4A, OGG, FLAC, Opus. Mount stack includes `purposeBasedAccess('session_recordings',...)`.

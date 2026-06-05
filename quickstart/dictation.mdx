@@ -1,27 +1,11 @@
 ---
 title: "Quickstart — Real-Time Stateless Dictation"
 description: "Build a dictation app using the /transcribe API"
----
-
-
-Real-time stateless dictation for clinical editors. No session required — just open the WebSocket, stream PCM audio, receive transcript text and command events.
-
-```javascript
+--- Real-time stateless dictation for clinical editors. No session required — just open the WebSocket, stream PCM audio, receive transcript text and command events. ```javascript
 import { MederaClient } from '@medera/sdk';
-const client = new MederaClient({ accessToken });
-
-const ws = await client.transcribe.connect({
-  language: 'en-US',
-  punctuation: 'smart',
-  commands: ['new_paragraph', 'next_section', 'period'],
-});
-
-ws.on('interim', (e) => editor.previewText(e.text));
+const client = new MederaClient({ accessToken }); const ws = await client.transcribe.connect({ language: 'en-US', punctuation: 'smart', commands: ['new_paragraph', 'next_section', 'period'],
+}); ws.on('interim', (e) => editor.previewText(e.text));
 ws.on('final', (e) => editor.commitText(e.text));
-ws.on('command', (e) => editor.runCommand(e.command));
-
-const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
+ws.on('command', (e) => editor.runCommand(e.command)); const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
 ws.streamAudio(mic);
-```
-
-See [Transcribe endpoint](/multimodal/stt/transcribe) for full schema.
+``` See [Transcribe endpoint](/multimodal/stt/transcribe) for full schema.

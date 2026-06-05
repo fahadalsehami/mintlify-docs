@@ -1,75 +1,17 @@
 ---
 title: "Welcome to Medera Medical Coding"
 description: "ICD-10, CPT, HCPCS, SNOMED CT, LOINC, RxNorm calibrated for behavioral health."
----
-
-
-Medera Medical Coding generates accurate, defensible codes from clinical context — every code anchored to a quoted note span and reported with calibrated confidence. The engine is **behavioral-health-aware** — F-code specificity, BH-relevant CPT and E&M, psychotropic RxNorm — but supports the full coding surface for primary care overlap.
-
-<Tip>
-  Every code returned by the Medera API includes the documentation span that supports it. Suggestions never auto-post — the coder or clinician confirms.
-</Tip>
-
-## Supported code systems
-
-<CardGroup cols={4}>
-  <Card title="ICD-10-CM" href="/coding/icd-10-cm" icon="hashtag" horizontal>US diagnosis</Card>
-  <Card title="ICD-10-PCS" href="/coding/icd-10-pcs" icon="hashtag" horizontal>US inpatient procedure</Card>
-  <Card title="ICD-10" href="/coding/icd-10-int" icon="hashtag" horizontal>WHO international</Card>
-  <Card title="CPT" href="/coding/cpt" icon="hashtag" horizontal>Outpatient procedure / E&M</Card>
-  <Card title="HCPCS Level II" href="/coding/hcpcs" icon="hashtag" horizontal>Non-physician services</Card>
-  <Card title="SNOMED CT" href="/coding/snomed-ct" icon="hashtag" horizontal>Clinical terminology</Card>
-  <Card title="LOINC" href="/coding/loinc" icon="hashtag" horizontal>Lab + instrument observations</Card>
-  <Card title="RxNorm" href="/coding/rxnorm" icon="hashtag" horizontal>Psychotropic + general medication</Card>
-</CardGroup>
-
-## Endpoints
-
-| Endpoint | Surface | Purpose |
+--- Medera Medical Coding generates accurate, defensible codes from clinical context — every code anchored to a quoted note span and reported with calibrated confidence. The engine is **behavioral-health-aware** — F-code specificity, BH-relevant CPT and E&M, psychotropic RxNorm — but supports the full coding surface for primary care overlap. <Tip> Every code returned by the Medera API includes the documentation span that supports it. Suggestions never auto-post — the coder or clinician confirms.
+</Tip> ## Supported code systems <CardGroup cols={4}> <Card title="ICD-10-CM" href="/coding/icd-10-cm" icon="hashtag" horizontal>US diagnosis</Card> <Card title="ICD-10-PCS" href="/coding/icd-10-pcs" icon="hashtag" horizontal>US inpatient procedure</Card> <Card title="ICD-10" href="/coding/icd-10-int" icon="hashtag" horizontal>WHO international</Card> <Card title="CPT" href="/coding/cpt" icon="hashtag" horizontal>Outpatient procedure / E&M</Card> <Card title="HCPCS Level II" href="/coding/hcpcs" icon="hashtag" horizontal>Non-physician services</Card> <Card title="SNOMED CT" href="/coding/snomed-ct" icon="hashtag" horizontal>Clinical terminology</Card> <Card title="LOINC" href="/coding/loinc" icon="hashtag" horizontal>Lab + instrument observations</Card> <Card title="RxNorm" href="/coding/rxnorm" icon="hashtag" horizontal>Psychotropic + general medication</Card>
+</CardGroup> ## Endpoints | Endpoint | Surface | Purpose |
 | :--- | :--- | :--- |
 | `POST /api/therapy/suggest-codes` | AI Services | Standalone suggestion from diagnosis + procedure text |
 | `POST /api/pa/coding-suggest` | AI Services | Real-time detection during intake — flags PA-required codes |
-| `POST /api/therapy/generate-soap-note-enhanced` | AI Services | SOAP with `include_billing_codes: true` |
-
-## Use cases
-
-<CardGroup cols={3}>
-  <Card title="Encounter coding" icon="clipboard-check" href="/coding/encounter-coding">
-    Assign accurate diagnosis and procedure codes to behavioral-health encounters using documentation-anchored suggestions.
-  </Card>
-  <Card title="Clinical Documentation Improvement" icon="file-pen" href="/coding/cdi">
-    Surface missing specificity, severity qualifiers, and gaps as clinical queries before sign-off.
-  </Card>
-  <Card title="Revenue cycle" icon="chart-line" href="/coding/revenue-cycle">
-    Sweep panels for missed codes, run retrospective audits, resubmit cleanly.
-  </Card>
-</CardGroup>
-
-## Response shape
-
-```json
-{
-  "system": "icd-10-cm",
-  "code": "F32.1",
-  "display": "Major depressive disorder, single episode, moderate",
-  "confidence": 0.92,
-  "anchor": {
-    "documentId": "doc_abc",
-    "span": { "start": 412, "end": 489 },
-    "quote": "Patient reports persistent low mood for 6 weeks..."
-  },
-  "severity_qualifier_suggestions": ["severe"],
-  "documentation_gap": null,
-  "pa_required": false,
-  "payer_policy_url": null
+| `POST /api/therapy/generate-soap-note-enhanced` | AI Services | SOAP with `include_billing_codes: true` | ## Use cases <CardGroup cols={3}> <Card title="Encounter coding" icon="clipboard-check" href="/coding/encounter-coding"> Assign accurate diagnosis and procedure codes to behavioral-health encounters using documentation-anchored suggestions. </Card> <Card title="Clinical Documentation Improvement" icon="file-pen" href="/coding/cdi"> Surface missing specificity, severity qualifiers, and gaps as clinical queries before sign-off. </Card> <Card title="Revenue cycle" icon="chart-line" href="/coding/revenue-cycle"> Sweep panels for missed codes, run retrospective audits, resubmit cleanly. </Card>
+</CardGroup> ## Response shape ```json
+{ "system": "icd-10-cm", "code": "F32.1", "display": "Major depressive disorder, single episode, moderate", "confidence": 0.92, "anchor": { "documentId": "doc_abc", "span": { "start": 412, "end": 489 }, "quote": "Patient reports persistent low mood for 6 weeks..." }, "severity_qualifier_suggestions": ["severe"], "documentation_gap": null, "pa_required": false, "payer_policy_url": null
 }
-```
-
-## Common BH codes
-
-### ICD-10-CM (F-code subset)
-
-| Code | Description |
+``` ## Common BH codes ### ICD-10-CM (F-code subset) | Code | Description |
 | :--- | :--- |
 | `F32.0` – `F32.9` | Major depressive disorder, single episode (severity range) |
 | `F33.0` – `F33.9` | Major depressive disorder, recurrent (severity range) |
@@ -85,11 +27,7 @@ Medera Medical Coding generates accurate, defensible codes from clinical context
 | `F84.0` | Autism spectrum disorder |
 | `F31.x` | Bipolar disorder (specifiers) |
 | `F20.x` | Schizophrenia spectrum |
-| `F50.x` | Eating disorders |
-
-### CPT — behavioral health subset
-
-| Code | Description |
+| `F50.x` | Eating disorders | ### CPT — behavioral health subset | Code | Description |
 | :--- | :--- |
 | `90791` | Psychiatric diagnostic evaluation |
 | `90792` | Psychiatric diagnostic evaluation with medical services |
@@ -103,20 +41,12 @@ Medera Medical Coding generates accurate, defensible codes from clinical context
 | `96130`, `96131` | Psychological testing evaluation services |
 | `99213` – `99215` | Established patient E/M |
 | `99491` – `99494` | Collaborative care management (CoCM) |
-| `G2214` | Behavioral health integration |
-
-### HCPCS Level II
-
-| Code | Description |
+| `G2214` | Behavioral health integration | ### HCPCS Level II | Code | Description |
 | :--- | :--- |
 | `H0001` – `H0050` | BH-specific services (assessment, IOP, PHP, peer support) |
 | `H2011` | Crisis intervention service |
 | `S9480` | IOP, mental health |
-| `S0201` | Partial hospitalization, mental health |
-
-### SNOMED CT (BH concepts)
-
-| Concept ID | Description |
+| `S0201` | Partial hospitalization, mental health | ### SNOMED CT (BH concepts) | Concept ID | Description |
 | :--- | :--- |
 | `35489007` | Depressive disorder |
 | `48694002` | Anxiety |
@@ -124,11 +54,7 @@ Medera Medical Coding generates accurate, defensible codes from clinical context
 | `6471006` | Suicidal ideation |
 | `193462001` | Insomnia |
 | `13746004` | Bipolar disorder |
-| `58214004` | Schizophrenia |
-
-### RxNorm — psychotropics
-
-| RxCUI | Description |
+| `58214004` | Schizophrenia | ### RxNorm — psychotropics | RxCUI | Description |
 | :--- | :--- |
 | `36437` | Sertraline |
 | `321988` | Escitalopram |
@@ -143,15 +69,5 @@ Medera Medical Coding generates accurate, defensible codes from clinical context
 | `187832` | Pregabalin |
 | `6850` | Lithium |
 | `28439` | Lamotrigine |
-| `42347` | Quetiapine |
-
----
-
-## What's next
-
-<CardGroup cols={2}>
-  <Card title="Quickstart" icon="zap" href="/coding/quickstart">Suggest codes for your first note.</Card>
-  <Card title="Core Concepts" icon="book" href="/coding/introduction">Understand every field in the response.</Card>
-  <Card title="How it works" icon="settings" href="/coding/how-it-works">Request structure + best practices.</Card>
-  <Card title="Coding Systems" icon="layers" href="/coding/coding-systems">Feature availability per system.</Card>
+| `42347` | Quetiapine | --- ## What's next <CardGroup cols={2}> <Card title="Quickstart" icon="zap" href="/coding/quickstart">Suggest codes for your first note.</Card> <Card title="Core Concepts" icon="book" href="/coding/introduction">Understand every field in the response.</Card> <Card title="How it works" icon="settings" href="/coding/how-it-works">Request structure + best practices.</Card> <Card title="Coding Systems" icon="layers" href="/coding/coding-systems">Feature availability per system.</Card>
 </CardGroup>

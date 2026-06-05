@@ -1,59 +1,24 @@
 ---
 title: "Crisis Response Agent"
 description: "Immediate, documented response to crisis language — no AI gating."
----
-
-<Info>
-  **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Real-time text/voice · C-SSRS criteria · Practice escalation tree · On-call availability
-</Info>
-
-Always-on across every patient touchpoint. Detect, escalate, document — never decide.
-
-## Configuration
-
-| Field | Description |
+--- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="7" y="1" width="2" height="1" fill="#141413"/><rect x="6" y="2" width="4" height="1" fill="#141413"/><rect x="5" y="3" width="1" height="1" fill="#141413"/><rect x="10" y="3" width="1" height="1" fill="#141413"/><rect x="5" y="4" width="1" height="1" fill="#141413"/><rect x="10" y="4" width="1" height="1" fill="#141413"/><rect x="4" y="5" width="1" height="1" fill="#141413"/><rect x="11" y="5" width="1" height="1" fill="#141413"/><rect x="4" y="6" width="1" height="1" fill="#141413"/><rect x="11" y="6" width="1" height="1" fill="#141413"/><rect x="3" y="7" width="1" height="1" fill="#141413"/><rect x="12" y="7" width="1" height="1" fill="#141413"/><rect x="3" y="8" width="1" height="1" fill="#141413"/><rect x="12" y="8" width="1" height="1" fill="#141413"/><rect x="2" y="9" width="1" height="1" fill="#141413"/><rect x="13" y="9" width="1" height="1" fill="#141413"/><rect x="2" y="10" width="1" height="1" fill="#141413"/><rect x="13" y="10" width="1" height="1" fill="#141413"/><rect x="1" y="11" width="1" height="1" fill="#141413"/><rect x="14" y="11" width="1" height="1" fill="#141413"/><rect x="1" y="12" width="1" height="1" fill="#141413"/><rect x="14" y="12" width="1" height="1" fill="#141413"/><rect x="1" y="13" width="14" height="1" fill="#141413"/><rect x="7" y="5" width="2" height="4" fill="#76a1fc"/><rect x="7" y="10" width="2" height="2" fill="#76a1fc"/></svg></div> <Info> **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Real-time text/voice · C-SSRS criteria · Practice escalation tree · On-call availability
+</Info> Always-on across every patient touchpoint. Detect, escalate, document — never decide. ## Configuration | Field | Description |
 | :--- | :--- |
 | `criteria` | C-SSRS-aligned crisis-language criteria |
 | `escalation_tree` | Practice escalation tree + on-call schedule |
 | `documentation` | Documentation requirements |
-| `safety_policy` | Patient safety policy |
-
-## Execution
-
-1. Monitors real-time text and voice for crisis language
+| `safety_policy` | Patient safety policy | ## Execution 1. Monitors real-time text and voice for crisis language
 2. Classifies risk per C-SSRS-aligned criteria
 3. Triggers the practice escalation tree without agent gating
 4. Connects a human within seconds
-5. Logs the event and the response for audit
-
-## Composable experts
-
-| Expert | Role |
+5. Logs the event and the response for audit ## Composable experts | Expert | Role |
 | :--- | :--- |
 | **Crisis Detection Expert** | C-SSRS-aligned criteria |
 | **Escalation Expert** | Practice tree + on-call routing |
 | **Documentation Expert** | Event logging + follow-up |
-| **Safety Policy Expert** | Configurable safety guardrails |
-
-## Compliance guarantees
-
-<Warning>
+| **Safety Policy Expert** | Configurable safety guardrails | ## Compliance guarantees <Warning>
 - Agent gating is NEVER allowed in the crisis path
 - Detection criteria are documented and configurable
 - Every crisis event is logged with the response and the follow-up
-</Warning>
-
-## Endpoints
-
-Canvas: `guardrails` (suicide-language rule) + `escalate`. Care Orchestrator: `INTAKE_RED_FLAG_DETECTED` event.
-
----
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
-  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
-  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
-  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning> ## Endpoints Canvas: `guardrails` (suicide-language rule) + `escalate`. Care Orchestrator: `INTAKE_RED_FLAG_DETECTED` event. --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

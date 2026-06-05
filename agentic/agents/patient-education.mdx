@@ -1,59 +1,24 @@
 ---
 title: "Patient Education Agent"
 description: "Plain-language education tailored to the patient."
----
-
-<Info>
-  **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Clinical content · Patient reading level · Preferred language · Active diagnoses
-</Info>
-
-Translate clinical content into the patient's language, reading level, and context — drawn from a clinician-approved library.
-
-## Configuration
-
-| Field | Description |
+--- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="7" y="3" width="2" height="11" fill="#141413"/><rect x="1" y="4" width="5" height="1" fill="#141413"/><rect x="1" y="5" width="1" height="8" fill="#141413"/><rect x="2" y="13" width="5" height="1" fill="#141413"/><rect x="6" y="5" width="1" height="8" fill="#141413"/><rect x="10" y="4" width="5" height="1" fill="#141413"/><rect x="15" y="5" width="1" height="8" fill="#141413"/><rect x="9" y="13" width="5" height="1" fill="#141413"/><rect x="9" y="5" width="1" height="8" fill="#141413"/><rect x="2" y="7" width="3" height="1" fill="#76a1fc"/><rect x="2" y="9" width="3" height="1" fill="#76a1fc"/><rect x="11" y="7" width="3" height="1" fill="#76a1fc"/><rect x="11" y="9" width="3" height="1" fill="#76a1fc"/></svg></div> <Info> **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Clinical content · Patient reading level · Preferred language · Active diagnoses
+</Info> Translate clinical content into the patient's language, reading level, and context — drawn from a clinician-approved library. ## Configuration | Field | Description |
 | :--- | :--- |
 | `library_id` | Practice education library + approved content |
 | `reading_level` | Patient reading-level constraints |
 | `languages` | Translation language set |
-| `channel` | Channel + delivery policy |
-
-## Execution
-
-1. Loads the clinical content the clinician wants delivered
+| `channel` | Channel + delivery policy | ## Execution 1. Loads the clinical content the clinician wants delivered
 2. Adapts it to the patient's reading level and preferred language
 3. Tailors it to the active diagnoses and medications
 4. Delivers via the configured channel
-5. Tracks engagement and comprehension
-
-## Composable experts
-
-| Expert | Role |
+5. Tracks engagement and comprehension ## Composable experts | Expert | Role |
 | :--- | :--- |
 | **Plain-Language Expert** | Reading-level + clarity |
 | **Translation Expert** | Multilingual fidelity |
 | **Tailoring Expert** | Active diagnoses + medications |
-| **Engagement Expert** | Channel selection + delivery |
-
-## Compliance guarantees
-
-<Warning>
+| **Engagement Expert** | Channel selection + delivery | ## Compliance guarantees <Warning>
 - Education content is drawn from a clinician-approved library
 - Reading level and translation are explicit and configurable
 - Engagement and comprehension are tracked, not assumed
-</Warning>
-
-## Endpoints
-
-Canvas: `transform` + `escalate` nodes for delivery; backend `POST /api/communications`.
-
----
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
-  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
-  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
-  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning> ## Endpoints Canvas: `transform` + `escalate` nodes for delivery; backend `POST /api/communications`. --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

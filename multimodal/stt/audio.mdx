@@ -1,12 +1,7 @@
 ---
 title: "Audio Configuration"
 description: "File types and codecs supported by the Medera API"
----
-
-
-## Supported formats
-
-| Format | Real-time | Batch |
+--- ## Supported formats | Format | Real-time | Batch |
 | :--- | :--- | :--- |
 | PCM 16-bit (16 kHz) | ✓ | ✓ |
 | PCM 16-bit (44.1 / 48 kHz) | ✓ (downsampled) | ✓ |
@@ -15,13 +10,5 @@ description: "File types and codecs supported by the Medera API"
 | MP3 (CBR) | — | ✓ |
 | M4A / AAC | — | ✓ |
 | OGG (Opus) | ✓ | ✓ |
-| FLAC | — | ✓ |
-
-## Recommended
-
-- 16 kHz 16-bit PCM mono
-- Opus at 32 kbps for bandwidth-constrained edges
-
-## Frame size
-
-For real-time, send 20 ms frames (320 samples at 16 kHz). Anything smaller wastes WS overhead; anything larger inflates latency.
+| FLAC | — | ✓ | ## Recommended - 16 kHz 16-bit PCM mono
+- Opus at 32 kbps for bandwidth-constrained edges ## Frame size For real-time, send 20 ms frames (320 samples at 16 kHz). Anything smaller wastes WS overhead; anything larger inflates latency.

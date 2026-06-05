@@ -1,40 +1,12 @@
 ---
 title: "Co-Therapy Agent"
 description: "Silent multimodal in-session clinical intelligence."
----
-
-
-<Info>
-  **Category:** Clinical Operations &nbsp;·&nbsp; **Channels:** Vocal acoustics · Facial physiology · Linguistic content · Assessments
-</Info>
-
-The Co-Therapy Agent is a silent multimodal partner — it **never** speaks to the patient. It runs the [Vocal Acoustic Engine](/multimodal/vocal/overview) and [Facial Physiological Engine](/multimodal/facial/overview), fuses outputs through the [RDoC Construct Computer](/multimodal/rdoc/overview) into 15 named construct activations, and surfaces the resulting canonical payload to the clinician on a private channel.
-
-## Pipeline
-
-<Frame>
-<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/multimodal.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
-  <defs>
-    <pattern id="dots_73816" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
-      <circle cx="1" cy="1" r="0.6" fill="rgba(20,20,19,0.18)"/>
-    </pattern>
-  </defs>
-  <rect x="0" y="0" width="780" height="360" fill="#ffffff"/>
-  <g>
-  <rect x="0" y="0" width="780" height="32" fill="#141413"/>
-  <circle cx="14" cy="16" r="2" fill="#76a1fc"/>
-  <text x="26" y="20" fill="#fafafa" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="500">medera/multimodal.svg</text>
-  <text x="766" y="20" text-anchor="end" fill="#9a9893" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10">pipeline</text>
-</g>
-  <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/>
-  <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" stroke-opacity="0.18" stroke-width="1"/>
-  <rect x="50" y="70" width="180" height="50" fill="#ffffff" stroke="#141413" stroke-opacity="0.18"/><text x="140" y="92" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">Audio</text><text x="140" y="108" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">16 kHz · mono PCM</text><rect x="50" y="140" width="180" height="50" fill="#ffffff" stroke="#141413" stroke-opacity="0.18"/><text x="140" y="162" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">Video</text><text x="140" y="178" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">≥ 15 fps · MediaPipe</text><rect x="50" y="210" width="180" height="50" fill="#ffffff" stroke="#141413" stroke-opacity="0.18"/><text x="140" y="232" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">Assessments</text><text x="140" y="248" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">PHQ-9 · GAD-7 · C-SSRS</text><rect x="260" y="70" width="220" height="50" fill="#ffffff" stroke="#141413" stroke-opacity="0.18"/><text x="370" y="92" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">VocalAcousticEngine</text><text x="370" y="108" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">Librosa · Parselmouth</text><rect x="260" y="140" width="220" height="50" fill="#ffffff" stroke="#141413" stroke-opacity="0.18"/><text x="370" y="162" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="12" font-weight="600">FacialPhysiologicalEngine</text><text x="370" y="178" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">OpenCV · HeartPy · SciPy</text><rect x="510" y="70" width="220" height="120" fill="#76a1fc" stroke="#4f7be0"/><text x="620" y="100" text-anchor="middle" fill="#fafafa" font-family="Inter, sans-serif" font-size="13" font-weight="600">RDoCConstructComputer</text><text x="620" y="118" text-anchor="middle" fill="#dbe5ff" font-family="ui-monospace, monospace" font-size="10">15 constructs · 5 domains</text><text x="620" y="148" text-anchor="middle" fill="#fafafa" font-family="ui-monospace, monospace" font-size="9">Negative Valence · Positive Valence</text><text x="620" y="162" text-anchor="middle" fill="#fafafa" font-family="ui-monospace, monospace" font-size="9">Cognitive · Social · Arousal</text><text x="620" y="178" text-anchor="middle" fill="#dbe5ff" font-family="ui-monospace, monospace" font-size="9">ConstructActivation[ ]</text><rect x="180" y="270" width="430" height="60" fill="#ffffff" stroke="#141413" stroke-opacity="0.18"/><text x="395" y="294" text-anchor="middle" fill="#141413" font-family="Inter, sans-serif" font-size="13" font-weight="600">MultimodalTherapyAnalyzer</text><text x="395" y="312" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="10">Canonical payload · facial · vocal · rdoc · clinical_context</text><text x="395" y="325" text-anchor="middle" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9">+ AdvancedClinicalRAG → CitedResponse</text><path d="M 230 95 L 260 95" stroke="#141413" stroke-opacity="0.35" stroke-width="1" fill="none"/><path d="M 230 165 L 260 165" stroke="#141413" stroke-opacity="0.35" stroke-width="1" fill="none"/><path d="M 230 235 L 510 235 L 510 190" stroke="#141413" stroke-opacity="0.35" stroke-width="1" fill="none"/><path d="M 480 95 L 510 105" stroke="#141413" stroke-opacity="0.35" stroke-width="1" fill="none"/><path d="M 480 165 L 510 155" stroke="#141413" stroke-opacity="0.35" stroke-width="1" fill="none"/><path d="M 620 190 L 620 240 L 395 240 L 395 270" stroke="#141413" stroke-opacity="0.35" stroke-width="1" fill="none"/>
+--- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="4" width="2" height="1" fill="#141413"/><rect x="2" y="5" width="1" height="5" fill="#141413"/><rect x="3" y="10" width="1" height="1" fill="#141413"/><rect x="4" y="11" width="2" height="1" fill="#141413"/><rect x="11" y="4" width="2" height="1" fill="#141413"/><rect x="13" y="5" width="1" height="5" fill="#141413"/><rect x="12" y="10" width="1" height="1" fill="#141413"/><rect x="10" y="11" width="2" height="1" fill="#141413"/><rect x="5" y="3" width="2" height="1" fill="#141413"/><rect x="9" y="3" width="2" height="1" fill="#141413"/><rect x="7" y="2" width="2" height="1" fill="#141413"/><rect x="7" y="4" width="2" height="7" fill="#76a1fc"/><rect x="6" y="12" width="4" height="1" fill="#141413"/><rect x="7" y="13" width="2" height="1" fill="#141413"/></svg></div> <Info> **Category:** Clinical Operations &nbsp;·&nbsp; **Channels:** Vocal acoustics · Facial physiology · Linguistic content · Assessments
+</Info> The Co-Therapy Agent is a silent multimodal partner — it **never** speaks to the patient. It runs the [Vocal Acoustic Engine](/multimodal/vocal/overview) and [Facial Physiological Engine](/multimodal/facial/overview), fuses outputs through the [Neurobehavioral Construct Computer](/multimodal/rdoc/overview) into 15 named construct activations, and surfaces the resulting canonical payload to the clinician on a private channel. ## Pipeline <Frame>
+<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/multimodal.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_73816" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="360" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/multimodal.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">pipeline</text>
+</g> <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="50" y="70" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="92" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Audio</text><text x="140" y="108" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">16 kHz · mono PCM</text><rect x="50" y="140" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="162" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Video</text><text x="140" y="178" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">≥ 15 fps · vision pipeline x="50" y="210" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="232" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Assessments</text><text x="140" y="248" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">PHQ-9 · GAD-7 · C-SSRS</text><rect x="260" y="70" width="220" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="370" y="92" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">VocalAcousticEngine</text><text x="370" y="108" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">audio analysis library · speech analysis library</text><rect x="260" y="140" width="220" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="370" y="162" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">FacialPhysiologicalEngine</text><text x="370" y="178" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">OpenCV · rPPG library · SciPy</text><rect x="510" y="70" width="220" height="120" fill="#76a1fc" stroke="#4f7be0"/><text x="620" y="100" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">NeurobehavioralConstructComputer</text><text x="620" y="118" textAnchor="middle" fill="#dbe5ff" fontFamily="ui-monospace, monospace" fontSize="10">15 constructs · 5 domains</text><text x="620" y="148" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9">Negative Valence · Positive Valence</text><text x="620" y="162" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9">Cognitive · Social · Arousal</text><text x="620" y="178" textAnchor="middle" fill="#dbe5ff" fontFamily="ui-monospace, monospace" fontSize="9">ConstructActivation[ ]</text><rect x="180" y="270" width="430" height="60" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="395" y="294" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">MultimodalTherapyAnalyzer</text><text x="395" y="312" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Canonical payload · facial · vocal · rdoc · clinical_context</text><text x="395" y="325" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">+ AdvancedClinicalRAG → CitedResponse</text><path d="M 230 95 L 260 95" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 230 165 L 260 165" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 230 235 L 510 235 L 510 190" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 480 95 L 510 105" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 480 165 L 510 155" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 620 190 L 620 240 L 395 240 L 395 270" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/>
 </svg>
-</Frame>
-
-## Endpoints
-
-| Method | Path | Purpose |
+</Frame> ## Endpoints | Method | Path | Purpose |
 | :--- | :--- | :--- |
 | `POST` | `/api/co-therapy-sessions` | Create session (backend) |
 | `POST` | `/api/co-therapy-sessions/{id}/start` | Start session + invitations |
@@ -42,49 +14,18 @@ The Co-Therapy Agent is a silent multimodal partner — it **never** speaks to t
 | `POST` | `/api/co-therapy-sessions/{id}/leave` | Record participant leaving |
 | `POST` | `/api/co-therapy-sessions/{id}/transition` | Manually transition state |
 | `POST` | `/api/multimodal-therapy/analyze-session` | Full multimodal analysis |
-| `POST` | `/api/multimodal-therapy/analyze-audio-only` | Audio-only analysis |
-
-## Configuration
-
-| Field | Description |
+| `POST` | `/api/multimodal-therapy/analyze-audio-only` | Audio-only analysis | ## Configuration | Field | Description |
 | :--- | :--- |
 | `audio_enabled`, `video_enabled` | Channel toggles |
 | `rdoc_constructs` | Optional subset of the 15 named constructs |
 | `clinical_context` | Chief complaint, active diagnoses, recent screener scores |
-| `consent_recorded` | Per-session consent flag (required) |
-
-## Composable experts
-
-| Expert | Role |
+| `consent_recorded` | Per-session consent flag (required) | ## Composable experts | Expert | Role |
 | :--- | :--- |
 | **Vocal Prosody Expert** | F0, jitter, shimmer, HNR, speaking rate, prosodic flatness |
 | **Affect Dynamics Expert** | Facial affect intensity, valence, congruence |
-| **Neurobehavioral Construct Expert** | RDoC activation, severity, contributors |
-| **Linguistic Content Expert** | Topic, valence, certainty, pronoun shift |
-
-## Quality gates
-
-- **Audio**: ≥ 1.0 s, valid `voiced_fraction`
+| **Neurobehavioral Construct Expert** | Neurobehavioral Construct activation, severity, contributors |
+| **Linguistic Content Expert** | Topic, valence, certainty, pronoun shift | ## Quality gates - **Audio**: ≥ 1.0 s, valid `voiced_fraction`
 - **Video**: ≥ 30 s for HR, ≥ 60 s for HRV / BP, SNR > 3.0
-- **Analyzer**: minimum 20 words of transcript + 30 s of session signal
-
-On quality failure, the engine returns `confidence: 0.0` and the analyzer falls back to a GPT-4o transcript-inferred analysis marked `requires_human_review: true` — **never fabricated values**.
-
-## Compliance guarantees
-
-<Warning>
-  - The Co-Therapy Agent **never** addresses or interacts with the patient.
-  - Recording requires explicit per-session consent (`consent_recorded: true`).
-  - Construct activations report `contributors[]` so clinicians can audit feature-level influence.
-</Warning>
-
----
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Quickstart" icon="zap" href="/quickstart/co-therapy">Run a multimodal session.</Card>
-  <Card title="Multimodal Overview" icon="audio-lines" href="/multimodal/overview">Engine deep dive.</Card>
-  <Card title="RDoC Constructs" icon="brain" href="/multimodal/rdoc/overview">15 named constructs.</Card>
-  <Card title="Multimodal API" icon="terminal" href="/api-reference/multimodal/analyze-video">REST surface.</Card>
+- **Analyzer**: minimum 20 words of transcript + 30 s of session signal On quality failure, the engine returns `confidence: 0.0` and the analyzer falls back to a Medera reasoning transcript-inferred analysis marked `requires_human_review: true` — **never fabricated values**. ## Compliance guarantees <Warning> - The Co-Therapy Agent **never** addresses or interacts with the patient. - Recording requires explicit per-session consent (`consent_recorded: true`). - Construct activations report `contributors[]` so clinicians can audit feature-level influence.
+</Warning> --- ## Related <CardGroup cols={2}> <Card title="Quickstart" icon="zap" href="/quickstart/co-therapy">Run a multimodal session.</Card> <Card title="Multimodal Overview" icon="audio-lines" href="/multimodal/overview">Engine deep dive.</Card> <Card title="Neurobehavioral Construct Constructs" icon="brain" href="/multimodal/rdoc/overview">15 named constructs.</Card> <Card title="Multimodal API" icon="terminal" href="/api-reference/multimodal/analyze-video">REST surface.</Card>
 </CardGroup>

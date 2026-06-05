@@ -1,205 +1,29 @@
 ---
 title: "Canvas Node Types"
 description: "16 core node types + 8 BH-OS rail node types."
----
-
-
-The canvas ships **16 core node types** and **8 BH-OS rail** node types. Each runner extends `BaseNodeRunner` and is registered with the `WorkflowExecutor`.
-
-## Core nodes (3)
-
-| Type | Runner | Purpose |
+--- The canvas ships **16 core node types** and **8 BH-OS rail** node types. Each runner extends and is registered with the. ## Core nodes (3) | Type | Runner | Purpose |
 | :--- | :--- | :--- |
-| `start` | `StartNodeRunner` | Workflow entry. Defines input variables. |
-| `end` | `EndNodeRunner` | Workflow exit. Marks execution complete with output values. |
-| `note` | annotation only | Documentation node — no runtime effect. |
-
-## Logic & control (5)
-
-| Type | Runner | Outputs |
+| `start` | `Start runtime` | Workflow entry. Defines input variables. |
+| `end` | `End runtime` | Workflow exit. Marks execution complete with output values. |
+| `note` | annotation only | Documentation node — no runtime effect. | ## Logic & control (5) | Type | Runner | Outputs |
 | :--- | :--- | :--- |
-| `condition` | `ConditionNodeRunner` | `true` / `false` (field + operator + value) |
-| `transform` | `TransformNodeRunner` | `default` (Handlebars / Liquid template) |
-| `classify` | `ClassifyNodeRunner` | Dynamic — one per declared category |
-| `wait` | `WaitNodeRunner` | `default` (after delay or cron) |
-| `user-approval` | `UserApprovalRunner` | `approved` / `rejected` — pauses execution and writes to `workflow_approvals` |
-
-## Healthcare agents (4)
-
-| Type | Runner | Outputs |
+| `condition` | `Condition runtime` | `true` / `false` (field + operator + value) |
+| `transform` | `Transform runtime` | `default` (Handlebars / Liquid template) |
+| `classify` | `Classify runtime` | Dynamic — one per declared category |
+| `wait` | `Wait runtime` | `default` (after delay or cron) |
+| `user-approval` | `Approval runtime` | `approved` / `rejected` — pauses execution and writes to `workflow_approvals` | ## Healthcare agents (4) | Type | Runner | Outputs |
 | :--- | :--- | :--- |
-| `intake-agent` | `IntakeAgentRunner` | `success` / `escalate` / `error` |
-| `scribe-agent` | `ScribeAgentRunner` | `success` / `error` |
-| `therapy-agent` | `TherapyAgentRunner` | `success` / `concern` / `error` |
-| `triage-agent` | `TriageAgentRunner` | `urgent` / `routine` / `self_care` |
-
-## Integration & data (4)
-
-| Type | Runner | Outputs |
+| `intake-agent` | `Intake runtime` | `success` / `escalate` / `error` |
+| `scribe-agent` | `Scribe runtime` | `success` / `error` |
+| `therapy-agent` | `Therapy runtime` | `success` / `concern` / `error` |
+| `triage-agent` | `Triage runtime` | `urgent` / `routine` / `self_care` | ## Integration & data (4) | Type | Runner | Outputs |
 | :--- | :--- | :--- |
-| `guardrails` | `GuardrailsNodeRunner` | `pass` / `fail` |
-| `ehr-sync` | `EHRSyncNode` | `success` / `error` |
-| `fhir-query` | `FHIRQueryRunner` | `success` / `error` |
-| `escalate` | `EscalateNodeRunner` | (terminal — sends notification) |
-
-## BH-OS rails (8)
-
-The BH-OS rails are typed runners backed by `StudioBlockRunner`. Each rail wires the workflow into a corresponding backend service.
-
-<CardGroup cols={2}>
-  <Card title="rails/assessment" icon="clipboard-check">Clinical assessment runner</Card>
-  <Card title="rails/triage" icon="alert-triangle">Triage routing</Card>
-  <Card title="rails/referral" icon="link">Referral generator + closed-loop</Card>
-  <Card title="rails/pa" icon="file-check">Prior authorization workflow</Card>
-  <Card title="rails/mbc" icon="chart-line">Measurement-Based Care</Card>
-  <Card title="rails/quality" icon="award">HEDIS / MIPS capture</Card>
-  <Card title="rails/network" icon="network">Provider network logic</Card>
-  <Card title="rails/pharmacy" icon="pill">Surescripts e-Rx + DDI</Card>
-</CardGroup>
-
-## Sample composition
-
-<Frame>
-<svg viewBox="0 0 780 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/canvas-node-graph.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
-  <style>{`
-    @keyframes mdr-node-glow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(118,161,252,0)); } 50% { filter: drop-shadow(0 0 8px rgba(118,161,252,0.65)); } }
-    .mdr-active-node { animation: mdr-node-glow 2.6s ease-in-out infinite; }
-  `}</style>
-  <defs>
-    <pattern id="mdr-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1" fill="rgba(20,20,19,0.15)"/>
-    </pattern>
-    <linearGradient id="mdr-conn-1" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#76a1fc"/>
-      <stop offset="100%" stop-color="#5a7fa5"/>
-    </linearGradient>
-    <linearGradient id="mdr-conn-2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#5a7fa5"/>
-      <stop offset="100%" stop-color="#8b7fb5"/>
-    </linearGradient>
-    <linearGradient id="mdr-conn-3" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#8b7fb5"/>
-      <stop offset="100%" stop-color="#76a1fc"/>
-    </linearGradient>
-  </defs>
-
-  <rect x="0" y="0" width="780" height="480" fill="#ffffff"/>
-  <g>
-    <rect x="0" y="0" width="780" height="32" fill="#141413"/>
-    <circle cx="14" cy="16" r="3" fill="#ff5f57"/>
-    <circle cx="26" cy="16" r="3" fill="#febc2e"/>
-    <circle cx="38" cy="16" r="3" fill="#28c840"/>
-    <text x="54" y="20" fill="#9a9893" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11">medera/canvas.svg</text>
-    <text x="766" y="20" text-anchor="end" fill="#9a9893" font-family="ui-monospace, monospace" font-size="10">workflow canvas</text>
-  </g>
-  <rect x="0" y="32" width="780" height="448" fill="#f5f5f5"/>
-  <rect x="0" y="32" width="780" height="448" fill="url(#mdr-dots)" opacity="0.25"/>
-  <rect x="0.5" y="0.5" width="779" height="479" fill="none" stroke="#141413" stroke-opacity="0.08"/>
-
-  {/* Row 1: Intake */}
-  <g transform="translate(340, 60)">
-    <rect width="120" height="42" fill="#ffffff" stroke="#76a1fc" stroke-width="1.5"/>
-    <text x="60" y="26" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="11" font-weight="600">Intake</text>
-    <circle cx="60" cy="-3" r="3" fill="#76a1fc"/>
-    <circle cx="60" cy="45" r="3" fill="#76a1fc"/>
-  </g>
-
-  {/* Connector 1 */}
-  <line x1="400" y1="105" x2="400" y2="135" stroke="url(#mdr-conn-1)" stroke-width="1.5"/>
-  <circle r="2.5" fill="#76a1fc">
-    <animateMotion dur="2s" repeatCount="indefinite" path="M 400 105 L 400 135"/>
-    <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/>
-  </circle>
-
-  {/* Row 2: Screening + Consent */}
-  <g transform="translate(220, 140)">
-    <rect width="120" height="42" fill="#ffffff" stroke="#5a7fa5" stroke-width="1.5"/>
-    <text x="60" y="26" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="11" font-weight="600">Screening</text>
-    <circle cx="60" cy="-3" r="3" fill="#5a7fa5"/>
-    <circle cx="60" cy="45" r="3" fill="#5a7fa5"/>
-  </g>
-  <g transform="translate(460, 140)">
-    <rect width="120" height="42" fill="#ffffff" stroke="#5a7fa5" stroke-width="1.5"/>
-    <text x="60" y="26" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="11" font-weight="600">Consent</text>
-    <circle cx="60" cy="-3" r="3" fill="#5a7fa5"/>
-    <circle cx="60" cy="45" r="3" fill="#5a7fa5"/>
-  </g>
-
-  {/* connector lines + flow */}
-  <line x1="400" y1="135" x2="280" y2="140" stroke="url(#mdr-conn-1)" stroke-width="1.5"/>
-  <line x1="400" y1="135" x2="520" y2="140" stroke="url(#mdr-conn-1)" stroke-width="1.5"/>
-
-  <line x1="280" y1="185" x2="280" y2="215" stroke="url(#mdr-conn-2)" stroke-width="1.5"/>
-  <line x1="520" y1="185" x2="520" y2="215" stroke="url(#mdr-conn-2)" stroke-width="1.5"/>
-  <circle r="2.5" fill="#5a7fa5">
-    <animateMotion dur="2.4s" repeatCount="indefinite" path="M 280 185 L 280 215"/>
-    <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite"/>
-  </circle>
-  <circle r="2.5" fill="#5a7fa5">
-    <animateMotion dur="2.4s" repeatCount="indefinite" path="M 520 185 L 520 215" begin="1.2s"/>
-    <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite" begin="1.2s"/>
-  </circle>
-
-  {/* Row 3: Risk Check + FHIR Write */}
-  <g transform="translate(220, 220)">
-    <rect width="120" height="42" fill="#ffffff" stroke="#8b7fb5" stroke-width="1.5"/>
-    <text x="60" y="26" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="11" font-weight="600">Risk Check</text>
-    <circle cx="60" cy="-3" r="3" fill="#8b7fb5"/>
-    <circle cx="60" cy="45" r="3" fill="#8b7fb5"/>
-  </g>
-  <g transform="translate(460, 220)">
-    <rect width="120" height="42" fill="#ffffff" stroke="#8b7fb5" stroke-width="1.5"/>
-    <text x="60" y="26" text-anchor="middle" fill="#141413" font-family="ui-monospace, monospace" font-size="11" font-weight="600">FHIR Write</text>
-    <circle cx="60" cy="-3" r="3" fill="#8b7fb5"/>
-    <circle cx="60" cy="45" r="3" fill="#8b7fb5"/>
-  </g>
-
-  {/* converging into Handoff */}
-  <line x1="280" y1="265" x2="400" y2="305" stroke="url(#mdr-conn-3)" stroke-width="1.5"/>
-  <line x1="520" y1="265" x2="400" y2="305" stroke="url(#mdr-conn-3)" stroke-width="1.5"/>
-  <circle r="2.5" fill="#76a1fc">
-    <animateMotion dur="2.4s" repeatCount="indefinite" path="M 280 265 L 400 305"/>
-    <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite"/>
-  </circle>
-  <circle r="2.5" fill="#76a1fc">
-    <animateMotion dur="2.4s" repeatCount="indefinite" path="M 520 265 L 400 305" begin="1.2s"/>
-    <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite" begin="1.2s"/>
-  </circle>
-
-  {/* Row 4: Handoff — active */}
-  <g transform="translate(340, 310)" class="mdr-active-node">
-    <rect width="120" height="42" fill="#76a1fc" stroke="#4f7be0" stroke-width="1.5"/>
-    <text x="60" y="26" text-anchor="middle" fill="#fafafa" font-family="ui-monospace, monospace" font-size="11" font-weight="700">Handoff</text>
-    <circle cx="60" cy="-3" r="3" fill="#76a1fc"/>
-    <text x="60" y="60" text-anchor="middle" fill="#4f7be0" font-family="ui-monospace, monospace" font-size="9" letter-spacing="1.2">ACTIVE</text>
-  </g>
-
-  {/* Legend */}
-  <g transform="translate(40, 400)">
-    <text x="0" y="0" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="9" letter-spacing="1.4">NODE TYPES</text>
-    <rect x="0" y="14" width="14" height="14" fill="#ffffff" stroke="#76a1fc" stroke-width="1.5"/>
-    <text x="22" y="25" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="10">healthcare agent</text>
-    <rect x="160" y="14" width="14" height="14" fill="#ffffff" stroke="#5a7fa5" stroke-width="1.5"/>
-    <text x="182" y="25" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="10">guardrails</text>
-    <rect x="290" y="14" width="14" height="14" fill="#ffffff" stroke="#8b7fb5" stroke-width="1.5"/>
-    <text x="312" y="25" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="10">logic / integration</text>
-    <rect x="460" y="14" width="14" height="14" fill="#76a1fc" stroke="#4f7be0" stroke-width="1.5"/>
-    <text x="482" y="25" fill="#5c5c5a" font-family="ui-monospace, monospace" font-size="10">active runtime node</text>
-  </g>
+| `guardrails` | | `pass` / `fail` |
+| `ehr-sync` | `EHR sync runtime` | `success` / `error` |
+| `fhir-query` | `FHIR query runtime` | `success` / `error` |
+| `escalate` | `Escalation runtime` | (terminal — sends notification) | ## BH-OS rails (8) The BH-OS rails are typed runners backed by. Each rail wires the workflow into a corresponding backend service. <CardGroup cols={2}> <Card title="rails/assessment" icon="clipboard-check">Clinical assessment runner</Card> <Card title="rails/triage" icon="alert-triangle">Triage routing</Card> <Card title="rails/referral" icon="link">Referral generator + closed-loop</Card> <Card title="rails/pa" icon="file-check">Prior authorization workflow</Card> <Card title="rails/mbc" icon="chart-line">Measurement-Based Care</Card> <Card title="rails/quality" icon="award">HEDIS / MIPS capture</Card> <Card title="rails/network" icon="network">Provider network logic</Card> <Card title="rails/pharmacy" icon="pill">e-Rx network e-Rx + DDI</Card>
+</CardGroup> ## Sample composition <Frame>
+<svg viewBox="0 0 780 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/canvas-node-graph.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <style>{` @keyframes mdr-node-glow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(161,252,0)); } 50% { filter: drop-shadow(0 0 8px rgba(161,252,0.65)); } }.mdr-active-node { animation: mdr-node-glow 2.6s ease-in-out infinite; } `}</style> <defs> <pattern id="mdr-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse"> <circle cx="2" cy="2" r="1" fill="rgba(20,19,0.15)"/> </pattern> <linearGradient id="mdr-conn-1" x1="0" y1="0" x2="0" y2="1"> <stop offset="0%" stopColor="#76a1fc"/> <stop offset="100%" stopColor="#5a7fa5"/> </linearGradient> <linearGradient id="mdr-conn-2" x1="0" y1="0" x2="0" y2="1"> <stop offset="0%" stopColor="#5a7fa5"/> <stop offset="100%" stopColor="#8b7fb5"/> </linearGradient> <linearGradient id="mdr-conn-3" x1="0" y1="0" x2="0" y2="1"> <stop offset="0%" stopColor="#8b7fb5"/> <stop offset="100%" stopColor="#76a1fc"/> </linearGradient> </defs> <rect x="0" y="0" width="780" height="480" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="3" fill="#ff5f57"/> <circle cx="26" cy="16" r="3" fill="#febc2e"/> <circle cx="38" cy="16" r="3" fill="#28c840"/> <text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11">medera/canvas.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, monospace" fontSize="10">workflow canvas</text> </g> <rect x="0" y="32" width="780" height="448" fill="#f5f5f5"/> <rect x="0" y="32" width="780" height="448" fill="url(#mdr-dots)" opacity="0.25"/> <rect x="0.5" y="0.5" width="779" height="479" fill="none" stroke="#141413" strokeOpacity="0.08"/> <g transform="translate(60)"> <rect width="120" height="42" fill="#ffffff" stroke="#76a1fc" strokeWidth="1.5"/> <text x="60" y="26" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Intake</text> <circle cx="60" cy="-3" r="3" fill="#76a1fc"/> <circle cx="60" cy="45" r="3" fill="#76a1fc"/> </g> <line x1="400" y1="105" x2="400" y2="135" stroke="url(#mdr-conn-1)" strokeWidth="1.5"/> <circle r="2.5" fill="#76a1fc"> <animateMotion dur="2s" repeatCount="indefinite" path="M 400 105 L 400 135"/> <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/> </circle> <g transform="translate(140)"> <rect width="120" height="42" fill="#ffffff" stroke="#5a7fa5" strokeWidth="1.5"/> <text x="60" y="26" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Screening</text> <circle cx="60" cy="-3" r="3" fill="#5a7fa5"/> <circle cx="60" cy="45" r="3" fill="#5a7fa5"/> </g> <g transform="translate(140)"> <rect width="120" height="42" fill="#ffffff" stroke="#5a7fa5" strokeWidth="1.5"/> <text x="60" y="26" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Consent</text> <circle cx="60" cy="-3" r="3" fill="#5a7fa5"/> <circle cx="60" cy="45" r="3" fill="#5a7fa5"/> </g> <line x1="400" y1="135" x2="280" y2="140" stroke="url(#mdr-conn-1)" strokeWidth="1.5"/> <line x1="400" y1="135" x2="520" y2="140" stroke="url(#mdr-conn-1)" strokeWidth="1.5"/> <line x1="280" y1="185" x2="280" y2="215" stroke="url(#mdr-conn-2)" strokeWidth="1.5"/> <line x1="520" y1="185" x2="520" y2="215" stroke="url(#mdr-conn-2)" strokeWidth="1.5"/> <circle r="2.5" fill="#5a7fa5"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M 280 185 L 280 215"/> <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#5a7fa5"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M 520 185 L 520 215" begin="1.2s"/> <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite" begin="1.2s"/> </circle> <g transform="translate(220)"> <rect width="120" height="42" fill="#ffffff" stroke="#8b7fb5" strokeWidth="1.5"/> <text x="60" y="26" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Risk Check</text> <circle cx="60" cy="-3" r="3" fill="#8b7fb5"/> <circle cx="60" cy="45" r="3" fill="#8b7fb5"/> </g> <g transform="translate(220)"> <rect width="120" height="42" fill="#ffffff" stroke="#8b7fb5" strokeWidth="1.5"/> <text x="60" y="26" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">FHIR Write</text> <circle cx="60" cy="-3" r="3" fill="#8b7fb5"/> <circle cx="60" cy="45" r="3" fill="#8b7fb5"/> </g> <line x1="280" y1="265" x2="400" y2="305" stroke="url(#mdr-conn-3)" strokeWidth="1.5"/> <line x1="520" y1="265" x2="400" y2="305" stroke="url(#mdr-conn-3)" strokeWidth="1.5"/> <circle r="2.5" fill="#76a1fc"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M 280 265 L 400 305"/> <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#76a1fc"> <animateMotion dur="2.4s" repeatCount="indefinite" path="M 520 265 L 400 305" begin="1.2s"/> <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite" begin="1.2s"/> </circle> <g transform="translate(310)" className="mdr-active-node"> <rect width="120" height="42" fill="#76a1fc" stroke="#4f7be0" strokeWidth="1.5"/> <text x="60" y="26" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="700">Handoff</text> <circle cx="60" cy="-3" r="3" fill="#76a1fc"/> <text x="60" y="60" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9" letterSpacing="1.2">ACTIVE</text> </g> <g transform="translate(400)"> <text x="0" y="0" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9" letterSpacing="1.4">NODE TYPES</text> <rect x="0" y="14" width="14" height="14" fill="#ffffff" stroke="#76a1fc" strokeWidth="1.5"/> <text x="22" y="25" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">healthcare agent</text> <rect x="160" y="14" width="14" height="14" fill="#ffffff" stroke="#5a7fa5" strokeWidth="1.5"/> <text x="182" y="25" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">guardrails</text> <rect x="290" y="14" width="14" height="14" fill="#ffffff" stroke="#8b7fb5" strokeWidth="1.5"/> <text x="312" y="25" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">logic / integration</text> <rect x="460" y="14" width="14" height="14" fill="#76a1fc" stroke="#4f7be0" strokeWidth="1.5"/> <text x="482" y="25" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">active runtime node</text> </g>
 </svg>
-</Frame>
-
-## Validation
-
-`BaseNodeRunner.validate(node)` enforces required fields per node type at design time. Connections are type-checked — a `condition` node's `true` port can only connect to a node that accepts the condition's state output shape.
-
----
-
-## What's next
-
-<CardGroup cols={2}>
-  <Card title="Variables & Scopes" icon="code" href="/agentic/canvas/variables-scopes">Template resolution and template syntax.</Card>
-  <Card title="Versioning & Deployment" icon="rocket" href="/agentic/canvas/versioning-deployment">Snapshots, sandbox-first deploys, WORM audit.</Card>
-  <Card title="Guardrails" icon="shield-check" href="/agentic/canvas/guardrails">HIPAA + 42 CFR Part 2 rules.</Card>
-  <Card title="Transforms" icon="wand" href="/agentic/canvas/transforms-cel">Template-driven data shaping.</Card>
+</Frame> ## Validation `Node runtime.validate(node)` enforces required fields per node type at design time. Connections are type-checked — a `condition` node's `true` port can only connect to a node that accepts the condition's state output shape. --- ## What's next <CardGroup cols={2}> <Card title="Variables & Scopes" icon="code" href="/agentic/canvas/variables-scopes">Template resolution and template syntax.</Card> <Card title="Versioning & Deployment" icon="rocket" href="/agentic/canvas/versioning-deployment">Snapshots, sandbox-first deploys, WORM audit.</Card> <Card title="Guardrails" icon="shield-check" href="/agentic/canvas/guardrails">HIPAA + 42 CFR Part 2 rules.</Card> <Card title="Transforms" icon="wand" href="/agentic/canvas/transforms-cel">Template-driven data shaping.</Card>
 </CardGroup>

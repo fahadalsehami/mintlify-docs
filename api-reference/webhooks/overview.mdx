@@ -1,27 +1,14 @@
 ---
 title: "Webhooks Overview"
 description: "How Medera webhooks work"
----
-
-
-Webhooks are delivered to a tenant-configured URL with signed headers.
-
-| Header | Description |
+--- Webhooks are delivered to a tenant-configured URL with signed headers. | Header | Description |
 | :--- | :--- |
 | `Medera-Signature` | `sha256=<hmac>` of the body using the per-tenant webhook secret |
 | `Medera-Event` | Event name |
 | `Medera-Delivery-Id` | Unique delivery ID — use for idempotency |
-| `Medera-Timestamp` | Delivery timestamp (verify within ±5 minutes) |
-
-Inbound webhooks from external services (Vapi, Stripe, Clerk, payer systems) are verified separately with the source's own scheme:
-
-| Source | Verification |
+| `Medera-Timestamp` | Delivery timestamp (verify within ±5 minutes) | Inbound webhooks from external services (Medera Voice, payment processor, the identity provider, payer systems) are verified separately with the source's own scheme: | Source | Verification |
 | :--- | :--- |
-| Vapi | HMAC-SHA256 (`vapi-signature`) via `vapi_integration.py` |
-| Stripe | `Stripe-Signature` |
-| Clerk | Svix HMAC (`svix-id`, `svix-timestamp`, `svix-signature`) |
-| Payer | Per-payer HMAC secret |
-
-## Retry
-
-Failed deliveries retry with exponential backoff for 24 hours, then move to a dead-letter queue.
+| Medera Voice | HMAC-SHA256 (`medera-voice-signature`) via |
+| payment processor | `payment processor-Signature` |
+| the identity provider | HMAC (`svix-id`, `svix-timestamp`, `svix-signature`) |
+| Payer | Per-payer HMAC secret | ## Retry Failed deliveries retry with exponential backoff for 24 hours, then move to a dead-letter queue.

@@ -1,31 +1,11 @@
 ---
 title: "POST /api/prior-auth/requests"
 description: "Create a PA request"
----
-
-
-Backend:
-
-```
+--- Backend: ```
 POST /api/prior-auth/requests
-```
-
-(AI Services equivalent: `POST /api/pa/requests`)
-
-### Request body
-
-```json
-{
-  "patient_id": "pat_abc",
-  "service_codes": ["90834"],
-  "payer_id": "AETNA",
-  "clinical_facts": { "from_chart": true },
-  "evidence_base": ["pubmed", "internal_protocols"]
+``` (AI Services equivalent: `POST /api/pa/requests`) ### Request body ```json
+{ "patient_id": "pat_abc", "service_codes": ["90834"], "payer_id": "AETNA", "clinical_facts": { "from_chart": true }, "evidence_base": ["pubmed", "internal_protocols"]
 }
-```
-
-### Response
-
-```json
+``` ### Response ```json
 { "pa_id": "pa_abc", "state": "PA_INITIATED" }
 ```

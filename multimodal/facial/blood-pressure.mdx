@@ -1,16 +1,8 @@
 ---
 title: "Blood Pressure"
 description: "Systolic and diastolic estimation from PPG morphology + HR"
----
-
-
-BP is estimated by `_estimate_blood_pressure(hr, ppg_signal, peaks)`. Output is `systolic_bp`, `diastolic_bp`, and `bp_confidence`.
-
-<Warning>
-  Medera's BP is an **estimate** derived from rPPG morphology, not a cuff measurement. Use for **trend** observation; do not use as a clinical decision substitute for a calibrated cuff.
-</Warning>
-
-| Aspect | Value |
+--- BP is estimated by `_estimate_blood_pressure(hr, ppg_signal, peaks)`. Output is `systolic_bp`, `diastolic_bp`, and `bp_confidence`. <Warning> Medera's BP is an **estimate** derived from rPPG morphology, not a cuff measurement. Use for **trend** observation; do not use as a clinical decision substitute for a calibrated cuff.
+</Warning> | Aspect | Value |
 | :--- | :--- |
 | Minimum duration | 60 s |
 | Output | `systolic_bp` (mmHg), `diastolic_bp` (mmHg), `bp_confidence` (0–1) |

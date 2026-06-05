@@ -1,27 +1,16 @@
 ---
 title: "HIPAA Compliance"
 description: "How Medera implements HIPAA Security and Privacy Rule"
----
-
-
-| HIPAA section | Requirement | Medera implementation |
+--- | HIPAA section | Requirement | Medera implementation |
 | :--- | :--- | :--- |
-| §164.312(a)(1) | Access Control | JWT (Clerk) + Developer API Keys + RLS + tenant context + purpose-based access |
-| §164.312(a)(2)(iv) | Encryption at Rest | AES-256-GCM on PHI columns; phone + email also hashed for search |
+| §164.312(a)(1) | Access Control | JWT (the identity provider) + Developer API Keys + RLS + tenant context + purpose-based access |
+| §164.312(a)(2)(iv) | Encryption at Rest | AES-256 on PHI columns; phone + email also hashed for search |
 | §164.312(b) | Audit Controls | `phi_audit_logs`, `deployment_audit_log` (WORM), Merkle integrity checkpoints, 6-year retention |
 | §164.312(c)(1) | Integrity Controls | Hash-based document integrity, signed audit chain |
-| §164.312(d) | Authentication | Clerk + API key auth + service key auth |
+| §164.312(d) | Authentication | the identity provider + API key auth + service key auth |
 | §164.312(e)(1) | Transmission Security | TLS 1.3, HTTPS enforcement, WSS enforcement |
 | §164.308(a)(7)(ii)(A) | Backup | Encrypted backups with point-in-time recovery |
 | §164.308(a)(7)(ii)(B) | Disaster Recovery | Multi-AZ with regional failover |
-| §164.408 | Breach Notification | Customer security contacts notified within 24 h |
-
-## Purpose-based access
-
-Every PHI-touching route declares the purposes it accepts:
-
-```
+| §164.408 | Breach Notification | Customer security contacts notified within 24 h | ## Purpose-based access Every PHI-touching route declares the purposes it accepts: ```
 purposeBasedAccess('patients', 'TREATMENT', 'PAYMENT', 'OPERATIONS', 'EMERGENCY')
-```
-
-Requests must carry a `purpose` claim that matches one of the accepted values; otherwise the request is denied with `403 phi_consent_required`.
+``` Requests must carry a `purpose` claim that matches one of the accepted values; otherwise the request is denied with `403 phi_consent_required`.

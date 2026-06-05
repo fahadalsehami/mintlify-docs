@@ -1,22 +1,7 @@
 ---
 title: "Citations"
 description: "Citation provenance"
----
-
-
-Every retrieved chunk carries a `Citation`:
-
-```python
+--- Every retrieved chunk carries a `Citation`: ```python
 @dataclass
-class Citation:
-    citation_id: str
-    source_type: str           # "guideline" | "ontology" | "knowledge_base" | "payer_rule"
-    source_name: str
-    source_url: Optional[str]
-    evidence_level: str
-    relevance_score: float
-    retrieved_at: datetime
-    content_snippet: str       # max 200 chars
-```
-
-`CitedResponse` wraps the answer + citations + confidence + audit trail.
+class Citation: citation_id: str source_type: str # "guideline" | "ontology" | "knowledge_base" | "payer_rule" source_name: str source_url: Optional[str] evidence_level: str relevance_score: float retrieved_at: datetime content_snippet: str # max 200 chars
+``` `CitedResponse` wraps the answer + citations + confidence + audit trail.

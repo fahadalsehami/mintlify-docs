@@ -1,59 +1,24 @@
 ---
-title: "Referral Generator Agent (Jordan)"
-description: "Voice agent Jordan generates referral letters in seconds."
----
-
-<Info>
-  **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Referral reason · Chart context · Network logic · Closed-loop confirmations
-</Info>
-
-Generate complete, contextual referral letters from chart and visit context. Voice agent Jordan on ElevenLabs `EXAVITQu4vr4xnSDxMaL` (Bella).
-
-## Configuration
-
-| Field | Description |
+title: "Referral Generator Agent"
+description: "Referral Specialist Agent generates referral letters in seconds."
+--- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="4" width="12" height="1" fill="#141413"/><rect x="1" y="4" width="1" height="7" fill="#141413"/><rect x="1" y="11" width="12" height="1" fill="#141413"/><rect x="12" y="4" width="1" height="7" fill="#141413"/><rect x="2" y="5" width="1" height="1" fill="#76a1fc"/><rect x="3" y="6" width="1" height="1" fill="#76a1fc"/><rect x="4" y="7" width="1" height="1" fill="#76a1fc"/><rect x="5" y="8" width="2" height="1" fill="#76a1fc"/><rect x="7" y="8" width="1" height="1" fill="#76a1fc"/><rect x="8" y="7" width="1" height="1" fill="#76a1fc"/><rect x="9" y="6" width="1" height="1" fill="#76a1fc"/><rect x="10" y="5" width="1" height="1" fill="#76a1fc"/><rect x="11" y="5" width="1" height="1" fill="#76a1fc"/><rect x="11" y="13" width="3" height="1" fill="#76a1fc"/><rect x="13" y="12" width="1" height="1" fill="#76a1fc"/><rect x="13" y="14" width="1" height="1" fill="#76a1fc"/><rect x="14" y="13" width="1" height="1" fill="#76a1fc"/></svg></div> <Info> **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Referral reason · Chart context · Network logic · Closed-loop confirmations
+</Info> Generate complete, contextual referral letters from chart and visit context. Uses Medera voice. ## Configuration | Field | Description |
 | :--- | :--- |
 | `templates` | Specialty referral templates |
 | `referral_graph` | In-network + partner referral graph |
 | `attachment_policy` | Attachment policy (notes, screeners, labs) |
-| `closed_loop_tracking` | Closed-loop tracking + reminders |
-
-## Execution
-
-1. Classifies the referral reason and required content
+| `closed_loop_tracking` | Closed-loop tracking + reminders | ## Execution 1. Classifies the referral reason and required content
 2. Pulls chart context, prior care, and relevant attachments
 3. Applies in-network and partner-preference rules
 4. Drafts the letter against the specialty template
-5. Tracks receipt, scheduling, completion, documentation
-
-## Composable experts
-
-| Expert | Role |
+5. Tracks receipt, scheduling, completion, documentation ## Composable experts | Expert | Role |
 | :--- | :--- |
 | **Referral Reason Expert** | Reason classification + required-content mapping |
 | **Chart Context Expert** | Relevant prior care, current state, attachments |
 | **Network Logic Expert** | In-network + partner-preference rules |
-| **Closed-Loop Audit Expert** | Receipt → scheduled → completed → documented |
-
-## Compliance guarantees
-
-<Warning>
+| **Closed-Loop Audit Expert** | Receipt → scheduled → completed → documented | ## Compliance guarantees <Warning>
 - Every referral letter is anchored to chart spans and screener scores
 - Closed-loop tracking is mandatory and documented
 - Network preferences are configured by the practice, not the model
-</Warning>
-
-## Endpoints
-
-Canvas: `rails/referral`. Care Orchestrator: `AgentType.REFERRAL` + voice via `AgentType.REFERRAL_SPECIALIST` (Jordan).
-
----
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card>
-  <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card>
-  <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card>
-  <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning> ## Endpoints Canvas: `rails/referral`. Care Orchestrator: `agent type.REFERRAL` + voice via `agent type.REFERRAL_SPECIALIST`. --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
 </CardGroup>

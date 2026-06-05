@@ -1,17 +1,7 @@
 ---
 title: "Co-Therapy Web Component"
 description: "Drop-in multimodal capture UI"
----
-
-
-The Co-Therapy Web Component captures audio + video and surfaces RDoC construct activations to a clinician-only channel.
-
-```html
-<medera-cotherapy
-  access-token="..."
-  session-id="..."
-  rdoc-constructs='["acute_threat_fear", "reward_responsiveness", "arousal"]'
+--- The Co-Therapy Web Component captures audio + video and surfaces neurobehavioral construct activations to a clinician-only channel. ```html
+<medera-cotherapy access-token="..." session-id="..." rdoc-constructs='["acute_threat_fear", "reward_responsiveness", "arousal"]'
 ></medera-cotherapy>
-```
-
-The component never shows signal to the patient — it surfaces a private clinician channel only.
+``` The component never shows signal to the patient — it surfaces a private clinician channel only.

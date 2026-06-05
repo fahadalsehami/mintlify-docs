@@ -1,24 +1,5 @@
 ---
 title: "Clinical Documentation Improvement (Outpatient)"
 description: "Add CDI validation checks to outpatient workflows"
----
-
-
-Add CDI validation to outpatient workflows so missing specificity and severity qualifiers surface before sign-off — not after the denial.
-
-<Steps>
-  <Step title="Configure your CDI rule set">
-    In the Console, enable the specialty CDI rule set (BH, primary care). Optionally add custom queries for your practice.
-  </Step>
-  <Step title="Wire into sign-off">
-    On the pre-sign-off hook, `POST /api/coding/cdi/review` with the note ID. The response surfaces queries and the documentation gap behind each.
-  </Step>
-  <Step title="Render queries to the clinician">
-    Each query carries a rationale, the rule it tested, and the language to paste in. The clinician can accept, edit, or reject. Every decision is logged.
-  </Step>
-  <Step title="Audit retention">
-    All CDI decisions retain for the practice-configured period (default 6 years).
-  </Step>
-</Steps>
-
-See [CDI Agent](/agentic/agents/clinical-documentation-improvement) for details.
+--- Add CDI validation to outpatient workflows so missing specificity and severity qualifiers surface before sign-off — not after the denial. <Steps> <Step title="Configure your CDI rule set"> In the Console, enable the specialty CDI rule set (BH, primary care). Optionally add custom queries for your practice. </Step> <Step title="Wire into sign-off"> On the pre-sign-off hook, `POST /api/coding/cdi/review` with the note ID. The response surfaces queries and the documentation gap behind each. </Step> <Step title="Render queries to the clinician"> Each query carries a rationale, the rule it tested, and the language to paste in. The clinician can accept, edit, or reject. Every decision is logged. </Step> <Step title="Audit retention"> All CDI decisions retain for the practice-configured period (default 6 years). </Step>
+</Steps> See [CDI Agent](/agentic/agents/clinical-documentation-improvement) for details.

@@ -1,31 +1,11 @@
 ---
 title: "POST /api/agent-workflows/{id}/execute"
 description: "Execute a workflow"
----
-
-
-```
+--- ```
 POST /api/agent-workflows/{id}/execute
-```
-
-### Body
-
-```json
-{
-  "inputValues": { "patient_id": "pat_abc" },
-  "triggerType": "api",
-  "mode": "async"
+``` ### Body ```json
+{ "inputValues": { "patient_id": "pat_abc" }, "triggerType": "api", "mode": "async"
 }
-```
-
-`mode`: `async` (queued via Bull) or `sync` (canvas test only).
-
-`triggerType`: `canvas_test` / `api` / `scheduled` / `webhook`.
-
-### Response
-
-```json
+``` `mode`: `async` (queued via managed job queue) or `sync` (canvas test only). `triggerType`: `canvas_test` / `api` / `scheduled` / `webhook`. ### Response ```json
 { "executionId": "exec_abc" }
-```
-
-For canvas test mode (`mode: "sync"`), the response includes the full execution trace.
+``` For canvas test mode (`mode: "sync"`), the response includes the full execution trace.

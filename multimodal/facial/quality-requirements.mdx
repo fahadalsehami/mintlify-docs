@@ -1,10 +1,7 @@
 ---
 title: "Quality Requirements"
 description: "Conditions for reliable facial signal"
----
-
-
-| Factor | Requirement |
+--- | Factor | Requirement |
 | :--- | :--- |
 | Resolution | ≥ 480p |
 | Frame rate | ≥ 15 fps (engine default `fps=30`) |
@@ -14,6 +11,4 @@ description: "Conditions for reliable facial signal"
 | rPPG SNR | > 3.0 required |
 | Min duration (HR) | 30 s |
 | Min duration (HRV) | 60 s |
-| Min duration (BP) | 60 s |
-
-If the requirements aren't met, the engine returns the metric with `confidence: 0.0`. The downstream analyzer falls back to a GPT-4o transcript-inferred analysis with `requires_human_review: true`.
+| Min duration (BP) | 60 s | If the requirements aren't met, the engine returns the metric with `confidence: 0.0`. The downstream analyzer falls back to a Medera reasoning transcript-inferred analysis with `requires_human_review: true`.

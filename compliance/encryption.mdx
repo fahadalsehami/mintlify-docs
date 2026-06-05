@@ -1,45 +1,15 @@
 ---
 title: "Encryption"
-description: "AES-256-GCM at rest, TLS 1.3 in transit."
----
-
-
-| Layer | Algorithm | Key management |
+description: "AES-256 at rest, TLS 1.3 in transit."
+--- | Layer | Algorithm | Key management |
 | :--- | :--- | :--- |
-| PHI columns at rest | AES-256-GCM | Per-tenant Data Encryption Key (DEK), wrapped by Key Encryption Key (KEK) in AWS KMS |
-| Backups at rest | AES-256-GCM | Customer-managed KEK option (BYOK) |
+| PHI columns at rest | AES-256 | Per-tenant Data Encryption Key (DEK), wrapped by Key Encryption Key (KEK) in managed KMS |
+| Backups at rest | AES-256 | Customer-managed KEK option (BYOK) |
 | Object storage at rest | AES-256 | Customer-managed key option |
 | In transit | TLS 1.3 | HTTPS enforced |
-| WebSocket | TLS 1.3 | WSS enforced |
-
-PHI fields (SSN, insurance policy number, address, phone, email) are encrypted at the column level. Phone and email are also hashed for search.
-
-## Encrypted fields (Patient model)
-
-```
-patients
-  ├─ ssn                     ENCRYPTED (AES-256-GCM)
-  ├─ insurance_policy_number ENCRYPTED
-  ├─ address                 ENCRYPTED
-  ├─ phone                   ENCRYPTED + HASHED for search
-  └─ email                   ENCRYPTED + HASHED for search
-```
-
-## Key rotation
-
-- **DEK rotation**: quarterly, transparent re-encryption
+| WebSocket | TLS 1.3 | WSS enforced | PHI fields (SSN, insurance policy number, address, phone, email) are encrypted at the column level. Phone and email are also hashed for search. ## Encrypted fields (Patient model) ```
+patients ├─ ssn ENCRYPTED (AES-256) ├─ insurance_policy_number ENCRYPTED ├─ address ENCRYPTED ├─ phone ENCRYPTED + HASHED for search └─ email ENCRYPTED + HASHED for search
+``` ## Key rotation - **DEK rotation**: quarterly, transparent re-encryption
 - **KEK rotation**: annual
-- **Customer-managed keys (CMK)** option for the KEK layer (enterprise plans)
-
-See [Key Management](/compliance/key-management) for the rotation procedure.
-
----
-
-## What's next
-
-<CardGroup cols={2}>
-  <Card title="Key Management" icon="key" href="/compliance/key-management">DEK + KEK + BYOK.</Card>
-  <Card title="Audit Logging" icon="scroll" href="/compliance/audit-logging">WORM + Merkle integrity.</Card>
-  <Card title="PHI Handling" icon="lock" href="/compliance/phi-handling">PHI flow through the platform.</Card>
-  <Card title="Row-Level Security" icon="table" href="/compliance/row-level-security">Tenant isolation.</Card>
+- **Customer-managed keys (CMK)** option for the KEK layer (enterprise plans) See [Key Management](/compliance/key-management) for the rotation procedure. --- ## What's next <CardGroup cols={2}> <Card title="Key Management" icon="key" href="/compliance/key-management">DEK + KEK + BYOK.</Card> <Card title="Audit Logging" icon="scroll" href="/compliance/audit-logging">WORM + Merkle integrity.</Card> <Card title="PHI Handling" icon="lock" href="/compliance/phi-handling">PHI flow through the platform.</Card> <Card title="Row-Level Security" icon="table" href="/compliance/row-level-security">Tenant isolation.</Card>
 </CardGroup>

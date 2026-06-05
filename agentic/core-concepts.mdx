@@ -1,19 +1,16 @@
 ---
 title: "Core Concepts"
 description: "The building blocks of the Agentic Framework"
----
-
-
-| Concept | Description |
+--- | Concept | Description |
 | :--- | :--- |
 | **Workflow** | A canvas graph with input variables, state variables, nodes, and connections. Persisted in `agent_workflows`. |
 | **Version** | An immutable published snapshot in `agent_workflow_versions`. Identified by semver. |
 | **Execution** | A single run of a workflow against an input. Persisted in `agent_workflow_executions` with `execution_trace[]`. |
 | **Deployment** | A runtime instance of a published version in `agent_deployments`. Sandbox or production. |
 | **Node** | A typed unit of work (start, condition, intake-agent, …). Backed by a `NodeRunner`. |
-| **NodeRunner** | A subclass of `BaseNodeRunner` with `execute(node, context)`. |
-| **ExecutionContext** | Per-execution state holder. Owns input / state / node outputs and `resolveVariable()`. |
-| **Agent** (orchestrator) | An entity in the care orchestrator with `AgentType` and capabilities. |
-| **Workflow Module** (intake) | A reusable conversation module Grace can run (e.g. `general_intake`, `prescription_refill`, `lab_flagged`). |
+| **NodeRunner** | A subclass of with `execute(node, context)`. |
+| **Execution context** | Per-execution state holder. Owns input / state / node outputs and `resolveVariable`. |
+| **Agent** (orchestrator) | An entity in the care orchestrator with `agent type` and capabilities. |
+| **Workflow Module** (intake) | A reusable conversation module the Intake Agent can run (e.g. `general_intake`, `prescription_refill`, `lab_flagged`). |
 | **Expert** | A typed clinical capability (PHQ-9, C-SSRS, ICD-10, …) bundled by agents. |
 | **Event** | A pub/sub message on the care orchestrator event bus. |

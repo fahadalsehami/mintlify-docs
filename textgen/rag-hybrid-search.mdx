@@ -1,9 +1,4 @@
 ---
 title: "Hybrid Search"
-description: "Semantic + BM25 with rank fusion"
----
-
-
-The hybrid retriever runs ChromaDB semantic search and BM25 keyword search in parallel, then fuses with reciprocal rank fusion (RRF) and reranks the top-K with a clinical reranker.
-
-Method: `hybrid_search(query: str, k: int = 5)`.
+description: "Semantic + lexical retriever with rank fusion"
+--- The hybrid retriever runs vector index semantic search and lexical retriever keyword search in parallel, then fuses with reciprocal rank fusion (RRF) and reranks the top-K with a clinical reranker. Method: `hybrid_search(query: str, k: int = 5)`.

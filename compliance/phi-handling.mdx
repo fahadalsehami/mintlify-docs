@@ -1,11 +1,8 @@
 ---
 title: "PHI Handling"
 description: "How PHI flows through the platform"
----
-
-
-- PHI never leaves the tenant boundary
-- PHI is not stored in Redis (volatile, not compliant)
+--- - PHI never leaves the tenant boundary
+- PHI is not stored in managed cache (volatile, not compliant)
 - PHI is not logged in application logs (Winston has a PHI redaction filter)
 - PHI fields are encrypted at the column level
 - Phone and email are hashed for search; the cleartext is never queryable

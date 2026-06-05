@@ -1,64 +1,22 @@
 ---
 title: "Building Your Intake Voice Agent"
 description: "Implementation guide for the voice-first intake agent"
----
-
-
-The Medera Intake Agent (Grace) is a voice-first, adaptive intake agent built on Vapi orchestration, Deepgram nova-2-medical transcription, and an 11Labs voice — with a 7-state state machine and validated screener administration.
-
-## Architecture
-
-```
-┌────────────┐   ┌──────────────┐   ┌────────────┐   ┌────────────┐
-│  Patient   │ → │  Vapi Call   │ → │  Medera    │ → │   Chart    │
-│   (PSTN)   │   │ Orchestration│   │   Intake   │   │ (clinician │
-└────────────┘   └──────────────┘   │   Agent    │   │  packet)   │
-                                    └────────────┘   └────────────┘
-```
-
-The agent follows a documented state machine:
-
-```
+--- The Medera Intake Agent is a voice-first, adaptive intake agent built on Medera Voice, Medera STT transcription, and an 11Labs voice — with a 7-state state machine and validated screener administration. ## Architecture ```
+┌────────────┐ ┌──────────────┐ ┌────────────┐ ┌────────────┐
+│ Patient │ → │ Medera Voice Call │ → │ Medera │ → │ Chart │
+│ (PSTN) │ │ Orchestration│ │ Intake │ │ (clinician │
+└────────────┘ └──────────────┘ │ Agent │ │ packet) │ └────────────┘ └────────────┘
+``` The agent follows a documented state machine: ```
 GREETING → IDENTITY_VERIFICATION → GATHERING_INFO →
 MENTAL_HEALTH_SCREENING → APPOINTMENT_SCHEDULING →
 SUMMARY_CONFIRMATION → CLOSING → COMPLETED
-```
-
-## Steps
-
-<Steps>
-  <Step title="Configure the agent">
-    In the Console, create an Intake Agent deployment. Set the practice intake template, validated screener set (PHQ-9, GAD-7, AUDIT-C, C-SSRS), routing matrix, and crisis escalation policy.
-  </Step>
-  <Step title="Provision a phone number">
-    Medera provisions a Twilio number per deployment. Patients call the number; Vapi orchestrates the conversation against your configured agent.
-  </Step>
-  <Step title="Receive webhooks">
-    Configure a webhook URL to receive `intake.started`, `intake.screener.completed`, `intake.crisis.detected`, `intake.summary.ready`, and `intake.completed` events.
-  </Step>
-  <Step title="Hand off to the clinician">
-    On `intake.summary.ready`, the clinician handoff packet is available at `GET /api/intake-calls/{id}/handoff` — identity, consent, insurance, screener scores, ICD-10 candidates, and the multimodal acuity read.
-  </Step>
-</Steps>
-
-## Function calls during the call
-
-The agent invokes the following functions during the conversation:
-
-- `verify_identity(dob, address, ssn_last_4)`
+``` ## Steps <Steps> <Step title="Configure the agent"> In the Console, create an Intake Agent deployment. Set the practice intake template, validated screener set (PHQ-9, GAD-7, AUDIT-C, C-SSRS), routing matrix, and crisis escalation policy. </Step> <Step title="Provision a phone number"> Medera provisions a voice carrier number per deployment. Patients call the number; Medera Voice orchestrates the conversation against your configured agent. </Step> <Step title="Receive webhooks"> Configure a webhook URL to receive `intake.started`, `intake.screener.completed`, `intake.crisis.detected`, `intake.summary.ready`, and `intake.completed` events. </Step> <Step title="Hand off to the clinician"> On `intake.summary.ready`, the clinician handoff packet is available at `GET /api/intake-calls/{id}/handoff` — identity, consent, insurance, screener scores, ICD-10 candidates, and the multimodal acuity read. </Step>
+</Steps> ## Function calls during the call The agent invokes the following functions during the conversation: - `verify_identity(dob, address, ssn_last_4)`
 - `document_symptom(symptom, severity, duration)`
 - `check_insurance(provider, member_id)`
 - `schedule_appointment(date, time, provider)`
 - `escalate_urgent(reason, urgency_level)`
 - `flag_for_review(reason, priority)`
 - `create_referral(...)`
-- `request_refill(...)`
-
-## Related
-
-<CardGroup cols={2}>
-  <Card title="Patient Intake Agent" href="/agentic/agents/patient-intake">Agent-level documentation.</Card>
-  <Card title="Crisis Response Agent" href="/agentic/agents/crisis-response">Crisis-language detection and escalation.</Card>
-  <Card title="Intake Calls API" href="/api-reference/intake/create-call">REST endpoints for intake calls.</Card>
-  <Card title="Vapi Webhooks" href="/api-reference/intake/webhooks-vapi">Webhook schema.</Card>
+- `request_refill(...)` ## Related <CardGroup cols={2}> <Card title="Patient Intake Agent" href="/agentic/agents/patient-intake">Agent-level documentation.</Card> <Card title="Crisis Response Agent" href="/agentic/agents/crisis-response">Crisis-language detection and escalation.</Card> <Card title="Intake Calls API" href="/api-reference/intake/create-call">REST endpoints for intake calls.</Card> <Card title="Medera Voice Webhooks" href="/api-reference/intake/webhooks-voice">Webhook schema.</Card>
 </CardGroup>
