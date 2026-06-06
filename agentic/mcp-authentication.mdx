@@ -3,7 +3,6 @@ title: "MCP Authentication"
 description: "Authenticating MCP server calls from agents"
 ---
 
-
 Medera agents can invoke **MCP servers** — Model Context Protocol servers that expose tools to the agent runtime. The integration is configured per tenant via the **Integrations** page in the Console.
 
 ```json
@@ -14,6 +13,7 @@ Medera agents can invoke **MCP servers** — Model Context Protocol servers that
     "token": "mcp_token_..."
   }
 }
+
 ```
 
 The token is stored in `tenant.secret` and resolved at execution time. MCP tool invocations are logged to `agent_call_function_logs` for audit and rate-limit accounting.

@@ -1,16 +1,32 @@
 ---
 title: "Care Orchestrator"
 description: "Multi-agent runtime coordinating voice and workflow agents."
---- The Care Orchestrator lives in AI Services (`src/care_orchestrator/`,) and exposes a REST surface under `/api/care-orchestrator`. It coordinates voice agents, workflow agents, an event bus, and a workflow state machine. ## Agents at a glance <Frame>
-<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/orchestrator.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_71834" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="360" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/orchestrator.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">agents</text>
-</g> <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="290" y="170" width="200" height="50" fill="#76a1fc" stroke="#4f7be0"/><text x="390" y="200" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">Care Orchestrator</text><rect x="30" y="50" width="170" height="50" fill="#dbe5ff" stroke="#76a1fc"/><text x="115" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">the Intake Agent</text><text x="115" y="88" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9">INTAKE</text><rect x="200" y="50" width="170" height="50" fill="#dbe5ff" stroke="#76a1fc"/><text x="285" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">the Care Coordinator Agent</text><text x="285" y="88" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9">CARE_COORDINATOR</text><rect x="390" y="50" width="170" height="50" fill="#dbe5ff" stroke="#76a1fc"/><text x="475" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">the Referral Specialist Agent</text><text x="475" y="88" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9">REFERRAL_SPECIALIST</text><rect x="580" y="50" width="170" height="50" fill="#dbe5ff" stroke="#76a1fc"/><text x="665" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">the PA Specialist Agent</text><text x="665" y="88" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9">PA_SPECIALIST</text><rect x="30" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="85" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">PRIOR_AUTH</text><rect x="160" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="215" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">REFERRAL</text><rect x="290" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="345" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">PRESCRIPTION</text><rect x="420" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="475" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">LAB</text><rect x="550" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="605" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">CARE_PLAN</text><rect x="680" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="735" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">ESCALATION</text><path d="M 115 100 L 390 175" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 285 100 L 390 175" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 475 100 L 390 175" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 665 100 L 390 175" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 85 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 215 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 345 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 475 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 605 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 735 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><text x="20" y="115" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">VOICE AGENTS · Medera voice · Medera STT</text><text x="20" y="280" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">WORKFLOW AGENTS · Agent type registry</text>
-</svg>
-</Frame> ## Voice agents (4) | `agent type` | Name | Voice ID | Purpose |
+---
+
+The Care Orchestrator lives in AI Services (`src/care_orchestrator/`,) and exposes a REST surface under `/api/care-orchestrator`. It coordinates voice agents, workflow agents, an event bus, and a workflow state machine.
+
+## Agents at a glance
+
+<Frame>
+<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/orchestrator.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_71834" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="360" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/orchestrator.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">agents</text> </g> <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="290" y="170" width="200" height="50" fill="#76a1fc" stroke="#4f7be0"/><text x="390" y="200" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">Care Orchestrator</text><rect x="30" y="50" width="170" height="50" fill="#dbe5ff" stroke="#76a1fc"/><text x="115" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">the Intake Agent</text><text x="115" y="88" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9">INTAKE</text><rect x="200" y="50" width="170" height="50" fill="#dbe5ff" stroke="#76a1fc"/><text x="285" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">the Care Coordinator Agent</text><text x="285" y="88" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9">CARE_COORDINATOR</text><rect x="390" y="50" width="170" height="50" fill="#dbe5ff" stroke="#76a1fc"/><text x="475" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">the Referral Specialist Agent</text><text x="475" y="88" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9">REFERRAL_SPECIALIST</text><rect x="580" y="50" width="170" height="50" fill="#dbe5ff" stroke="#76a1fc"/><text x="665" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">the PA Specialist Agent</text><text x="665" y="88" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9">PA_SPECIALIST</text><rect x="30" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="85" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">PRIOR_AUTH</text><rect x="160" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="215" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">REFERRAL</text><rect x="290" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="345" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">PRESCRIPTION</text><rect x="420" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="475" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">LAB</text><rect x="550" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="605" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">CARE_PLAN</text><rect x="680" y="290" width="110" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/><text x="735" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">ESCALATION</text><path d="M 115 100 L 390 175" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 285 100 L 390 175" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 475 100 L 390 175" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 665 100 L 390 175" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 85 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 215 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 345 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 475 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 605 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><path d="M 735 290 L 390 215" stroke="#141413" strokeOpacity="0.3" strokeWidth="1" fill="none"/><text x="20" y="115" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">VOICE AGENTS · Medera voice · Medera STT</text><text x="20" y="280" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">WORKFLOW AGENTS · Agent type registry</text> </svg>
+</Frame>
+
+## Voice agents (4)
+
+| `agent type` | Name | Voice ID | Purpose |
 | :--- | :--- | :--- | :--- |
 | `INTAKE` | **Intake Agent** | Medera voice | Patient intake calls |
 | `CARE_COORDINATOR` | **Care Coordinator Agent** | Medera voice | Ongoing care, follow-ups |
 | `REFERRAL_SPECIALIST` | **Referral Specialist Agent** | Medera voice | Referral management |
-| `PA_SPECIALIST` | **PA Specialist Agent** | Medera voice | Prior authorization | All voice agents use Medera STT `nova-2-medical` transcription, OpenAI `Medera reasoning` LLM (T=0.3, max 500 tokens), and Medera voice `voice synthesis` synthesis. Default call settings: 15-minute max duration, 10 s silence timeout, recording enabled. ## Workflow agents (6) `agent type.PRIOR_AUTH`, `REFERRAL`, `PRESCRIPTION`, `LAB`, `CARE_PLAN`, `ESCALATION` — these are backend agents that drive multi-step workflows without voice. ## Endpoints | Method | Path | Purpose |
+| `PA_SPECIALIST` | **PA Specialist Agent** | Medera voice | Prior authorization | All voice agents use Medera STT `nova-2-medical` transcription, OpenAI `Medera reasoning` LLM (T=0.3, max 500 tokens), and Medera voice `voice synthesis` synthesis. Default call settings: 15-minute max duration, 10 s silence timeout, recording enabled. |
+
+## Workflow agents (6)
+
+`agent type.PRIOR_AUTH`, `REFERRAL`, `PRESCRIPTION`, `LAB`, `CARE_PLAN`, `ESCALATION` — these are backend agents that drive multi-step workflows without voice.
+
+## Endpoints
+
+| Method | Path | Purpose |
 | :--- | :--- | :--- |
 | GET | `/api/care-orchestrator/health` | Health |
 | GET | `/api/care-orchestrator/workflows` | List workflows (filters: org, type, status, patient) |
@@ -33,11 +49,37 @@ description: "Multi-agent runtime coordinating voice and workflow agents."
 | POST | `/api/care-orchestrator/events` | Publish event |
 | GET | `/api/care-orchestrator/patients/{id}/events` | Patient events |
 | GET | `/api/care-orchestrator/patients/{id}/workflows` | Patient workflows |
-| GET | `/api/care-orchestrator/analytics/summary` | Analytics | ## Event bus | Category | Sample events |
+| GET | `/api/care-orchestrator/analytics/summary` | Analytics |
+
+## Event bus
+
+| Category | Sample events |
 | :--- | :--- |
 | **Intake** | `INTAKE_INITIATED`, `INTAKE_CALL_STARTED`, `INTAKE_IDENTITY_VERIFIED`, `INTAKE_RED_FLAG_DETECTED`, `INTAKE_BEHAVIORAL_HEALTH_DETECTED`, `INTAKE_COMPLETED` |
 | **PA** | `PA_INITIATED`, `PA_CRITERIA_EVALUATED`, `PA_DOCUMENTS_GENERATED`, `PA_SUBMITTED`, `PA_APPROVED`, `PA_DENIED`, `PA_APPEAL_INITIATED`, `PA_P2P_SCHEDULED`, `PA_UNITS_EXPIRING` |
 | **Referral** | `REFERRAL_INITIATED`, `REFERRAL_SPECIALTY_IDENTIFIED`, `REFERRAL_PA_REQUIRED`, `REFERRAL_SUBMITTED`, `REFERRAL_APPOINTMENT_SCHEDULED`, `REFERRAL_CLOSED` |
 | **Prescription** | `PRESCRIPTION_INITIATED`, `PRESCRIPTION_INTERACTION_WARNING`, `PRESCRIPTION_PA_REQUIRED`, `PRESCRIPTION_APPROVED`, `PRESCRIPTION_DISPENSED` |
-| **Lab** | `LAB_ORDER_INITIATED`, `LAB_SPECIMEN_COLLECTED`, `LAB_RESULTS_AVAILABLE`, `LAB_ABNORMAL_REVIEW`, `LAB_CRITICAL_ALERT` | --- ## What's next <CardGroup cols={2}> <Card title="A2A Protocol" icon="message-square" href="/agentic/a2a-protocol">Agent-to-agent communication.</Card> <Card title="Context & Memory" icon="memory" href="/agentic/context-memory">Per-execution context + persistent memory.</Card> <Card title="Core Concepts" icon="book" href="/agentic/core-concepts">Building blocks of the framework.</Card> <Card title="Architecture" icon="diagram-project" href="/agentic/architecture">Runtime architecture.</Card>
+| **Lab** | `LAB_ORDER_INITIATED`, `LAB_SPECIMEN_COLLECTED`, `LAB_RESULTS_AVAILABLE`, `LAB_ABNORMAL_REVIEW`, `LAB_CRITICAL_ALERT` |
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+
+<Card title="A2A Protocol" icon="message-square" href="/agentic/a2a-protocol">
+Agent-to-agent communication.
+</Card>
+
+<Card title="Context & Memory" icon="memory" href="/agentic/context-memory">
+Per-execution context + persistent memory.
+</Card>
+
+<Card title="Core Concepts" icon="book" href="/agentic/core-concepts">
+Building blocks of the framework.
+</Card>
+
+<Card title="Architecture" icon="diagram-project" href="/agentic/architecture">
+Runtime architecture.
+</Card>
 </CardGroup>

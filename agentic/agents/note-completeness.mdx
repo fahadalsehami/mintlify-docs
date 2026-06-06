@@ -1,24 +1,76 @@
 ---
 title: "Note Completeness Agent"
 description: "Catch missing required elements before the note is signed."
---- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="2" width="12" height="1" fill="#141413"/><rect x="2" y="2" width="1" height="12" fill="#141413"/><rect x="2" y="13" width="12" height="1" fill="#141413"/><rect x="13" y="2" width="1" height="12" fill="#141413"/><rect x="4" y="5" width="1" height="1" fill="#76a1fc"/><rect x="5" y="6" width="1" height="1" fill="#76a1fc"/><rect x="6" y="5" width="1" height="1" fill="#76a1fc"/><rect x="7" y="4" width="1" height="1" fill="#76a1fc"/><rect x="9" y="5" width="3" height="1" fill="#141413"/><rect x="4" y="9" width="1" height="1" fill="#76a1fc"/><rect x="5" y="10" width="1" height="1" fill="#76a1fc"/><rect x="6" y="9" width="1" height="1" fill="#76a1fc"/><rect x="7" y="8" width="1" height="1" fill="#76a1fc"/><rect x="9" y="9" width="3" height="1" fill="#141413"/><rect x="4" y="12" width="1" height="1" fill="#141413"/><rect x="9" y="12" width="2" height="1" fill="#141413"/></svg></div> <Info> **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Template definition · Quality program elements · Sign-off state
-</Info> Pre-sign-off completeness against practice template + quality programs (HEDIS, MIPS). ## Configuration | Field | Description |
+---
+
+<div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="2" y="2" width="12" height="1" fill="#141413"/><rect x="2" y="2" width="1" height="12" fill="#141413"/><rect x="2" y="13" width="12" height="1" fill="#141413"/><rect x="13" y="2" width="1" height="12" fill="#141413"/><rect x="4" y="5" width="1" height="1" fill="#76a1fc"/><rect x="5" y="6" width="1" height="1" fill="#76a1fc"/><rect x="6" y="5" width="1" height="1" fill="#76a1fc"/><rect x="7" y="4" width="1" height="1" fill="#76a1fc"/><rect x="9" y="5" width="3" height="1" fill="#141413"/><rect x="4" y="9" width="1" height="1" fill="#76a1fc"/><rect x="5" y="10" width="1" height="1" fill="#76a1fc"/><rect x="6" y="9" width="1" height="1" fill="#76a1fc"/><rect x="7" y="8" width="1" height="1" fill="#76a1fc"/><rect x="9" y="9" width="3" height="1" fill="#141413"/><rect x="4" y="12" width="1" height="1" fill="#141413"/><rect x="9" y="12" width="2" height="1" fill="#141413"/></svg></div>
+
+<Info>
+**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Template definition · Quality program elements · Sign-off state
+</Info>
+
+Pre-sign-off completeness against practice template + quality programs (HEDIS, MIPS).
+
+## Configuration
+
+| Field | Description |
 | :--- | :--- |
 | `template_id` | Practice template + required-element list |
 | `programs` | Quality program element set (HEDIS, MIPS, …) |
 | `enforcement` | Blocking vs. advisory sign-off policy |
-| `pre_signoff_timing` | Pre-sign-off review timing | ## Execution 1. Reads the note against the practice template
+| `pre_signoff_timing` | Pre-sign-off review timing |
+
+## Execution
+
+1. Reads the note against the practice template
 2. Flags missing required elements per template and per program
 3. Surfaces the gap with the template's expected language
 4. Logs the pre-sign-off completeness state
-5. Optionally blocks sign-off until critical fields are filled ## Composable experts | Expert | Role |
+5. Optionally blocks sign-off until critical fields are filled
+
+## Composable experts
+
+| Expert | Role |
 | :--- | :--- |
 | **Template Adherence Expert** | Practice template completeness |
 | **Quality Program Expert** | HEDIS, MIPS, program-specific elements |
 | **Audit Trail Expert** | Pre-sign-off state logged |
-| **Sign-off Workflow Expert** | Blocking vs. advisory enforcement | ## Compliance guarantees <Warning>
+| **Sign-off Workflow Expert** | Blocking vs. advisory enforcement |
+
+## Compliance guarantees
+
+<Warning>
+
 - Completeness checks are deterministic and template-driven
+
 - Blocking enforcement is explicit and configured by the practice
+
 - Pre-sign-off state is logged for every encounter
-</Warning> ## Endpoints REST: `POST /api/therapy/validate-note`. --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning>
+
+## Endpoints
+
+REST: `POST /api/therapy/validate-note`.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+
+<Card title="Agentic Overview" icon="layers" href="/agentic/overview">
+Framework + 24 agents.
+</Card>
+
+<Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">
+Typed expert registry.
+</Card>
+
+<Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">
+Compose your own workflow.
+</Card>
+
+<Card title="API Reference" icon="terminal" href="/api-reference/welcome">
+REST surface.
+</Card>
 </CardGroup>

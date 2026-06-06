@@ -1,11 +1,57 @@
 ---
 title: "Building Your Co-Therapy Multimodal Layer"
 description: "Implementation guide for in-session multimodal analysis"
---- The Co-Therapy Agent is a silent multimodal partner — it never speaks to the patient. It captures audio, video, and language during the session and fuses the signal into 15 neurobehavioral construct activations on a private clinician channel. ## Architecture ``` AUDIO + VIDEO → Multimodal Engine → Neurobehavioral Construct Computer │ ▼ Clinician private channel │ ▼ Session note + outcomes
-``` ## Multimodal channels | Channel | Engine | Outputs |
+---
+
+The Co-Therapy Agent is a silent multimodal partner — it never speaks to the patient. It captures audio, video, and language during the session and fuses the signal into 15 neurobehavioral construct activations on a private clinician channel.
+
+## Architecture
+
+```AUDIO + VIDEO → Multimodal Engine → Neurobehavioral Construct Computer │ ▼ Clinician private channel │ ▼ Session note + outcomes
+
+```
+
+## Multimodal channels
+
+| Channel | Engine | Outputs |
 | :--- | :--- | :--- |
 | **Audio** | Vocal Acoustic Engine | F0, jitter, shimmer, HNR, MFCC, prosodic flatness, depression/anxiety/distress indices |
 | **Video** | Facial Physiological Engine | HR, BP, HRV (SDNN/RMSSD/LF-HF), respiration rate, stress index, affect |
-| **Language** | Linguistic Content Expert | Topic, valence, certainty, pronoun shift | These fuse into 15 neurobehavioral construct activations. See [Neurobehavioral Construct Overview](/multimodal/rdoc/overview). ## Steps <Steps> <Step title="Capture consent"> Recording requires explicit patient consent per session. Configure your consent flow in the Console. </Step> <Step title="Start the session"> `POST /api/therapy-sessions/start` with the participants and modality. Returns a `session_id` and a multimodal WebSocket URL. </Step> <Step title="Stream audio + video"> Stream PCM audio at 16 kHz and video frames (vision pipeline 468-point landmarks) over the multimodal WebSocket. </Step> <Step title="Receive construct activations"> The clinician's private channel emits `rdoc.activation` events with feature contributions and confidence. </Step> <Step title="Close the session"> `POST /api/therapy-sessions/stop` finalizes the session. The Co-Therapy Agent drafts the session note with construct-anchored claims. </Step>
-</Steps> ## Related <CardGroup cols={2}> <Card title="Co-Therapy Agent" href="/agentic/agents/co-therapy">Agent-level documentation.</Card> <Card title="Facial Engine" href="/multimodal/facial/overview">Physiological signals from video.</Card> <Card title="Vocal Engine" href="/multimodal/vocal/overview">Acoustic features from audio.</Card> <Card title="Neurobehavioral Construct Constructs" href="/multimodal/rdoc/overview">15 documented constructs.</Card>
+| **Language** | Linguistic Content Expert | Topic, valence, certainty, pronoun shift | These fuse into 15 neurobehavioral construct activations. See [Neurobehavioral Construct Overview](/multimodal/rdoc/overview).
+
+## Steps
+
+<Steps>
+<Step title="Capture consent">
+Recording requires explicit patient consent per session. Configure your consent flow in the Console.
+</Step>
+<Step title="Start the session">
+`POST /api/therapy-sessions/start` with the participants and modality. Returns a `session_id` and a multimodal WebSocket URL.
+</Step>
+<Step title="Stream audio + video">
+Stream PCM audio at 16 kHz and video frames (vision pipeline 468-point landmarks) over the multimodal WebSocket.
+</Step>
+<Step title="Receive construct activations">
+The clinician's private channel emits `rdoc.activation` events with feature contributions and confidence.
+</Step>
+<Step title="Close the session">
+`POST /api/therapy-sessions/stop` finalizes the session. The Co-Therapy Agent drafts the session note with construct-anchored claims.
+</Step>
+</Steps>
+
+## Related
+
+<CardGroup cols={2}>
+<Card title="Co-Therapy Agent" href="/agentic/agents/co-therapy">
+Agent-level documentation.
+</Card>
+<Card title="Facial Engine" href="/multimodal/facial/overview">
+Physiological signals from video.
+</Card>
+<Card title="Vocal Engine" href="/multimodal/vocal/overview">
+Acoustic features from audio.
+</Card>
+<Card title="Neurobehavioral Construct Constructs" href="/multimodal/rdoc/overview">
+15 documented constructs.
+</Card>
 </CardGroup>

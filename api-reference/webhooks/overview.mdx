@@ -1,7 +1,11 @@
 ---
 title: "Webhooks Overview"
 description: "How Medera webhooks work"
---- Webhooks are delivered to a tenant-configured URL with signed headers. | Header | Description |
+---
+
+Webhooks are delivered to a tenant-configured URL with signed headers.
+
+| Header | Description |
 | :--- | :--- |
 | `Medera-Signature` | `sha256=<hmac>` of the body using the per-tenant webhook secret |
 | `Medera-Event` | Event name |
@@ -11,4 +15,8 @@ description: "How Medera webhooks work"
 | Medera Voice | HMAC-SHA256 (`medera-voice-signature`) via |
 | payment processor | `payment processor-Signature` |
 | the identity provider | HMAC (`svix-id`, `svix-timestamp`, `svix-signature`) |
-| Payer | Per-payer HMAC secret | ## Retry Failed deliveries retry with exponential backoff for 24 hours, then move to a dead-letter queue.
+| Payer | Per-payer HMAC secret |
+
+## Retry
+
+Failed deliveries retry with exponential backoff for 24 hours, then move to a dead-letter queue.

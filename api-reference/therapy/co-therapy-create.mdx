@@ -3,9 +3,10 @@ title: "POST /api/co-therapy-sessions"
 description: "Create a co-therapy session"
 ---
 
-
 ```
+
 POST /api/co-therapy-sessions
+
 ```
 
 ### Request body
@@ -21,13 +22,16 @@ POST /api/co-therapy-sessions
   "deploymentId": "dep_abc",
   "publishedWorkflowId": "wf_published_..."
 }
+
 ```
 
 Lifecycle endpoints:
 
 ```
+
 POST /api/co-therapy-sessions/{id}/start       # send invitations
 POST /api/co-therapy-sessions/{id}/join        # record participant join
 POST /api/co-therapy-sessions/{id}/leave       # record participant leave
 POST /api/co-therapy-sessions/{id}/transition  # state transition
+
 ```

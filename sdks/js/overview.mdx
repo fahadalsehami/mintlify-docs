@@ -3,7 +3,6 @@ title: "JavaScript / TypeScript SDK"
 description: "Install, configure, and use the Medera JavaScript SDK"
 ---
 
-
 The Medera JavaScript SDK works in Node.js 18+, modern browsers, Bun, Deno, and edge runtimes (Cloudflare Workers, Vercel Edge).
 
 ## Install
@@ -14,6 +13,7 @@ npm install @medera/sdk
 pnpm add @medera/sdk
 # or
 yarn add @medera/sdk
+
 ```
 
 ## Quick start
@@ -34,14 +34,21 @@ const session = await client.sessions.create({
   provider_id: 'prv_xyz',
   visit_type: 'psychiatry_followup',
 });
+
 ```
 
 ## What's in the box
 
 - REST client for every API resource
+
 - WebSocket clients for `/streams`, `/transcribe`, and `/therapy`
+
 - Auth helpers with automatic token refresh
+
 - Webhook signature verification
+
 - TypeScript types for every resource
+
 - Built-in retry with exponential backoff
+
 - Request idempotency support

@@ -3,9 +3,10 @@ title: "GET /api/audit/integrity-checkpoints"
 description: "Merkle integrity checkpoints"
 ---
 
-
 ```
+
 GET /api/audit/integrity-checkpoints
+
 ```
 
 Returns Merkle root hashes for each audit checkpoint (introduced in migration 118). Verify integrity by reconstructing the tree from the audit events between checkpoints and comparing the root hash.

@@ -1,11 +1,25 @@
 ---
 title: "Facial Physiological Engine"
 description: "rPPG-derived HR, BP, HRV, respiration, stress, affect"
---- extracts physiological signal from video via Haar Cascade face detection, ROI sampling, and CHROM rPPG. ## Constructor ```python
+---
+
+extracts physiological signal from video via Haar Cascade face detection, ROI sampling, and CHROM rPPG.
+
+## Constructor
+
+```python
 engine = FacialPhysiologicalEngine(fps=30, # frames per second min_hr_duration=30, # seconds; HR will not be computed below this min_hrv_duration=60, # seconds; HRV will not be computed below this roi_type='forehead', # 'forehead' | 'cheeks' | 'full_face')
-``` ## Primary method ```python
+```
+
+## Primary method
+
+```python
 signals: PhysiologicalSignals = engine.extract_features(video_frames: List[np.ndarray], timestamps: Optional[List[float]] = None,)
-``` ## PhysiologicalSignals dataclass | Field | Unit | Notes |
+```
+
+## PhysiologicalSignals dataclass
+
+| Field | Unit | Notes |
 | :--- | :--- | :--- |
 | `heart_rate` | bpm | < 5 bpm MAE at SNR > 3.0 |
 | `heart_rate_confidence` | 0–1 | |
@@ -24,10 +38,18 @@ signals: PhysiologicalSignals = engine.extract_features(video_frames: List[np.nd
 | `sns_index` | 0–100 | Sympathetic activity |
 | `overall_quality` | 0–100 | |
 | `snr` | dB | Threshold: > 3.0 |
-| `signal_duration` | seconds | | ## Library dependencies - OpenCV (`cv2`) — face detection
+| `signal_duration` | seconds | |
+
+## Library dependencies
+
+- OpenCV (`cv2`) — face detection
 - rPPG library (`heartpy`) — HR / HRV
 - SciPy (`scipy.signal`, `scipy.interpolate`, `scipy.fft`) — filtering
-- NumPy (`numpy`) — arrays ## Failure modes The engine returns the metric with `confidence: 0.0` rather than fabricated values when:
+- NumPy (`numpy`) — arrays
+
+## Failure modes
+
+The engine returns the metric with `confidence: 0.0` rather than fabricated values when:
 - Face detection fails on > 30 % of frames
 - SNR ≤ 3.0
 - Recording shorter than the declared minimum duration

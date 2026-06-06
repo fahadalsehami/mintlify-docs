@@ -1,11 +1,17 @@
 ---
 title: "Multimodal Architecture"
 description: "Pipeline deep dive from raw signal to clinical payload"
---- ## Engine inputs | Channel | Input | Requirement |
+---
+
+## Engine inputs
+
+| Channel | Input | Requirement |
 | :--- | :--- | :--- |
 | Audio | NumPy array (mono PCM) | 16 kHz, ≥ 1.0 s for vocal features |
 | Video | List of frames (np.ndarray) | ≥ 15 fps; ≥ 30 s for HR, ≥ 60 s for HRV |
-| Assessment | Dict of screener scores | PHQ-9, GAD-7, C-SSRS optional | ## Vocal pipeline ```python
+| Assessment | Dict of screener scores | PHQ-9, GAD-7, C-SSRS optional |
+
+## Vocal pipeline ```python
 engine = VocalAcousticEngine(sample_rate=16000, frame_length_ms=25, hop_length_ms=10, gender=None, # auto)
 features: VocalFeatures = engine.extract_features(audio, sr=16000)
 ``` Engine internals:
@@ -14,7 +20,9 @@ features: VocalFeatures = engine.extract_features(audio, sr=16000)
 3. Voice quality (jitter, shimmer, HNR) via Praat point-process
 4. Prosody (speaking rate, pauses, intensity)
 5. Spectral (MFCC, centroid, bandwidth, rolloff, flatness) via audio analysis library
-6. Clinical marker fusion (depression, anxiety, distress indices) ## Facial pipeline ```python
+6. Clinical marker fusion (depression, anxiety, distress indices)
+
+## Facial pipeline ```python
 engine = FacialPhysiologicalEngine(fps=30, min_hr_duration=30, min_hrv_duration=60, roi_type='forehead',)
 signals: PhysiologicalSignals = engine.extract_features(frames, timestamps=None)
 ``` Engine internals:
@@ -26,13 +34,23 @@ signals: PhysiologicalSignals = engine.extract_features(frames, timestamps=None)
 6. HRV from inter-beat intervals
 7. BP estimation from PPG morphology + HR
 8. Respiration from RGB amplitude modulation
-9. Stress + ANS balance from HRV + HR ## neurobehavioral fusion ```python
+9. Stress + ANS balance from HRV + HR
+
+## neurobehavioral fusion ```python
 computer = NeurobehavioralConstructComputer
 profile: NeurobehavioralActivationProfile = computer.compute_all_constructs(facial_features=signals.to_dict, vocal_features=features.to_dict, assessments={"phq9": 14, "gad7": 11}, context={"chief_complaint": "..."},)
 ``` For each of the 15 constructs, the computer returns a `ConstructActivation`: ```python
 @dataclass
 class ConstructActivation: name: str # e.g. "potential_threat_anxiety" score: float # 0–1 activation confidence: float # 0–1 calibrated contributors: list # [{feature, value, contribution}] interpretation: str # clinical text domain: str # neurobehavioral domain low_threshold: float = 0.3 high_threshold: float = 0.7 # get_severity → "low" | "moderate" | "high"
-``` ## Analyzer orchestration `MultimodalTherapyAnalyzer.analyze_session_with_multimodal(...)` orchestrates the engines, computes the neurobehavioral profile, optionally pulls evidence from, and returns a canonical payload with flat `ClinicalMetric` envelopes — the shape the frontend renders. ## Latency | Operation | Typical |
+```
+
+## Analyzer orchestration
+
+`MultimodalTherapyAnalyzer.analyze_session_with_multimodal(...)` orchestrates the engines, computes the neurobehavioral profile, optionally pulls evidence from, and returns a canonical payload with flat `ClinicalMetric` envelopes — the shape the frontend renders.
+
+## Latency
+
+| Operation | Typical |
 | :--- | :--- |
 | Vocal feature extraction (10 s window) | 80–150 ms |
 | Facial feature extraction (10 s window) | 120–220 ms |

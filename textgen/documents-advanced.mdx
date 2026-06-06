@@ -1,9 +1,17 @@
 ---
 title: "Advanced Document Generation"
 description: "Specialty templates + billing codes"
---- ```
+---
+
+```
 POST /api/therapy/generate-soap-note-enhanced
-``` ### Body ```json
+```
+
+### Body
+
+```json
 { "session_data": {... }, "patient_context": {... }, "specialty": "psychiatry", "template_config": { "format_version": "v3", "include_assessments": true, "include_billing_codes": true }
 }
-``` `specialty` values: `psychiatry`, `primary_care`, `cardiology`, `neurology`,...
+```
+
+`specialty` values: `psychiatry`, `primary_care`, `cardiology`, `neurology`,...

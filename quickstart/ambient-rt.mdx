@@ -1,15 +1,122 @@
 ---
 title: "Quickstart — Real-time Ambient Scribe"
 description: "Build a real-time SOAP scribe in under 20 minutes."
---- Spin up a real-time ambient scribe with the AI Services clinical endpoints — diarized capture, in-encounter SOAP drafting, ICD-10 / CPT code suggestions, and EHR sync. ## Architecture <Frame>
-<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/ambient-flow.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_58003" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="360" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/ambient-flow.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">scribe flow</text>
-</g> <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="30" y="100" width="80" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="70" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">Mic</text><rect x="140" y="100" width="160" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="220" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">/api/clinical/start</text><rect x="320" y="100" width="160" height="40" fill="#dbe5ff" stroke="#4f7be0"/><text x="400" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">/api/clinical/chunk</text><rect x="500" y="100" width="160" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="580" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">Medera STT + Medera STT</text><rect x="680" y="100" width="100" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="730" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">Transcript</text><rect x="320" y="200" width="380" height="40" fill="#76a1fc" stroke="#4f7be0"/><text x="510" y="224" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">/api/therapy/generate-soap-note-enhanced</text><rect x="320" y="280" width="240" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="440" y="304" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">/api/therapy/notes/{id}/finalize</text><rect x="680" y="280" width="180" height="40" fill="#dbe5ff" stroke="#4f7be0"/><text x="770" y="304" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">EHR sync · FHIR R4</text><defs><marker id="arrow_am" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#141413" fillOpacity="0.5"/></marker></defs><path d="M 110 120 L 140 120" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 300 120 L 320 120" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 480 120 L 500 120" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 660 120 L 680 120" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 730 140 Q 730 175 510 200" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 510 240 L 510 280" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 560 300 L 680 300" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/>
-</svg>
-</Frame> ## Prerequisites - A Medera Console account and a Developer API Key with `write:phi` and `execute:agents` scopes.
+---
+
+Spin up a real-time ambient scribe with the AI Services clinical endpoints — diarized capture, in-encounter SOAP drafting, ICD-10 / CPT code suggestions, and EHR sync.
+
+## Architecture
+
+<Frame>
+<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/ambient-flow.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_58003" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="360" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/ambient-flow.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">scribe flow</text> </g> <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="30" y="100" width="80" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="70" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">Mic</text><rect x="140" y="100" width="160" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="220" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">/api/clinical/start</text><rect x="320" y="100" width="160" height="40" fill="#dbe5ff" stroke="#4f7be0"/><text x="400" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">/api/clinical/chunk</text><rect x="500" y="100" width="160" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="580" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">Medera STT + Medera STT</text><rect x="680" y="100" width="100" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="730" y="124" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">Transcript</text><rect x="320" y="200" width="380" height="40" fill="#76a1fc" stroke="#4f7be0"/><text x="510" y="224" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">/api/therapy/generate-soap-note-enhanced</text><rect x="320" y="280" width="240" height="40" fill="#fafaf6" stroke="rgba(20,19,0.18)"/><text x="440" y="304" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">/api/therapy/notes/{id}/finalize</text><rect x="680" y="280" width="180" height="40" fill="#dbe5ff" stroke="#4f7be0"/><text x="770" y="304" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="9" fontWeight="600">EHR sync · FHIR R4</text><defs><marker id="arrow_am" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#141413" fillOpacity="0.5"/></marker></defs><path d="M 110 120 L 140 120" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 300 120 L 320 120" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 480 120 L 500 120" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 660 120 L 680 120" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 730 140 Q 730 175 510 200" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 510 240 L 510 280" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/><path d="M 560 300 L 680 300" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none" markerEnd="url(#arrow_am)"/> </svg>
+</Frame>
+
+## Prerequisites
+
+- A
+
+Medera Console account and a Developer API Key with `write:phi` and `execute:agents` scopes.
+
 - A microphone — see [Microphone Devices](/multimodal/stt/microphones).
-- An EHR target configured under **Console → Integrations**. <Steps> <Step title="Authenticate"> Set your API key as an env variable. ```bash export MEDERA_API_KEY="<your-key>" ``` </Step> <Step title="Start the clinical session"> Open a clinical session — this anchors the transcript, note, and code suggestions. <CodeGroup> ```typescript JavaScript import { MederaClient } from '@medera/sdk'; const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY! }); const { session_id } = await client.clinical.start({ session_type: 'clinical_visit', patient_id: 'pat_abc', }); ``` ```python Python from medera import MederaClient client = MederaClient(api_key=os.environ["MEDERA_API_KEY"]) session = client.clinical.start(session_type="clinical_visit", patient_id="pat_abc",) ``` ```bash cURL curl -X POST https://api.medera.info/api/clinical/start \ -H "X-API-Key: $MEDERA_API_KEY" \ -H "Content-Type: application/json" \ -d '{ "session_type": "clinical_visit", "patient_id": "pat_abc" }' ``` </CodeGroup> </Step> <Step title="Stream chunks"> Send PCM audio chunks (16 kHz 16-bit mono recommended) as the clinician speaks. <CodeGroup> ```typescript JavaScript // Encode PCM as base64 const audio_data = btoa(String.fromCharCode(...pcmBuffer)); const { transcript } = await client.clinical.chunk({ session_id, audio_data, }); ``` ```python Python import base64 audio_b64 = base64.b64encode(pcm_buffer).decode res = client.clinical.chunk(session_id=session.id, audio_data=audio_b64,) ``` ```bash cURL curl -X POST https://api.medera.info/api/clinical/chunk \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_id": "ses_abc", "audio_data": "<base64 PCM>" }' ``` </CodeGroup> Local Medera STT is the default with Medera STT as fallback. The response returns the accumulated transcript so far. </Step> <Step title="Stop the session"> Finalize the transcript and trigger the initial clinical analysis. <CodeGroup> ```typescript JavaScript const result = await client.clinical.stop({ session_id }); // result.transcription, result.clinical_data ``` ```python Python result = client.clinical.stop(session_id=session.id) ``` ```bash cURL curl -X POST https://api.medera.info/api/clinical/stop \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_id": "ses_abc" }' ``` </CodeGroup> </Step> <Step title="Generate the SOAP note"> Use the enhanced generator for specialty templates and inline code suggestions. <CodeGroup> ```typescript JavaScript const note = await client.therapy.generateSoapNoteEnhanced({ session_data: { session_id }, specialty: 'psychiatry', template_config: { format_version: 'v3', include_assessments: true, include_billing_codes: true, }, }); ``` ```python Python note = client.therapy.generate_soap_note_enhanced(session_data={"session_id": session.id}, specialty="psychiatry", template_config={ "format_version": "v3", "include_assessments": True, "include_billing_codes": True, },) ``` ```bash cURL curl -X POST https://api.medera.info/api/therapy/generate-soap-note-enhanced \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_data": { "session_id": "ses_abc" }, "specialty": "psychiatry", "template_config": { "include_billing_codes": true } }' ``` </CodeGroup> The response includes the structured SOAP plus a list of suggested ICD-10 / CPT codes anchored to transcript spans. </Step> <Step title="Sign and post to the EHR"> After clinician sign-off, finalize the note. Medera posts the signed note and code set to the configured EHR target via the integration adapter. ```bash curl -X POST https://api.medera.info/api/therapy/notes/{note_id}/finalize \ -H "X-API-Key: $MEDERA_API_KEY" ``` </Step>
-</Steps> ## Best practices - Capture audio at **16 kHz 16-bit PCM mono**. Higher rates work but waste bandwidth.
+
+- An EHR target configured under **Console → Integrations**.
+
+<Steps>
+
+<Step title="Authenticate">
+Set your API key as an env variable. ```bash export MEDERA_API_KEY="<your-key>" ```
+</Step>
+
+<Step title="Start the clinical session">
+Open a clinical session — this anchors the transcript, note, and code suggestions.
+
+<CodeGroup>
+```typescript JavaScript import { MederaClient } from '@medera/sdk'; const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY! }); const { session_id } = await client.clinical.start({ session_type: 'clinical_visit', patient_id: 'pat_abc', }); ```
+
+```python Python from medera import MederaClient client = MederaClient(api_key=os.environ["MEDERA_API_KEY"]) session = client.clinical.start(session_type="clinical_visit", patient_id="pat_abc",) ```
+
+```bash cURL curl -X POST https://api.medera.info/api/clinical/start \ -H "X-API-Key: $MEDERA_API_KEY" \ -H "Content-Type: application/json" \ -d '{ "session_type": "clinical_visit", "patient_id": "pat_abc" }' ```
+</CodeGroup>
+
+</Step>
+
+<Step title="Stream chunks">
+Send PCM audio chunks (16 kHz 16-bit mono recommended) as the clinician speaks.
+
+<CodeGroup>
+```typescript JavaScript // Encode PCM as base64 const audio_data = btoa(String.fromCharCode(...pcmBuffer)); const { transcript } = await client.clinical.chunk({ session_id, audio_data, }); ```
+
+```python Python import base64 audio_b64 = base64.b64encode(pcm_buffer).decode res = client.clinical.chunk(session_id=session.id, audio_data=audio_b64,) ```
+
+```bash cURL curl -X POST https://api.medera.info/api/clinical/chunk \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_id": "ses_abc", "audio_data": "<base64 PCM>" }' ```
+</CodeGroup>
+
+Local Medera STT is the default with Medera STT as fallback. The response returns the accumulated transcript so far.
+</Step>
+
+<Step title="Stop the session">
+Finalize the transcript and trigger the initial clinical analysis.
+
+<CodeGroup>
+```typescript JavaScript const result = await client.clinical.stop({ session_id }); // result.transcription, result.clinical_data ```
+
+```python Python result = client.clinical.stop(session_id=session.id) ```
+
+```bash cURL curl -X POST https://api.medera.info/api/clinical/stop \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_id": "ses_abc" }' ```
+</CodeGroup>
+
+</Step>
+
+<Step title="Generate the SOAP note">
+Use the enhanced generator for specialty templates and inline code suggestions.
+
+<CodeGroup>
+```typescript JavaScript const note = await client.therapy.generateSoapNoteEnhanced({ session_data: { session_id }, specialty: 'psychiatry', template_config: { format_version: 'v3', include_assessments: true, include_billing_codes: true, }, }); ```
+
+```python Python note = client.therapy.generate_soap_note_enhanced(session_data={"session_id": session.id}, specialty="psychiatry", template_config={ "format_version": "v3", "include_assessments": True, "include_billing_codes": True, },) ```
+
+```bash cURL curl -X POST https://api.medera.info/api/therapy/generate-soap-note-enhanced \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_data": { "session_id": "ses_abc" }, "specialty": "psychiatry", "template_config": { "include_billing_codes": true } }' ```
+</CodeGroup>
+
+The response includes the structured SOAP plus a list of suggested ICD-10 / CPT codes anchored to transcript spans.
+</Step>
+
+<Step title="Sign and post to the EHR">
+After clinician sign-off, finalize the note. Medera posts the signed note and code set to the configured EHR target via the integration adapter. ```bash curl -X POST https://api.medera.info/api/therapy/notes/{note_id}/finalize \ -H "X-API-Key: $MEDERA_API_KEY" ```
+</Step>
+</Steps>
+
+## Best practices -
+
+Capture audio at **16 kHz 16-bit PCM mono**.
+
+Higher rates work but waste bandwidth.
+
 - Use a dedicated lavalier or beamforming mic. See [Microphone Devices](/multimodal/stt/microphones).
+
 - Always require clinician sign-off before posting. Never auto-post to the EHR.
-- Use the transcript span IDs to render the documentation anchor next to every code suggestion. --- ## What's next <CardGroup cols={2}> <Card title="Visit Scribe Agent" icon="stethoscope" href="/agentic/agents/visit-scribe">Agent-level documentation.</Card> <Card title="Encounter Coding" icon="code" href="/coding/encounter-coding">How code suggestions work.</Card> <Card title="EHR Integrations" icon="link" href="/api-reference/integrations/overview">Connect Epic, Cerner, athenahealth.</Card> <Card title="STT — best practices" icon="microphone" href="/multimodal/stt/best-practices-recording">Audio quality recommendations.</Card>
+
+- Use the transcript span IDs to render the documentation anchor next to every code suggestion.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+
+<Card title="Visit Scribe Agent" icon="stethoscope" href="/agentic/agents/visit-scribe">
+Agent-level documentation.
+</Card>
+
+<Card title="Encounter Coding" icon="code" href="/coding/encounter-coding">
+How code suggestions work.
+</Card>
+
+<Card title="EHR Integrations" icon="link" href="/api-reference/integrations/overview">
+Connect Epic, Cerner, athenahealth.
+</Card>
+
+<Card title="STT — best practices" icon="microphone" href="/multimodal/stt/best-practices-recording">
+Audio quality recommendations.
+</Card>
 </CardGroup>

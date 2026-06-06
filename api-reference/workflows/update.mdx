@@ -3,9 +3,10 @@ title: "PUT /api/agent-workflows/{id}"
 description: "Update a workflow"
 ---
 
-
 ```
+
 PUT /api/agent-workflows/{id}
+
 ```
 
 Updates the draft. Must include the current `lockVersion`; mismatched values return `409 idempotency_conflict`.
@@ -13,7 +14,9 @@ Updates the draft. Must include the current `lockVersion`; mismatched values ret
 Auto-save endpoint (debounced from the canvas):
 
 ```
+
 POST /api/agent-workflows/{id}/draft
+
 ```
 
 Hash-deduped: identical payloads do not create new versions.

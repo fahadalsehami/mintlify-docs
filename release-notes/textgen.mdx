@@ -1,10 +1,25 @@
 ---
 title: "Text Generation Release Notes"
 description: "SOAP, templates, facts, RAG"
---- ## Service surface - `/api/therapy/analyze-session` — post-visit analysis (`gpt-4o`, T=0.3, JSON mode)
+
+---
+
+## Service surface
+
+- `/api/therapy/analyze-session` — post-visit analysis (`gpt-4o`, T=0.3, JSON mode)
+
 - `/api/therapy/generate-soap-note` + `/generate-soap-note-enhanced` — specialty-tailored SOAP
+
 - `/api/therapy/post-visit-insights`, `/validate-note`, `/suggest-codes`
-- `/api/therapy/notes/{id}/{transition|approve|finalize|track-change}` — note lifecycle ## Clinical RAG - (`services/rag/advanced_clinical_rag.py`) — hybrid semantic + lexical retriever
+
+- `/api/therapy/notes/{id}/{transition|approve|finalize|track-change}` — note lifecycle
+
+## Clinical RAG
+
+- (`services/rag/advanced_clinical_rag.py`) — hybrid semantic + lexical retriever
+
 - SNOMED-CT, ICD-10, RxNorm ontology expansion
+
 - 5-band confidence calibration
+
 - `Citation` dataclass for provenance tracking

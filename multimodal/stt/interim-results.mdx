@@ -3,7 +3,6 @@ title: "Interim Results"
 description: "Low-latency transcript previews during dictation"
 ---
 
-
 Interim results stream sub-second previews so the editor can render text as the clinician speaks. Interim text is **not stable** — only the final result should be persisted.
 
 ```javascript
@@ -16,4 +15,5 @@ ws.on('final', (e) => {
   // commit
   editor.commitText(e.text);
 });
+
 ```

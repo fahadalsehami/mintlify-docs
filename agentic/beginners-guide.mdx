@@ -3,7 +3,6 @@ title: "Beginners' Guide to Agents"
 description: "How agents work in Medera, without jargon"
 ---
 
-
 This guide is for product and clinical teams new to LLM agents.
 
 ## What is an agent?
@@ -17,11 +16,16 @@ In Medera, an **agent** is a task-specific actor with:
 
 ## Why this matters
 
-Generic LLMs hallucinate clinical claims. Medera agents:
+Generic LLMs hallucinate clinical claims.
+
+Medera agents:
 
 - Anchor claims to quoted spans, screener scores, or peer-reviewed citations
+
 - Report confidence in calibrated bands (`VERY_HIGH` → `VERY_LOW`)
+
 - Surface `unavailable` rather than fabricated values when signal quality is low
+
 - Log every step to an immutable audit trail (`deployment_audit_log` for deployment actions, `phi_audit_logs` for PHI)
 
 ## First steps

@@ -1,16 +1,38 @@
 ---
 title: "Audit Logging"
 description: "WORM audit with Merkle integrity and 6-year retention"
---- Medera writes immutable audit events on: | Source | Table | Migration |
+---
+
+Medera writes immutable audit events on:
+
+| Source | Table | Migration |
 | :--- | :--- | :--- |
 | PHI access | `phi_audit_logs` | 080+ |
 | Workflow execution | `agent_workflow_executions.execution_trace[]` | 110 |
 | Deployment actions | `deployment_audit_log` (WORM) | 140 / 145 |
 | Config access | Config access audit table | 137 |
 | Auth events | `auditLogger` + observability platform | — |
-| Realtime corrections | `transcription_corrections`, `clinical_ai_suggestions` | 126 | ## WORM semantics `deployment_audit_log` is append-only — UPDATE and DELETE are blocked. fixed the actor FK to `SET NULL` so the WORM invariant holds when an actor is deleted. ## Merkle integrity introduced audit integrity checkpoints — events are chained into a Merkle tree so tampering breaks the chain. Verify via: ```
+| Realtime corrections | `transcription_corrections`, `clinical_ai_suggestions` | 126 |
+
+## WORM semantics
+
+`deployment_audit_log` is append-only — UPDATE and DELETE are blocked. fixed the actor FK to `SET NULL` so the WORM invariant holds when an actor is deleted.
+
+## Merkle integrity
+
+introduced audit integrity checkpoints — events are chained into a Merkle tree so tampering breaks the chain. Verify via: ```
+
 GET /api/audit/integrity-checkpoints
-``` ## Retention Default 6 years, configurable up to 22 years. ## Reading audit logs ```
+
+```
+
+## Retention
+
+Default 6 years, configurable up to 22 years.
+
+## Reading audit logs ```
+
 GET /api/audit/access-logs
 POST /api/audit/exports # signed URL export
+
 ```

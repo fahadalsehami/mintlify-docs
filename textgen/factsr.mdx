@@ -3,13 +3,14 @@ title: "Facts & Reasoning"
 description: "Structured facts extraction"
 ---
 
-
 Medera's facts pipeline extracts structured `Fact` objects from the encounter — every clinically relevant claim, who said it, and supporting evidence. Documents generate against the fact set rather than raw transcripts so every claim ties back to a source.
 
 The real-time fact stream rides the same WebSocket as the transcript on the clinical session and intake pipelines.
 
 ```
+
 POST /api/therapy/analyze-session   # extracts facts + downstream synthesis
+
 ```
 
 A `Fact` includes:
@@ -24,4 +25,5 @@ A `Fact` includes:
   "certainty": "asserted",
   "timestamp_ms": 84300
 }
+
 ```

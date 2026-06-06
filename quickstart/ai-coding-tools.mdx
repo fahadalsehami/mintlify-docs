@@ -3,7 +3,6 @@ title: "Quickstart — AI Coding Tools"
 description: "Pick a use case, prompt your coding agent, ship"
 ---
 
-
 Common AI coding tasks on Medera, each with a single API call.
 
 ## Encounter coding (signed note)
@@ -12,6 +11,7 @@ Common AI coding tasks on Medera, each with a single API call.
 curl -X POST https://api.medera.info/api/coding/predict \
   -H "Authorization: Bearer $TOKEN" \
   -d '{ "code_systems": ["icd-10-cm", "cpt"], "context": { "documentId": "doc_abc" } }'
+
 ```
 
 ## CDI review
@@ -20,6 +20,7 @@ curl -X POST https://api.medera.info/api/coding/predict \
 curl -X POST https://api.medera.info/api/coding/cdi/review \
   -H "Authorization: Bearer $TOKEN" \
   -d '{ "documentId": "doc_abc" }'
+
 ```
 
 ## Revenue cycle sweep
@@ -28,6 +29,7 @@ curl -X POST https://api.medera.info/api/coding/cdi/review \
 curl -X POST https://api.medera.info/api/coding/sweep \
   -H "Authorization: Bearer $TOKEN" \
   -d '{ "patient_ids": ["pat_a", "pat_b"], "period": { "from": "2026-04-01", "to": "2026-04-30" } }'
+
 ```
 
 See [Coding overview](/coding/overview).

@@ -1,13 +1,28 @@
 ---
 title: "POST /api/therapy/generate-soap-note"
 description: "Generate a SOAP note"
---- AI Services: ```
+---
+
+AI Services:
+
+```
+
 POST /api/therapy/generate-soap-note
 POST /api/therapy/generate-soap-note-enhanced # specialty templates
-``` ### Body ```json
+
+```
+
+### Body
+
+```json
 { "session_data": {... }, "patient_context": {... }, "template_config": { "format_version": "v3", "include_assessments": true, "include_billing_codes": true }, "specialty": "psychiatry"
 }
-``` `specialty`: `psychiatry`, `primary_care`, `cardiology`, `neurology`,... Backend persistence: ```
+
+``` `specialty`: `psychiatry`, `primary_care`, `cardiology`, `neurology`,... Backend persistence:
+
+```
+
 POST /api/clinical-notes
 GET /api/clinical-notes
+
 ```

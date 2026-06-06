@@ -1,11 +1,19 @@
 ---
 title: "JavaScript SDK — Proxy"
 description: "Route SDK traffic through your own server"
---- For browser apps where the `client_secret` must not be exposed, the SDK supports a proxy mode: ```typescript
+---
+
+For browser apps where the `client_secret` must not be exposed, the SDK supports a proxy mode:
+
+```typescript
 const client = new MederaClient({ proxyUrl: 'https://your.app/api/medera-proxy',
 });
-``` On your server, implement the proxy: ```typescript
+
+``` On your server, implement the proxy:
+
+```typescript
 // Express / Next.js / Bun
 app.all('/api/medera-proxy/*', async (req, res) => { const auth = new MederaAuth({ clientId: process.env.MEDERA_CLIENT_ID!, clientSecret: process.env.MEDERA_CLIENT_SECRET!, }); const token = await auth.getAccessToken; // forward req to api.medera.info with bearer token
 });
+
 ```

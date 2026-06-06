@@ -1,25 +1,115 @@
 ---
 title: "Welcome to Medera"
 description: "Behavioral-health-native AI infrastructure for clinical product teams."
---- Medera is the AI infrastructure platform for behavioral and mental health. It combines a **canvas-based agent builder**, **multimodal clinical sensing** (vocal acoustics + facial physiology + neurobehavioral constructs), purpose-built medical reasoning, and a HIPAA-grade runtime — delivered through a single REST + WebSocket API and typed JavaScript / Python SDKs. <Tip> Medera is the most accurate, defensible, and clinician-ready **AI platform for behavioral and mental health teams** — without compromises on integration speed, evidence, or compliance.
-</Tip> <Card title="Buyer's Guide" href="https://medera.info/whitepaper" arrow="true" cta="Read the whitepaper" icon="book-open"> Learn what makes Medera the right choice for clinical and product teams building the next generation of behavioral health applications.
-</Card> --- ## Why Medera | | |
+---
+
+Medera is the AI infrastructure platform for behavioral and mental health. It combines a **canvas-based agent builder**, **multimodal clinical sensing** (vocal acoustics + facial physiology + neurobehavioral constructs), purpose-built medical reasoning, and a HIPAA-grade runtime — delivered through a single REST + WebSocket API and typed JavaScript / Python SDKs.
+
+<Tip>
+Medera is the most accurate, defensible, and clinician-ready **AI platform for behavioral and mental health teams** — without compromises on integration speed, evidence, or compliance.
+</Tip>
+
+<Card title="Buyer's Guide" href="https://medera.info/whitepaper" arrow="true" cta="Read the whitepaper" icon="book-open">
+Learn what makes Medera the right choice for clinical and product teams building the next generation of behavioral health applications.
+</Card>
+
+---
+
+## Why Medera
+
+| | |
 | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Purpose-built for behavioral health** | Validated screeners (PHQ-9, GAD-7, AUDIT-C, C-SSRS), neurobehavioral construct mapping, and 42 CFR Part 2 controls are first-class — not bolted on. |
 | **Multimodal by default** | Voice (Medera STT), facial physiology (HR, BP, HRV, RR, stress), and linguistic content fuse into one clinical signal. |
 | **Composable clinical agents** | 24 production agents, 16 core canvas node types + 8 BH-OS rails, a typed expert registry, and an A2A protocol. |
 | **Evidence-anchored** | Every claim is anchored to a quoted span, a screener score, or a peer-reviewed citation. Confidence is calibrated, never invented. |
-| **Enterprise-grade runtime** | tenant-isolated database with row-level security, encrypted PHI columns, Merkle-tree audit, sandbox-first deployments with WORM audit, and HIPAA + 42 CFR Part 2 controls in the request path. | <Columns cols={2}> <Card title="Flexible infrastructure" icon="layers"> <Icon icon="circle-check" /> REST + WebSocket APIs <br /> <Icon icon="circle-check" /> JavaScript + Python SDKs <br /> <Icon icon="circle-check" /> Embeddable web components </Card> <Card title="Built for healthcare" icon="stethoscope"> <Icon icon="circle-check" /> Behavioral-health language proficiency <br /> <Icon icon="circle-check" /> HIPAA, 42 CFR Part 2, SOC 2 controls <br /> <Icon icon="circle-check" /> Real-time or asynchronous </Card>
-</Columns> --- ## Core capabilities <CardGroup cols={2}> <Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview"> Facial Physiological Engine (rPPG + HRV with SDNN, RMSSD, LF/HF, SD1, SD2), Vocal Acoustic Engine (F0, jitter, shimmer, HNR, MFCC, clinical markers), and the Neurobehavioral Construct Computer — 15 named constructs across 5 domains. </Card> <Card title="Text Generation" icon="text-align-start" href="/textgen/overview"> Reliable behavioral-health-focused LLM output for SOAP notes, referral letters, discharge summaries, PA letters, and validated note lifecycle (transition, approve, finalize, track-change). </Card> <Card title="Agentic Framework" icon="layers" href="/agentic/overview"> 24 production agents, 16 core canvas node types + 8 BH-OS rails, semver versioning, sandbox-first deployment to `sandbox.medera.info`, and a typed expert registry. </Card> <Card title="Care Orchestrator" icon="grid-2x2" href="/agentic/orchestrator"> 4 voice agents (Intake, Care Coordinator, Referral Specialist, PA Specialist) + 6 workflow agents (PRIOR_AUTH, REFERRAL, PRESCRIPTION, LAB, CARE_PLAN, ESCALATION), 30+ state workflow machine, event bus. </Card>
-</CardGroup> --- ## Service topology <Frame>
-<svg viewBox="0 0 780 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/topology.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <style>{` @keyframes mdr-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }.mdr-live { animation: mdr-blink 1.4s ease-in-out infinite; } `}</style> <rect x="0" y="0" width="780" height="420" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="3" fill="#ff5f57"/> <circle cx="26" cy="16" r="3" fill="#febc2e"/> <circle cx="38" cy="16" r="3" fill="#28c840"/> <text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/topology.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">service topology</text> </g> <rect x="0" y="32" width="780" height="388" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="419" fill="none" stroke="#141413" strokeOpacity="0.18"/> <rect x="240" y="64" width="300" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="390" y="86" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">Frontend</text> <text x="390" y="104" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Medera Console <rect x="50" y="180" width="320" height="80" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="210" y="202" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">Backend</text> <text x="210" y="220" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Medera Backend</text> <text x="210" y="235" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">REST endpoints · service modules · middleware layers</text> <text x="210" y="250" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Workflow Engine · managed job queue</text> <rect x="410" y="180" width="320" height="80" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="570" y="202" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">AI Services</text> <text x="570" y="220" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Medera AI Services</text> <text x="570" y="235" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">service routers · Multimodal · RAG</text> <text x="570" y="250" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Medera Voice · Care Orchestrator</text> <rect x="120" y="320" width="240" height="60" fill="#dbe5ff" stroke="#76a1fc"/> <text x="240" y="342" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">managed Postgres</text> <text x="240" y="360" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="10">RLS · encrypted PHI</text> <text x="240" y="374" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="10">Merkle audit · WORM deployment log</text> <rect x="420" y="320" width="240" height="60" fill="#dbe5ff" stroke="#76a1fc"/> <text x="540" y="342" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">managed cache</text> <text x="540" y="360" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="10">managed job queue</text> <text x="540" y="374" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="10">Session state · Cache</text> <path d="M 320 120 L 210 180" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 460 120 L 570 180" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 210 260 L 240 320" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 210 260 L 460 320" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 570 260 L 320 320" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 570 260 L 540 320" stroke="#141413" strokeOpacity="0.25" fill="none"/> <circle r="3" fill="#76a1fc"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M 320 120 L 210 180"/> <animate attributeName="opacity" values="0;1;0" dur="2.6s" repeatCount="indefinite"/> </circle> <circle r="3" fill="#76a1fc"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M 460 120 L 570 180"/> <animate attributeName="opacity" values="0;1;0" dur="2.6s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#4f7be0"> <animateMotion dur="2s" repeatCount="indefinite" path="M 210 260 L 240 320"/> <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#4f7be0"> <animateMotion dur="2s" repeatCount="indefinite" path="M 570 260 L 540 320"/> <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/> </circle> <path d="M 370 220 L 410 220" stroke="#76a1fc" strokeWidth="1" strokeDasharray="3 3" fill="none"> <animate attributeName="stroke-dashoffset" values="0;-12" dur="1.2s" repeatCount="indefinite"/> </path> <text x="390" y="214" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9" className="mdr-live">X-Service-Key</text>
-</svg>
-</Frame> --- ## Common workflows <CardGroup cols={2}> <Card title="Build a canvas workflow" icon="layout-grid" href="/agentic/canvas/overview"> Drag a graph of agents, tools, and logic. Publish a semver version. Deploy to sandbox. Promote to production. </Card> <Card title="Run an ambient scribe" icon="microphone" href="/quickstart/ambient-rt"> Open the clinical session WebSocket, stream encounter audio, get diarized transcript + SOAP draft + ICD-10 / CPT suggestions. </Card> <Card title="Deploy the Intake Agent for intake" icon="phone" href="/quickstart/intake-agent"> Deploy the voice-first intake agent with a documented 7-state state machine and 4 function calls. </Card> <Card title="Generate a PA letter" icon="file-check" href="/quickstart/prior-auth"> Drive a 17-state PA workflow with payer-specific rules across EPA_API, CLEARINGHOUSE, PORTAL, FAX, or MANUAL submission. </Card>
-</CardGroup> --- ## Bringing it all together This documentation site explains how to use the Medera API and provides example workflows. - Each component of the Medera platform has its own tab: [Multimodal Sensing](/multimodal/overview), [Text Generation](/textgen/overview), [Agentic Framework](/agentic/overview), and [Coding](/coding/overview).
+| **Enterprise-grade runtime** | tenant-isolated database with row-level security, encrypted PHI columns, Merkle-tree audit, sandbox-first deployments with WORM audit, and HIPAA + 42 CFR Part 2 controls in the request path. |
+
+<Columns cols={2}>
+
+<Card title="Flexible infrastructure" icon="layers">
+<Icon icon="circle-check" /> REST + WebSocket APIs <br /> <Icon icon="circle-check" /> JavaScript + Python SDKs <br /> <Icon icon="circle-check" /> Embeddable web components
+</Card>
+
+<Card title="Built for healthcare" icon="stethoscope">
+<Icon icon="circle-check" /> Behavioral-health language proficiency <br /> <Icon icon="circle-check" /> HIPAA, 42 CFR Part 2, SOC 2 controls <br /> <Icon icon="circle-check" /> Real-time or asynchronous
+</Card>
+</Columns>
+
+---
+
+## Core capabilities
+
+<CardGroup cols={2}>
+
+<Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview">
+Facial Physiological Engine (rPPG + HRV with SDNN, RMSSD, LF/HF, SD1, SD2), Vocal Acoustic Engine (F0, jitter, shimmer, HNR, MFCC, clinical markers), and the Neurobehavioral Construct Computer — 15 named constructs across 5 domains.
+</Card>
+
+<Card title="Text Generation" icon="text-align-start" href="/textgen/overview">
+Reliable behavioral-health-focused LLM output for SOAP notes, referral letters, discharge summaries, PA letters, and validated note lifecycle (transition, approve, finalize, track-change).
+</Card>
+
+<Card title="Agentic Framework" icon="layers" href="/agentic/overview">
+24 production agents, 16 core canvas node types + 8 BH-OS rails, semver versioning, sandbox-first deployment to `sandbox.medera.info`, and a typed expert registry.
+</Card>
+
+<Card title="Care Orchestrator" icon="grid-2x2" href="/agentic/orchestrator">
+4 voice agents (Intake, Care Coordinator, Referral Specialist, PA Specialist) + 6 workflow agents (PRIOR_AUTH, REFERRAL, PRESCRIPTION, LAB, CARE_PLAN, ESCALATION), 30+ state workflow machine, event bus.
+</Card>
+</CardGroup>
+
+---
+
+## Service topology
+
+<Frame>
+<svg viewBox="0 0 780 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/topology.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <style>{` @keyframes mdr-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }.mdr-live { animation: mdr-blink 1.4s ease-in-out infinite; } `}</style> <rect x="0" y="0" width="780" height="420" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="3" fill="#ff5f57"/> <circle cx="26" cy="16" r="3" fill="#febc2e"/> <circle cx="38" cy="16" r="3" fill="#28c840"/> <text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/topology.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">service topology</text> </g> <rect x="0" y="32" width="780" height="388" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="419" fill="none" stroke="#141413" strokeOpacity="0.18"/> <rect x="240" y="64" width="300" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="390" y="86" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">Frontend</text> <text x="390" y="104" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Medera Console </text><rect x="50" y="180" width="320" height="80" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="210" y="202" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">Backend</text> <text x="210" y="220" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Medera Backend</text> <text x="210" y="235" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">REST endpoints · service modules · middleware layers</text> <text x="210" y="250" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Workflow Engine · managed job queue</text> <rect x="410" y="180" width="320" height="80" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="570" y="202" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">AI Services</text> <text x="570" y="220" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Medera AI Services</text> <text x="570" y="235" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">service routers · Multimodal · RAG</text> <text x="570" y="250" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Medera Voice · Care Orchestrator</text> <rect x="120" y="320" width="240" height="60" fill="#dbe5ff" stroke="#76a1fc"/> <text x="240" y="342" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">managed Postgres</text> <text x="240" y="360" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="10">RLS · encrypted PHI</text> <text x="240" y="374" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="10">Merkle audit · WORM deployment log</text> <rect x="420" y="320" width="240" height="60" fill="#dbe5ff" stroke="#76a1fc"/> <text x="540" y="342" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">managed cache</text> <text x="540" y="360" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="10">managed job queue</text> <text x="540" y="374" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="10">Session state · Cache</text> <path d="M 320 120 L 210 180" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 460 120 L 570 180" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 210 260 L 240 320" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 210 260 L 460 320" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 570 260 L 320 320" stroke="#141413" strokeOpacity="0.25" fill="none"/> <path d="M 570 260 L 540 320" stroke="#141413" strokeOpacity="0.25" fill="none"/> <circle r="3" fill="#76a1fc"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M 320 120 L 210 180"/> <animate attributeName="opacity" values="0;1;0" dur="2.6s" repeatCount="indefinite"/> </circle> <circle r="3" fill="#76a1fc"> <animateMotion dur="2.6s" repeatCount="indefinite" path="M 460 120 L 570 180"/> <animate attributeName="opacity" values="0;1;0" dur="2.6s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#4f7be0"> <animateMotion dur="2s" repeatCount="indefinite" path="M 210 260 L 240 320"/> <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/> </circle> <circle r="2.5" fill="#4f7be0"> <animateMotion dur="2s" repeatCount="indefinite" path="M 570 260 L 540 320"/> <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite"/> </circle> <path d="M 370 220 L 410 220" stroke="#76a1fc" strokeWidth="1" strokeDasharray="3 3" fill="none"> <animate attributeName="stroke-dashoffset" values="0;-12" dur="1.2s" repeatCount="indefinite"/> </path> <text x="390" y="214" textAnchor="middle" fill="#4f7be0" fontFamily="ui-monospace, monospace" fontSize="9" className="mdr-live">X-Service-Key</text> </svg>
+</Frame>
+
+---
+
+## Common workflows
+
+<CardGroup cols={2}>
+
+<Card title="Build a canvas workflow" icon="layout-grid" href="/agentic/canvas/overview">
+Drag a graph of agents, tools, and logic. Publish a semver version. Deploy to sandbox. Promote to production.
+</Card>
+
+<Card title="Run an ambient scribe" icon="microphone" href="/quickstart/ambient-rt">
+Open the clinical session WebSocket, stream encounter audio, get diarized transcript + SOAP draft + ICD-10 / CPT suggestions.
+</Card>
+
+<Card title="Deploy the Intake Agent for intake" icon="phone" href="/quickstart/intake-agent">
+Deploy the voice-first intake agent with a documented 7-state state machine and 4 function calls.
+</Card>
+
+<Card title="Generate a PA letter" icon="file-check" href="/quickstart/prior-auth">
+Drive a 17-state PA workflow with payer-specific rules across EPA_API, CLEARINGHOUSE, PORTAL, FAX, or MANUAL submission.
+</Card>
+</CardGroup>
+
+---
+
+## Bringing it all together
+
+This documentation site explains how to use the Medera API and provides example workflows.
+
+- Each component of the Medera platform has its own tab: [Multimodal Sensing](/multimodal/overview), [Text Generation](/textgen/overview), [Agentic Framework](/agentic/overview), and [Coding](/coding/overview).
+
 - The [API Reference](/api-reference/welcome) tab provides detailed specifications for every endpoint.
+
 - The [Console](https://medera.info/contact) is where you create an account and Developer API Keys.
+
 - Quickstarts at the top of the Home tab outline how to get started fast. Start with [Authentication](/authentication/overview).
+
 - The [SDKs](/sdks/overview) section covers the official [JavaScript](/sdks/js/overview) and [Python](/sdks/python/overview) SDKs, [Dictation Web Component](/sdks/dictation-component), and [Postman collection](/sdks/postman).
+
 - The [Examples Repository](https://github.com/medera-ai/examples) provides working code for authentication, streaming, multimodal capture, and proxy setups.
-- The [Release Notes](/release-notes/overview) page documents the change policy, upcoming changes, and per-product release notes. <Note> Questions about implementing Medera in your healthcare environment? [Contact us](https://medera.info/contact).
+
+- The [Release Notes](/release-notes/overview) page documents the change policy, upcoming changes, and per-product release notes.
+
+<Note>
+Questions about implementing Medera in your healthcare environment? [Contact us](https://medera.info/contact).
 </Note>

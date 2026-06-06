@@ -3,11 +3,11 @@ title: "Pagination"
 description: "Cursor-based pagination"
 ---
 
-
 All list endpoints use cursor-based pagination.
 
 ```bash
 GET /api/patients?limit=50&cursor=eyJpZCI6...
+
 ```
 
 Response:
@@ -18,4 +18,5 @@ Response:
   "next_cursor": "eyJpZCI6...",
   "has_more": true
 }
+
 ```

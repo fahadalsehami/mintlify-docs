@@ -1,10 +1,26 @@
 ---
 title: "Multimodal Quickstart"
 description: "Run an end-to-end multimodal analysis"
---- ## 1. Start a therapy session ```bash
+
+---
+
+## 1. Start a therapy session
+
+```bash
 curl -X POST https://api.medera.info/api/co-therapy-sessions \ -H "Authorization: Bearer $TOKEN" \ -d '{ "patientId": "pat_abc", "providers": ["prv_xyz"], "scheduledStart": "2026-05-28T15:00:00Z", "scheduledDurationMinutes": 50, "videoPlatform": "telehealth", "recordingEnabled": true, "deploymentId": "dep_abc" }'
-``` ## 2. Analyze a recorded session ```bash
+```
+
+## 2. Analyze a recorded session
+
+```bash
 curl -X POST https://api.medera.info/api/multimodal-therapy/analyze-session \ -H "Authorization: Bearer $TOKEN" \ -F "session_id=ses_abc" \ -F "audio_file=@session.wav" \ -F "video_file=@session.mp4" \ -F "transcript=The patient reports..." \ -F "duration_seconds=2400" \ -F "patient_id=pat_abc"
-``` The response is the canonical payload — flat `ClinicalMetric` envelopes for the frontend plus the full neurobehavioral profile. ## 3. Audio-only ```bash
+```
+
+The response is the canonical payload — flat `ClinicalMetric` envelopes for the frontend plus the full neurobehavioral profile.
+
+## 3. Audio-only
+
+```bash
 curl -X POST https://api.medera.info/api/multimodal-therapy/analyze-audio-only \ -H "Authorization: Bearer $TOKEN" \ -F "session_id=ses_abc" \ -F "audio_file=@session.wav"
 ```
+

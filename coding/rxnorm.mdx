@@ -1,7 +1,14 @@
 ---
 title: "RxNorm"
 description: "Normalized medication terminology — psychotropic + general coverage."
---- RxNorm is the US National Library of Medicine's standardized medication nomenclature. Medera ships psychotropic coverage as a first-class concern for the Drug Interaction Agent and the Medication Reconciliation Agent. ## Psychotropic RxNorm coverage ### SSRIs
+---
+
+RxNorm is the US National Library of Medicine's standardized medication nomenclature. Medera ships psychotropic coverage as a first-class concern for the Drug Interaction Agent and the Medication Reconciliation Agent.
+
+## Psychotropic RxNorm coverage
+
+### SSRIs
+
 | RxCUI | Name |
 | :--- | :--- |
 | `36437` | Sertraline |
@@ -9,42 +16,88 @@ description: "Normalized medication terminology — psychotropic + general cover
 | `4493` | Fluoxetine |
 | `32937` | Paroxetine |
 | `2556` | Citalopram |
-| `42355` | Fluvoxamine | ### SNRIs
+| `42355` | Fluvoxamine |
+
+### SNRIs
+
 | RxCUI | Name |
 | :--- | :--- |
 | `39786` | Venlafaxine |
 | `72625` | Duloxetine |
-| `9750` | Desvenlafaxine | ### Atypical antidepressants
+| `9750` | Desvenlafaxine |
+
+### Atypical antidepressants
+
 | RxCUI | Name |
 | :--- | :--- |
 | `42347` | Bupropion |
 | `10737` | Trazodone |
 | `15996` | Mirtazapine |
-| `42404` | Vortioxetine | ### Mood stabilizers
+| `42404` | Vortioxetine |
+
+### Mood stabilizers
+
 | RxCUI | Name |
 | :--- | :--- |
 | `6850` | Lithium |
 | `28439` | Lamotrigine |
 | `40254` | Valproate |
-| `2002` | Carbamazepine | ### Antipsychotics (selected)
+| `2002` | Carbamazepine |
+
+### Antipsychotics (selected)
+
 | RxCUI | Name |
 | :--- | :--- |
 | `42347` | Quetiapine |
 | `321204` | Aripiprazole |
 | `38400` | Olanzapine |
-| `35636` | Risperidone | ### Anxiolytics / hypnotics
+| `35636` | Risperidone |
+
+### Anxiolytics / hypnotics
+
 | RxCUI | Name |
 | :--- | :--- |
 | `1827` | Buspirone |
 | `39993` | Zolpidem |
 | `1191` | Alprazolam |
 | `2598` | Clonazepam |
-| `7531` | Lorazepam | ### Adjuncts (pain / sleep)
+| `7531` | Lorazepam |
+
+### Adjuncts (pain / sleep)
+
 | RxCUI | Name |
 | :--- | :--- |
 | `25480` | Gabapentin |
 | `187832` | Pregabalin |
-| `4496` | Hydroxyzine | ## Uses in Medera - **Drug Interaction Agent** — DrugBank Expert queries against the active list at the point of prescribing
+| `4496` | Hydroxyzine |
+
+## Uses in Medera
+
+- **Drug Interaction Agent** — DrugBank Expert queries against the active list at the point of prescribing
+
 - **Medication Reconciliation Agent** — reconciliation across EHR, e-Rx network, and patient-reported lists
-- **Prescription FHIR resource** — RxNorm in `MedicationRequest.medicationCodeableConcept` --- ## What's next <CardGroup cols={2}> <Card title="Drug Interaction Agent" icon="flask-conical" href="/agentic/agents/drug-interaction">DDI checking.</Card> <Card title="Medication Reconciliation" icon="pill" href="/agentic/agents/medication-reconciliation">Reconciliation across sources.</Card> <Card title="Coding systems" icon="layers" href="/coding/coding-systems">Feature matrix.</Card> <Card title="e-Rx network" icon="link" href="/api-reference/integrations/surescripts">E-prescribing.</Card>
+
+- **Prescription FHIR resource** — RxNorm in `MedicationRequest.medicationCodeableConcept`
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+
+<Card title="Drug Interaction Agent" icon="flask-conical" href="/agentic/agents/drug-interaction">
+DDI checking.
+</Card>
+
+<Card title="Medication Reconciliation" icon="pill" href="/agentic/agents/medication-reconciliation">
+Reconciliation across sources.
+</Card>
+
+<Card title="Coding systems" icon="layers" href="/coding/coding-systems">
+Feature matrix.
+</Card>
+
+<Card title="e-Rx network" icon="link" href="/api-reference/integrations/surescripts">
+E-prescribing.
+</Card>
 </CardGroup>

@@ -1,6 +1,9 @@
 ---
 title: "Python SDK — Authentication"
 description: "Authentication methods"
---- ```python
+---
+
+```python
 from medera import MederaAuth auth = MederaAuth(client_id=os.environ["MEDERA_CLIENT_ID"], client_secret=os.environ["MEDERA_CLIENT_SECRET"], audience="api.medera.info",)
+
 ``` Token refresh happens automatically.

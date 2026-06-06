@@ -1,10 +1,48 @@
 ---
 title: "Medera Console"
 description: "Sign up, provision your tenant, generate credentials"
---- The [Medera Console](https://medera.info/contact) is the self-service portal for tenant management, agent canvas, deployments, integrations, and billing. ## Sign up <Steps> <Step title="Create an account"> Visit [medera.info/contact](https://medera.info/contact) to request access. Authentication uses your tenant's managed identity provider. New tenants start in the **sandbox** environment. </Step> <Step title="Provision your organization"> `Tenant provisioning` (12-step state machine) handles tenant setup — branding, EHR integration scaffolding, payer rule defaults, screener defaults, crisis escalation policy, and payment processor subscription state. </Step> <Step title="Generate Developer API Keys"> Under **Settings → Developer API Keys**, generate a key scoped to a project, environment (`sandbox` / `staging` / `production`), and scopes. The secret is shown once — copy it into your secret store. </Step> <Step title="Optionally provision a workflow from a template"> Under **Canvas → Templates**, clone the Intake Agent, Scribe, Therapy, Triage, or Care Coordinator. Customize, publish, and the canvas auto-deploys to sandbox at `https://sandbox.medera.info/{org}/{agent}-v{ver}`. </Step>
-</Steps> ## Environments | Environment | Host | PHI policy |
+---
+
+The [Medera Console](https://medera.info/contact) is the self-service portal for tenant management, agent canvas, deployments, integrations, and billing.
+
+## Sign up
+
+<Steps>
+
+<Step title="Create an account">
+Visit [medera.info/contact](https://medera.info/contact) to request access. Authentication uses your tenant's managed identity provider. New tenants start in the **sandbox** environment.
+</Step>
+
+<Step title="Provision your organization">
+`Tenant provisioning` (12-step state machine) handles tenant setup — branding, EHR integration scaffolding, payer rule defaults, screener defaults, crisis escalation policy, and payment processor subscription state.
+</Step>
+
+<Step title="Generate Developer API Keys">
+Under **Settings → Developer API Keys**, generate a key scoped to a project, environment (`sandbox` / `staging` / `production`), and scopes. The secret is shown once — copy it into your secret store.
+</Step>
+
+<Step title="Optionally provision a workflow from a template">
+Under **Canvas → Templates**, clone the Intake Agent, Scribe, Therapy, Triage, or Care Coordinator. Customize, publish, and the canvas auto-deploys to sandbox at `https://sandbox.medera.info/{org}/{agent}-v{ver}`.
+</Step>
+</Steps>
+
+## Environments
+
+| Environment | Host | PHI policy |
 | :--- | :--- | :--- |
 | **sandbox** | `sandbox.api.medera.info` | Synthetic only |
 | **staging** | `staging.api.medera.info` | Real PHI under BAA |
-| **production** | `api.medera.info` | Real PHI + full audit + Merkle integrity | ## What's next <CardGroup cols={2}> <Card title="Auth Quickstart" href="/authentication/quickstart">Get an access token.</Card> <Card title="Canvas Overview" href="/agentic/canvas/overview">Build your first workflow.</Card>
+| **production** | `api.medera.info` | Real PHI + full audit + Merkle integrity |
+
+## What's next
+
+<CardGroup cols={2}>
+
+<Card title="Auth Quickstart" href="/authentication/quickstart">
+Get an access token.
+</Card>
+
+<Card title="Canvas Overview" href="/agentic/canvas/overview">
+Build your first workflow.
+</Card>
 </CardGroup>

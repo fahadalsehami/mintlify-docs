@@ -3,9 +3,10 @@ title: "GET /api/patients/{id}"
 description: "Retrieve a patient"
 ---
 
-
 ```
+
 GET /api/patients/{patientId}
+
 ```
 
 Retrieves a patient by ID. PHI fields are returned only if the token carries `read:phi` scope and the actor has the appropriate purpose-based access.

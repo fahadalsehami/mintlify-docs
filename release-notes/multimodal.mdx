@@ -1,6 +1,17 @@
 ---
 title: "Multimodal Release Notes"
 description: "Vocal, facial, Neurobehavioral Construct engines"
---- ## Engine baseline - **Facial Physiological Engine** — `src/multimodal/engines/facial_physiological_engine.py` — HR < 5 bpm MAE, HRV (SDNN, RMSSD, LF/HF, SD1, SD2), BP, RR, stress (PNS / SNS)
+
+---
+
+## Engine baseline
+
+- **Facial Physiological Engine** — `src/multimodal/engines/facial_physiological_engine.py` — HR < 5 bpm MAE, HRV (SDNN, RMSSD, LF/HF, SD1, SD2), BP, RR, stress (PNS / SNS)
+
 - **Vocal Acoustic Engine** — `src/multimodal/engines/vocal_acoustic_engine.py` — F0 with gender-aware range, jitter (< 1.04 % normal), shimmer (< 3.81 % normal), HNR (> 20 dB normal), MFCC (13), prosody, clinical markers
-- **Neurobehavioral Construct Computer** — `src/rdoc/rdoc_construct_computer.py` — 15 named constructs across 5 domains with zero overlap ## Confidence calibration `ConfidenceLevel` enum: `VERY_HIGH` ≥ 0.95, `HIGH` ≥ 0.85, `MODERATE` ≥ 0.70, `LOW` ≥ 0.50, `VERY_LOW` < 0.50. Below MODERATE the result is delivered with `requires_human_review: True`.
+
+- **Neurobehavioral Construct Computer** — `src/rdoc/rdoc_construct_computer.py` — 15 named constructs across 5 domains with zero overlap
+
+## Confidence calibration
+
+`ConfidenceLevel` enum: `VERY_HIGH` ≥ 0.95, `HIGH` ≥ 0.85, `MODERATE` ≥ 0.70, `LOW` ≥ 0.50, `VERY_LOW` < 0.50. Below MODERATE the result is delivered with `requires_human_review: True`.

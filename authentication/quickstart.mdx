@@ -1,8 +1,59 @@
 ---
 title: "Quickstart — Authentication"
 description: "Authenticate to the Medera API in 60 seconds."
---- Three credential paths cover every integration. Pick the one that matches your application. ## Option 1 — End-user (session JWT) End-user sign-in uses your tenant's managed identity provider. After sign-in, the session JWT is automatically attached to every request the frontend makes. <CodeGroup> ```typescript React import { useAuth } from '@clerk/clerk-react'; function MyComponent { const { getToken } = useAuth; async function listPatients { const token = await getToken; const res = await fetch('https://api.medera.info/api/patients', { headers: { Authorization: `Bearer ${token}` }, }); return res.json; } } ``` ```typescript Next.js import { auth } from '@clerk/nextjs/server'; export default async function Page { const { getToken } = await auth; const token = await getToken; const res = await fetch('https://api.medera.info/api/patients', { headers: { Authorization: `Bearer ${token}` }, }); return <pre>{JSON.stringify(await res.json, null, 2)}</pre>; } ```
-</CodeGroup> ## Option 2 — Server-to-server (Developer API Key) For backend integrations and batch jobs, use a Developer API Key created in the Console under **Settings → Developer API Keys**. <CodeGroup> ```bash cURL curl https://api.medera.info/api/agent-workflows \ -H "X-API-Key: $MEDERA_API_KEY" ``` ```typescript JavaScript import { MederaClient } from '@medera/sdk'; const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY!, }); const workflows = await client.workflows.list; ``` ```python Python from medera import MederaClient import os client = MederaClient(api_key=os.environ["MEDERA_API_KEY"]) workflows = client.workflows.list ```
-</CodeGroup> ## Option 3 — Internal service-to-service The AI Services (internal service) and backend (internal service) communicate using a tenant-scoped `X-Service-Key` header. This is for internal use; **do not expose to clients**. ## SDK token refresh The SDKs automatically refresh tokens before expiration. There is no need to track expiry manually. <CodeGroup> ```typescript JavaScript // Token is refreshed automatically const session = await client.sessions.get('ses_abc'); ``` ```python Python # Token is refreshed automatically session = client.sessions.get('ses_abc') ```
-</CodeGroup> --- ## What's next <CardGroup cols={2}> <Card title="Creating Clients" icon="key" href="/authentication/creating-clients">Generate your first API key.</Card> <Card title="Security Best Practices" icon="shield-check" href="/authentication/security-best-practices">Five rules to follow.</Card>
+---
+
+Three credential paths cover every integration. Pick the one that matches your application.
+
+## Option 1 — End-user (session JWT)
+
+End-user sign-in uses your tenant's managed identity provider. After sign-in, the session JWT is automatically attached to every request the frontend makes.
+
+<CodeGroup>
+```typescript React import { useAuth } from '@clerk/clerk-react'; function MyComponent { const { getToken } = useAuth; async function listPatients { const token = await getToken; const res = await fetch('https://api.medera.info/api/patients', { headers: { Authorization: `Bearer ${token}` }, }); return res.json; } } ```
+
+```typescript Next.js import { auth } from '@clerk/nextjs/server'; export default async function Page { const { getToken } = await auth; const token = await getToken; const res = await fetch('https://api.medera.info/api/patients', { headers: { Authorization: `Bearer ${token}` }, }); return <pre>{JSON.stringify(await res.json, null, 2)}</pre>; } ```
+</CodeGroup>
+
+## Option 2 — Server-to-server (Developer API Key)
+
+For backend integrations and batch jobs, use a Developer API Key created in the Console under **Settings → Developer API Keys**.
+
+<CodeGroup>
+```bash cURL curl https://api.medera.info/api/agent-workflows \ -H "X-API-Key: $MEDERA_API_KEY" ```
+
+```typescript JavaScript import { MederaClient } from '@medera/sdk'; const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY!, }); const workflows = await client.workflows.list; ```
+
+```python Python from medera import MederaClient import os client = MederaClient(api_key=os.environ["MEDERA_API_KEY"]) workflows = client.workflows.list ```
+</CodeGroup>
+
+## Option 3 — Internal service-to-service
+
+The AI Services (internal service) and backend (internal service) communicate using a tenant-scoped `X-Service-Key` header. This is for internal use; **do not expose to clients**.
+
+## SDK token refresh
+
+The SDKs automatically refresh tokens before expiration.
+
+There is no need to track expiry manually.
+
+<CodeGroup>
+```typescript JavaScript // Token is refreshed automatically const session = await client.sessions.get('ses_abc'); ```
+
+```python Python # Token is refreshed automatically session = client.sessions.get('ses_abc') ```
+</CodeGroup>
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+
+<Card title="Creating Clients" icon="key" href="/authentication/creating-clients">
+Generate your first API key.
+</Card>
+
+<Card title="Security Best Practices" icon="shield-check" href="/authentication/security-best-practices">
+Five rules to follow.
+</Card>
 </CardGroup>

@@ -1,8 +1,8 @@
 ---
 title: "JavaScript SDK — WebSockets"
 description: "Connect to Stream and Transcribe APIs"
----
 
+---
 
 ## Streams
 
@@ -19,6 +19,7 @@ stream.on('code.suggestion', (e) => {});
 
 const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
 stream.streamAudio(mic);
+
 ```
 
 ## Transcribe (stateless dictation)
@@ -34,6 +35,7 @@ ws.on('final', (e) => {});
 ws.on('command', (e) => {});
 
 ws.streamAudio(mic);
+
 ```
 
 ## Therapy (multimodal)
@@ -44,4 +46,5 @@ const ws = await client.therapy.connect({ sessionId });
 ws.on('rdoc.activation', (e) => {});
 ws.streamAudio(audioStream);
 ws.streamVideo(videoEl, { fps: 15 });
+
 ```

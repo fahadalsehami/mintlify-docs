@@ -1,10 +1,19 @@
 ---
 title: "Errors"
 description: "Error format and common error codes"
---- Errors follow a consistent JSON shape: ```json
+---
+
+Errors follow a consistent JSON shape:
+
+```json
 { "error": { "code": "rls_denied", "message": "Access to resource is denied by tenant policy.", "request_id": "req_abc123" }
 }
-``` ## Status codes | Code | Meaning |
+
+```
+
+## Status codes
+
+| Code | Meaning |
 | :--- | :--- |
 | 400 | Invalid request — see `error.code` |
 | 401 | Unauthenticated — token / API key missing or expired |
@@ -14,7 +23,11 @@ description: "Error format and common error codes"
 | 422 | Validation failure |
 | 429 | Rate limit |
 | 500 | Internal error |
-| 503 | Service unavailable — see `/health/dependencies` | ## Common error codes | Code | When |
+| 503 | Service unavailable — see `/health/dependencies` |
+
+## Common error codes
+
+| Code | When |
 | :--- | :--- |
 | `invalid_request` | Schema validation failure |
 | `auth_expired` | Token expired |

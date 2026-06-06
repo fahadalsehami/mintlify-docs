@@ -3,7 +3,6 @@ title: "A2A Protocol"
 description: "Agent-to-agent communication"
 ---
 
-
 Agents inside the Care Orchestrator communicate via a JSON-RPC-style envelope. Inbound A2A messages are routed via `POST /api/care-orchestrator/tasks/route`.
 
 ```json
@@ -18,6 +17,7 @@ Agents inside the Care Orchestrator communicate via a JSON-RPC-style envelope. I
   },
   "auth": { "agent_token": "..." }
 }
+
 ```
 
 Every A2A call is logged and ties back to a `workflow_id` for trace continuity.

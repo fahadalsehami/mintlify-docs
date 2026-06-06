@@ -3,7 +3,6 @@ title: "Transforms"
 description: "Template-driven data shaping with Handlebars / Liquid"
 ---
 
-
 The `transform` node runs a Handlebars / Liquid-style template against the context. Outputs land in `nodes.<id>.output` or, with `output_to: state.<name>`, in workflow state.
 
 ```yaml
@@ -15,6 +14,7 @@ config:
       "high_risk": {{ gt state.phq9_score 14 }}
     }
   output_to: state.summary
+
 ```
 
 Transforms are sandboxed: no I/O, no network, no PHI exfiltration paths.

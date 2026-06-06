@@ -1,7 +1,15 @@
 ---
 title: "Context & Memory"
 description: "Per-execution context and persistent memory"
---- The Agentic Framework distinguishes per-execution **context** from persistent **memory**. ## Execution context (per-execution) Owned by for the duration of a single execution. Holds: | Field | Notes |
+---
+
+The Agentic Framework distinguishes per-execution **context** from persistent **memory**.
+
+## Execution context (per-execution)
+
+Owned by for the duration of a single execution. Holds:
+
+| Field | Notes |
 | :--- | :--- |
 | `inputValues` | Frozen — provided at execution start |
 | `stateValues` | Mutable — initialized from `state_variables` + defaults |
@@ -10,7 +18,13 @@ description: "Per-execution context and persistent memory"
 | `executionTrace[]` | Append-only audit log of node starts / completes / errors |
 | `currentNodeId` | Current node |
 | `status` | `pending` / `running` / `completed` / `failed` / `paused` |
-| `startedAt`, `completedAt` | ISO timestamps | Resolution is via `resolveVariable(expression)`: e.g. `{{nodes.intake_1.output.transcript}}`. ## Memory (persistent) Persistent agent memory is stored under the tenant scope. Memory survives across executions and contexts and is read by agents that bundle the `Memory Expert` (see [`/agentic/experts/memory`](/agentic/experts/memory)). | Scope | Lifetime |
+| `startedAt`, `completedAt` | ISO timestamps | Resolution is via `resolveVariable(expression)`: e.g. `{{nodes.intake_1.output.transcript}}`.
+
+## Memory (persistent)
+
+Persistent agent memory is stored under the tenant scope. Memory survives across executions and contexts and is read by agents that bundle the `Memory Expert` (see [`/agentic/experts/memory`](/agentic/experts/memory)).
+
+| Scope | Lifetime |
 | :--- | :--- |
 | `thread` | Until context ends |
 | `patient` | Until patient deletion |

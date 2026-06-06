@@ -1,29 +1,95 @@
 ---
 title: "Overview of Medera Multimodal Sensing"
 description: "Vocal acoustics, facial physiology, and neurobehavioral fusion for behavioral health."
---- Medera Multimodal Sensing is specifically designed for behavioral and mental health. The engines below provide real-time access to clinical signal channels. Selecting the right engine depends on your use case. <Note> Review the [Languages page](/about/languages) to see language support per surface and the [Architecture page](/multimodal/architecture) for engine deep dives.
-</Note> ## Medera Multimodal engines <CardGroup cols={3}> <Card title="Vocal Acoustic Engine" icon="waveform-lines" href="/multimodal/vocal/overview"> F0, jitter, shimmer, HNR, MFCC, prosodic features, and clinical markers from speech. </Card> <Card title="Facial Physiological Engine" icon="eye" href="/multimodal/facial/overview"> rPPG-derived HR, BP, HRV (SDNN, RMSSD, LF/HF, SD1, SD2), respiration, stress. </Card> <Card title="Neurobehavioral Construct Computer" icon="brain" href="/multimodal/rdoc/overview"> 15 named neurobehavioral constructs across 5 domains fused from facial, vocal, and assessment context. </Card>
-</CardGroup> --- ## Architecture <Frame>
-<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/multimodal.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_73816" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="360" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/multimodal.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">pipeline</text>
-</g> <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="50" y="70" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="92" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Audio</text><text x="140" y="108" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">16 kHz · mono PCM</text><rect x="50" y="140" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="162" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Video</text><text x="140" y="178" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">≥ 15 fps · vision pipeline x="50" y="210" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="232" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Assessments</text><text x="140" y="248" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">PHQ-9 · GAD-7 · C-SSRS</text><rect x="260" y="70" width="220" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="370" y="92" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">VocalAcousticEngine</text><text x="370" y="108" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">audio analysis library · speech analysis library</text><rect x="260" y="140" width="220" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="370" y="162" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">FacialPhysiologicalEngine</text><text x="370" y="178" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">OpenCV · rPPG library · SciPy</text><rect x="510" y="70" width="220" height="120" fill="#76a1fc" stroke="#4f7be0"/><text x="620" y="100" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">NeurobehavioralConstructComputer</text><text x="620" y="118" textAnchor="middle" fill="#dbe5ff" fontFamily="ui-monospace, monospace" fontSize="10">15 constructs · 5 domains</text><text x="620" y="148" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9">Negative Valence · Positive Valence</text><text x="620" y="162" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9">Cognitive · Social · Arousal</text><text x="620" y="178" textAnchor="middle" fill="#dbe5ff" fontFamily="ui-monospace, monospace" fontSize="9">ConstructActivation[ ]</text><rect x="180" y="270" width="430" height="60" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="395" y="294" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">MultimodalTherapyAnalyzer</text><text x="395" y="312" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Canonical payload · facial · vocal · rdoc · clinical_context</text><text x="395" y="325" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">+ AdvancedClinicalRAG → CitedResponse</text><path d="M 230 95 L 260 95" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 230 165 L 260 165" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 230 235 L 510 235 L 510 190" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 480 95 L 510 105" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 480 165 L 510 155" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 620 190 L 620 240 L 395 240 L 395 270" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/>
-</svg>
-</Frame> --- ## Engine functionality | | Vocal Acoustic | Facial Physiological | Neurobehavioral Construct Construct |
+---
+
+Medera Multimodal Sensing is specifically designed for behavioral and mental health. The engines below provide real-time access to clinical signal channels. Selecting the right engine depends on your use case.
+
+<Note>
+Review the [Languages page](/about/languages) to see language support per surface and the [Architecture page](/multimodal/architecture) for engine deep dives.
+</Note>
+
+## Medera Multimodal engines
+
+<CardGroup cols={3}>
+
+<Card title="Vocal Acoustic Engine" icon="waveform-lines" href="/multimodal/vocal/overview">
+F0, jitter, shimmer, HNR, MFCC, prosodic features, and clinical markers from speech.
+</Card>
+
+<Card title="Facial Physiological Engine" icon="eye" href="/multimodal/facial/overview">
+rPPG-derived HR, BP, HRV (SDNN, RMSSD, LF/HF, SD1, SD2), respiration, stress.
+</Card>
+
+<Card title="Neurobehavioral Construct Computer" icon="brain" href="/multimodal/rdoc/overview">
+15 named neurobehavioral constructs across 5 domains fused from facial, vocal, and assessment context.
+</Card>
+</CardGroup>
+
+---
+
+## Architecture
+
+<Frame>
+<svg viewBox="0 0 780 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/multimodal.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_73816" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="360" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/multimodal.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">pipeline</text> </g> <rect x="0" y="32" width="780" height="328" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="359" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="50" y="70" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="92" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Audio</text><text x="140" y="108" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">16 kHz · mono PCM</text><rect x="50" y="140" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="162" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Video</text><text x="140" y="178" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">≥ 15 fps · vision pipeline x="50" y="210" width="180" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/></text><text x="140" y="232" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Assessments</text><text x="140" y="248" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">PHQ-9 · GAD-7 · C-SSRS</text><rect x="260" y="70" width="220" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="370" y="92" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">VocalAcousticEngine</text><text x="370" y="108" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">audio analysis library · speech analysis library</text><rect x="260" y="140" width="220" height="50" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="370" y="162" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">FacialPhysiologicalEngine</text><text x="370" y="178" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">OpenCV · rPPG library · SciPy</text><rect x="510" y="70" width="220" height="120" fill="#76a1fc" stroke="#4f7be0"/><text x="620" y="100" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">NeurobehavioralConstructComputer</text><text x="620" y="118" textAnchor="middle" fill="#dbe5ff" fontFamily="ui-monospace, monospace" fontSize="10">15 constructs · 5 domains</text><text x="620" y="148" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9">Negative Valence · Positive Valence</text><text x="620" y="162" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="9">Cognitive · Social · Arousal</text><text x="620" y="178" textAnchor="middle" fill="#dbe5ff" fontFamily="ui-monospace, monospace" fontSize="9">ConstructActivation[ ]</text><rect x="180" y="270" width="430" height="60" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="395" y="294" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="13" fontWeight="600">MultimodalTherapyAnalyzer</text><text x="395" y="312" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Canonical payload · facial · vocal · rdoc · clinical_context</text><text x="395" y="325" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">+ AdvancedClinicalRAG → CitedResponse</text><path d="M 230 95 L 260 95" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 230 165 L 260 165" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 230 235 L 510 235 L 510 190" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 480 95 L 510 105" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 480 165 L 510 155" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 620 190 L 620 240 L 395 240 L 395 270" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/> </svg>
+</Frame>
+
+---
+
+## Engine functionality
+
+| | Vocal Acoustic | Facial Physiological | Neurobehavioral Construct Construct |
 | :--- | :--- | :--- | :--- |
 | **Input** | 16 kHz mono PCM | Video frames | Vocal + Facial features + Assessments |
 | **Minimum duration** | 1.0 s | 30 s (HR) / 60 s (HRV, BP) | — |
 | **Library** | audio analysis library + speech analysis library | OpenCV + rPPG library + SciPy | NumPy + Pandas |
 | **Outputs** | F0, jitter, shimmer, HNR, MFCC, clinical markers | HR, BP, HRV, RR, stress, PNS/SNS | 15 named constructs |
 | **Confidence calibration** | 0–1 per family | 0–1 + SNR > 3.0 gate | `VERY_HIGH` → `VERY_LOW` |
-| **Failure mode** | `unavailable` status | `confidence: 0.0` | `requires_human_review: true` | --- ## Endpoints | Method | Path | Use |
+| **Failure mode** | `unavailable` status | `confidence: 0.0` | `requires_human_review: true` |
+
+---
+
+## Endpoints
+
+| Method | Path | Use |
 | :--- | :--- | :--- |
 | `POST` | `/api/multimodal-therapy/analyze-session` | Full multimodal analysis + biomarker persistence |
 | `POST` | `/api/multimodal-therapy/analyze-audio-only` | Audio-only multimodal analysis |
-| `GET` | `/api/multimodal-therapy/health` | Engine availability + dependency status | ## Confidence bands | Band | Range | Behavior |
+| `GET` | `/api/multimodal-therapy/health` | Engine availability + dependency status |
+
+## Confidence bands
+
+| Band | Range | Behavior |
 | :--- | :--- | :--- |
 | `VERY_HIGH` | ≥ 0.95 | Auto-pass through to clinician |
 | `HIGH` | ≥ 0.85 | Auto-pass through |
 | `MODERATE` | ≥ 0.70 | Surfaced normally |
 | `LOW` | ≥ 0.50 | `requires_human_review: true` |
-| `VERY_LOW` | < 0.50 | `requires_human_review: true` + flagged for review queue | If signal quality fails (SNR ≤ 3.0 on facial, voiced fraction too low on vocal), the engine returns `confidence: 0.0` and the analyzer falls back to a Medera reasoning transcript-inferred analysis — never fabricated values. --- ## What's next <CardGroup cols={2}> <Card title="Architecture" icon="diagram-project" href="/multimodal/architecture"> Pipeline deep dive from raw signal to canonical clinical payload. </Card> <Card title="Quickstart" icon="zap" href="/multimodal/quickstart"> Stream your first multimodal session end-to-end. </Card> <Card title="Neurobehavioral Construct Constructs" icon="brain" href="/multimodal/rdoc/overview"> 15 named constructs across 5 domains. </Card> <Card title="Co-Therapy Agent" icon="users" href="/agentic/agents/co-therapy"> Agent-level documentation for in-session multimodal. </Card>
-</CardGroup> <Note> Contact us if you need help selecting the right engine or have questions about configuring requests. [medera.info/contact](https://medera.info/contact)
+| `VERY_LOW` | < 0.50 | `requires_human_review: true` + flagged for review queue | If signal quality fails (SNR ≤ 3.0 on facial, voiced fraction too low on vocal), the engine returns `confidence: 0.0` and the analyzer falls back to a Medera reasoning transcript-inferred analysis — never fabricated values. |
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+
+<Card title="Architecture" icon="diagram-project" href="/multimodal/architecture">
+Pipeline deep dive from raw signal to canonical clinical payload.
+</Card>
+
+<Card title="Quickstart" icon="zap" href="/multimodal/quickstart">
+Stream your first multimodal session end-to-end.
+</Card>
+
+<Card title="Neurobehavioral Construct Constructs" icon="brain" href="/multimodal/rdoc/overview">
+15 named constructs across 5 domains.
+</Card>
+
+<Card title="Co-Therapy Agent" icon="users" href="/agentic/agents/co-therapy">
+Agent-level documentation for in-session multimodal.
+</Card>
+</CardGroup>
+
+<Note>
+Contact us if you need help selecting the right engine or have questions about configuring requests. [medera.info/contact](https://medera.info/contact)
 </Note>

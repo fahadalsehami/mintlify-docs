@@ -3,24 +3,29 @@ title: "Notes lifecycle"
 description: "Transition, approve, finalize, track changes"
 ---
 
-
 AI Services:
 
 ```
+
 POST /api/therapy/notes/{note_id}/transition       # workflow state transition
 POST /api/therapy/notes/{note_id}/approve          # provider signature
 POST /api/therapy/notes/{note_id}/finalize         # finalize after approvals
 POST /api/therapy/notes/{note_id}/track-change     # track section edits
+
 ```
 
 Validate completeness:
 
 ```
+
 POST /api/therapy/validate-note
+
 ```
 
 Suggest codes:
 
 ```
+
 POST /api/therapy/suggest-codes
+
 ```

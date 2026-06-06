@@ -1,23 +1,86 @@
 ---
 title: "Neurobehavioral Construct Computer"
 description: "15 named neurobehavioral constructs across 5 domains."
---- `NeurobehavioralConstructComputer.compute_all_constructs(facial_features, vocal_features, assessments, context)` returns an `NeurobehavioralActivationProfile` containing 15 `ConstructActivation` objects — one per construct — across 5 neurobehavioral domains. ## Domain map <Frame>
-<svg viewBox="0 0 780 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/rdoc.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_85902" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="340" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/rdoc.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">domain map</text>
-</g> <rect x="0" y="32" width="780" height="308" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="339" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="290" y="125" width="200" height="60" fill="#76a1fc" stroke="#4f7be0"/><text x="390" y="148" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">NeurobehavioralConstructComputer</text><text x="390" y="166" textAnchor="middle" fill="#dbe5ff" fontFamily="ui-monospace, monospace" fontSize="10">15 constructs · 5 domains</text><rect x="40" y="50" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Negative Valence</text><text x="140" y="90" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">acute_threat_fear · potential_threat_anxiety · sustained_threat</text><rect x="540" y="50" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="640" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Positive Valence</text><text x="640" y="90" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">reward_responsiveness · reward_anticipation · reward_satiation</text><rect x="40" y="250" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="272" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Cognitive Systems</text><text x="140" y="290" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">attention · working_memory · executive_function</text><rect x="540" y="250" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="640" y="272" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Social Processes</text><text x="640" y="290" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">social_communication · affiliation_attachment</text><rect x="290" y="250" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="390" y="272" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Arousal & Regulatory</text><text x="390" y="290" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">arousal · arousal_regulation · circadian · sleep_wakefulness</text><path d="M 240 78 L 290 145" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 540 78 L 490 145" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 240 250 L 290 185" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 540 250 L 490 185" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 390 250 L 390 185" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/>
-</svg>
-</Frame> <CardGroup cols={2}> <Card title="Negative Valence" icon="cloud-rain" href="/multimodal/rdoc/negative-valence"> `acute_threat_fear` · `potential_threat_anxiety` · `sustained_threat` </Card> <Card title="Positive Valence" icon="sun" href="/multimodal/rdoc/positive-valence"> `reward_responsiveness` · `reward_anticipation` · `reward_satiation` </Card> <Card title="Cognitive Systems" icon="brain" href="/multimodal/rdoc/cognitive-systems"> `attention` · `working_memory` · `executive_function` </Card> <Card title="Social Processes" icon="users" href="/multimodal/rdoc/social-processes"> `social_communication` · `affiliation_attachment` </Card>
-</CardGroup> <Card title="Arousal & Regulatory Systems" icon="activity" href="/multimodal/rdoc/arousal-regulatory"> `arousal` · `arousal_regulation` · `circadian_rhythms` · `sleep_wakefulness`
-</Card> --- ## ConstructActivation ```python
+---
+
+`NeurobehavioralConstructComputer.compute_all_constructs(facial_features, vocal_features, assessments, context)` returns an `NeurobehavioralActivationProfile` containing 15 `ConstructActivation` objects — one per construct — across 5 neurobehavioral domains.
+
+## Domain map
+
+<Frame>
+<svg viewBox="0 0 780 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/rdoc.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <defs> <pattern id="dots_85902" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse"> <circle cx="1" cy="1" r="0.6" fill="rgba(20,19,0.18)"/> </pattern> </defs> <rect x="0" y="0" width="780" height="340" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="2" fill="#76a1fc"/> <text x="26" y="20" fill="#fafafa" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/rdoc.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">domain map</text> </g> <rect x="0" y="32" width="780" height="308" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="339" fill="none" stroke="#141413" strokeOpacity="0.18" strokeWidth="1"/> <rect x="290" y="125" width="200" height="60" fill="#76a1fc" stroke="#4f7be0"/><text x="390" y="148" textAnchor="middle" fill="#fafafa" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">NeurobehavioralConstructComputer</text><text x="390" y="166" textAnchor="middle" fill="#dbe5ff" fontFamily="ui-monospace, monospace" fontSize="10">15 constructs · 5 domains</text><rect x="40" y="50" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Negative Valence</text><text x="140" y="90" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">acute_threat_fear · potential_threat_anxiety · sustained_threat</text><rect x="540" y="50" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="640" y="72" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Positive Valence</text><text x="640" y="90" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">reward_responsiveness · reward_anticipation · reward_satiation</text><rect x="40" y="250" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="140" y="272" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Cognitive Systems</text><text x="140" y="290" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">attention · working_memory · executive_function</text><rect x="540" y="250" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="640" y="272" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Social Processes</text><text x="640" y="290" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">social_communication · affiliation_attachment</text><rect x="290" y="250" width="200" height="56" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/><text x="390" y="272" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="12" fontWeight="600">Arousal & Regulatory</text><text x="390" y="290" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="8">arousal · arousal_regulation · circadian · sleep_wakefulness</text><path d="M 240 78 L 290 145" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 540 78 L 490 145" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 240 250 L 290 185" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 540 250 L 490 185" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/><path d="M 390 250 L 390 185" stroke="#141413" strokeOpacity="0.35" strokeWidth="1" fill="none"/> </svg>
+</Frame>
+
+<CardGroup cols={2}>
+
+<Card title="Negative Valence" icon="cloud-rain" href="/multimodal/rdoc/negative-valence">
+`acute_threat_fear` · `potential_threat_anxiety` · `sustained_threat`
+</Card>
+
+<Card title="Positive Valence" icon="sun" href="/multimodal/rdoc/positive-valence">
+`reward_responsiveness` · `reward_anticipation` · `reward_satiation`
+</Card>
+
+<Card title="Cognitive Systems" icon="brain" href="/multimodal/rdoc/cognitive-systems">
+`attention` · `working_memory` · `executive_function`
+</Card>
+
+<Card title="Social Processes" icon="users" href="/multimodal/rdoc/social-processes">
+`social_communication` · `affiliation_attachment`
+</Card>
+</CardGroup>
+
+<Card title="Arousal & Regulatory Systems" icon="activity" href="/multimodal/rdoc/arousal-regulatory">
+`arousal` · `arousal_regulation` · `circadian_rhythms` · `sleep_wakefulness`
+</Card>
+
+---
+
+## ConstructActivation ```python
 @dataclass
-class ConstructActivation: name: str # e.g. "potential_threat_anxiety" score: float # 0–1 activation confidence: float # 0–1 calibrated contributors: List[Dict] # [{feature, value, contribution}] interpretation: str # clinical text domain: str # neurobehavioral domain low_threshold: float = 0.3 high_threshold: float = 0.7 def get_severity(self) -> str: # "low" | "moderate" | "high"
-``` Severity bands: | Score | Severity |
+class ConstructActivation: name: str # e.g. "potential_threat_anxiety" score: float # 0–1 activation confidence: float # 0–1 calibrated contributors: List[Dict] # [{feature, value, contribution}] interpretation: str # clinical text domain: str # neurobehavioral domain low_threshold: float = 0.3 high_threshold: float = 0.7 def get_severity(self) -> str: # "low"
+
+| "moderate" | "high" |
+
+``` Severity bands:
+
+| Score | Severity |
 | :--- | :--- |
 | `< 0.3` | low |
 | `0.3 – 0.7` | moderate |
-| `≥ 0.7` | high | ## Profile schema ```json
+| `≥ 0.7` | high |
+
+## Profile schema ```json
 { "constructs": [ { "name": "potential_threat_anxiety", "domain": "negative_valence", "score": 0.74, "confidence": 0.81, "severity": "high", "interpretation": "Elevated anxiety markers across vocal F0, jitter, and facial stress.", "contributors": [ {"feature": "f0_mean", "value": 218.0, "contribution": 0.31}, {"feature": "jitter", "value": 1.4, "contribution": 0.22}, {"feature": "vocal_anxiety_index", "value": 0.66, "contribution": 0.18}, {"feature": "stress_index", "value": 62.0, "contribution": 0.15}, {"feature": "hrv_lf_hf_ratio", "value": 2.1, "contribution": 0.14} ] } ]
 }
-``` ## Endpoint ```
+
+```
+
+## Endpoint ```
+
 POST /api/multimodal-therapy/analyze-session
-``` The neurobehavioral profile is included in the canonical payload at `payload.rdoc.constructs`. --- ## What's next <CardGroup cols={2}> <Card title="Vocal Acoustic Engine" icon="waveform-lines" href="/multimodal/vocal/overview">Vocal features that drive constructs.</Card> <Card title="Facial Physiological Engine" icon="eye" href="/multimodal/facial/overview">Facial features that drive constructs.</Card> <Card title="Architecture" icon="diagram-project" href="/multimodal/architecture">Pipeline deep dive.</Card> <Card title="Co-Therapy Agent" icon="users" href="/agentic/agents/co-therapy">Agent-level documentation.</Card>
+
+``` The neurobehavioral profile is included in the canonical payload at `payload.rdoc.constructs`.
+
+---
+
+## What's next
+
+<CardGroup cols={2}>
+
+<Card title="Vocal Acoustic Engine" icon="waveform-lines" href="/multimodal/vocal/overview">
+Vocal features that drive constructs.
+</Card>
+
+<Card title="Facial Physiological Engine" icon="eye" href="/multimodal/facial/overview">
+Facial features that drive constructs.
+</Card>
+
+<Card title="Architecture" icon="diagram-project" href="/multimodal/architecture">
+Pipeline deep dive.
+</Card>
+
+<Card title="Co-Therapy Agent" icon="users" href="/agentic/agents/co-therapy">
+Agent-level documentation.
+</Card>
 </CardGroup>

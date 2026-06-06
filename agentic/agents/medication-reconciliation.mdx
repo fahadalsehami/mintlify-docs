@@ -1,24 +1,76 @@
 ---
 title: "Medication Reconciliation Agent"
 description: "Reconcile active, prior, and discharge medication lists."
---- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="6" width="10" height="1" fill="#141413"/><rect x="3" y="9" width="10" height="1" fill="#141413"/><rect x="2" y="7" width="1" height="2" fill="#141413"/><rect x="13" y="7" width="1" height="2" fill="#141413"/><rect x="3" y="7" width="4" height="2" fill="#76a1fc"/><rect x="4" y="6" width="3" height="1" fill="#141413"/><rect x="4" y="9" width="3" height="1" fill="#141413"/><rect x="7" y="6" width="1" height="4" fill="#141413"/></svg></div> <Info> **Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Med list sources · Prescribing history · Discharge orders · Patient-reported
-</Info> Maintain a clean, auditable medication list across every transition. ## Configuration | Field | Description |
+---
+
+<div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="3" y="6" width="10" height="1" fill="#141413"/><rect x="3" y="9" width="10" height="1" fill="#141413"/><rect x="2" y="7" width="1" height="2" fill="#141413"/><rect x="13" y="7" width="1" height="2" fill="#141413"/><rect x="3" y="7" width="4" height="2" fill="#76a1fc"/><rect x="4" y="6" width="3" height="1" fill="#141413"/><rect x="4" y="9" width="3" height="1" fill="#141413"/><rect x="7" y="6" width="1" height="4" fill="#141413"/></svg></div>
+
+<Info>
+**Category:** Evidence & Safety &nbsp;·&nbsp; **Signals:** Med list sources · Prescribing history · Discharge orders · Patient-reported
+</Info>
+
+Maintain a clean, auditable medication list across every transition.
+
+## Configuration
+
+| Field | Description |
 | :--- | :--- |
 | `sources` | Connected med list sources (EHR, e-Rx network, pharmacy) |
 | `cadence` | Practice reconciliation cadence |
 | `escalation_tree` | Discrepancy escalation tree |
-| `documentation` | Documentation requirements | ## Execution 1. Pulls med lists from connected sources
+| `documentation` | Documentation requirements |
+
+## Execution
+
+1. Pulls med lists from connected sources
 2. Reconciles across sources and patient-reported list
 3. Surfaces discrepancies with rationale
 4. Documents the reconciliation and the resolution
-5. Tracks the active list as the source of truth ## Composable experts | Expert | Role |
+5. Tracks the active list as the source of truth
+
+## Composable experts
+
+| Expert | Role |
 | :--- | :--- |
 | **Med List Source Expert** | EHR, e-Rx network, pharmacy integration |
 | **Reconciliation Expert** | Discrepancy logic + resolution |
 | **Patient Report Expert** | Patient-reported list capture |
-| **Documentation Expert** | Reconciliation logging | ## Compliance guarantees <Warning>
+| **Documentation Expert** | Reconciliation logging |
+
+## Compliance guarantees
+
+<Warning>
+
 - Reconciliation runs at every transition by default
+
 - Discrepancies are surfaced with rationale
+
 - The active list is documented and auditable
-</Warning> ## Endpoints Canvas: `rails/pharmacy` + `ehr-sync` (MedicationRequest). --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning>
+
+## Endpoints
+
+Canvas: `rails/pharmacy` + `ehr-sync` (MedicationRequest).
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+
+<Card title="Agentic Overview" icon="layers" href="/agentic/overview">
+Framework + 24 agents.
+</Card>
+
+<Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">
+Typed expert registry.
+</Card>
+
+<Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">
+Compose your own workflow.
+</Card>
+
+<Card title="API Reference" icon="terminal" href="/api-reference/welcome">
+REST surface.
+</Card>
 </CardGroup>

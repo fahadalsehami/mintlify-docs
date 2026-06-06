@@ -1,10 +1,23 @@
 ---
 title: "Clinical RAG Overview"
 description: "Hybrid retrieval over clinical knowledge"
---- (`ai-services/services/rag/advanced_clinical_rag.py`) runs hybrid semantic + lexical retriever retrieval over medical ontologies, clinical guidelines, drug interactions, and payer-specific PA rules. ## Components - **Semantic:** `embedding model` embeddings + vector index
+---
+
+(`ai-services/services/rag/advanced_clinical_rag.py`) runs hybrid semantic + lexical retriever retrieval over medical ontologies, clinical guidelines, drug interactions, and payer-specific PA rules.
+
+## Components
+
+- **Semantic:** `embedding model` embeddings + vector index
+
 - **Keyword:** Custom lexical retriever index
+
 - **Query rewriting:** `ClinicalQueryRewriter` for clinical context-aware reformulation
-- **Ontology expansion:** SNOMED-CT, ICD-10, RxNorm ## Confidence bands | Band | Range |
+
+- **Ontology expansion:** SNOMED-CT, ICD-10, RxNorm
+
+## Confidence bands
+
+| Band | Range |
 | :--- | :--- |
 | `VERY_HIGH` | ≥ 0.95 |
 | `HIGH` | ≥ 0.85 |

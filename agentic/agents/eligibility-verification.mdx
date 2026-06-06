@@ -1,24 +1,76 @@
 ---
 title: "Eligibility Verification Agent"
 description: "Real-time benefits, coverage, and copay verification."
---- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="4" width="14" height="1" fill="#141413"/><rect x="1" y="4" width="1" height="8" fill="#141413"/><rect x="1" y="11" width="14" height="1" fill="#141413"/><rect x="14" y="4" width="1" height="8" fill="#141413"/><rect x="1" y="6" width="14" height="1" fill="#141413"/><rect x="3" y="9" width="4" height="1" fill="#141413"/><rect x="9" y="9" width="1" height="1" fill="#76a1fc"/><rect x="10" y="10" width="1" height="1" fill="#76a1fc"/><rect x="11" y="9" width="1" height="1" fill="#76a1fc"/><rect x="12" y="8" width="1" height="1" fill="#76a1fc"/><rect x="13" y="7" width="1" height="1" fill="#76a1fc"/></svg></div> <Info> **Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Patient demographics · Insurance card · Payer eligibility API · Service codes
-</Info> Verify benefits and surface coverage gaps before the visit. ## Configuration | Field | Description |
+---
+
+<div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="4" width="14" height="1" fill="#141413"/><rect x="1" y="4" width="1" height="8" fill="#141413"/><rect x="1" y="11" width="14" height="1" fill="#141413"/><rect x="14" y="4" width="1" height="8" fill="#141413"/><rect x="1" y="6" width="14" height="1" fill="#141413"/><rect x="3" y="9" width="4" height="1" fill="#141413"/><rect x="9" y="9" width="1" height="1" fill="#76a1fc"/><rect x="10" y="10" width="1" height="1" fill="#76a1fc"/><rect x="11" y="9" width="1" height="1" fill="#76a1fc"/><rect x="12" y="8" width="1" height="1" fill="#76a1fc"/><rect x="13" y="7" width="1" height="1" fill="#76a1fc"/></svg></div>
+
+<Info>
+**Category:** Revenue Cycle & Operations &nbsp;·&nbsp; **Signals:** Patient demographics · Insurance card · Payer eligibility API · Service codes
+</Info>
+
+Verify benefits and surface coverage gaps before the visit.
+
+## Configuration
+
+| Field | Description |
 | :--- | :--- |
 | `endpoints` | Connected payer eligibility endpoints |
 | `service_codes` | Service code set per visit type |
 | `communication` | Patient communication policy |
-| `escalation_tree` | Coverage-gap escalation tree | ## Execution 1. Pulls patient demographics and insurance from the chart
+| `escalation_tree` | Coverage-gap escalation tree |
+
+## Execution
+
+1. Pulls patient demographics and insurance from the chart
 2. Queries the payer eligibility API
 3. Identifies covered services, copays, and gaps
 4. Surfaces coverage gaps before the visit
-5. Documents the verification result in the chart ## Composable experts | Expert | Role |
+5. Documents the verification result in the chart
+
+## Composable experts
+
+| Expert | Role |
 | :--- | :--- |
 | **Eligibility API Expert** | Payer endpoint integration + retry |
 | **Coverage Gap Expert** | Service code coverage analysis |
 | **Copay Calculator Expert** | Patient cost estimation |
-| **Documentation Expert** | Eligibility result logging | ## Compliance guarantees <Warning>
+| **Documentation Expert** | Eligibility result logging |
+
+## Compliance guarantees
+
+<Warning>
+
 - Verification is real-time, not cached past policy expiration
+
 - Coverage gaps surface before the visit
+
 - Patient cost estimates are sourced from eligibility, not estimates
-</Warning> ## Endpoints Canvas: `fhir-query` (Coverage) + `ehr-sync`. --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning>
+
+## Endpoints
+
+Canvas: `fhir-query` (Coverage) + `ehr-sync`.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+
+<Card title="Agentic Overview" icon="layers" href="/agentic/overview">
+Framework + 24 agents.
+</Card>
+
+<Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">
+Typed expert registry.
+</Card>
+
+<Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">
+Compose your own workflow.
+</Card>
+
+<Card title="API Reference" icon="terminal" href="/api-reference/welcome">
+REST surface.
+</Card>
 </CardGroup>

@@ -1,13 +1,32 @@
 ---
 title: "POST /api/intake-calls"
 description: "Create an intake call"
---- ## `POST /api/intake-calls` Create an intake call record. Triggers Medera Voice assistant creation with the patient-specific runtime config and subscription enforcement. ### Request body ```json
+
+---
+
+## `POST /api/intake-calls`
+
+Create an intake call record. Triggers Medera Voice assistant creation with the patient-specific runtime config and subscription enforcement.
+
+### Request body
+
+```json
 { "call_id": "call-abc-1716938400", "patient_id": "pat_abc", "phone_number": "+15555550100", "status": "initiated", "deployment_id": "dep_abc"
 }
-``` ### Response ```json
+
+```
+
+### Response
+
+```json
 { "id": "uuid-...", "patient_id": "pat_abc", "status": "initiated", "transcript": [], "tasks": [], "action_items": [], "created_at": "..."
 }
-``` ### Other endpoints | Method | Path | Purpose |
+
+```
+
+### Other endpoints
+
+| Method | Path | Purpose |
 | :--- | :--- | :--- |
 | GET | `/api/intake-calls/active` | List active calls |
 | GET | `/api/intake-calls/completed` | Completed calls (filters) |

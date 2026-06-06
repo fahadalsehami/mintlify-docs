@@ -1,28 +1,35 @@
 ---
 title: "Agentic Framework Release Notes"
 description: "Canvas, agents, orchestrator updates"
----
 
+---
 
 ## 2026-03-02 — Canvas resolution
 
 - BUG-031 resolved: `AgentConfigPanel.jsx` split from ~151 KB monolith into 150-line orchestrator + `config/` subdirectory (15 node configs + `shared.jsx` + `index.js`)
+
 - Canvas sandbox deploy button chain fixed end-to-end (CanvasToolbar → WorkflowBuilderPage → PublishModal)
+
 - Preview access token cleanup job added (`expirePreviewTokens`, daily at 3 AM)
 
 ## 2026-02-10 — Workflow versioning
 
 - Hash-based draft auto-save dedup (migration 127)
+
 - Optimistic concurrency `lock_version` on `agent_workflows` (migration 132)
+
 - `template` status added to `agent_workflows` CHECK constraint (migration 134)
+
 - `published_workflow_id` columns added to `intake_calls` and `co_therapy_sessions` (migration 135)
 
 ## 2026-02-10 — Runtime agent configs
 
 - `runtime_agent_configs` table (migration 136) — per-org agent configuration
+
 - Config access audit table + intake call workflow columns (migration 137)
 
 ## Care orchestrator simulated-data hardening
 
 - 10 simulated-data flags, 9 production guards added to referral, lab, prescription agents
+
 - 11 deprecated duplicate components removed from published-agent path

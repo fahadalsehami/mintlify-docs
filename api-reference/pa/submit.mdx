@@ -1,8 +1,16 @@
 ---
 title: "POST /api/prior-auth/requests/{id}/submit"
 description: "Submit a PA"
---- ```
+---
+
+```
+
 POST /api/prior-auth/requests/{request_id}/submit
-``` Submission channel priority (per): ```
+
+``` Submission channel priority (per):
+
+```
+
 EPA_API → CLEARINGHOUSE → PORTAL → FAX → MANUAL
+
 ``` The selected channel is included in the response. Payer webhook responses arrive at `POST /api/prior-auth/webhooks/payer-response` (HMAC-verified per payer secret).

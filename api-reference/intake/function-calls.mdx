@@ -1,7 +1,9 @@
 ---
 title: "the Intake Agent function calls"
 description: "Functions The Intake Agent's LLM can invoke during a call"
---- The Intake Agent's system prompt registers **4 function calls**. The Medera Voice orchestrator invokes them and routes the function output back into the conversation. | Function | Parameters | Purpose |
+---
+
+The Intake Agent's system prompt registers **4 function calls**. The Medera Voice orchestrator invokes them and routes the function output back into the conversation. | Function | Parameters | Purpose |
 | :--- | :--- | :--- |
 | `verify_identity` | `patient_id, verification_data` | 2-of-3 ID confirmation (DOB, address, SSN last 4) |
 | `document_symptom` | `symptom_description, severity_level, onset_date` | Capture chief complaint |

@@ -1,11 +1,27 @@
 ---
 title: "Guardrails"
 description: "HIPAA + 42 CFR Part 2 enforcement in the canvas"
---- The `guardrails` node is a first-class node type backed by. It runs synchronously and routes to either a `pass` or `fail` output. ## Available rules | Rule | Check |
+---
+
+The `guardrails` node is a first-class node type backed by. It runs synchronously and routes to either a `pass` or `fail` output.
+
+## Available rules
+
+| Rule | Check |
 | :--- | :--- |
 | `hipaa_minimum_necessary` | Drop fields not required for the declared purpose |
 | `substance_use_42cfr2` | Block disclosure of SUD data without explicit consent |
 | `suicide_language` | Detect crisis language via the C-SSRS-aligned classifier |
 | `pii_scrubbing` | Strip identifiers from outbound payloads |
 | `phi_egress_block` | Block PHI in payloads to non-BAA endpoints |
-| `cdi_documentation_quality` | Block sign-off when documentation falls below the configured threshold | ## How failure routes When a rule fails, the runner returns `success(payload, "fail")`. The workflow then takes the `fail` branch. Crisis-language detection is special: the executor immediately invokes the configured Crisis Response Agent and emits `workflow:execution:paused` — agent gating cannot proceed. ## Configuration Guardrails configuration lives on the deployment (`agent_deployments.guardrails_config`) and is snapshotted at deploy time — drift between deployed and current draft is detected at the next publish.
+| `cdi_documentation_quality` | Block sign-off when documentation falls below the configured threshold |
+
+## How failure routes
+
+When a rule fails, the runner returns `success(payload, "fail")`.
+
+The workflow then takes the `fail` branch. Crisis-language detection is special: the executor immediately invokes the configured Crisis Response Agent and emits `workflow:execution:paused` — agent gating cannot proceed.
+
+## Configuration
+
+Guardrails configuration lives on the deployment (`agent_deployments.guardrails_config`) and is snapshotted at deploy time — drift between deployed and current draft is detected at the next publish.

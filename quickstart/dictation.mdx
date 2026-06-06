@@ -3,7 +3,6 @@ title: "Quickstart — Real-Time Stateless Dictation"
 description: "Build a dictation app using the /transcribe API"
 ---
 
-
 Real-time stateless dictation for clinical editors. No session required — just open the WebSocket, stream PCM audio, receive transcript text and command events.
 
 ```javascript
@@ -22,6 +21,7 @@ ws.on('command', (e) => editor.runCommand(e.command));
 
 const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
 ws.streamAudio(mic);
+
 ```
 
 See [Transcribe endpoint](/multimodal/stt/transcribe) for full schema.

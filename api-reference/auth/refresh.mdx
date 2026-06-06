@@ -1,6 +1,11 @@
 ---
 title: "Refresh a session JWT"
 description: "Refresh a session token"
---- The identity provider handles JWT refresh transparently on the client. There is no Medera-issued refresh token. If you cache JWTs server-side (proxy pattern), refresh via: ```javascript
+---
+
+The identity provider handles JWT refresh transparently on the client. There is no Medera-issued refresh token. If you cache JWTs server-side (proxy pattern), refresh via:
+
+```javascript
 const newJwt = await getToken({ template: 'medera-api', skipCache: true });
+
 ```

@@ -1,9 +1,18 @@
 ---
 title: "POST /api/clinical/chunk"
 description: "Submit audio/text chunks"
---- ```
+---
+
+```
+
 POST /api/clinical/chunk
-``` ### Body ```json
+
+```
+
+### Body
+
+```json
 { "session_id": "ses_abc", "audio_data": "<base64 PCM>", "text": "optional text chunk"
 }
+
 ``` Local Medera STT model) is the default with Medera STT as fallback.

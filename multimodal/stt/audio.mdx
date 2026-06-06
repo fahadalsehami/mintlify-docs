@@ -1,8 +1,8 @@
 ---
 title: "Audio Configuration"
 description: "File types and codecs supported by the Medera API"
----
 
+---
 
 ## Supported formats
 
@@ -20,8 +20,11 @@ description: "File types and codecs supported by the Medera API"
 ## Recommended
 
 - 16 kHz 16-bit PCM mono
+
 - Opus at 32 kbps for bandwidth-constrained edges
 
 ## Frame size
 
-For real-time, send 20 ms frames (320 samples at 16 kHz). Anything smaller wastes WS overhead; anything larger inflates latency.
+For real-time, send 20 ms frames (320 samples at 16 kHz).
+
+Anything smaller wastes WS overhead; anything larger inflates latency.

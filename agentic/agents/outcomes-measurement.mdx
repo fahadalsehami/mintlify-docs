@@ -1,24 +1,78 @@
 ---
 title: "Outcomes Measurement Agent"
 description: "Longitudinal PHQ-9, GAD-7, and outcome tracking."
---- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="1" width="1" height="13" fill="#141413"/><rect x="1" y="13" width="14" height="1" fill="#141413"/><rect x="3" y="11" width="2" height="2" fill="#76a1fc"/><rect x="6" y="9" width="2" height="4" fill="#76a1fc"/><rect x="9" y="6" width="2" height="7" fill="#76a1fc"/><rect x="12" y="3" width="2" height="10" fill="#76a1fc"/><rect x="4" y="10" width="1" height="1" fill="#141413"/><rect x="7" y="8" width="1" height="1" fill="#141413"/><rect x="10" y="5" width="1" height="1" fill="#141413"/><rect x="13" y="2" width="1" height="1" fill="#141413"/></svg></div> <Info> **Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Screener cadence · Patient consent · Longitudinal scores · Clinical thresholds
-</Info> Run measurement-based care on autopilot with the clinician in control. ## Configuration | Field | Description |
+---
+
+<div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="1" width="1" height="13" fill="#141413"/><rect x="1" y="13" width="14" height="1" fill="#141413"/><rect x="3" y="11" width="2" height="2" fill="#76a1fc"/><rect x="6" y="9" width="2" height="4" fill="#76a1fc"/><rect x="9" y="6" width="2" height="7" fill="#76a1fc"/><rect x="12" y="3" width="2" height="10" fill="#76a1fc"/><rect x="4" y="10" width="1" height="1" fill="#141413"/><rect x="7" y="8" width="1" height="1" fill="#141413"/><rect x="10" y="5" width="1" height="1" fill="#141413"/><rect x="13" y="2" width="1" height="1" fill="#141413"/></svg></div>
+
+<Info>
+**Category:** Patient-Facing &nbsp;·&nbsp; **Signals:** Screener cadence · Patient consent · Longitudinal scores · Clinical thresholds
+</Info>
+
+Run measurement-based care on autopilot with the clinician in control.
+
+## Configuration
+
+| Field | Description |
 | :--- | :--- |
 | `cadence` | Practice screener cadence + thresholds |
 | `consent` | Patient consent + reminder policy |
 | `destinations` | Reporting destinations (chart, payer, registry) |
-| `alerts` | Threshold-based clinician alerts | ## Execution 1. Reminds patients to complete screeners on cadence
+| `alerts` | Threshold-based clinician alerts |
+
+## Execution
+
+1. Reminds patients to complete screeners on cadence
 2. Administers PHQ-9, GAD-7, and outcome instruments
 3. Tracks longitudinal change and significance
 4. Surfaces threshold crossings to the clinician
-5. Reports to chart, payer, and registry destinations ## Composable experts | Expert | Role |
+5. Reports to chart, payer, and registry destinations
+
+## Composable experts
+
+| Expert | Role |
 | :--- | :--- |
 | **Validated Screener Expert** | PHQ-9, GAD-7, AUDIT-C, C-SSRS |
 | **Longitudinal Trend Expert** | Significance + change detection |
 | **Threshold Alert Expert** | Clinician-configured cut-points |
-| **Reporting Expert** | Chart, payer, registry destinations | ## Compliance guarantees <Warning>
+| **Reporting Expert** | Chart, payer, registry destinations |
+
+## Compliance guarantees
+
+<Warning>
+
 - Screener cadence is configurable per patient and per program
+
 - Longitudinal change is reported with significance
+
 - Reporting destinations are explicit and configurable
-</Warning> ## Endpoints Canvas: `rails/mbc`. AI Services: `POST /api/cocm/score` · `POST /api/cocm/treatment-to-target`. --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning>
+
+## Endpoints
+
+Canvas: `rails/mbc`.
+
+AI Services: `POST /api/cocm/score` · `POST /api/cocm/treatment-to-target`.
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+
+<Card title="Agentic Overview" icon="layers" href="/agentic/overview">
+Framework + 24 agents.
+</Card>
+
+<Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">
+Typed expert registry.
+</Card>
+
+<Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">
+Compose your own workflow.
+</Card>
+
+<Card title="API Reference" icon="terminal" href="/api-reference/welcome">
+REST surface.
+</Card>
 </CardGroup>

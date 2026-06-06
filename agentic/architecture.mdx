@@ -3,129 +3,18 @@ title: "Agentic Architecture"
 description: "How the canvas, runtime, and care orchestrator fit together."
 ---
 
-
 The Medera Agentic Framework is built around two pillars: the **visual canvas** where you author workflows, and the **care orchestrator** that runs them. Both share one event bus and one tenant audit trail.
 
 ## Stack
 
 <Frame>
-<svg viewBox="0 0 780 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/agentic-stack.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
-  <rect x="0" y="0" width="780" height="420" fill="#ffffff"/>
-  <g>
-    <rect x="0" y="0" width="780" height="32" fill="#141413"/>
-    <circle cx="14" cy="16" r="3" fill="#ff5f57"/>
-    <circle cx="26" cy="16" r="3" fill="#febc2e"/>
-    <circle cx="38" cy="16" r="3" fill="#28c840"/>
-    <text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/agentic-stack.svg</text>
-    <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">stack</text>
-  </g>
-  <rect x="0" y="32" width="780" height="388" fill="#fafaf6"/>
-  <rect x="0.5" y="0.5" width="779" height="419" fill="none" stroke="#141413" strokeOpacity="0.18"/>
-
-  <rect x="40" y="58" width="700" height="52" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/>
-  <text x="390" y="82" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="600">Canvas</text>
-  <text x="390" y="100" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Author, version, and deploy workflows visually</text>
-
-  <rect x="40" y="138" width="700" height="100" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/>
-  <text x="390" y="160" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="600">Workflow Runtime</text>
-  <text x="390" y="176" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Authentication · Tenant isolation · PHI audit · Subscription gating</text>
-
-  <rect x="60" y="190" width="200" height="40" fill="#dbe5ff" stroke="#76a1fc"/>
-  <text x="160" y="214" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Execution engine</text>
-
-  <rect x="290" y="190" width="200" height="40" fill="#dbe5ff" stroke="#76a1fc"/>
-  <text x="390" y="214" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Variable scopes</text>
-
-  <rect x="520" y="190" width="200" height="40" fill="#dbe5ff" stroke="#76a1fc"/>
-  <text x="620" y="214" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Job orchestration</text>
-
-  <rect x="40" y="266" width="700" height="130" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/>
-  <text x="390" y="288" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="600">Care Orchestrator</text>
-  <text x="390" y="304" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Workflows · Agents · Tasks · Voice · Events</text>
-
-  <rect x="60" y="320" width="200" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/>
-  <text x="160" y="344" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Agent registry</text>
-
-  <rect x="290" y="320" width="200" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/>
-  <text x="390" y="344" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">State machine</text>
-
-  <rect x="520" y="320" width="200" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/>
-  <text x="620" y="344" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Event bus</text>
-
-  <rect x="60" y="368" width="660" height="22" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/>
-  <text x="390" y="383" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Intake · Prior Authorization · Referral · Prescription · Lab events</text>
-
-  <path d="M 390 110 L 390 138" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none"/>
-  <path d="M 390 238 L 390 266" stroke="#76a1fc" strokeWidth="1" strokeDasharray="3 3" fill="none"/>
-</svg>
+<svg viewBox="0 0 780 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/agentic-stack.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <rect x="0" y="0" width="780" height="420" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="3" fill="#ff5f57"/> <circle cx="26" cy="16" r="3" fill="#febc2e"/> <circle cx="38" cy="16" r="3" fill="#28c840"/> <text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/agentic-stack.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">stack</text> </g> <rect x="0" y="32" width="780" height="388" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="419" fill="none" stroke="#141413" strokeOpacity="0.18"/> <rect x="40" y="58" width="700" height="52" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="390" y="82" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="600">Canvas</text> <text x="390" y="100" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Author, version, and deploy workflows visually</text> <rect x="40" y="138" width="700" height="100" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="390" y="160" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="600">Workflow Runtime</text> <text x="390" y="176" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Authentication · Tenant isolation · PHI audit · Subscription gating</text> <rect x="60" y="190" width="200" height="40" fill="#dbe5ff" stroke="#76a1fc"/> <text x="160" y="214" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Execution engine</text> <rect x="290" y="190" width="200" height="40" fill="#dbe5ff" stroke="#76a1fc"/> <text x="390" y="214" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Variable scopes</text> <rect x="520" y="190" width="200" height="40" fill="#dbe5ff" stroke="#76a1fc"/> <text x="620" y="214" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Job orchestration</text> <rect x="40" y="266" width="700" height="130" fill="#ffffff" stroke="#141413" strokeOpacity="0.18"/> <text x="390" y="288" textAnchor="middle" fill="#141413" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="600">Care Orchestrator</text> <text x="390" y="304" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Workflows · Agents · Tasks · Voice · Events</text> <rect x="60" y="320" width="200" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/> <text x="160" y="344" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Agent registry</text> <rect x="290" y="320" width="200" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/> <text x="390" y="344" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">State machine</text> <rect x="520" y="320" width="200" height="40" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/> <text x="620" y="344" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, monospace" fontSize="11" fontWeight="600">Event bus</text> <rect x="60" y="368" width="660" height="22" fill="#fafaf6" stroke="#141413" strokeOpacity="0.18"/> <text x="390" y="383" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="10">Intake · Prior Authorization · Referral · Prescription · Lab events</text> <path d="M 390 110 L 390 138" stroke="#141413" strokeOpacity="0.4" strokeWidth="1" fill="none"/> <path d="M 390 238 L 390 266" stroke="#76a1fc" strokeWidth="1" strokeDasharray="3 3" fill="none"/> </svg>
 </Frame>
 
 ## Workflow execution
 
 <Frame>
-<svg viewBox="0 0 780 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/exec-sequence.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
-  <rect x="0" y="0" width="780" height="440" fill="#ffffff"/>
-  <g>
-    <rect x="0" y="0" width="780" height="32" fill="#141413"/>
-    <circle cx="14" cy="16" r="3" fill="#ff5f57"/>
-    <circle cx="26" cy="16" r="3" fill="#febc2e"/>
-    <circle cx="38" cy="16" r="3" fill="#28c840"/>
-    <text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/exec-sequence.svg</text>
-    <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">sequence</text>
-  </g>
-  <rect x="0" y="32" width="780" height="408" fill="#fafaf6"/>
-  <rect x="0.5" y="0.5" width="779" height="439" fill="none" stroke="#141413" strokeOpacity="0.18"/>
-
-  <rect x="40" y="60" width="120" height="30" fill="#141413"/>
-  <text x="100" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">Client</text>
-  <line x1="100" y1="92" x2="100" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/>
-
-  <rect x="200" y="60" width="120" height="30" fill="#141413"/>
-  <text x="260" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">API</text>
-  <line x1="260" y1="92" x2="260" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/>
-
-  <rect x="360" y="60" width="120" height="30" fill="#141413"/>
-  <text x="420" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">Runtime</text>
-  <line x1="420" y1="92" x2="420" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/>
-
-  <rect x="520" y="60" width="120" height="30" fill="#141413"/>
-  <text x="580" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">Orchestrator</text>
-  <line x1="580" y1="92" x2="580" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/>
-
-  <rect x="660" y="60" width="80" height="30" fill="#141413"/>
-  <text x="700" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">Live</text>
-  <line x1="700" y1="92" x2="700" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/>
-
-  <defs>
-    <marker id="arr_es" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto">
-      <path d="M0,0 L6,3 L0,6 Z" fill="#141413" fillOpacity="0.55"/>
-    </marker>
-  </defs>
-
-  <path d="M 110 130 L 250 130" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/>
-  <text x="180" y="125" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Execute workflow</text>
-
-  <path d="M 270 170 L 410 170" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/>
-  <text x="340" y="165" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Dispatch to runtime</text>
-
-  <path d="M 270 200 L 110 200" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/>
-  <text x="190" y="195" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Acknowledgment</text>
-
-  <path d="M 430 240 L 570 240" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/>
-  <text x="500" y="235" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Route to agents</text>
-
-  <path d="M 590 280 L 690 280" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/>
-  <text x="640" y="275" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Progress events</text>
-
-  <path d="M 590 310 L 690 310" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/>
-  <text x="640" y="305" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Node completed</text>
-
-  <path d="M 570 350 L 270 350" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/>
-  <text x="420" y="345" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Result</text>
-
-  <path d="M 590 385 L 690 385" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/>
-  <text x="640" y="380" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Execution complete</text>
-</svg>
+<svg viewBox="0 0 780 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/exec-sequence.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}> <rect x="0" y="0" width="780" height="440" fill="#ffffff"/> <g> <rect x="0" y="0" width="780" height="32" fill="#141413"/> <circle cx="14" cy="16" r="3" fill="#ff5f57"/> <circle cx="26" cy="16" r="3" fill="#febc2e"/> <circle cx="38" cy="16" r="3" fill="#28c840"/> <text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/exec-sequence.svg</text> <text x="766" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">sequence</text> </g> <rect x="0" y="32" width="780" height="408" fill="#fafaf6"/> <rect x="0.5" y="0.5" width="779" height="439" fill="none" stroke="#141413" strokeOpacity="0.18"/> <rect x="40" y="60" width="120" height="30" fill="#141413"/> <text x="100" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">Client</text> <line x1="100" y1="92" x2="100" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/> <rect x="200" y="60" width="120" height="30" fill="#141413"/> <text x="260" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">API</text> <line x1="260" y1="92" x2="260" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/> <rect x="360" y="60" width="120" height="30" fill="#141413"/> <text x="420" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">Runtime</text> <line x1="420" y1="92" x2="420" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/> <rect x="520" y="60" width="120" height="30" fill="#141413"/> <text x="580" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">Orchestrator</text> <line x1="580" y1="92" x2="580" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/> <rect x="660" y="60" width="80" height="30" fill="#141413"/> <text x="700" y="80" textAnchor="middle" fill="#fafafa" fontFamily="ui-monospace, monospace" fontSize="10" fontWeight="600">Live</text> <line x1="700" y1="92" x2="700" y2="410" stroke="#141413" strokeOpacity="0.18" strokeDasharray="3 3"/> <defs> <marker id="arr_es" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="6" markerHeight="6" orient="auto"> <path d="M0,0 L6,3 L0,6 Z" fill="#141413" fillOpacity="0.55"/> </marker> </defs> <path d="M 110 130 L 250 130" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/> <text x="180" y="125" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Execute workflow</text> <path d="M 270 170 L 410 170" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/> <text x="340" y="165" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Dispatch to runtime</text> <path d="M 270 200 L 110 200" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/> <text x="190" y="195" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Acknowledgment</text> <path d="M 430 240 L 570 240" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/> <text x="500" y="235" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Route to agents</text> <path d="M 590 280 L 690 280" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/> <text x="640" y="275" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Progress events</text> <path d="M 590 310 L 690 310" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/> <text x="640" y="305" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Node completed</text> <path d="M 570 350 L 270 350" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/> <text x="420" y="345" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Result</text> <path d="M 590 385 L 690 385" stroke="#141413" strokeOpacity="0.55" strokeWidth="1" markerEnd="url(#arr_es)" fill="none"/> <text x="640" y="380" textAnchor="middle" fill="#5c5c5a" fontFamily="ui-monospace, monospace" fontSize="9">Execution complete</text> </svg>
 </Frame>
 
 ## Tenant isolation

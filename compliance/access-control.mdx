@@ -1,6 +1,8 @@
 ---
 title: "Access Control"
 description: "Identity, scopes, and purpose-based access"
---- Medera enforces three layers of access control: 1. **Authentication** — OAuth 2.0 client credentials or session JWT
+---
+
+Medera enforces three layers of access control: 1. **Authentication** — OAuth 2.0 client credentials or session JWT
 2. **Scope** — token-level scopes (e.g. `patients:read`)
 3. **Purpose-based access** — the `purpose` claim restricts what records the actor can access (treatment, payment, operations) Combined with tenant context and RLS, this forms a four-layer defense for every PHI access.

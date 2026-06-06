@@ -3,9 +3,10 @@ title: "POST /api/agent-workflows/{id}/publish"
 description: "Publish a workflow"
 ---
 
-
 ```
+
 POST /api/agent-workflows/{id}/publish
+
 ```
 
 Snapshots the canvas into `agent_workflow_versions`, immediately deploys to sandbox (`agent_deployments` with `environment='sandbox'`), and emits `runtime:agent-config:invalidated` to refresh the runtime config cache.
@@ -16,10 +17,13 @@ Snapshots the canvas into `agent_workflow_versions`, immediately deploys to sand
 {
   "changeDescription": "Initial release"
 }
+
 ```
 
 To deploy to production:
 
 ```
+
 POST /api/agent-workflows/{id}/deploy/{version}
+
 ```

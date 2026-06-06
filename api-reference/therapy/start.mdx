@@ -3,11 +3,12 @@ title: "POST /api/therapy-sessions"
 description: "Create a therapy session"
 ---
 
-
 Backend route:
 
 ```
+
 POST /api/therapy-sessions
+
 ```
 
 ### Request body
@@ -23,6 +24,7 @@ POST /api/therapy-sessions
   "session_goals": ["..."],
   "status": "scheduled"
 }
+
 ```
 
 For co-therapy (multi-provider) sessions, use `POST /api/co-therapy-sessions` instead.
@@ -30,5 +32,7 @@ For co-therapy (multi-provider) sessions, use `POST /api/co-therapy-sessions` in
 AI Services real-time clinical session:
 
 ```
+
 POST /api/clinical/start
+
 ```

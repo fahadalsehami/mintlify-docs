@@ -1,13 +1,21 @@
 ---
 title: "Medera Voice webhooks receiver"
 description: "Medera Voice webhook events"
---- The AI Services receive Medera Voice webhooks at: ```
+---
+
+The AI Services receive Medera Voice webhooks at:
+
+```
 POST /api/vapi/webhook # main webhook (HMAC-SHA256 verified)
 POST /api/vapi/webhook/assistant-request # dynamic assistant config
 GET /api/vapi/webhook/health # health
 GET /api/vapi/webhook/call/{call_id} # call state
 GET /api/vapi/webhook/call/{call_id}/transcript # buffered transcript
-``` ## Event types | Event | When |
+```
+
+## Event types
+
+| Event | When |
 | :--- | :--- |
 | `status-update` | Call status change |
 | `transcript` | Transcript chunk available |
@@ -16,7 +24,17 @@ GET /api/vapi/webhook/call/{call_id}/transcript # buffered transcript
 | `end-of-call-report` | Final call summary |
 | `speech-update` | Speaking / silent state |
 | `user-interrupted` | User interrupted assistant |
-| `hang` | Call hung up | ## Signature verification Webhook signature: `medera-voice-signature` header. Verified using the configured `webhook_secret` (HMAC-SHA256). Unverified webhooks are rejected. ## Outbound webhooks (to your endpoint) If your tenant has configured a webhook URL on the deployment, Medera sends signed outbound webhooks: | Event | Payload |
+| `hang` | Call hung up |
+
+## Signature verification
+
+Webhook signature: `medera-voice-signature` header. Verified using the configured `webhook_secret` (HMAC-SHA256). Unverified webhooks are rejected.
+
+## Outbound webhooks (to your endpoint)
+
+If your tenant has configured a webhook URL on the deployment, Medera sends signed outbound webhooks:
+
+| Event | Payload |
 | :--- | :--- |
 | `intake.started` | `{ call_id, deployment_id, patient_phone }` |
 | `intake.screener.completed` | `{ call_id, screener, score, severity }` |

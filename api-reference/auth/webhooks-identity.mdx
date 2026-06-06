@@ -1,6 +1,10 @@
 ---
 title: "identity webhook receiver"
 description: "Receive identity provider lifecycle events"
---- ```
+---
+
+```
+
 POST /api/identity-webhooks
+
 ``` Receives identity lifecycle webhooks: `user.created`, `user.updated`, `user.deleted`, `organization.created`, `organization.updated`, `organizationMembership.created`, `organizationMembership.deleted`. Signature: validated via [HMAC](https://svix.com) HMAC headers (`svix-id`, `svix-timestamp`, `svix-signature`). `identitySyncService.js` handles the reflection into the `users` and `organization_memberships` tables.

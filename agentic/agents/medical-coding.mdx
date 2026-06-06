@@ -1,24 +1,76 @@
 ---
 title: "Medical Coding Agent"
 description: "ICD-10, CPT, and HCPCS coding from clinical context."
---- <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="6" width="1" height="4" fill="#141413"/><rect x="2" y="5" width="1" height="1" fill="#141413"/><rect x="2" y="10" width="1" height="1" fill="#141413"/><rect x="3" y="4" width="8" height="1" fill="#141413"/><rect x="3" y="11" width="8" height="1" fill="#141413"/><rect x="11" y="5" width="1" height="1" fill="#141413"/><rect x="11" y="10" width="1" height="1" fill="#141413"/><rect x="12" y="6" width="1" height="1" fill="#141413"/><rect x="12" y="9" width="1" height="1" fill="#141413"/><rect x="13" y="7" width="1" height="2" fill="#141413"/><rect x="3" y="7" width="1" height="2" fill="#141413"/><rect x="6" y="6" width="1" height="1" fill="#76a1fc"/><rect x="5" y="7" width="1" height="1" fill="#76a1fc"/><rect x="6" y="8" width="1" height="1" fill="#76a1fc"/><rect x="5" y="9" width="1" height="1" fill="#76a1fc"/><rect x="6" y="10" width="1" height="1" fill="#76a1fc"/><rect x="9" y="6" width="1" height="1" fill="#76a1fc"/><rect x="10" y="7" width="1" height="1" fill="#76a1fc"/><rect x="9" y="8" width="1" height="1" fill="#76a1fc"/><rect x="10" y="9" width="1" height="1" fill="#76a1fc"/><rect x="9" y="10" width="1" height="1" fill="#76a1fc"/></svg></div> <Info> **Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Visit modality · Time + complexity · Documentation completeness
-</Info> Generate accurate, specific codes anchored to documented support — never auto-posted. ## Configuration | Field | Description |
+---
+
+<div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 76, height: 76, border: "1px solid rgba(20,20,19,0.08)", background: "#ffffff", marginBottom: 16 }}><svg width="42" height="42" viewBox="0 0 16 16" shapeRendering="crispEdges" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="1" y="6" width="1" height="4" fill="#141413"/><rect x="2" y="5" width="1" height="1" fill="#141413"/><rect x="2" y="10" width="1" height="1" fill="#141413"/><rect x="3" y="4" width="8" height="1" fill="#141413"/><rect x="3" y="11" width="8" height="1" fill="#141413"/><rect x="11" y="5" width="1" height="1" fill="#141413"/><rect x="11" y="10" width="1" height="1" fill="#141413"/><rect x="12" y="6" width="1" height="1" fill="#141413"/><rect x="12" y="9" width="1" height="1" fill="#141413"/><rect x="13" y="7" width="1" height="2" fill="#141413"/><rect x="3" y="7" width="1" height="2" fill="#141413"/><rect x="6" y="6" width="1" height="1" fill="#76a1fc"/><rect x="5" y="7" width="1" height="1" fill="#76a1fc"/><rect x="6" y="8" width="1" height="1" fill="#76a1fc"/><rect x="5" y="9" width="1" height="1" fill="#76a1fc"/><rect x="6" y="10" width="1" height="1" fill="#76a1fc"/><rect x="9" y="6" width="1" height="1" fill="#76a1fc"/><rect x="10" y="7" width="1" height="1" fill="#76a1fc"/><rect x="9" y="8" width="1" height="1" fill="#76a1fc"/><rect x="10" y="9" width="1" height="1" fill="#76a1fc"/><rect x="9" y="10" width="1" height="1" fill="#76a1fc"/></svg></div>
+
+<Info>
+**Category:** Documentation & Coding &nbsp;·&nbsp; **Signals:** Clinical note · Visit modality · Time + complexity · Documentation completeness
+</Info>
+
+Generate accurate, specific codes anchored to documented support — never auto-posted.
+
+## Configuration
+
+| Field | Description |
 | :--- | :--- |
 | `code_systems` | Approved code sets (`icd-10-cm`, `cpt`, `hcpcs`) |
 | `fee_schedule` | Practice fee schedule + code preferences |
 | `min_confidence` | Documentation quality threshold for sign-off |
-| `audit_retention` | Audit trail retention policy | ## Execution 1. Reads the signed (or in-progress) note for documented findings
+| `audit_retention` | Audit trail retention policy |
+
+## Execution
+
+1. Reads the signed (or in-progress) note for documented findings
 2. Maps findings to ICD-10, CPT, HCPCS candidates with confidence
 3. Flags documentation gaps that would block a code
 4. Surfaces E&M level with documented rationale and time logic
-5. Logs every code suggestion with the supporting documentation span ## Composable experts | Expert | Role |
+5. Logs every code suggestion with the supporting documentation span
+
+## Composable experts
+
+| Expert | Role |
 | :--- | :--- |
 | **ICD-10 Coding Expert** | Diagnosis specificity + documentation support |
 | **CPT / E&M Expert** | Time, complexity, MDM-based selection |
 | **Compliance Guardrail Expert** | Code-set validity + payer rule alignment |
-| **Documentation Quality Expert** | Sufficiency of support for each code | ## Compliance guarantees <Warning>
+| **Documentation Quality Expert** | Sufficiency of support for each code |
+
+## Compliance guarantees
+
+<Warning>
+
 - Every code carries a documentation anchor and a confidence band
+
 - E&M selection follows documented time and MDM logic
+
 - Suggestions never auto-post; the coder or clinician confirms
-</Warning> ## Endpoints REST: `POST /api/therapy/suggest-codes` · `POST /api/pa/coding-suggest` (real-time PA detection). --- ## Related <CardGroup cols={2}> <Card title="Agentic Overview" icon="layers" href="/agentic/overview">Framework + 24 agents.</Card> <Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">Typed expert registry.</Card> <Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">Compose your own workflow.</Card> <Card title="API Reference" icon="terminal" href="/api-reference/welcome">REST surface.</Card>
+</Warning>
+
+## Endpoints
+
+REST: `POST /api/therapy/suggest-codes` · `POST /api/pa/coding-suggest` (real-time PA detection).
+
+---
+
+## Related
+
+<CardGroup cols={2}>
+
+<Card title="Agentic Overview" icon="layers" href="/agentic/overview">
+Framework + 24 agents.
+</Card>
+
+<Card title="Expert Registry" icon="puzzle" href="/agentic/experts/overview">
+Typed expert registry.
+</Card>
+
+<Card title="Canvas" icon="layout-grid" href="/agentic/canvas/overview">
+Compose your own workflow.
+</Card>
+
+<Card title="API Reference" icon="terminal" href="/api-reference/welcome">
+REST surface.
+</Card>
 </CardGroup>

@@ -1,5 +1,35 @@
 ---
 title: "Creating Clients"
 description: "Create a Developer API Key in the Console"
---- Developer API Keys are managed in the [Medera Console](https://medera.info/contact) under **Settings → Developer API Keys**. <Steps> <Step title="Open the Console"> Sign in to [medera.info/contact](https://medera.info/contact). </Step> <Step title="Pick an environment"> Sandbox keys can only touch synthetic data. Staging and production keys require an active BAA. </Step> <Step title="Pick a project"> Projects scope a key to a specific use case (intake pipeline, scribe service, PA batch, etc.). Per-project usage and quota are tracked in the `developer_usage_daily` table. </Step> <Step title="Pick scopes"> Combine the smallest scopes that cover the use case. PHI scopes require a BAA on file. </Step> <Step title="Copy the secret"> The key is shown **once**. Store it in your secret manager (AWS Secrets Manager, GCP Secret Manager, HashiCorp Vault) and reference it from environment variables in your runtime. </Step>
-</Steps> ## Key rotation Default rotation reminder: 90 days. Revoke retired keys; do not just remove them from code. Every call made with a Developer API Key is logged to `developer_api_logs` with the request ID, scopes used, and outcome — visible in the Console.
+---
+
+Developer API Keys are managed in the [Medera Console](https://medera.info/contact) under **Settings → Developer API Keys**.
+
+<Steps>
+
+<Step title="Open the Console">
+Sign in to [medera.info/contact](https://medera.info/contact).
+</Step>
+
+<Step title="Pick an environment">
+Sandbox keys can only touch synthetic data. Staging and production keys require an active BAA.
+</Step>
+
+<Step title="Pick a project">
+Projects scope a key to a specific use case (intake pipeline, scribe service, PA batch, etc.). Per-project usage and quota are tracked in the `developer_usage_daily` table.
+</Step>
+
+<Step title="Pick scopes">
+Combine the smallest scopes that cover the use case. PHI scopes require a BAA on file.
+</Step>
+
+<Step title="Copy the secret">
+The key is shown **once**. Store it in your secret manager (AWS Secrets Manager, GCP Secret Manager, HashiCorp Vault) and reference it from environment variables in your runtime.
+</Step>
+</Steps>
+
+## Key rotation
+
+Default rotation reminder: 90 days.
+
+Revoke retired keys; do not just remove them from code. Every call made with a Developer API Key is logged to `developer_api_logs` with the request ID, scopes used, and outcome — visible in the Console.

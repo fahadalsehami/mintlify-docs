@@ -1,7 +1,13 @@
 ---
 title: "Row-Level Security"
 description: "Tenant isolation at the database layer"
---- Tenant isolation is enforced by managed Postgres Row-Level Security. The `setTenantContext` middleware runs `SET LOCAL app.current_organization_id = '<org_id>'` on every request; RLS policies on every tenant-scoped table reject rows where the org ID does not match. ## Coverage migrations | Migration | Tables |
+---
+
+Tenant isolation is enforced by managed Postgres Row-Level Security. The `setTenantContext` middleware runs `SET LOCAL app.current_organization_id = '<org_id>'` on every request; RLS policies on every tenant-scoped table reject rows where the org ID does not match.
+
+## Coverage migrations
+
+| Migration | Tables |
 | :--- | :--- |
 | 044 | Multi-tenant enhancements |
 | 080 | Event store |
@@ -9,4 +15,14 @@ description: "Tenant isolation at the database layer"
 | 124 | Missing RLS policies (13 tables) |
 | 125 | Complete RLS coverage (42 tables) + `developer_api_keys` |
 | 154 | Standardized RLS on 12 tables (–) — 4-policy `has_tenant_access` |
-| 158 | FORCE ROW LEVEL SECURITY completeness sweep | ## Standard policy model Every tenant-scoped table has 4 policies (`tenant_select`, `tenant_insert`, `tenant_update`, `tenant_delete`) all using the helper `has_tenant_access(organization_id)`. ## Background worker safety The workflow engine acquires a connection via `executeInOrgScope`, which opens a transaction and runs `SET LOCAL app.current_organization_id = '<org_id>'` before any reads or writes. Queries inherit the tenant scope automatically.
+| 158 | FORCE ROW LEVEL SECURITY completeness sweep |
+
+## Standard policy model
+
+Every tenant-scoped table has 4 policies (`tenant_select`, `tenant_insert`, `tenant_update`, `tenant_delete`) all using the helper `has_tenant_access(organization_id)`.
+
+## Background worker safety
+
+The workflow engine acquires a connection via `executeInOrgScope`, which opens a transaction and runs `SET LOCAL app.current_organization_id = '<org_id>'` before any reads or writes.
+
+Queries inherit the tenant scope automatically.

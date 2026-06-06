@@ -1,7 +1,13 @@
 ---
 title: "Overview of Medera Text Generation"
 description: "SOAP notes, documents, and clinical reasoning."
---- Medera Text Generation produces reliable, citation-anchored documentation in your practice templates — SOAP notes, referral letters, discharge summaries, prior authorization letters, and the full validated note lifecycle. ## Endpoints | Capability | Endpoint | Surface |
+---
+
+Medera Text Generation produces reliable, citation-anchored documentation in your practice templates — SOAP notes, referral letters, discharge summaries, prior authorization letters, and the full validated note lifecycle.
+
+## Endpoints
+
+| Capability | Endpoint | Surface |
 | :--- | :--- | :--- |
 | Post-visit analysis | `POST /api/therapy/analyze-session` | AI Services |
 | SOAP note (standard) | `POST /api/therapy/generate-soap-note` | AI Services |
@@ -9,11 +15,35 @@ description: "SOAP notes, documents, and clinical reasoning."
 | Post-visit insights | `POST /api/therapy/post-visit-insights` | AI Services |
 | Note validation | `POST /api/therapy/validate-note` | AI Services |
 | Code suggestions | `POST /api/therapy/suggest-codes` | AI Services |
-| Note lifecycle | `POST /api/therapy/notes/{id}/{transition|approve|finalize|track-change}` | AI Services |
+| Note lifecycle | `POST /api/therapy/notes/{id}/{transition\|approve\|finalize\|track-change}` | AI Services |
 | Templates | `GET /api/therapy/templates` | AI Services |
-| Note persistence | `/api/clinical-notes` · `/api/note-templates` | Backend | ## Model selection | Use | Model | Temperature | Response format |
+| Note persistence | `/api/clinical-notes` · `/api/note-templates` | Backend |
+
+## Model selection
+
+| Use | Model | Temperature | Response format |
 | :--- | :--- | :--- | :--- |
 | SOAP, post-visit analysis | `gpt-4o` | 0.3 | JSON object |
 | Real-time NLP / classify | `gpt-4o-mini` | 0.3 | text / JSON |
-| Voice agent LLM | `Medera reasoning` | 0.3 | text (max 500 tokens) | ## What's next <CardGroup cols={2}> <Card title="Standard documents" icon="file-text" href="/textgen/documents-standard">Generate via template.</Card> <Card title="Specialty documents" icon="file-pen" href="/textgen/documents-advanced">Enhanced + billing codes.</Card> <Card title="Facts & Reasoning" icon="search" href="/textgen/factsr">Structured facts extraction.</Card> <Card title="Clinical RAG" icon="library" href="/textgen/rag-overview">Hybrid evidence retrieval.</Card>
+| Voice agent LLM | `Medera reasoning` | 0.3 | text (max 500 tokens) |
+
+## What's next
+
+<CardGroup cols={2}>
+
+<Card title="Standard documents" icon="file-text" href="/textgen/documents-standard">
+Generate via template.
+</Card>
+
+<Card title="Specialty documents" icon="file-pen" href="/textgen/documents-advanced">
+Enhanced + billing codes.
+</Card>
+
+<Card title="Facts & Reasoning" icon="search" href="/textgen/factsr">
+Structured facts extraction.
+</Card>
+
+<Card title="Clinical RAG" icon="library" href="/textgen/rag-overview">
+Hybrid evidence retrieval.
+</Card>
 </CardGroup>

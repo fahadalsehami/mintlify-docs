@@ -1,7 +1,11 @@
 ---
 title: "Webhook Signatures"
 description: "Verifying webhook signatures"
---- ```javascript
+---
+
+```javascript
 import crypto from 'crypto'; function verify(req, secret) { const sigHeader = req.headers['medera-signature']; if (!sigHeader || !sigHeader.startsWith('sha256=')) return false; const sig = sigHeader.slice('sha256='.length); const body = req.rawBody; const expected = crypto.createHmac('sha256', secret).update(body).digest('hex'); try { return crypto.timingSafeEqual(Buffer.from(sig, 'hex'), Buffer.from(expected, 'hex'),); } catch (e) { return false; }
+
 }
+
 ``` For Medera Voice inbound, use the matching `vapi_integration.verify_webhook_signature` in the AI Services.

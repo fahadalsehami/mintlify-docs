@@ -3,11 +3,12 @@ title: "POST /api/prior-auth/requests"
 description: "Create a PA request"
 ---
 
-
 Backend:
 
 ```
+
 POST /api/prior-auth/requests
+
 ```
 
 (AI Services equivalent: `POST /api/pa/requests`)
@@ -22,10 +23,12 @@ POST /api/prior-auth/requests
   "clinical_facts": { "from_chart": true },
   "evidence_base": ["pubmed", "internal_protocols"]
 }
+
 ```
 
 ### Response
 
 ```json
 { "pa_id": "pa_abc", "state": "PA_INITIATED" }
+
 ```
