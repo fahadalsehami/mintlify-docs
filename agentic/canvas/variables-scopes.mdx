@@ -11,7 +11,7 @@ Canvas nodes resolve variables using `{{scope.path}}` template syntax. The runti
 
 Input parameters passed to the workflow at execution start. Frozen — cannot be mutated.
 
-```
+```text
 {{input.patient_id}}
 {{input.deployment_id}}
 {{input.clinical_context.chief_complaint}}
@@ -21,7 +21,7 @@ Input parameters passed to the workflow at execution start. Frozen — cannot be
 
 State variables declared on the workflow's `start` node. Initialized from `state_variables.defaultValue`. Mutable during execution.
 
-```
+```text
 {{state.phq9_score}}
 {{state.attempts}}
 ```
@@ -36,7 +36,7 @@ transform: output_to: state.phq9_score template: "{{nodes.intake_1.output.screen
 
 Output of a previously-executed node. Available as soon as the source node completes.
 
-```
+```text
 {{nodes.intake_1.output.transcript}}
 {{nodes.intake_1.output.tasks[0].title}}
 ```

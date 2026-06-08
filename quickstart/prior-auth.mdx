@@ -17,7 +17,7 @@ The PA workflow runs through 17 documented states with payer-specific rules and 
 
 <CodeGroup>
 
-```
+```text
 bash cURL curl -X POST https://api.medera.info/api/prior-auth/evaluate \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "patient_data": { "diagnosis_codes": ["F32.1"], "phq9_score": 14 }, "procedure_codes": ["90834"], "payer_id": "AETNA" }'
 ```
 
@@ -27,7 +27,7 @@ bash cURL curl -X POST https://api.medera.info/api/prior-auth/evaluate \ -H "X-A
 
 |
 
-```
+```text
 python Python result = client.pa.evaluate(patient_data={"diagnosis_codes": ["F32.1"], "phq9_score": 14}, procedure_codes=["90834"], payer_id="AETNA",)
 ```
 
@@ -39,15 +39,15 @@ python Python result = client.pa.evaluate(patient_data={"diagnosis_codes": ["F32
 
 <CodeGroup>
 
-```
+```text
 bash cURL curl -X POST https://api.medera.info/api/prior-auth/requests \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "patient_id": "pat_abc", "diagnosis_codes": ["F32.1"], "procedure_codes": ["90834"], "clinical_justification": "...", "payer_id": "AETNA" }'
 ```
 
-```
+```text
 typescript JavaScript const req = await client.pa.createRequest({ patient_id: 'pat_abc', diagnosis_codes: ['F32.1'], procedure_codes: ['90834'], clinical_justification: '...', payer_id: 'AETNA', });
 ```
 
-```
+```text
 python Python req = client.pa.create_request(patient_id="pat_abc", diagnosis_codes=["F32.1"], procedure_codes=["90834"], clinical_justification="...", payer_id="AETNA",)
 ```
 
@@ -60,11 +60,11 @@ Initial state: `PA_INITIATED`.
 
 <CodeGroup>
 
-```
+```text
 bash cURL curl -X POST https://api.medera.info/api/prior-auth/documents/generate \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "request_id": "pa_abc", "document_types": ["MEDICAL_NECESSITY", "CLINICAL_SUMMARY"] }'
 ```
 
-```
+```text
 typescript JavaScript await client.pa.generateDocuments({ request_id: req.pa_id, document_types: ['MEDICAL_NECESSITY', 'CLINICAL_SUMMARY'], });
 ```
 
@@ -75,11 +75,11 @@ typescript JavaScript await client.pa.generateDocuments({ request_id: req.pa_id,
 <Step title="Submit">
 Submission selects the highest-priority available channel:
 
-```
+```text
 EPA_API → CLEARINGHOUSE → PORTAL → FAX → MANUAL
 ```
 
-```
+```text
 bash curl -X POST https://api.medera.info/api/prior-auth/requests/{id}/submit \ -H "X-API-Key: $MEDERA_API_KEY"
 ```
 
@@ -88,7 +88,7 @@ bash curl -X POST https://api.medera.info/api/prior-auth/requests/{id}/submit \ 
 <Step title="Track and appeal">
 Poll status; if denied, generate the appeal with new evidence.
 
-```
+```text
 bash curl https://api.medera.info/api/prior-auth/requests/{id} \ -H "X-API-Key: $MEDERA_API_KEY" # If denied: curl -X POST https://api.medera.info/api/prior-auth/requests/{id}/appeal \ -H "X-API-Key: $MEDERA_API_KEY"
 ```
 
@@ -109,7 +109,7 @@ bash curl https://api.medera.info/api/prior-auth/requests/{id} \ -H "X-API-Key: 
 
 <CardGroup cols={2}>
 
-<Card title="Prior Authorization Agent" icon="file-check" href="/agentic/agents/prior-authorization">
+<Card title="Prior Authorization Agent" icon="file-check-2" href="/agentic/agents/prior-authorization">
 Agent-level documentation.
 </Card>
 

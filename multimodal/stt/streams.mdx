@@ -7,7 +7,7 @@ description: "WSS · real-time stateful live therapy capture with 2-speaker diar
 
 ## Connection
 
-```
+```text
 wss://api.medera.info/sessions?session_id=<id>&token=<jwt>
 ```
 
@@ -34,7 +34,7 @@ wss://api.medera.info/sessions?session_id=<id>&token=<jwt>
 
 ## Lifecycle
 
-```
+```text
 client opens WS → server: { connected, session_id } → client: { configure,... } → server: { configured } → client: <PCM binary frames>... → server: { transcript.partial }, { transcript.final } → server: { instrument.item_scored } (continuous) → server: { instrument.completed } → server: { crisis.detected } ← never gated → server: { note.section.update } → server: { code.suggestion } → client: { close } → server: { finalized, session_id }
 ```
 
@@ -65,7 +65,7 @@ client opens WS → server: { connected, session_id } → client: { configure,..
 
 <CardGroup cols={2}>
 
-<Card title="/transcribe" icon="microphone" href="/multimodal/stt/transcribe">
+<Card title="/transcribe" icon="mic" href="/multimodal/stt/transcribe">
 Stateless between-visit dictation.
 </Card>
 

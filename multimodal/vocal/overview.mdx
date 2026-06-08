@@ -8,7 +8,7 @@ extracts ~70 acoustic features using audio analysis library and speech analysis 
 ## Constructor ```python
 engine = VocalAcousticEngine(sample_rate=16000, frame_length_ms=25, hop_length_ms=10, gender=None, # 'male' (85–180 Hz), 'female' (165–255 Hz), or None (auto 75–300 Hz))
 
-```
+```text
 
 ## Primary method ```python
 features: VocalFeatures = engine.extract_features(audio: np.ndarray, sr: Optional[int])

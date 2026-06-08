@@ -23,15 +23,15 @@ Use the [Agent Builder Canvas](/agentic/canvas/overview) to clone the **the Inta
 
 <CodeGroup>
 
-```
+```text
 bash cURL curl -X POST https://api.medera.info/api/onboarding/initialize-organization \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "org_name": "Acme Clinic", "org_type": "behavioral_health", "initial_agents": ["intake"], "voice_settings": { "language": "en-US", "tone": "warm" } }'
 ```
 
-```
+```text
 typescript JavaScript await client.onboarding.initializeOrganization({ org_name: 'Acme Clinic', org_type: 'behavioral_health', initial_agents: ['intake'], voice_settings: { language: 'en-US', tone: 'warm' }, });
 ```
 
-```
+```text
 python Python client.onboarding.initialize_organization(org_name="Acme Clinic", org_type="behavioral_health", initial_agents=["intake"], voice_settings={"language": "en-US", "tone": "warm"},)
 ```
 
@@ -43,15 +43,15 @@ python Python client.onboarding.initialize_organization(org_name="Acme Clinic", 
 
 <CodeGroup>
 
-```
+```text
 bash cURL curl -X POST https://api.medera.info/api/intake-calls \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "patient_id": "pat_abc", "phone_number": "+15555550100", "deployment_id": "dep_abc" }'
 ```
 
-```
+```text
 typescript JavaScript const call = await client.intake.createCall({ patient_id: 'pat_abc', phone_number: '+15555550100', deployment_id: 'dep_abc', });
 ```
 
-```
+```text
 python Python call = client.intake.create_call(patient_id="pat_abc", phone_number="+15555550100", deployment_id="dep_abc",)
 ```
 
@@ -75,7 +75,7 @@ ws.addEventListener('message', (e) => {
 <Step title="Receive outbound webhooks">
 If your tenant has a webhook URL configured, you'll receive signed events:
 
-```
+```text
 http POST <your_webhook_url> Medera-Signature: sha256=<hmac> Medera-Event: intake.summary.ready Content-Type: application/json { "event": "intake.summary.ready", "call_id": "call_abc", "summary": { "screeners": { "phq-9": { "total": 14, "severity": "moderate" } }, "icd10_candidates": ["F32.1"] } }
 ```
 

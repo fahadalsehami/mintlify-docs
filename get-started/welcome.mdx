@@ -1,127 +1,122 @@
 ---
-title: "Welcome to Medera"
-description: "Behavioral-health-native AI infrastructure for clinical product teams."
+title: "Welcome to the Medera API"
+description: "AI infrastructure for behavioral and mental health"
 ---
 
-Medera is the AI infrastructure platform for behavioral and mental health. It combines a **canvas-based agent builder**, **multimodal clinical sensing** (vocal acoustics + facial physiology + neurobehavioral constructs), purpose-built medical reasoning, and a HIPAA-grade runtime — delivered through a single REST + WebSocket API and typed JavaScript / Python SDKs.
+The Medera API brings behavioral-health-native AI — multimodal sensing, text generation, agentic workflows, and medical coding — into any application. The fastest path to integration is through our official SDKs, which handle authentication, token refresh, WebSocket connections, pagination, retries, and error handling so you can focus on building your behavioral-health application.
 
 <Tip>
-Medera is the most accurate, defensible, and clinician-ready **AI platform for behavioral and mental health teams** — without compromises on integration speed, evidence, or compliance.
+Whether you're installing an SDK by hand or prompting an AI coding assistant, you can go from zero to a working API call in a few minutes.
 </Tip>
 
-<Card title="Buyer's Guide" href="https://medera.info/whitepaper" arrow="true" cta="Read the whitepaper" icon="book-open">
-Learn what makes Medera the right choice for clinical and product teams building the next generation of behavioral health applications.
+<Columns cols={3}>
+
+<Card title="Introduction" icon="layers" href="/about/introduction">
+Overview of the Medera API and the behavioral-health-native tech stack
 </Card>
 
----
-
-## Why Medera
-
-| | |
-| :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Purpose-built for behavioral health** | Validated screeners (PHQ-9, GAD-7, AUDIT-C, C-SSRS), neurobehavioral construct mapping, and 42 CFR Part 2 controls are first-class — not bolted on. |
-| **Multimodal by default** | Voice (Medera STT), facial physiology (HR, BP, HRV, RR, stress), and linguistic content fuse into one clinical signal. |
-| **Composable clinical agents** | 24 production agents, 16 core canvas node types + 8 BH-OS rails, a typed expert registry, and an A2A protocol. |
-| **Evidence-anchored** | Every claim is anchored to a quoted span, a screener score, or a peer-reviewed citation. Confidence is calibrated, never invented. |
-| **Enterprise-grade runtime** | tenant-isolated database with row-level security, encrypted PHI columns, Merkle-tree audit, sandbox-first deployments with WORM audit, and HIPAA + 42 CFR Part 2 controls in the request path. |
-
-<Columns cols={2}>
-
-<Card title="Flexible infrastructure" icon="layers">
-<Icon icon="circle-check" /> REST + WebSocket APIs <br /> <Icon icon="circle-check" /> JavaScript + Python SDKs <br /> <Icon icon="circle-check" /> Embeddable web components
+<Card title="SDK Quickstart" icon="rocket" href="/sdks/overview">
+Get oriented with Medera SDKs, patterns, and examples
 </Card>
 
-<Card title="Built for healthcare" icon="stethoscope">
-<Icon icon="circle-check" /> Behavioral-health language proficiency <br /> <Icon icon="circle-check" /> HIPAA, 42 CFR Part 2, SOC 2 controls <br /> <Icon icon="circle-check" /> Real-time or asynchronous
+<Card title="Build with AI Coding Tools" icon="sparkles" href="/quickstart/ai-coding-tools">
+Use Claude Code, Cursor, or Codex with our SDKs to ship integrations faster
 </Card>
 </Columns>
 
----
-
 ## Core capabilities
 
-<CardGroup cols={2}>
-
-<Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview">
-Facial Physiological Engine (rPPG + HRV with SDNN, RMSSD, LF/HF, SD1, SD2), Vocal Acoustic Engine (F0, jitter, shimmer, HNR, MFCC, clinical markers), and the Neurobehavioral Construct Computer — 15 named constructs across 5 domains.
+<Card title="Multimodal Sensing" icon="audio-lines" href="/multimodal/overview" horizontal>
+with vocal acoustics, facial physiology, and the Neurobehavioral Construct Computer
 </Card>
 
-<Card title="Text Generation" icon="text-align-start" href="/textgen/overview">
-Reliable behavioral-health-focused LLM output for SOAP notes, referral letters, discharge summaries, PA letters, and validated note lifecycle (transition, approve, finalize, track-change).
+<Card title="Text Generation" icon="text-align-start" href="/textgen/overview" horizontal>
+for reliable behavioral-health LLM output — SOAP notes, intake summaries, PA letters
 </Card>
 
-<Card title="Agentic Framework" icon="layers" href="/agentic/overview">
-24 production agents, 16 core canvas node types + 8 BH-OS rails, semver versioning, sandbox-first deployment to `sandbox.medera.info`, and a typed expert registry.
+<Card title="Agentic Framework" icon="layers" href="/agentic/overview" horizontal>
+to build canvas-based agents and 17-state workflow automation
 </Card>
 
-<Card title="Care Orchestrator" icon="grid-2x2" href="/agentic/orchestrator">
-4 voice agents (Intake, Care Coordinator, Referral Specialist, PA Specialist) + 6 workflow agents (PRIOR_AUTH, REFERRAL, PRESCRIPTION, LAB, CARE_PLAN, ESCALATION), 30+ state workflow machine, event bus.
+<Card title="Medical Coding" icon="asterisk" href="/coding/overview" horizontal>
+for ICD-10, CPT, HCPCS, SNOMED CT, LOINC, RxNorm with clinical-grade precision
 </Card>
-</CardGroup>
 
----
+## Official SDKs
 
-## The Medera Platform
-
-<Frame>
-<svg viewBox="0 0 720 402" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="medera/platform.svg" style={{ width: '100%', height: 'auto', display: 'block', maxWidth: '780px', margin: '24px auto' }}>
-<defs>
-<pattern id="mdr-dots" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-<circle cx="1" cy="1" r="1" fill="rgba(0,0,0,0.08)"/>
-</pattern>
-</defs>
-<rect x="0" y="0" width="720" height="402" fill="#ffffff"/>
-<rect x="0" y="0" width="720" height="32" fill="#141413"/><circle cx="14" cy="16" r="3" fill="#ff5f57"/><circle cx="26" cy="16" r="3" fill="#febc2e"/><circle cx="38" cy="16" r="3" fill="#28c840"/><text x="54" y="20" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="11" fontWeight="500">medera/platform.svg</text><text x="706" y="20" textAnchor="end" fill="#9a9893" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10">behavioral health platform</text>
-<rect x="0" y="32" width="720" height="370" fill="#fafaf6"/><rect x="0" y="32" width="720" height="370" fill="url(#mdr-dots)"/><rect x="0.5" y="0.5" width="719" height="401" fill="none" stroke="#141413" strokeOpacity="0.18"/>
-<rect x="32" y="70" width="656" height="56" fill="#ffffff" stroke="rgba(0,0,0,0.08)"/><g transform="translate(48.00,87.00) scale(0.0550)"><path d="M125.778 244.185V386.747L7.5 315.726V173.162L125.778 244.185ZM259.057 315.725L140.778 386.747V244.185L259.057 173.162V315.725ZM251.986 159.91L133.277 231.193L14.5693 159.91L133.278 88.6282L251.986 159.91Z" fill="#141413" stroke="#ffffff" strokeWidth="15"/><path d="M259.222 164.304V306.866L140.944 235.845V93.2812L259.222 164.304ZM392.5 235.844L274.222 306.866V164.304L392.5 93.2812V235.844ZM385.43 80.0293L266.721 151.312L148.013 80.0293L266.722 8.74707L385.43 80.0293Z" fill="#141413" stroke="#ffffff" strokeWidth="15"/></g><text x="80" y="94.0" fill="#5c5c5a" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="2">ENGINE</text><text x="80" y="112.0" fill="#141413" fontFamily="Inter, sans-serif" fontSize="14" fontWeight="600">Medera Platform</text><rect x="628" y="87.0" width="50" height="22" fill="#76a1fc"/><text x="653" y="102.0" textAnchor="middle" fill="#ffffff" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="1.4" fontWeight="700">LIVE</text>
-<rect x="32.0" y="138" width="209.33333333333334" height="88" fill="#ffffff" stroke="rgba(0,0,0,0.08)"/><rect x="129.47" y="156.80" width="14.40" height="2.40" fill="#141413"/><rect x="127.07" y="159.20" width="2.40" height="14.40" fill="#141413"/><rect x="143.87" y="159.20" width="2.40" height="14.40" fill="#141413"/><rect x="129.47" y="173.60" width="14.40" height="2.40" fill="#141413"/><rect x="131.87" y="161.60" width="2.40" height="9.60" fill="#76a1fc"/><rect x="136.67" y="161.60" width="2.40" height="9.60" fill="#76a1fc"/><rect x="141.47" y="161.60" width="2.40" height="9.60" fill="#76a1fc"/><rect x="124.67" y="166.40" width="2.40" height="7.20" fill="#141413"/><rect x="146.27" y="166.40" width="2.40" height="7.20" fill="#141413"/><rect x="127.07" y="176.00" width="2.40" height="2.40" fill="#141413"/><rect x="143.87" y="176.00" width="2.40" height="2.40" fill="#141413"/><rect x="129.47" y="178.40" width="14.40" height="2.40" fill="#141413"/><rect x="134.27" y="180.80" width="4.80" height="4.80" fill="#141413"/><rect x="129.47" y="185.60" width="14.40" height="2.40" fill="#141413"/><text x="136.66666666666669" y="212" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="1.6" fontWeight="700">SPEECH</text><rect x="255.33333333333334" y="138" width="209.33333333333334" height="88" fill="#ffffff" stroke="rgba(0,0,0,0.08)"/><rect x="352.80" y="159.20" width="4.80" height="2.40" fill="#141413"/><rect x="362.40" y="159.20" width="4.80" height="2.40" fill="#141413"/><rect x="348.00" y="161.60" width="4.80" height="2.40" fill="#141413"/><rect x="367.20" y="161.60" width="4.80" height="2.40" fill="#141413"/><rect x="345.60" y="164.00" width="2.40" height="12.00" fill="#141413"/><rect x="372.00" y="164.00" width="2.40" height="12.00" fill="#141413"/><rect x="357.60" y="156.80" width="4.80" height="2.40" fill="#141413"/><rect x="357.60" y="161.60" width="4.80" height="2.40" fill="#76a1fc"/><rect x="357.60" y="164.00" width="4.80" height="2.40" fill="#76a1fc"/><rect x="357.60" y="166.40" width="4.80" height="2.40" fill="#76a1fc"/><rect x="357.60" y="168.80" width="4.80" height="2.40" fill="#76a1fc"/><rect x="357.60" y="171.20" width="4.80" height="2.40" fill="#76a1fc"/><rect x="357.60" y="173.60" width="4.80" height="2.40" fill="#76a1fc"/><rect x="348.00" y="176.00" width="2.40" height="2.40" fill="#141413"/><rect x="369.60" y="176.00" width="2.40" height="2.40" fill="#141413"/><rect x="350.40" y="178.40" width="4.80" height="2.40" fill="#141413"/><rect x="364.80" y="178.40" width="4.80" height="2.40" fill="#141413"/><rect x="355.20" y="180.80" width="9.60" height="2.40" fill="#141413"/><rect x="357.60" y="183.20" width="4.80" height="2.40" fill="#141413"/><text x="360.0" y="212" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="1.6" fontWeight="700">REASONING</text><rect x="478.6666666666667" y="138" width="209.33333333333334" height="88" fill="#ffffff" stroke="rgba(0,0,0,0.08)"/><rect x="566.53" y="168.80" width="12.00" height="4.80" fill="#141413"/><rect x="578.53" y="168.80" width="2.40" height="4.80" fill="#141413"/><rect x="580.93" y="156.80" width="2.40" height="2.40" fill="#76a1fc"/><rect x="580.93" y="159.20" width="2.40" height="2.40" fill="#76a1fc"/><rect x="580.93" y="168.80" width="2.40" height="4.80" fill="#76a1fc"/><rect x="580.93" y="180.80" width="2.40" height="2.40" fill="#76a1fc"/><rect x="580.93" y="183.20" width="2.40" height="2.40" fill="#76a1fc"/><rect x="583.33" y="156.80" width="12.00" height="4.80" fill="#141413"/><rect x="583.33" y="168.80" width="12.00" height="4.80" fill="#141413"/><rect x="583.33" y="180.80" width="12.00" height="4.80" fill="#141413"/><text x="583.3333333333334" y="212" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="1.6" fontWeight="700">ORCHESTRATE</text><rect x="32.0" y="240" width="209.33333333333334" height="88" fill="#ffffff" stroke="rgba(0,0,0,0.08)"/><rect x="122.27" y="258.80" width="28.80" height="2.40" fill="#141413"/><rect x="122.27" y="258.80" width="2.40" height="28.80" fill="#141413"/><rect x="122.27" y="285.20" width="28.80" height="2.40" fill="#141413"/><rect x="148.67" y="258.80" width="2.40" height="28.80" fill="#141413"/><rect x="143.87" y="261.20" width="4.80" height="2.40" fill="#141413"/><rect x="146.27" y="263.60" width="2.40" height="2.40" fill="#141413"/><rect x="127.07" y="270.80" width="2.40" height="4.80" fill="#76a1fc"/><rect x="129.47" y="268.40" width="2.40" height="9.60" fill="#76a1fc"/><rect x="131.87" y="266.00" width="2.40" height="14.40" fill="#76a1fc"/><rect x="134.27" y="270.80" width="2.40" height="4.80" fill="#76a1fc"/><rect x="136.67" y="263.60" width="2.40" height="19.20" fill="#76a1fc"/><rect x="139.07" y="268.40" width="2.40" height="9.60" fill="#76a1fc"/><rect x="141.47" y="266.00" width="2.40" height="14.40" fill="#76a1fc"/><rect x="143.87" y="270.80" width="2.40" height="4.80" fill="#76a1fc"/><text x="136.66666666666669" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="1.6" fontWeight="700">DOCUMENTATION</text><rect x="255.33333333333334" y="240" width="209.33333333333334" height="88" fill="#ffffff" stroke="rgba(0,0,0,0.08)"/><rect x="343.20" y="256.40" width="2.40" height="31.20" fill="#141413"/><rect x="343.20" y="285.20" width="33.60" height="2.40" fill="#141413"/><rect x="348.00" y="275.60" width="4.80" height="9.60" fill="#76a1fc"/><rect x="355.20" y="268.40" width="4.80" height="16.80" fill="#76a1fc"/><rect x="362.40" y="261.20" width="4.80" height="24.00" fill="#76a1fc"/><rect x="369.60" y="270.80" width="4.80" height="14.40" fill="#76a1fc"/><text x="360.0" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="1.6" fontWeight="700">MBC</text><rect x="478.6666666666667" y="240" width="209.33333333333334" height="88" fill="#ffffff" stroke="rgba(0,0,0,0.08)"/><rect x="573.73" y="258.80" width="19.20" height="2.40" fill="#141413"/><rect x="571.33" y="261.20" width="2.40" height="16.80" fill="#141413"/><rect x="592.93" y="261.20" width="2.40" height="16.80" fill="#141413"/><rect x="573.73" y="278.00" width="2.40" height="2.40" fill="#141413"/><rect x="590.53" y="278.00" width="2.40" height="2.40" fill="#141413"/><rect x="576.13" y="280.40" width="2.40" height="2.40" fill="#141413"/><rect x="588.13" y="280.40" width="2.40" height="2.40" fill="#141413"/><rect x="578.53" y="282.80" width="9.60" height="2.40" fill="#141413"/><rect x="580.93" y="285.20" width="4.80" height="2.40" fill="#141413"/><rect x="576.13" y="270.80" width="2.40" height="2.40" fill="#76a1fc"/><rect x="578.53" y="273.20" width="2.40" height="2.40" fill="#76a1fc"/><rect x="580.93" y="270.80" width="2.40" height="2.40" fill="#76a1fc"/><rect x="583.33" y="268.40" width="2.40" height="2.40" fill="#76a1fc"/><rect x="585.73" y="266.00" width="2.40" height="2.40" fill="#76a1fc"/><rect x="588.13" y="263.60" width="2.40" height="2.40" fill="#76a1fc"/><text x="583.3333333333334" y="314" textAnchor="middle" fill="#141413" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="1.6" fontWeight="700">COMPLIANCE</text>
-<line x1="32" y1="342" x2="688" y2="342" stroke="rgba(0,0,0,0.08)"/><text x="32" y="364" fill="#5c5c5a" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" letterSpacing="1.6">EMITS</text><rect x="92" y="350" width="74" height="22" fill="#76a1fc"/><text x="129.0" y="365" textAnchor="middle" fill="#ffffff" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" fontWeight="600">FHIR R4B</text><rect x="174" y="350" width="74" height="22" fill="#76a1fc"/><text x="211.0" y="365" textAnchor="middle" fill="#ffffff" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" fontWeight="600">DSM-5-TR</text><rect x="256" y="350" width="81" height="22" fill="#76a1fc"/><text x="296.5" y="365" textAnchor="middle" fill="#ffffff" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" fontWeight="600">ICD-10-CM</text><rect x="345" y="350" width="88" height="22" fill="#76a1fc"/><text x="389.0" y="365" textAnchor="middle" fill="#ffffff" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" fontWeight="600">C-SSRS 1-6</text><rect x="441" y="350" width="56" height="22" fill="#76a1fc"/><text x="469.0" y="365" textAnchor="middle" fill="#ffffff" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" fontSize="10" fontWeight="600">LOINC</text>
-</svg>
-</Frame>
-
----
-
-## Common workflows
+The fastest way to integrate the Medera API is through our official SDKs. They handle authentication, token refresh, WebSocket connections, pagination, retries, and error handling — so you can focus on building your behavioral-health application instead of API plumbing.
 
 <CardGroup cols={2}>
 
-<Card title="Build a canvas workflow" icon="layout-grid" href="/agentic/canvas/overview">
-Drag a graph of agents, tools, and logic. Publish a semver version. Deploy to sandbox. Promote to production.
+<Card title="JavaScript / TypeScript SDK" icon="js" href="/sdks/js/overview">
+Full-featured SDK for Node.js, browsers, and edge runtimes. Supports every REST endpoint, real-time WebSocket streaming, and every authentication flow.
+
+```bash theme={null}
+npm install @medera/sdk
+```
 </Card>
 
-<Card title="Run an ambient scribe" icon="microphone" href="/quickstart/ambient-rt">
-Open the clinical session WebSocket, stream encounter audio, get diarized transcript + SOAP draft + ICD-10 / CPT suggestions.
-</Card>
+<Card title="Python SDK" icon="python" href="/sdks/python/overview">
+Async-first SDK for Python 3.10+, fully typed via Pydantic. Full API coverage with WebSocket support.
 
-<Card title="Deploy the Intake Agent for intake" icon="phone" href="/quickstart/intake-agent">
-Deploy the voice-first intake agent with a documented 7-state state machine and 4 function calls.
-</Card>
-
-<Card title="Generate a PA letter" icon="file-check" href="/quickstart/prior-auth">
-Drive a 17-state PA workflow with payer-specific rules across EPA_API, CLEARINGHOUSE, PORTAL, FAX, or MANUAL submission.
+```bash theme={null}
+pip install medera
+```
 </Card>
 </CardGroup>
 
----
+### Why use an SDK?
 
-## Bringing it all together
+|                      | Raw API calls                                            | With an SDK                              |
+| :------------------- | :------------------------------------------------------- | :--------------------------------------- |
+| **Authentication**   | Manual token exchange and refresh logic                  | Automatic — just provide credentials     |
+| **Token management** | Track expiry, handle refresh races, store tokens         | Built-in with thread-safe refresh        |
+| **WebSockets**       | Raw connection management, reconnection, message parsing | Managed connections with typed events    |
+| **Type safety**      | Manual request/response validation                       | Full TypeScript / Pydantic type definitions |
+| **Error handling**   | Parse HTTP status codes and error bodies                 | Typed exceptions with structured details |
+| **Pagination**       | Manual cursor tracking                                   | `for await` / `async for` iteration      |
+| **Retries**          | Implement backoff for 429 / 5xx                          | Configurable automatic retries           |
 
-This documentation site explains how to use the Medera API and provides example workflows.
+## Start building
 
-- Each component of the Medera platform has its own tab: [Multimodal Sensing](/multimodal/overview), [Text Generation](/textgen/overview), [Agentic Framework](/agentic/overview), and [Coding](/coding/overview).
+<Columns cols={2}>
 
-- The [API Reference](/api-reference/welcome) tab provides detailed specifications for every endpoint.
+<Card title="Review the API Reference" icon="square-terminal" href="/api-reference/welcome">
+for all WebSocket, REST, Agentic, and Admin API specifications
+</Card>
 
-- The [Console](https://medera.info/contact) is where you create an account and Developer API Keys.
+<Card title="Embed the Medera Dictation Component" icon="mic" href="/sdks/dictation-component">
+to get started with AI scribing workflows in your application today
+</Card>
+</Columns>
 
-- Quickstarts at the top of the Home tab outline how to get started fast. Start with [Authentication](/authentication/overview).
+<Card title="Get Access" icon="key" href="https://medera.info/contact" horizontal>
+to API credentials, sandbox environment, and account management
+</Card>
 
-- The [SDKs](/sdks/overview) section covers the official [JavaScript](/sdks/js/overview) and [Python](/sdks/python/overview) SDKs, [Dictation Web Component](/sdks/dictation-component), and [Postman collection](/sdks/postman).
+***
 
-- The [Examples Repository](https://github.com/medera-ai/examples) provides working code for authentication, streaming, multimodal capture, and proxy setups.
+### Resources
 
-- The [Release Notes](/release-notes/overview) page documents the change policy, upcoming changes, and per-product release notes.
+<Columns cols={2}>
 
-<Note>
-Questions about implementing Medera in your healthcare environment? [Contact us](https://medera.info/contact).
-</Note>
+<Card title="Release notes" icon="bookmark" href="/release-notes/overview">
+Learn about upcoming changes and recent API, model, and platform updates
+</Card>
+
+<Card title="Support center" icon="life-buoy" href="https://medera.info/contact" arrow="true">
+Contact the Medera team for help with implementation, BAA execution, or compliance questions
+</Card>
+
+<Card title="Authentication methods" icon="lock" href="/authentication/overview">
+Learn how to authenticate with developer API keys, OAuth, and end-user JWT
+</Card>
+
+<Card title="Compliance & Trust" icon="shield-check" href="/compliance/overview">
+Review HIPAA, 42 CFR Part 2, encryption, audit logging, and security controls
+</Card>
+</Columns>
+
+<br />
+
+<Note>Questions about implementing Medera in your healthcare environment? [Contact us](https://medera.info/contact).</Note>

@@ -1,2 +1,743 @@
-{ "$schema": "https://mintlify.com/docs.json", "theme": "mint", "name": "Medera", "description": "Behavioral-health-native AI infrastructure: canvas agents, multimodal sensing, voice orchestration, and a HIPAA-grade runtime.", "favicon": "/favicon.svg", "logo": { "light": "/logo/light.svg", "dark": "/logo/dark.svg", "href": "https://medera.info" }, "colors": { "primary": "#141413", "light": "#a8c4ff", "dark": "#fafafa" }, "background": { "color": { "light": "#ffffff", "dark": "#0f0f0f" } }, "styling": { "codeblocks": "system", "eyebrows": "section" }, "fonts": { "heading": { "family": "Inter", "weight": 600, "format": "woff2" }, "body": { "family": "Inter", "weight": 400, "format": "woff2" } }, "icons": { "library": "lucide" }, "appearance": { "default": "system", "strict": false }, "navbar": { "links": [ { "label": "Console", "href": "https://medera.info/contact" }, { "label": "Contact", "href": "https://medera.info/contact" } ], "primary": { "type": "button", "label": "Get in touch", "href": "https://medera.info/contact" } }, "footer": { "socials": { "x": "https://x.com/medera_ai", "linkedin": "https://linkedin.com/company/medera-ai", "github": "https://github.com/medera-ai" }, "links": [ { "header": "Platform", "items": [ { "label": "Multimodal Sensing", "href": "/multimodal/overview" }, { "label": "Text Generation", "href": "/textgen/overview" }, { "label": "Agentic Framework", "href": "/agentic/overview" }, { "label": "Medical Coding", "href": "/coding/overview" } ] }, { "header": "Developers", "items": [ { "label": "API Reference", "href": "/api-reference/welcome" }, { "label": "SDKs", "href": "/sdks/overview" }, { "label": "Quickstarts", "href": "/quickstart/ambient-rt" }, { "label": "Examples", "href": "https://github.com/medera-ai/examples" } ] }, { "header": "Trust", "items": [ { "label": "Compliance", "href": "/compliance/overview" }, { "label": "Security", "href": "/compliance/encryption" }, { "label": "BAA / DPA", "href": "/compliance/baa" }, { "label": "Contact", "href": "https://medera.info/contact" } ] } ] }, "navigation": { "tabs": [ { "tab": "Home", "icon": "home", "groups": [ { "group": "Get Started", "icon": "rocket", "pages": [ "get-started/welcome", "get-started/console", "get-started/ambient-scribe", "get-started/intake-voice-agent", "get-started/co-therapy-multimodal", "get-started/dictation", "get-started/encounter-coding", "get-started/cdi-outpatient" ] }, { "group": "About", "icon": "book-open", "pages": [ "about/introduction", "about/compliance", "about/languages", "about/help", "about/admin-api" ] }, { "group": "Quickstarts", "icon": "zap", "pages": [ "quickstart/ambient-rt", "quickstart/ambient-async", "quickstart/dictation", "quickstart/transcription", "quickstart/intake-agent", "quickstart/co-therapy", "quickstart/prior-auth", "quickstart/ai-coding-tools" ] }, { "group": "Authentication", "icon": "key", "pages": [ "authentication/overview", "authentication/quickstart", "authentication/creating-clients", "authentication/environments-tenants", "authentication/security-best-practices" ] } ] }, { "tab": "Multimodal Sensing", "icon": "audio-lines", "groups": [ { "group": "Overview", "pages": [ "multimodal/overview", "multimodal/architecture", "multimodal/quickstart" ] }, { "group": "Speech to Text", "pages": [ "multimodal/stt/overview", "multimodal/stt/streams", "multimodal/stt/transcribe", "multimodal/stt/transcripts", "multimodal/stt/audio", "multimodal/stt/audio-events", "multimodal/stt/diarization", "multimodal/stt/microphones", "multimodal/stt/commands", "multimodal/stt/punctuation", "multimodal/stt/formatting", "multimodal/stt/interim-results", "multimodal/stt/best-practices-recording", "multimodal/stt/best-practices-transcribe", "multimodal/stt/best-practices-commands", "multimodal/stt/evaluations", "multimodal/stt/dictation-web", "multimodal/stt/feedback" ] }, { "group": "Facial Physiological Engine", "pages": [ "multimodal/facial/overview", "multimodal/facial/heart-rate", "multimodal/facial/blood-pressure", "multimodal/facial/hrv", "multimodal/facial/respiration", "multimodal/facial/stress-index", "multimodal/facial/affect-emotion", "multimodal/facial/quality-requirements" ] }, { "group": "Vocal Acoustic Engine", "pages": [ "multimodal/vocal/overview", "multimodal/vocal/fundamental-frequency", "multimodal/vocal/voice-quality", "multimodal/vocal/prosodics", "multimodal/vocal/spectral-features", "multimodal/vocal/clinical-markers" ] }, { "group": "Neurobehavioral Construct Computer", "pages": [ "multimodal/rdoc/overview", "multimodal/rdoc/negative-valence", "multimodal/rdoc/positive-valence", "multimodal/rdoc/cognitive-systems", "multimodal/rdoc/social-processes", "multimodal/rdoc/arousal-regulatory" ] } ] }, { "tab": "Text Generation", "icon": "text-align-start", "groups": [ { "group": "Overview", "pages": [ "textgen/overview", "textgen/architecture" ] }, { "group": "Documents", "pages": [ "textgen/documents-standard", "textgen/documents-advanced", "textgen/documents-customize", "textgen/documents-docmode", "textgen/templates", "textgen/templates-standard" ] }, { "group": "Facts & Reasoning", "pages": [ "textgen/factsr", "textgen/extractfacts", "textgen/facts_realtime", "textgen/facts_async" ] }, { "group": "Clinical RAG", "pages": [ "textgen/rag-overview", "textgen/rag-hybrid-search", "textgen/rag-ontologies", "textgen/rag-guidelines", "textgen/rag-citations" ] } ] }, { "tab": "Agentic Framework", "icon": "layers", "groups": [ { "group": "Get Started", "pages": [ "agentic/overview", "agentic/quickstart", "agentic/architecture", "agentic/core-concepts", "agentic/beginners-guide", "agentic/orchestrator", "agentic/context-memory", "agentic/a2a-protocol", "agentic/mcp-authentication", "agentic/faq", "agentic/sdks-integrations" ] }, { "group": "Agent Library \u2014 Clinical Operations", "pages": [ "agentic/agents/patient-intake", "agentic/agents/triage", "agentic/agents/visit-scribe", "agentic/agents/co-therapy", "agentic/agents/prior-authorization", "agentic/agents/care-coordinator" ] }, { "group": "Agent Library \u2014 Documentation & Coding", "pages": [ "agentic/agents/medical-coding", "agentic/agents/clinical-documentation-improvement", "agentic/agents/note-completeness", "agentic/agents/referral-generator", "agentic/agents/discharge-summary" ] }, { "group": "Agent Library \u2014 Patient-Facing", "pages": [ "agentic/agents/health-coach", "agentic/agents/patient-education", "agentic/agents/crisis-response", "agentic/agents/outcomes-measurement" ] }, { "group": "Agent Library \u2014 Revenue Cycle & Ops", "pages": [ "agentic/agents/denial-appeals", "agentic/agents/eligibility-verification", "agentic/agents/claims-review", "agentic/agents/quality-reporting" ] }, { "group": "Agent Library \u2014 Evidence & Safety", "pages": [ "agentic/agents/clinical-guidelines", "agentic/agents/medication-reconciliation", "agentic/agents/drug-interaction", "agentic/agents/risk-stratification", "agentic/agents/evidence-synthesis" ] }, { "group": "Experts Registry", "pages": [ "agentic/experts/overview", "agentic/experts/vocal-prosody", "agentic/experts/linguistic-content", "agentic/experts/validated-screener", "agentic/experts/c-ssrs-risk", "agentic/experts/esi-acuity", "agentic/experts/icd-10-coding", "agentic/experts/cpt-em", "agentic/experts/medical-calculator", "agentic/experts/memory", "agentic/experts/pubmed", "agentic/experts/drugbank", "agentic/experts/clinicaltrials-gov", "agentic/experts/payer-policy", "agentic/experts/web-search" ] }, { "group": "Agent Builder Canvas", "pages": [ "agentic/canvas/overview", "agentic/canvas/node-types", "agentic/canvas/variables-scopes", "agentic/canvas/versioning-deployment", "agentic/canvas/guardrails", "agentic/canvas/transforms-cel" ] } ] }, { "tab": "Coding", "icon": "code", "groups": [ { "group": "Overview", "pages": [ "coding/overview", "coding/introduction", "coding/how-it-works", "coding/quickstart", "coding/coding-systems", "coding/encounter-coding", "coding/cdi", "coding/revenue-cycle" ] }, { "group": "Code Systems", "pages": [ "coding/icd-10-cm", "coding/icd-10-pcs", "coding/icd-10-int", "coding/cpt", "coding/hcpcs", "coding/snomed-ct", "coding/loinc", "coding/rxnorm" ] } ] }, { "tab": "Compliance", "icon": "shield-check", "groups": [ { "group": "Trust Center", "pages": [ "compliance/overview", "compliance/hipaa", "compliance/42-cfr-part-2", "compliance/baa", "compliance/data-residency", "compliance/sub-processors" ] }, { "group": "Security Controls", "pages": [ "compliance/encryption", "compliance/key-management", "compliance/audit-logging", "compliance/row-level-security", "compliance/phi-handling", "compliance/access-control", "compliance/mfa-sso", "compliance/incident-response" ] } ] }, { "tab": "SDKs", "icon": "package", "groups": [ { "group": "Overview", "pages": [ "sdks/overview" ] }, { "group": "JavaScript / TypeScript", "pages": [ "sdks/js/overview", "sdks/js/authentication", "sdks/js/websockets", "sdks/js/proxy", "sdks/js/reference" ] }, { "group": "Python", "pages": [ "sdks/python/overview", "sdks/python/authentication", "sdks/python/websockets", "sdks/python/reference" ] }, { "group": "Web Components", "pages": [ "sdks/dictation-component", "sdks/co-therapy-component" ] }, { "group": "Tools", "pages": [ "sdks/postman", "sdks/cli" ] } ] }, { "tab": "API Reference", "icon": "terminal", "groups": [ { "group": "Introduction", "pages": [ "api-reference/welcome", "api-reference/errors", "api-reference/rate-limits", "api-reference/pagination", "api-reference/versioning" ] }, { "group": "Authentication", "pages": [ "api-reference/auth/login", "api-reference/auth/refresh", "api-reference/auth/register", "api-reference/auth/forgot-password", "api-reference/auth/webhooks-identity" ] }, { "group": "Patients", "pages": [ "api-reference/patients/create", "api-reference/patients/get", "api-reference/patients/list", "api-reference/patients/update", "api-reference/patients/delete" ] }, { "group": "Providers & Organizations", "pages": [ "api-reference/providers/list", "api-reference/providers/credentials", "api-reference/providers/certifications", "api-reference/organizations/get", "api-reference/organizations/provision", "api-reference/organizations/usage" ] }, { "group": "Sessions & Encounters", "pages": [ "api-reference/sessions/create", "api-reference/sessions/list", "api-reference/sessions/get", "api-reference/sessions/recordings", "api-reference/sessions/transcripts", "api-reference/sessions/annotations" ] }, { "group": "Intake Calls (Voice)", "pages": [ "api-reference/intake/create-call", "api-reference/intake/get-call", "api-reference/intake/list-calls", "api-reference/intake/webhooks-voice", "api-reference/intake/function-calls" ] }, { "group": "Therapy Sessions", "pages": [ "api-reference/therapy/start", "api-reference/therapy/chunk", "api-reference/therapy/stop", "api-reference/therapy/analyze", "api-reference/therapy/co-therapy-create" ] }, { "group": "Multimodal Analysis", "pages": [ "api-reference/multimodal/analyze-video", "api-reference/multimodal/analyze-audio", "api-reference/multimodal/rdoc-compute", "api-reference/multimodal/realtime-stream" ] }, { "group": "Prior Authorization", "pages": [ "api-reference/pa/initiate", "api-reference/pa/evaluate-criteria", "api-reference/pa/generate-document", "api-reference/pa/submit", "api-reference/pa/status", "api-reference/pa/appeal" ] }, { "group": "Agent Workflows", "pages": [ "api-reference/workflows/create", "api-reference/workflows/list", "api-reference/workflows/get", "api-reference/workflows/update", "api-reference/workflows/publish", "api-reference/workflows/execute", "api-reference/workflows/executions" ] }, { "group": "Clinical", "pages": [ "api-reference/clinical/notes-create", "api-reference/clinical/notes-list", "api-reference/clinical/orders", "api-reference/clinical/prescriptions", "api-reference/clinical/lab-results", "api-reference/clinical/appointments", "api-reference/clinical/templates" ] }, { "group": "FHIR R4", "pages": [ "api-reference/fhir/overview", "api-reference/fhir/patient", "api-reference/fhir/encounter", "api-reference/fhir/observation", "api-reference/fhir/condition", "api-reference/fhir/medication-request", "api-reference/fhir/care-plan", "api-reference/fhir/questionnaire-response" ] }, { "group": "Billing", "pages": [ "api-reference/billing/subscriptions", "api-reference/billing/usage", "api-reference/billing/invoices", "api-reference/billing/payment-methods" ] }, { "group": "Webhooks", "pages": [ "api-reference/webhooks/overview", "api-reference/webhooks/events", "api-reference/webhooks/signatures" ] }, { "group": "Audit & Compliance", "pages": [ "api-reference/audit/access-logs", "api-reference/audit/integrity-checkpoints", "api-reference/audit/exports" ] }, { "group": "EHR Integrations", "pages": [ "api-reference/integrations/overview", "api-reference/integrations/epic", "api-reference/integrations/cerner", "api-reference/integrations/athenahealth", "api-reference/integrations/allscripts", "api-reference/integrations/surescripts", "api-reference/integrations/waystar" ] } ] }, { "tab": "Release Notes", "icon": "newspaper", "groups": [ { "group": "Releases", "pages": [ "release-notes/overview", "release-notes/change-policy", "release-notes/changelog-upcoming", "release-notes/platform", "release-notes/agentic", "release-notes/multimodal", "release-notes/textgen" ] } ] } ] }, "redirects": [ { "source": "/", "destination": "/get-started/welcome" }, { "source": "/docs", "destination": "/get-started/welcome" } ], "search": { "prompt": "Search Medera docs..." }, "seo": { "indexing": "all", "metatags": { "og:site_name": "Medera Docs", "og:image": "https://docs.medera.info/images/og.png", "theme-color": "#141413" } }, "integrations": { "ga4": { "measurementId": "G-MEDERAXXX" } }, "contextual": { "options": [ "copy", "view", "chatgpt", "claude" ] }
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Medera",
+  "description": "Behavioral-health-native AI infrastructure: canvas agents, multimodal sensing, voice orchestration, and a HIPAA-grade runtime.",
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://medera.info"
+  },
+  "colors": {
+    "primary": "#4f7be0",
+    "light": "#76a1fc",
+    "dark": "#4f7be0"
+  },
+  "background": {
+    "color": {
+      "light": "#ffffff",
+      "dark": "#0f0f0f"
+    }
+  },
+  "styling": {
+    "codeblocks": "system",
+    "eyebrows": "section"
+  },
+  "fonts": {
+    "heading": {
+      "family": "Inter",
+      "weight": 600,
+      "format": "woff2"
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400,
+      "format": "woff2"
+    }
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "appearance": {
+    "default": "system",
+    "strict": false
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Console",
+        "href": "https://medera.info/contact"
+      },
+      {
+        "label": "Support",
+        "href": "https://medera.info/contact"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Get Access",
+      "href": "https://medera.info/contact"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/medera_ai",
+      "linkedin": "https://linkedin.com/company/medera-ai",
+      "github": "https://github.com/medera-ai"
+    },
+    "links": [
+      {
+        "header": "Platform",
+        "items": [
+          {
+            "label": "Multimodal Sensing",
+            "href": "/multimodal/overview"
+          },
+          {
+            "label": "Text Generation",
+            "href": "/textgen/overview"
+          },
+          {
+            "label": "Agentic Framework",
+            "href": "/agentic/overview"
+          },
+          {
+            "label": "Medical Coding",
+            "href": "/coding/overview"
+          }
+        ]
+      },
+      {
+        "header": "Developers",
+        "items": [
+          {
+            "label": "API Reference",
+            "href": "/api-reference/welcome"
+          },
+          {
+            "label": "SDKs",
+            "href": "/sdks/overview"
+          },
+          {
+            "label": "Quickstarts",
+            "href": "/quickstart/ambient-rt"
+          },
+          {
+            "label": "Examples",
+            "href": "https://github.com/medera-ai/examples"
+          }
+        ]
+      },
+      {
+        "header": "Trust",
+        "items": [
+          {
+            "label": "Compliance",
+            "href": "/compliance/overview"
+          },
+          {
+            "label": "Security",
+            "href": "/compliance/encryption"
+          },
+          {
+            "label": "BAA / DPA",
+            "href": "/compliance/baa"
+          },
+          {
+            "label": "Contact",
+            "href": "https://medera.info/contact"
+          }
+        ]
+      }
+    ]
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Home",
+        "icon": "home",
+        "groups": [
+          {
+            "group": "Get Started",
+            "icon": "rocket",
+            "pages": [
+              "get-started/welcome",
+              "get-started/console",
+              "get-started/ambient-scribe",
+              "get-started/intake-voice-agent",
+              "get-started/co-therapy-multimodal",
+              "get-started/dictation",
+              "get-started/encounter-coding",
+              "get-started/cdi-outpatient"
+            ]
+          },
+          {
+            "group": "About",
+            "icon": "book-open",
+            "pages": [
+              "about/introduction",
+              "about/compliance",
+              "about/languages",
+              "about/help",
+              "about/admin-api"
+            ]
+          },
+          {
+            "group": "Quickstarts",
+            "icon": "zap",
+            "pages": [
+              "quickstart/ambient-rt",
+              "quickstart/ambient-async",
+              "quickstart/dictation",
+              "quickstart/transcription",
+              "quickstart/intake-agent",
+              "quickstart/co-therapy",
+              "quickstart/prior-auth",
+              "quickstart/ai-coding-tools"
+            ]
+          },
+          {
+            "group": "Authentication",
+            "icon": "key",
+            "pages": [
+              "authentication/overview",
+              "authentication/quickstart",
+              "authentication/creating-clients",
+              "authentication/environments-tenants",
+              "authentication/security-best-practices"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Multimodal Sensing",
+        "icon": "audio-lines",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "multimodal/overview",
+              "multimodal/architecture",
+              "multimodal/quickstart"
+            ]
+          },
+          {
+            "group": "Speech to Text",
+            "pages": [
+              "multimodal/stt/overview",
+              "multimodal/stt/streams",
+              "multimodal/stt/transcribe",
+              "multimodal/stt/transcripts",
+              "multimodal/stt/audio",
+              "multimodal/stt/audio-events",
+              "multimodal/stt/diarization",
+              "multimodal/stt/microphones",
+              "multimodal/stt/commands",
+              "multimodal/stt/punctuation",
+              "multimodal/stt/formatting",
+              "multimodal/stt/interim-results",
+              "multimodal/stt/best-practices-recording",
+              "multimodal/stt/best-practices-transcribe",
+              "multimodal/stt/best-practices-commands",
+              "multimodal/stt/evaluations",
+              "multimodal/stt/dictation-web",
+              "multimodal/stt/feedback"
+            ]
+          },
+          {
+            "group": "Facial Physiological Engine",
+            "pages": [
+              "multimodal/facial/overview",
+              "multimodal/facial/heart-rate",
+              "multimodal/facial/blood-pressure",
+              "multimodal/facial/hrv",
+              "multimodal/facial/respiration",
+              "multimodal/facial/stress-index",
+              "multimodal/facial/affect-emotion",
+              "multimodal/facial/quality-requirements"
+            ]
+          },
+          {
+            "group": "Vocal Acoustic Engine",
+            "pages": [
+              "multimodal/vocal/overview",
+              "multimodal/vocal/fundamental-frequency",
+              "multimodal/vocal/voice-quality",
+              "multimodal/vocal/prosodics",
+              "multimodal/vocal/spectral-features",
+              "multimodal/vocal/clinical-markers"
+            ]
+          },
+          {
+            "group": "Neurobehavioral Construct Computer",
+            "pages": [
+              "multimodal/rdoc/overview",
+              "multimodal/rdoc/negative-valence",
+              "multimodal/rdoc/positive-valence",
+              "multimodal/rdoc/cognitive-systems",
+              "multimodal/rdoc/social-processes",
+              "multimodal/rdoc/arousal-regulatory"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Text Generation",
+        "icon": "text-align-start",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "textgen/overview",
+              "textgen/architecture"
+            ]
+          },
+          {
+            "group": "Documents",
+            "pages": [
+              "textgen/documents-standard",
+              "textgen/documents-advanced",
+              "textgen/documents-customize",
+              "textgen/documents-docmode",
+              "textgen/templates",
+              "textgen/templates-standard"
+            ]
+          },
+          {
+            "group": "Facts & Reasoning",
+            "pages": [
+              "textgen/factsr",
+              "textgen/extractfacts",
+              "textgen/facts_realtime",
+              "textgen/facts_async"
+            ]
+          },
+          {
+            "group": "Clinical RAG",
+            "pages": [
+              "textgen/rag-overview",
+              "textgen/rag-hybrid-search",
+              "textgen/rag-ontologies",
+              "textgen/rag-guidelines",
+              "textgen/rag-citations"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Agentic Framework",
+        "icon": "layers",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "agentic/overview",
+              "agentic/quickstart",
+              "agentic/architecture",
+              "agentic/core-concepts",
+              "agentic/beginners-guide",
+              "agentic/orchestrator",
+              "agentic/context-memory",
+              "agentic/a2a-protocol",
+              "agentic/mcp-authentication",
+              "agentic/faq",
+              "agentic/sdks-integrations"
+            ]
+          },
+          {
+            "group": "Agent Library \u2014 Clinical Operations",
+            "pages": [
+              "agentic/agents/patient-intake",
+              "agentic/agents/triage",
+              "agentic/agents/visit-scribe",
+              "agentic/agents/co-therapy",
+              "agentic/agents/prior-authorization",
+              "agentic/agents/care-coordinator"
+            ]
+          },
+          {
+            "group": "Agent Library \u2014 Documentation & Coding",
+            "pages": [
+              "agentic/agents/medical-coding",
+              "agentic/agents/clinical-documentation-improvement",
+              "agentic/agents/note-completeness",
+              "agentic/agents/referral-generator",
+              "agentic/agents/discharge-summary"
+            ]
+          },
+          {
+            "group": "Agent Library \u2014 Patient-Facing",
+            "pages": [
+              "agentic/agents/health-coach",
+              "agentic/agents/patient-education",
+              "agentic/agents/crisis-response",
+              "agentic/agents/outcomes-measurement"
+            ]
+          },
+          {
+            "group": "Agent Library \u2014 Revenue Cycle & Ops",
+            "pages": [
+              "agentic/agents/denial-appeals",
+              "agentic/agents/eligibility-verification",
+              "agentic/agents/claims-review",
+              "agentic/agents/quality-reporting"
+            ]
+          },
+          {
+            "group": "Agent Library \u2014 Evidence & Safety",
+            "pages": [
+              "agentic/agents/clinical-guidelines",
+              "agentic/agents/medication-reconciliation",
+              "agentic/agents/drug-interaction",
+              "agentic/agents/risk-stratification",
+              "agentic/agents/evidence-synthesis"
+            ]
+          },
+          {
+            "group": "Experts Registry",
+            "pages": [
+              "agentic/experts/overview",
+              "agentic/experts/vocal-prosody",
+              "agentic/experts/linguistic-content",
+              "agentic/experts/validated-screener",
+              "agentic/experts/c-ssrs-risk",
+              "agentic/experts/esi-acuity",
+              "agentic/experts/icd-10-coding",
+              "agentic/experts/cpt-em",
+              "agentic/experts/medical-calculator",
+              "agentic/experts/memory",
+              "agentic/experts/pubmed",
+              "agentic/experts/drugbank",
+              "agentic/experts/clinicaltrials-gov",
+              "agentic/experts/payer-policy",
+              "agentic/experts/web-search"
+            ]
+          },
+          {
+            "group": "Agent Builder Canvas",
+            "pages": [
+              "agentic/canvas/overview",
+              "agentic/canvas/node-types",
+              "agentic/canvas/variables-scopes",
+              "agentic/canvas/versioning-deployment",
+              "agentic/canvas/guardrails",
+              "agentic/canvas/transforms-cel"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Coding",
+        "icon": "code",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "coding/overview",
+              "coding/introduction",
+              "coding/how-it-works",
+              "coding/quickstart",
+              "coding/coding-systems",
+              "coding/encounter-coding",
+              "coding/cdi",
+              "coding/revenue-cycle"
+            ]
+          },
+          {
+            "group": "Code Systems",
+            "pages": [
+              "coding/icd-10-cm",
+              "coding/icd-10-pcs",
+              "coding/icd-10-int",
+              "coding/cpt",
+              "coding/hcpcs",
+              "coding/snomed-ct",
+              "coding/loinc",
+              "coding/rxnorm"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Compliance",
+        "icon": "shield-check",
+        "groups": [
+          {
+            "group": "Trust Center",
+            "pages": [
+              "compliance/overview",
+              "compliance/hipaa",
+              "compliance/42-cfr-part-2",
+              "compliance/baa",
+              "compliance/data-residency",
+              "compliance/sub-processors"
+            ]
+          },
+          {
+            "group": "Security Controls",
+            "pages": [
+              "compliance/encryption",
+              "compliance/key-management",
+              "compliance/audit-logging",
+              "compliance/row-level-security",
+              "compliance/phi-handling",
+              "compliance/access-control",
+              "compliance/mfa-sso",
+              "compliance/incident-response"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "SDKs",
+        "icon": "package",
+        "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "sdks/overview"
+            ]
+          },
+          {
+            "group": "JavaScript / TypeScript",
+            "pages": [
+              "sdks/js/overview",
+              "sdks/js/authentication",
+              "sdks/js/websockets",
+              "sdks/js/proxy",
+              "sdks/js/reference"
+            ]
+          },
+          {
+            "group": "Python",
+            "pages": [
+              "sdks/python/overview",
+              "sdks/python/authentication",
+              "sdks/python/websockets",
+              "sdks/python/reference"
+            ]
+          },
+          {
+            "group": "Web Components",
+            "pages": [
+              "sdks/dictation-component",
+              "sdks/co-therapy-component"
+            ]
+          },
+          {
+            "group": "Tools",
+            "pages": [
+              "sdks/postman",
+              "sdks/cli"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "icon": "terminal",
+        "groups": [
+          {
+            "group": "Introduction",
+            "pages": [
+              "api-reference/welcome",
+              "api-reference/errors",
+              "api-reference/rate-limits",
+              "api-reference/pagination",
+              "api-reference/versioning"
+            ]
+          },
+          {
+            "group": "Authentication",
+            "pages": [
+              "api-reference/auth/login",
+              "api-reference/auth/refresh",
+              "api-reference/auth/register",
+              "api-reference/auth/forgot-password",
+              "api-reference/auth/webhooks-identity"
+            ]
+          },
+          {
+            "group": "Patients",
+            "pages": [
+              "api-reference/patients/create",
+              "api-reference/patients/get",
+              "api-reference/patients/list",
+              "api-reference/patients/update",
+              "api-reference/patients/delete"
+            ]
+          },
+          {
+            "group": "Providers & Organizations",
+            "pages": [
+              "api-reference/providers/list",
+              "api-reference/providers/credentials",
+              "api-reference/providers/certifications",
+              "api-reference/organizations/get",
+              "api-reference/organizations/provision",
+              "api-reference/organizations/usage"
+            ]
+          },
+          {
+            "group": "Sessions & Encounters",
+            "pages": [
+              "api-reference/sessions/create",
+              "api-reference/sessions/list",
+              "api-reference/sessions/get",
+              "api-reference/sessions/recordings",
+              "api-reference/sessions/transcripts",
+              "api-reference/sessions/annotations"
+            ]
+          },
+          {
+            "group": "Intake Calls (Voice)",
+            "pages": [
+              "api-reference/intake/create-call",
+              "api-reference/intake/get-call",
+              "api-reference/intake/list-calls",
+              "api-reference/intake/webhooks-voice",
+              "api-reference/intake/function-calls"
+            ]
+          },
+          {
+            "group": "Therapy Sessions",
+            "pages": [
+              "api-reference/therapy/start",
+              "api-reference/therapy/chunk",
+              "api-reference/therapy/stop",
+              "api-reference/therapy/analyze",
+              "api-reference/therapy/co-therapy-create"
+            ]
+          },
+          {
+            "group": "Multimodal Analysis",
+            "pages": [
+              "api-reference/multimodal/analyze-video",
+              "api-reference/multimodal/analyze-audio",
+              "api-reference/multimodal/rdoc-compute",
+              "api-reference/multimodal/realtime-stream"
+            ]
+          },
+          {
+            "group": "Prior Authorization",
+            "pages": [
+              "api-reference/pa/initiate",
+              "api-reference/pa/evaluate-criteria",
+              "api-reference/pa/generate-document",
+              "api-reference/pa/submit",
+              "api-reference/pa/status",
+              "api-reference/pa/appeal"
+            ]
+          },
+          {
+            "group": "Agent Workflows",
+            "pages": [
+              "api-reference/workflows/create",
+              "api-reference/workflows/list",
+              "api-reference/workflows/get",
+              "api-reference/workflows/update",
+              "api-reference/workflows/publish",
+              "api-reference/workflows/execute",
+              "api-reference/workflows/executions"
+            ]
+          },
+          {
+            "group": "Clinical",
+            "pages": [
+              "api-reference/clinical/notes-create",
+              "api-reference/clinical/notes-list",
+              "api-reference/clinical/orders",
+              "api-reference/clinical/prescriptions",
+              "api-reference/clinical/lab-results",
+              "api-reference/clinical/appointments",
+              "api-reference/clinical/templates"
+            ]
+          },
+          {
+            "group": "FHIR R4",
+            "pages": [
+              "api-reference/fhir/overview",
+              "api-reference/fhir/patient",
+              "api-reference/fhir/encounter",
+              "api-reference/fhir/observation",
+              "api-reference/fhir/condition",
+              "api-reference/fhir/medication-request",
+              "api-reference/fhir/care-plan",
+              "api-reference/fhir/questionnaire-response"
+            ]
+          },
+          {
+            "group": "Billing",
+            "pages": [
+              "api-reference/billing/subscriptions",
+              "api-reference/billing/usage",
+              "api-reference/billing/invoices",
+              "api-reference/billing/payment-methods"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "api-reference/webhooks/overview",
+              "api-reference/webhooks/events",
+              "api-reference/webhooks/signatures"
+            ]
+          },
+          {
+            "group": "Audit & Compliance",
+            "pages": [
+              "api-reference/audit/access-logs",
+              "api-reference/audit/integrity-checkpoints",
+              "api-reference/audit/exports"
+            ]
+          },
+          {
+            "group": "EHR Integrations",
+            "pages": [
+              "api-reference/integrations/overview",
+              "api-reference/integrations/epic",
+              "api-reference/integrations/cerner",
+              "api-reference/integrations/athenahealth",
+              "api-reference/integrations/allscripts",
+              "api-reference/integrations/surescripts",
+              "api-reference/integrations/waystar"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Release Notes",
+        "icon": "newspaper",
+        "groups": [
+          {
+            "group": "Releases",
+            "pages": [
+              "release-notes/overview",
+              "release-notes/change-policy",
+              "release-notes/changelog-upcoming",
+              "release-notes/platform",
+              "release-notes/agentic",
+              "release-notes/multimodal",
+              "release-notes/textgen"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/get-started/welcome"
+    },
+    {
+      "source": "/docs",
+      "destination": "/get-started/welcome"
+    }
+  ],
+  "search": {
+    "prompt": "Search Medera docs..."
+  },
+  "seo": {
+    "indexing": "all",
+    "metatags": {
+      "og:site_name": "Medera Docs",
+      "og:image": "https://docs.medera.info/images/og.png",
+      "theme-color": "#4f7be0"
+    }
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-MEDERAXXX"
+    }
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude"
+    ]
+  }
 }

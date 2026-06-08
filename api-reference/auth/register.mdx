@@ -5,13 +5,13 @@ description: "Identity-provider-mediated registration"
 
 End-user registration uses your tenant's managed identity provider. After sign-up, The identity provider sends a `user.created` webhook to:
 
-```
+```text
 
 POST /api/identity-webhooks
 
 ``` `identitySyncService` reflects the user into Medera's `users` table under the inviting organization. Backend route helpers:
 
-```
+```text
 
 POST /api/auth/register # rate limited 10 req / 15 min
 POST /api/auth/forgot-password # rate limited 10 req / 15 min
