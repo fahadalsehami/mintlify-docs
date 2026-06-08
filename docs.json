@@ -131,614 +131,2229 @@
     "tabs": [
       {
         "tab": "Home",
-        "icon": "home",
+        "icon": "/icons/ui/home.svg",
         "groups": [
           {
             "group": "Get Started",
-            "icon": "rocket",
             "pages": [
-              "get-started/welcome",
-              "get-started/console",
-              "get-started/ambient-scribe",
-              "get-started/intake-voice-agent",
-              "get-started/co-therapy-multimodal",
-              "get-started/dictation",
-              "get-started/encounter-coding",
-              "get-started/cdi-outpatient"
+              {
+                "group": "Welcome",
+                "icon": "/icons/ui/rocket.svg",
+                "pages": [
+                  "get-started/welcome"
+                ]
+              },
+              {
+                "group": "Console",
+                "icon": "/icons/ui/monitor.svg",
+                "pages": [
+                  "get-started/console"
+                ]
+              },
+              {
+                "group": "Ambient Scribe",
+                "icon": "/icons/ui/mic.svg",
+                "pages": [
+                  "get-started/ambient-scribe"
+                ]
+              },
+              {
+                "group": "Intake Voice Agent",
+                "icon": "/icons/ui/phone.svg",
+                "pages": [
+                  "get-started/intake-voice-agent"
+                ]
+              },
+              {
+                "group": "Co Therapy Multimodal",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "get-started/co-therapy-multimodal"
+                ]
+              },
+              {
+                "group": "Dictation",
+                "icon": "/icons/ui/microphone-2.svg",
+                "pages": [
+                  "get-started/dictation"
+                ]
+              },
+              {
+                "group": "Encounter Coding",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "get-started/encounter-coding"
+                ]
+              },
+              {
+                "group": "Cdi Outpatient",
+                "icon": "/icons/ui/file-check-2.svg",
+                "pages": [
+                  "get-started/cdi-outpatient"
+                ]
+              }
             ]
           },
           {
             "group": "About",
-            "icon": "book-open",
             "pages": [
-              "about/introduction",
-              "about/compliance",
-              "about/languages",
-              "about/help",
-              "about/admin-api"
+              {
+                "group": "Introduction",
+                "icon": "/icons/ui/book-open.svg",
+                "pages": [
+                  "about/introduction"
+                ]
+              },
+              {
+                "group": "Compliance",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "about/compliance"
+                ]
+              },
+              {
+                "group": "Languages",
+                "icon": "/icons/ui/globe.svg",
+                "pages": [
+                  "about/languages"
+                ]
+              },
+              {
+                "group": "Help",
+                "icon": "/icons/ui/life-buoy.svg",
+                "pages": [
+                  "about/help"
+                ]
+              },
+              {
+                "group": "Admin Api",
+                "icon": "/icons/ui/key-round.svg",
+                "pages": [
+                  "about/admin-api"
+                ]
+              }
             ]
           },
           {
             "group": "Quickstarts",
-            "icon": "zap",
             "pages": [
-              "quickstart/ambient-rt",
-              "quickstart/ambient-async",
-              "quickstart/dictation",
-              "quickstart/transcription",
-              "quickstart/intake-agent",
-              "quickstart/co-therapy",
-              "quickstart/prior-auth",
-              "quickstart/ai-coding-tools"
+              {
+                "group": "Ambient Rt",
+                "icon": "/icons/ui/zap.svg",
+                "pages": [
+                  "quickstart/ambient-rt"
+                ]
+              },
+              {
+                "group": "Ambient Async",
+                "icon": "/icons/ui/clock.svg",
+                "pages": [
+                  "quickstart/ambient-async"
+                ]
+              },
+              {
+                "group": "Dictation",
+                "icon": "/icons/ui/mic.svg",
+                "pages": [
+                  "quickstart/dictation"
+                ]
+              },
+              {
+                "group": "Transcription",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "quickstart/transcription"
+                ]
+              },
+              {
+                "group": "Intake Agent",
+                "icon": "/icons/ui/phone.svg",
+                "pages": [
+                  "quickstart/intake-agent"
+                ]
+              },
+              {
+                "group": "Co Therapy",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "quickstart/co-therapy"
+                ]
+              },
+              {
+                "group": "Prior Auth",
+                "icon": "/icons/ui/file-check-2.svg",
+                "pages": [
+                  "quickstart/prior-auth"
+                ]
+              },
+              {
+                "group": "Ai Coding Tools",
+                "icon": "/icons/ui/sparkles.svg",
+                "pages": [
+                  "quickstart/ai-coding-tools"
+                ]
+              }
             ]
           },
           {
             "group": "Authentication",
-            "icon": "key",
             "pages": [
-              "authentication/overview",
-              "authentication/quickstart",
-              "authentication/creating-clients",
-              "authentication/environments-tenants",
-              "authentication/security-best-practices"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/key.svg",
+                "pages": [
+                  "authentication/overview"
+                ]
+              },
+              {
+                "group": "Quickstart",
+                "icon": "/icons/ui/zap.svg",
+                "pages": [
+                  "authentication/quickstart"
+                ]
+              },
+              {
+                "group": "Creating Clients",
+                "icon": "/icons/ui/key-round.svg",
+                "pages": [
+                  "authentication/creating-clients"
+                ]
+              },
+              {
+                "group": "Environments Tenants",
+                "icon": "/icons/ui/layers.svg",
+                "pages": [
+                  "authentication/environments-tenants"
+                ]
+              },
+              {
+                "group": "Security Best Practices",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "authentication/security-best-practices"
+                ]
+              }
             ]
           }
         ]
       },
       {
         "tab": "Multimodal Sensing",
-        "icon": "audio-lines",
+        "icon": "/icons/ui/audio-lines.svg",
         "groups": [
           {
             "group": "Overview",
             "pages": [
-              "multimodal/overview",
-              "multimodal/architecture",
-              "multimodal/quickstart"
-            ],
-            "icon": "compass"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "multimodal/overview"
+                ]
+              },
+              {
+                "group": "Architecture",
+                "icon": "/icons/ui/layout-dashboard.svg",
+                "pages": [
+                  "multimodal/architecture"
+                ]
+              },
+              {
+                "group": "Quickstart",
+                "icon": "/icons/ui/zap.svg",
+                "pages": [
+                  "multimodal/quickstart"
+                ]
+              }
+            ]
           },
           {
             "group": "Speech to Text",
             "pages": [
-              "multimodal/stt/overview",
-              "multimodal/stt/streams",
-              "multimodal/stt/transcribe",
-              "multimodal/stt/transcripts",
-              "multimodal/stt/audio",
-              "multimodal/stt/audio-events",
-              "multimodal/stt/diarization",
-              "multimodal/stt/microphones",
-              "multimodal/stt/commands",
-              "multimodal/stt/punctuation",
-              "multimodal/stt/formatting",
-              "multimodal/stt/interim-results",
-              "multimodal/stt/best-practices-recording",
-              "multimodal/stt/best-practices-transcribe",
-              "multimodal/stt/best-practices-commands",
-              "multimodal/stt/evaluations",
-              "multimodal/stt/dictation-web",
-              "multimodal/stt/feedback"
-            ],
-            "icon": "audio-lines"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "multimodal/stt/overview"
+                ]
+              },
+              {
+                "group": "Streams",
+                "icon": "/icons/ui/audio-waveform.svg",
+                "pages": [
+                  "multimodal/stt/streams"
+                ]
+              },
+              {
+                "group": "Transcribe",
+                "icon": "/icons/ui/mic.svg",
+                "pages": [
+                  "multimodal/stt/transcribe"
+                ]
+              },
+              {
+                "group": "Transcripts",
+                "icon": "/icons/ui/file-text.svg",
+                "pages": [
+                  "multimodal/stt/transcripts"
+                ]
+              },
+              {
+                "group": "Audio",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "multimodal/stt/audio"
+                ]
+              },
+              {
+                "group": "Audio Events",
+                "icon": "/icons/ui/bell.svg",
+                "pages": [
+                  "multimodal/stt/audio-events"
+                ]
+              },
+              {
+                "group": "Diarization",
+                "icon": "/icons/ui/users.svg",
+                "pages": [
+                  "multimodal/stt/diarization"
+                ]
+              },
+              {
+                "group": "Microphones",
+                "icon": "/icons/ui/mic.svg",
+                "pages": [
+                  "multimodal/stt/microphones"
+                ]
+              },
+              {
+                "group": "Commands",
+                "icon": "/icons/ui/terminal.svg",
+                "pages": [
+                  "multimodal/stt/commands"
+                ]
+              },
+              {
+                "group": "Punctuation",
+                "icon": "/icons/ui/asterisk.svg",
+                "pages": [
+                  "multimodal/stt/punctuation"
+                ]
+              },
+              {
+                "group": "Formatting",
+                "icon": "/icons/ui/wand.svg",
+                "pages": [
+                  "multimodal/stt/formatting"
+                ]
+              },
+              {
+                "group": "Interim Results",
+                "icon": "/icons/ui/activity.svg",
+                "pages": [
+                  "multimodal/stt/interim-results"
+                ]
+              },
+              {
+                "group": "Best Practices Recording",
+                "icon": "/icons/ui/info.svg",
+                "pages": [
+                  "multimodal/stt/best-practices-recording"
+                ]
+              },
+              {
+                "group": "Best Practices Transcribe",
+                "icon": "/icons/ui/info.svg",
+                "pages": [
+                  "multimodal/stt/best-practices-transcribe"
+                ]
+              },
+              {
+                "group": "Best Practices Commands",
+                "icon": "/icons/ui/info.svg",
+                "pages": [
+                  "multimodal/stt/best-practices-commands"
+                ]
+              },
+              {
+                "group": "Evaluations",
+                "icon": "/icons/ui/badge-check.svg",
+                "pages": [
+                  "multimodal/stt/evaluations"
+                ]
+              },
+              {
+                "group": "Dictation Web",
+                "icon": "/icons/ui/monitor.svg",
+                "pages": [
+                  "multimodal/stt/dictation-web"
+                ]
+              },
+              {
+                "group": "Feedback",
+                "icon": "/icons/ui/message-square.svg",
+                "pages": [
+                  "multimodal/stt/feedback"
+                ]
+              }
+            ]
           },
           {
             "group": "Facial Physiological Engine",
             "pages": [
-              "multimodal/facial/overview",
-              "multimodal/facial/heart-rate",
-              "multimodal/facial/blood-pressure",
-              "multimodal/facial/hrv",
-              "multimodal/facial/respiration",
-              "multimodal/facial/stress-index",
-              "multimodal/facial/affect-emotion",
-              "multimodal/facial/quality-requirements"
-            ],
-            "icon": "user-square-2"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/user-square-2.svg",
+                "pages": [
+                  "multimodal/facial/overview"
+                ]
+              },
+              {
+                "group": "Heart Rate",
+                "icon": "/icons/ui/activity.svg",
+                "pages": [
+                  "multimodal/facial/heart-rate"
+                ]
+              },
+              {
+                "group": "Blood Pressure",
+                "icon": "/icons/ui/gauge.svg",
+                "pages": [
+                  "multimodal/facial/blood-pressure"
+                ]
+              },
+              {
+                "group": "Hrv",
+                "icon": "/icons/ui/waveform-lines.svg",
+                "pages": [
+                  "multimodal/facial/hrv"
+                ]
+              },
+              {
+                "group": "Respiration",
+                "icon": "/icons/ui/audio-waveform.svg",
+                "pages": [
+                  "multimodal/facial/respiration"
+                ]
+              },
+              {
+                "group": "Stress Index",
+                "icon": "/icons/ui/gauge.svg",
+                "pages": [
+                  "multimodal/facial/stress-index"
+                ]
+              },
+              {
+                "group": "Affect Emotion",
+                "icon": "/icons/ui/user.svg",
+                "pages": [
+                  "multimodal/facial/affect-emotion"
+                ]
+              },
+              {
+                "group": "Quality Requirements",
+                "icon": "/icons/ui/badge-check.svg",
+                "pages": [
+                  "multimodal/facial/quality-requirements"
+                ]
+              }
+            ]
           },
           {
             "group": "Vocal Acoustic Engine",
             "pages": [
-              "multimodal/vocal/overview",
-              "multimodal/vocal/fundamental-frequency",
-              "multimodal/vocal/voice-quality",
-              "multimodal/vocal/prosodics",
-              "multimodal/vocal/spectral-features",
-              "multimodal/vocal/clinical-markers"
-            ],
-            "icon": "audio-waveform"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/audio-waveform.svg",
+                "pages": [
+                  "multimodal/vocal/overview"
+                ]
+              },
+              {
+                "group": "Fundamental Frequency",
+                "icon": "/icons/ui/audio-waveform.svg",
+                "pages": [
+                  "multimodal/vocal/fundamental-frequency"
+                ]
+              },
+              {
+                "group": "Voice Quality",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "multimodal/vocal/voice-quality"
+                ]
+              },
+              {
+                "group": "Prosodics",
+                "icon": "/icons/ui/waveform-lines.svg",
+                "pages": [
+                  "multimodal/vocal/prosodics"
+                ]
+              },
+              {
+                "group": "Spectral Features",
+                "icon": "/icons/ui/chart-line.svg",
+                "pages": [
+                  "multimodal/vocal/spectral-features"
+                ]
+              },
+              {
+                "group": "Clinical Markers",
+                "icon": "/icons/ui/flask-conical.svg",
+                "pages": [
+                  "multimodal/vocal/clinical-markers"
+                ]
+              }
+            ]
           },
           {
             "group": "Neurobehavioral Construct Computer",
             "pages": [
-              "multimodal/rdoc/overview",
-              "multimodal/rdoc/negative-valence",
-              "multimodal/rdoc/positive-valence",
-              "multimodal/rdoc/cognitive-systems",
-              "multimodal/rdoc/social-processes",
-              "multimodal/rdoc/arousal-regulatory"
-            ],
-            "icon": "brain"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "multimodal/rdoc/overview"
+                ]
+              },
+              {
+                "group": "Negative Valence",
+                "icon": "/icons/ui/octagon-alert.svg",
+                "pages": [
+                  "multimodal/rdoc/negative-valence"
+                ]
+              },
+              {
+                "group": "Positive Valence",
+                "icon": "/icons/ui/circle-check.svg",
+                "pages": [
+                  "multimodal/rdoc/positive-valence"
+                ]
+              },
+              {
+                "group": "Cognitive Systems",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "multimodal/rdoc/cognitive-systems"
+                ]
+              },
+              {
+                "group": "Social Processes",
+                "icon": "/icons/ui/users.svg",
+                "pages": [
+                  "multimodal/rdoc/social-processes"
+                ]
+              },
+              {
+                "group": "Arousal Regulatory",
+                "icon": "/icons/ui/activity.svg",
+                "pages": [
+                  "multimodal/rdoc/arousal-regulatory"
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "tab": "Text Generation",
-        "icon": "text-align-start",
+        "icon": "/icons/ui/text-align-start.svg",
         "groups": [
           {
             "group": "Overview",
             "pages": [
-              "textgen/overview",
-              "textgen/architecture"
-            ],
-            "icon": "compass"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/text-align-start.svg",
+                "pages": [
+                  "textgen/overview"
+                ]
+              },
+              {
+                "group": "Architecture",
+                "icon": "/icons/ui/layout-dashboard.svg",
+                "pages": [
+                  "textgen/architecture"
+                ]
+              }
+            ]
           },
           {
             "group": "Documents",
             "pages": [
-              "textgen/documents-standard",
-              "textgen/documents-advanced",
-              "textgen/documents-customize",
-              "textgen/documents-docmode",
-              "textgen/templates",
-              "textgen/templates-standard"
-            ],
-            "icon": "file-text"
+              {
+                "group": "Documents Standard",
+                "icon": "/icons/ui/file-text.svg",
+                "pages": [
+                  "textgen/documents-standard"
+                ]
+              },
+              {
+                "group": "Documents Advanced",
+                "icon": "/icons/ui/settings.svg",
+                "pages": [
+                  "textgen/documents-advanced"
+                ]
+              },
+              {
+                "group": "Documents Customize",
+                "icon": "/icons/ui/wand.svg",
+                "pages": [
+                  "textgen/documents-customize"
+                ]
+              },
+              {
+                "group": "Documents Docmode",
+                "icon": "/icons/ui/file-pen.svg",
+                "pages": [
+                  "textgen/documents-docmode"
+                ]
+              },
+              {
+                "group": "Templates",
+                "icon": "/icons/ui/file-text.svg",
+                "pages": [
+                  "textgen/templates"
+                ]
+              },
+              {
+                "group": "Templates Standard",
+                "icon": "/icons/ui/library.svg",
+                "pages": [
+                  "textgen/templates-standard"
+                ]
+              }
+            ]
           },
           {
             "group": "Facts & Reasoning",
             "pages": [
-              "textgen/factsr",
-              "textgen/extractfacts",
-              "textgen/facts_realtime",
-              "textgen/facts_async"
-            ],
-            "icon": "search"
+              {
+                "group": "Factsr",
+                "icon": "/icons/ui/search.svg",
+                "pages": [
+                  "textgen/factsr"
+                ]
+              },
+              {
+                "group": "Extractfacts",
+                "icon": "/icons/ui/search.svg",
+                "pages": [
+                  "textgen/extractfacts"
+                ]
+              },
+              {
+                "group": "Facts Realtime",
+                "icon": "/icons/ui/zap.svg",
+                "pages": [
+                  "textgen/facts_realtime"
+                ]
+              },
+              {
+                "group": "Facts Async",
+                "icon": "/icons/ui/clock.svg",
+                "pages": [
+                  "textgen/facts_async"
+                ]
+              }
+            ]
           },
           {
             "group": "Clinical RAG",
             "pages": [
-              "textgen/rag-overview",
-              "textgen/rag-hybrid-search",
-              "textgen/rag-ontologies",
-              "textgen/rag-guidelines",
-              "textgen/rag-citations"
-            ],
-            "icon": "library"
+              {
+                "group": "Rag Overview",
+                "icon": "/icons/ui/library.svg",
+                "pages": [
+                  "textgen/rag-overview"
+                ]
+              },
+              {
+                "group": "Rag Hybrid Search",
+                "icon": "/icons/ui/search.svg",
+                "pages": [
+                  "textgen/rag-hybrid-search"
+                ]
+              },
+              {
+                "group": "Rag Ontologies",
+                "icon": "/icons/ui/network.svg",
+                "pages": [
+                  "textgen/rag-ontologies"
+                ]
+              },
+              {
+                "group": "Rag Guidelines",
+                "icon": "/icons/ui/book.svg",
+                "pages": [
+                  "textgen/rag-guidelines"
+                ]
+              },
+              {
+                "group": "Rag Citations",
+                "icon": "/icons/ui/quote.svg",
+                "pages": [
+                  "textgen/rag-citations"
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "tab": "Agentic Framework",
-        "icon": "layers",
+        "icon": "/icons/ui/layers.svg",
         "groups": [
           {
             "group": "Get Started",
             "pages": [
-              "agentic/overview",
-              "agentic/quickstart",
-              "agentic/architecture",
-              "agentic/core-concepts",
-              "agentic/beginners-guide",
-              "agentic/orchestrator",
-              "agentic/context-memory",
-              "agentic/a2a-protocol",
-              "agentic/mcp-authentication",
-              "agentic/faq",
-              "agentic/sdks-integrations"
-            ],
-            "icon": "rocket"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/layers.svg",
+                "pages": [
+                  "agentic/overview"
+                ]
+              },
+              {
+                "group": "Quickstart",
+                "icon": "/icons/ui/zap.svg",
+                "pages": [
+                  "agentic/quickstart"
+                ]
+              },
+              {
+                "group": "Architecture",
+                "icon": "/icons/ui/layout-dashboard.svg",
+                "pages": [
+                  "agentic/architecture"
+                ]
+              },
+              {
+                "group": "Core Concepts",
+                "icon": "/icons/ui/compass.svg",
+                "pages": [
+                  "agentic/core-concepts"
+                ]
+              },
+              {
+                "group": "Beginners Guide",
+                "icon": "/icons/ui/book-open.svg",
+                "pages": [
+                  "agentic/beginners-guide"
+                ]
+              },
+              {
+                "group": "Orchestrator",
+                "icon": "/icons/ui/workflow.svg",
+                "pages": [
+                  "agentic/orchestrator"
+                ]
+              },
+              {
+                "group": "Context Memory",
+                "icon": "/icons/ui/memory.svg",
+                "pages": [
+                  "agentic/context-memory"
+                ]
+              },
+              {
+                "group": "A2A Protocol",
+                "icon": "/icons/ui/git-branch.svg",
+                "pages": [
+                  "agentic/a2a-protocol"
+                ]
+              },
+              {
+                "group": "Mcp Authentication",
+                "icon": "/icons/ui/key-round.svg",
+                "pages": [
+                  "agentic/mcp-authentication"
+                ]
+              },
+              {
+                "group": "Faq",
+                "icon": "/icons/ui/message-square.svg",
+                "pages": [
+                  "agentic/faq"
+                ]
+              },
+              {
+                "group": "Sdks Integrations",
+                "icon": "/icons/ui/puzzle.svg",
+                "pages": [
+                  "agentic/sdks-integrations"
+                ]
+              }
+            ]
           },
           {
             "group": "Agent Library \u2014 Clinical Operations",
             "pages": [
-              "agentic/agents/patient-intake",
-              "agentic/agents/triage",
-              "agentic/agents/visit-scribe",
-              "agentic/agents/co-therapy",
-              "agentic/agents/prior-authorization",
-              "agentic/agents/care-coordinator"
-            ],
-            "icon": "stethoscope"
+              {
+                "group": "Patient Intake",
+                "icon": "/icons/ui/phone.svg",
+                "pages": [
+                  "agentic/agents/patient-intake"
+                ]
+              },
+              {
+                "group": "Triage",
+                "icon": "/icons/ui/triangle-alert.svg",
+                "pages": [
+                  "agentic/agents/triage"
+                ]
+              },
+              {
+                "group": "Visit Scribe",
+                "icon": "/icons/ui/file-text.svg",
+                "pages": [
+                  "agentic/agents/visit-scribe"
+                ]
+              },
+              {
+                "group": "Co Therapy",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "agentic/agents/co-therapy"
+                ]
+              },
+              {
+                "group": "Prior Authorization",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "agentic/agents/prior-authorization"
+                ]
+              },
+              {
+                "group": "Care Coordinator",
+                "icon": "/icons/ui/users.svg",
+                "pages": [
+                  "agentic/agents/care-coordinator"
+                ]
+              }
+            ]
           },
           {
             "group": "Agent Library \u2014 Documentation & Coding",
             "pages": [
-              "agentic/agents/medical-coding",
-              "agentic/agents/clinical-documentation-improvement",
-              "agentic/agents/note-completeness",
-              "agentic/agents/referral-generator",
-              "agentic/agents/discharge-summary"
-            ],
-            "icon": "file-check-2"
+              {
+                "group": "Medical Coding",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "agentic/agents/medical-coding"
+                ]
+              },
+              {
+                "group": "Clinical Documentation Improvement",
+                "icon": "/icons/ui/file-pen.svg",
+                "pages": [
+                  "agentic/agents/clinical-documentation-improvement"
+                ]
+              },
+              {
+                "group": "Note Completeness",
+                "icon": "/icons/ui/clipboard-check.svg",
+                "pages": [
+                  "agentic/agents/note-completeness"
+                ]
+              },
+              {
+                "group": "Referral Generator",
+                "icon": "/icons/ui/file-text.svg",
+                "pages": [
+                  "agentic/agents/referral-generator"
+                ]
+              },
+              {
+                "group": "Discharge Summary",
+                "icon": "/icons/ui/file-check-2.svg",
+                "pages": [
+                  "agentic/agents/discharge-summary"
+                ]
+              }
+            ]
           },
           {
             "group": "Agent Library \u2014 Patient-Facing",
             "pages": [
-              "agentic/agents/health-coach",
-              "agentic/agents/patient-education",
-              "agentic/agents/crisis-response",
-              "agentic/agents/outcomes-measurement"
-            ],
-            "icon": "heart-handshake"
+              {
+                "group": "Health Coach",
+                "icon": "/icons/ui/heart-handshake.svg",
+                "pages": [
+                  "agentic/agents/health-coach"
+                ]
+              },
+              {
+                "group": "Patient Education",
+                "icon": "/icons/ui/book.svg",
+                "pages": [
+                  "agentic/agents/patient-education"
+                ]
+              },
+              {
+                "group": "Crisis Response",
+                "icon": "/icons/ui/triangle-alert.svg",
+                "pages": [
+                  "agentic/agents/crisis-response"
+                ]
+              },
+              {
+                "group": "Outcomes Measurement",
+                "icon": "/icons/ui/chart-line.svg",
+                "pages": [
+                  "agentic/agents/outcomes-measurement"
+                ]
+              }
+            ]
           },
           {
             "group": "Agent Library \u2014 Revenue Cycle & Ops",
             "pages": [
-              "agentic/agents/denial-appeals",
-              "agentic/agents/eligibility-verification",
-              "agentic/agents/claims-review",
-              "agentic/agents/quality-reporting"
-            ],
-            "icon": "credit-card"
+              {
+                "group": "Denial Appeals",
+                "icon": "/icons/ui/scroll.svg",
+                "pages": [
+                  "agentic/agents/denial-appeals"
+                ]
+              },
+              {
+                "group": "Eligibility Verification",
+                "icon": "/icons/ui/badge-check.svg",
+                "pages": [
+                  "agentic/agents/eligibility-verification"
+                ]
+              },
+              {
+                "group": "Claims Review",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "agentic/agents/claims-review"
+                ]
+              },
+              {
+                "group": "Quality Reporting",
+                "icon": "/icons/ui/chart-line.svg",
+                "pages": [
+                  "agentic/agents/quality-reporting"
+                ]
+              }
+            ]
           },
           {
             "group": "Agent Library \u2014 Evidence & Safety",
             "pages": [
-              "agentic/agents/clinical-guidelines",
-              "agentic/agents/medication-reconciliation",
-              "agentic/agents/drug-interaction",
-              "agentic/agents/risk-stratification",
-              "agentic/agents/evidence-synthesis"
-            ],
-            "icon": "shield-check"
+              {
+                "group": "Clinical Guidelines",
+                "icon": "/icons/ui/book.svg",
+                "pages": [
+                  "agentic/agents/clinical-guidelines"
+                ]
+              },
+              {
+                "group": "Medication Reconciliation",
+                "icon": "/icons/ui/pill.svg",
+                "pages": [
+                  "agentic/agents/medication-reconciliation"
+                ]
+              },
+              {
+                "group": "Drug Interaction",
+                "icon": "/icons/ui/pill.svg",
+                "pages": [
+                  "agentic/agents/drug-interaction"
+                ]
+              },
+              {
+                "group": "Risk Stratification",
+                "icon": "/icons/ui/shield-alert.svg",
+                "pages": [
+                  "agentic/agents/risk-stratification"
+                ]
+              },
+              {
+                "group": "Evidence Synthesis",
+                "icon": "/icons/ui/library.svg",
+                "pages": [
+                  "agentic/agents/evidence-synthesis"
+                ]
+              }
+            ]
           },
           {
             "group": "Experts Registry",
             "pages": [
-              "agentic/experts/overview",
-              "agentic/experts/vocal-prosody",
-              "agentic/experts/linguistic-content",
-              "agentic/experts/validated-screener",
-              "agentic/experts/c-ssrs-risk",
-              "agentic/experts/esi-acuity",
-              "agentic/experts/icd-10-coding",
-              "agentic/experts/cpt-em",
-              "agentic/experts/medical-calculator",
-              "agentic/experts/memory",
-              "agentic/experts/pubmed",
-              "agentic/experts/drugbank",
-              "agentic/experts/clinicaltrials-gov",
-              "agentic/experts/payer-policy",
-              "agentic/experts/web-search"
-            ],
-            "icon": "atom"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/atom.svg",
+                "pages": [
+                  "agentic/experts/overview"
+                ]
+              },
+              {
+                "group": "Vocal Prosody",
+                "icon": "/icons/ui/audio-waveform.svg",
+                "pages": [
+                  "agentic/experts/vocal-prosody"
+                ]
+              },
+              {
+                "group": "Linguistic Content",
+                "icon": "/icons/ui/text-align-start.svg",
+                "pages": [
+                  "agentic/experts/linguistic-content"
+                ]
+              },
+              {
+                "group": "Validated Screener",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "agentic/experts/validated-screener"
+                ]
+              },
+              {
+                "group": "C Ssrs Risk",
+                "icon": "/icons/ui/shield-alert.svg",
+                "pages": [
+                  "agentic/experts/c-ssrs-risk"
+                ]
+              },
+              {
+                "group": "Esi Acuity",
+                "icon": "/icons/ui/triangle-alert.svg",
+                "pages": [
+                  "agentic/experts/esi-acuity"
+                ]
+              },
+              {
+                "group": "Icd 10 Coding",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "agentic/experts/icd-10-coding"
+                ]
+              },
+              {
+                "group": "Cpt Em",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "agentic/experts/cpt-em"
+                ]
+              },
+              {
+                "group": "Medical Calculator",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "agentic/experts/medical-calculator"
+                ]
+              },
+              {
+                "group": "Memory",
+                "icon": "/icons/ui/memory.svg",
+                "pages": [
+                  "agentic/experts/memory"
+                ]
+              },
+              {
+                "group": "Pubmed",
+                "icon": "/icons/ui/book.svg",
+                "pages": [
+                  "agentic/experts/pubmed"
+                ]
+              },
+              {
+                "group": "Drugbank",
+                "icon": "/icons/ui/pill.svg",
+                "pages": [
+                  "agentic/experts/drugbank"
+                ]
+              },
+              {
+                "group": "Clinicaltrials Gov",
+                "icon": "/icons/ui/flask-conical.svg",
+                "pages": [
+                  "agentic/experts/clinicaltrials-gov"
+                ]
+              },
+              {
+                "group": "Payer Policy",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "agentic/experts/payer-policy"
+                ]
+              },
+              {
+                "group": "Web Search",
+                "icon": "/icons/ui/search.svg",
+                "pages": [
+                  "agentic/experts/web-search"
+                ]
+              }
+            ]
           },
           {
             "group": "Agent Builder Canvas",
             "pages": [
-              "agentic/canvas/overview",
-              "agentic/canvas/node-types",
-              "agentic/canvas/variables-scopes",
-              "agentic/canvas/versioning-deployment",
-              "agentic/canvas/guardrails",
-              "agentic/canvas/transforms-cel"
-            ],
-            "icon": "layout-dashboard"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/layout-dashboard.svg",
+                "pages": [
+                  "agentic/canvas/overview"
+                ]
+              },
+              {
+                "group": "Node Types",
+                "icon": "/icons/ui/grid.svg",
+                "pages": [
+                  "agentic/canvas/node-types"
+                ]
+              },
+              {
+                "group": "Variables Scopes",
+                "icon": "/icons/ui/code.svg",
+                "pages": [
+                  "agentic/canvas/variables-scopes"
+                ]
+              },
+              {
+                "group": "Versioning Deployment",
+                "icon": "/icons/ui/git-branch.svg",
+                "pages": [
+                  "agentic/canvas/versioning-deployment"
+                ]
+              },
+              {
+                "group": "Guardrails",
+                "icon": "/icons/ui/shield-alert.svg",
+                "pages": [
+                  "agentic/canvas/guardrails"
+                ]
+              },
+              {
+                "group": "Transforms Cel",
+                "icon": "/icons/ui/wand.svg",
+                "pages": [
+                  "agentic/canvas/transforms-cel"
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "tab": "Coding",
-        "icon": "code",
+        "icon": "/icons/ui/code.svg",
         "groups": [
           {
             "group": "Overview",
             "pages": [
-              "coding/overview",
-              "coding/introduction",
-              "coding/how-it-works",
-              "coding/quickstart",
-              "coding/coding-systems",
-              "coding/encounter-coding",
-              "coding/cdi",
-              "coding/revenue-cycle"
-            ],
-            "icon": "compass"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "coding/overview"
+                ]
+              },
+              {
+                "group": "Introduction",
+                "icon": "/icons/ui/compass.svg",
+                "pages": [
+                  "coding/introduction"
+                ]
+              },
+              {
+                "group": "How It Works",
+                "icon": "/icons/ui/settings.svg",
+                "pages": [
+                  "coding/how-it-works"
+                ]
+              },
+              {
+                "group": "Quickstart",
+                "icon": "/icons/ui/zap.svg",
+                "pages": [
+                  "coding/quickstart"
+                ]
+              },
+              {
+                "group": "Coding Systems",
+                "icon": "/icons/ui/layers.svg",
+                "pages": [
+                  "coding/coding-systems"
+                ]
+              },
+              {
+                "group": "Encounter Coding",
+                "icon": "/icons/ui/calendar.svg",
+                "pages": [
+                  "coding/encounter-coding"
+                ]
+              },
+              {
+                "group": "Cdi",
+                "icon": "/icons/ui/file-pen.svg",
+                "pages": [
+                  "coding/cdi"
+                ]
+              },
+              {
+                "group": "Revenue Cycle",
+                "icon": "/icons/ui/credit-card.svg",
+                "pages": [
+                  "coding/revenue-cycle"
+                ]
+              }
+            ]
           },
           {
             "group": "Code Systems",
             "pages": [
-              "coding/icd-10-cm",
-              "coding/icd-10-pcs",
-              "coding/icd-10-int",
-              "coding/cpt",
-              "coding/hcpcs",
-              "coding/snomed-ct",
-              "coding/loinc",
-              "coding/rxnorm"
-            ],
-            "icon": "hash"
+              {
+                "group": "Icd 10 Cm",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "coding/icd-10-cm"
+                ]
+              },
+              {
+                "group": "Icd 10 Pcs",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "coding/icd-10-pcs"
+                ]
+              },
+              {
+                "group": "Icd 10 Int",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "coding/icd-10-int"
+                ]
+              },
+              {
+                "group": "Cpt",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "coding/cpt"
+                ]
+              },
+              {
+                "group": "Hcpcs",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "coding/hcpcs"
+                ]
+              },
+              {
+                "group": "Snomed Ct",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "coding/snomed-ct"
+                ]
+              },
+              {
+                "group": "Loinc",
+                "icon": "/icons/ui/hash.svg",
+                "pages": [
+                  "coding/loinc"
+                ]
+              },
+              {
+                "group": "Rxnorm",
+                "icon": "/icons/ui/pill.svg",
+                "pages": [
+                  "coding/rxnorm"
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "tab": "Compliance",
-        "icon": "shield-check",
+        "icon": "/icons/ui/shield-check.svg",
         "groups": [
           {
             "group": "Trust Center",
             "pages": [
-              "compliance/overview",
-              "compliance/hipaa",
-              "compliance/42-cfr-part-2",
-              "compliance/baa",
-              "compliance/data-residency",
-              "compliance/sub-processors"
-            ],
-            "icon": "shield-check"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "compliance/overview"
+                ]
+              },
+              {
+                "group": "Hipaa",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "compliance/hipaa"
+                ]
+              },
+              {
+                "group": "42 Cfr Part 2",
+                "icon": "/icons/ui/shield-half.svg",
+                "pages": [
+                  "compliance/42-cfr-part-2"
+                ]
+              },
+              {
+                "group": "Baa",
+                "icon": "/icons/ui/file-text.svg",
+                "pages": [
+                  "compliance/baa"
+                ]
+              },
+              {
+                "group": "Data Residency",
+                "icon": "/icons/ui/globe.svg",
+                "pages": [
+                  "compliance/data-residency"
+                ]
+              },
+              {
+                "group": "Sub Processors",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "compliance/sub-processors"
+                ]
+              }
+            ]
           },
           {
             "group": "Security Controls",
             "pages": [
-              "compliance/encryption",
-              "compliance/key-management",
-              "compliance/audit-logging",
-              "compliance/row-level-security",
-              "compliance/phi-handling",
-              "compliance/access-control",
-              "compliance/mfa-sso",
-              "compliance/incident-response"
-            ],
-            "icon": "lock"
+              {
+                "group": "Encryption",
+                "icon": "/icons/ui/lock.svg",
+                "pages": [
+                  "compliance/encryption"
+                ]
+              },
+              {
+                "group": "Key Management",
+                "icon": "/icons/ui/key-round.svg",
+                "pages": [
+                  "compliance/key-management"
+                ]
+              },
+              {
+                "group": "Audit Logging",
+                "icon": "/icons/ui/scroll.svg",
+                "pages": [
+                  "compliance/audit-logging"
+                ]
+              },
+              {
+                "group": "Row Level Security",
+                "icon": "/icons/ui/lock.svg",
+                "pages": [
+                  "compliance/row-level-security"
+                ]
+              },
+              {
+                "group": "Phi Handling",
+                "icon": "/icons/ui/lock.svg",
+                "pages": [
+                  "compliance/phi-handling"
+                ]
+              },
+              {
+                "group": "Access Control",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "compliance/access-control"
+                ]
+              },
+              {
+                "group": "Mfa Sso",
+                "icon": "/icons/ui/fingerprint.svg",
+                "pages": [
+                  "compliance/mfa-sso"
+                ]
+              },
+              {
+                "group": "Incident Response",
+                "icon": "/icons/ui/triangle-alert.svg",
+                "pages": [
+                  "compliance/incident-response"
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "tab": "SDKs",
-        "icon": "package",
+        "icon": "/icons/ui/package.svg",
         "groups": [
           {
             "group": "Overview",
             "pages": [
-              "sdks/overview"
-            ],
-            "icon": "compass"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/package.svg",
+                "pages": [
+                  "sdks/overview"
+                ]
+              }
+            ]
           },
           {
             "group": "JavaScript / TypeScript",
             "pages": [
-              "sdks/js/overview",
-              "sdks/js/authentication",
-              "sdks/js/websockets",
-              "sdks/js/proxy",
-              "sdks/js/reference"
-            ],
-            "icon": "square-code"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/js.svg",
+                "pages": [
+                  "sdks/js/overview"
+                ]
+              },
+              {
+                "group": "Authentication",
+                "icon": "/icons/ui/key.svg",
+                "pages": [
+                  "sdks/js/authentication"
+                ]
+              },
+              {
+                "group": "Websockets",
+                "icon": "/icons/ui/zap.svg",
+                "pages": [
+                  "sdks/js/websockets"
+                ]
+              },
+              {
+                "group": "Proxy",
+                "icon": "/icons/ui/server.svg",
+                "pages": [
+                  "sdks/js/proxy"
+                ]
+              },
+              {
+                "group": "Reference",
+                "icon": "/icons/ui/book.svg",
+                "pages": [
+                  "sdks/js/reference"
+                ]
+              }
+            ]
           },
           {
             "group": "Python",
             "pages": [
-              "sdks/python/overview",
-              "sdks/python/authentication",
-              "sdks/python/websockets",
-              "sdks/python/reference"
-            ],
-            "icon": "square-code"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/python.svg",
+                "pages": [
+                  "sdks/python/overview"
+                ]
+              },
+              {
+                "group": "Authentication",
+                "icon": "/icons/ui/key.svg",
+                "pages": [
+                  "sdks/python/authentication"
+                ]
+              },
+              {
+                "group": "Websockets",
+                "icon": "/icons/ui/zap.svg",
+                "pages": [
+                  "sdks/python/websockets"
+                ]
+              },
+              {
+                "group": "Reference",
+                "icon": "/icons/ui/book.svg",
+                "pages": [
+                  "sdks/python/reference"
+                ]
+              }
+            ]
           },
           {
             "group": "Web Components",
             "pages": [
-              "sdks/dictation-component",
-              "sdks/co-therapy-component"
-            ],
-            "icon": "puzzle"
+              {
+                "group": "Dictation Component",
+                "icon": "/icons/ui/mic.svg",
+                "pages": [
+                  "sdks/dictation-component"
+                ]
+              },
+              {
+                "group": "Co Therapy Component",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "sdks/co-therapy-component"
+                ]
+              }
+            ]
           },
           {
             "group": "Tools",
             "pages": [
-              "sdks/postman",
-              "sdks/cli"
-            ],
-            "icon": "wrench"
+              {
+                "group": "Postman",
+                "icon": "/icons/ui/package.svg",
+                "pages": [
+                  "sdks/postman"
+                ]
+              },
+              {
+                "group": "Cli",
+                "icon": "/icons/ui/square-terminal.svg",
+                "pages": [
+                  "sdks/cli"
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "tab": "API Reference",
-        "icon": "terminal",
+        "icon": "/icons/ui/terminal.svg",
         "groups": [
           {
             "group": "Introduction",
             "pages": [
-              "api-reference/welcome",
-              "api-reference/errors",
-              "api-reference/rate-limits",
-              "api-reference/pagination",
-              "api-reference/versioning"
-            ],
-            "icon": "compass"
+              {
+                "group": "Welcome",
+                "icon": "/icons/ui/compass.svg",
+                "pages": [
+                  "api-reference/welcome"
+                ]
+              },
+              {
+                "group": "Errors",
+                "icon": "/icons/ui/circle-alert.svg",
+                "pages": [
+                  "api-reference/errors"
+                ]
+              },
+              {
+                "group": "Rate Limits",
+                "icon": "/icons/ui/gauge.svg",
+                "pages": [
+                  "api-reference/rate-limits"
+                ]
+              },
+              {
+                "group": "Pagination",
+                "icon": "/icons/ui/list.svg",
+                "pages": [
+                  "api-reference/pagination"
+                ]
+              },
+              {
+                "group": "Versioning",
+                "icon": "/icons/ui/git-branch.svg",
+                "pages": [
+                  "api-reference/versioning"
+                ]
+              }
+            ]
           },
           {
             "group": "Authentication",
             "pages": [
-              "api-reference/auth/login",
-              "api-reference/auth/refresh",
-              "api-reference/auth/register",
-              "api-reference/auth/forgot-password",
-              "api-reference/auth/webhooks-identity"
-            ],
-            "icon": "key-round"
+              {
+                "group": "Login",
+                "icon": "/icons/ui/key.svg",
+                "pages": [
+                  "api-reference/auth/login"
+                ]
+              },
+              {
+                "group": "Refresh",
+                "icon": "/icons/ui/key.svg",
+                "pages": [
+                  "api-reference/auth/refresh"
+                ]
+              },
+              {
+                "group": "Register",
+                "icon": "/icons/ui/key.svg",
+                "pages": [
+                  "api-reference/auth/register"
+                ]
+              },
+              {
+                "group": "Forgot Password",
+                "icon": "/icons/ui/key.svg",
+                "pages": [
+                  "api-reference/auth/forgot-password"
+                ]
+              },
+              {
+                "group": "Webhooks Identity",
+                "icon": "/icons/ui/key.svg",
+                "pages": [
+                  "api-reference/auth/webhooks-identity"
+                ]
+              }
+            ]
           },
           {
             "group": "Patients",
             "pages": [
-              "api-reference/patients/create",
-              "api-reference/patients/get",
-              "api-reference/patients/list",
-              "api-reference/patients/update",
-              "api-reference/patients/delete"
-            ],
-            "icon": "user-round"
+              {
+                "group": "Create",
+                "icon": "/icons/ui/user-round.svg",
+                "pages": [
+                  "api-reference/patients/create"
+                ]
+              },
+              {
+                "group": "Get",
+                "icon": "/icons/ui/user-round.svg",
+                "pages": [
+                  "api-reference/patients/get"
+                ]
+              },
+              {
+                "group": "List",
+                "icon": "/icons/ui/user-round.svg",
+                "pages": [
+                  "api-reference/patients/list"
+                ]
+              },
+              {
+                "group": "Update",
+                "icon": "/icons/ui/user-round.svg",
+                "pages": [
+                  "api-reference/patients/update"
+                ]
+              },
+              {
+                "group": "Delete",
+                "icon": "/icons/ui/user-round.svg",
+                "pages": [
+                  "api-reference/patients/delete"
+                ]
+              }
+            ]
           },
           {
             "group": "Providers & Organizations",
             "pages": [
-              "api-reference/providers/list",
-              "api-reference/providers/credentials",
-              "api-reference/providers/certifications",
-              "api-reference/organizations/get",
-              "api-reference/organizations/provision",
-              "api-reference/organizations/usage"
-            ],
-            "icon": "users-round"
+              {
+                "group": "List",
+                "icon": "/icons/ui/users-round.svg",
+                "pages": [
+                  "api-reference/providers/list"
+                ]
+              },
+              {
+                "group": "Credentials",
+                "icon": "/icons/ui/users-round.svg",
+                "pages": [
+                  "api-reference/providers/credentials"
+                ]
+              },
+              {
+                "group": "Certifications",
+                "icon": "/icons/ui/users-round.svg",
+                "pages": [
+                  "api-reference/providers/certifications"
+                ]
+              },
+              {
+                "group": "Get",
+                "icon": "/icons/ui/briefcase.svg",
+                "pages": [
+                  "api-reference/organizations/get"
+                ]
+              },
+              {
+                "group": "Provision",
+                "icon": "/icons/ui/briefcase.svg",
+                "pages": [
+                  "api-reference/organizations/provision"
+                ]
+              },
+              {
+                "group": "Usage",
+                "icon": "/icons/ui/briefcase.svg",
+                "pages": [
+                  "api-reference/organizations/usage"
+                ]
+              }
+            ]
           },
           {
             "group": "Sessions & Encounters",
             "pages": [
-              "api-reference/sessions/create",
-              "api-reference/sessions/list",
-              "api-reference/sessions/get",
-              "api-reference/sessions/recordings",
-              "api-reference/sessions/transcripts",
-              "api-reference/sessions/annotations"
-            ],
-            "icon": "calendar"
+              {
+                "group": "Create",
+                "icon": "/icons/ui/calendar.svg",
+                "pages": [
+                  "api-reference/sessions/create"
+                ]
+              },
+              {
+                "group": "List",
+                "icon": "/icons/ui/calendar.svg",
+                "pages": [
+                  "api-reference/sessions/list"
+                ]
+              },
+              {
+                "group": "Get",
+                "icon": "/icons/ui/calendar.svg",
+                "pages": [
+                  "api-reference/sessions/get"
+                ]
+              },
+              {
+                "group": "Recordings",
+                "icon": "/icons/ui/calendar.svg",
+                "pages": [
+                  "api-reference/sessions/recordings"
+                ]
+              },
+              {
+                "group": "Transcripts",
+                "icon": "/icons/ui/calendar.svg",
+                "pages": [
+                  "api-reference/sessions/transcripts"
+                ]
+              },
+              {
+                "group": "Annotations",
+                "icon": "/icons/ui/calendar.svg",
+                "pages": [
+                  "api-reference/sessions/annotations"
+                ]
+              }
+            ]
           },
           {
             "group": "Intake Calls (Voice)",
             "pages": [
-              "api-reference/intake/create-call",
-              "api-reference/intake/get-call",
-              "api-reference/intake/list-calls",
-              "api-reference/intake/webhooks-voice",
-              "api-reference/intake/function-calls"
-            ],
-            "icon": "phone"
+              {
+                "group": "Create Call",
+                "icon": "/icons/ui/phone.svg",
+                "pages": [
+                  "api-reference/intake/create-call"
+                ]
+              },
+              {
+                "group": "Get Call",
+                "icon": "/icons/ui/phone.svg",
+                "pages": [
+                  "api-reference/intake/get-call"
+                ]
+              },
+              {
+                "group": "List Calls",
+                "icon": "/icons/ui/phone.svg",
+                "pages": [
+                  "api-reference/intake/list-calls"
+                ]
+              },
+              {
+                "group": "Webhooks Voice",
+                "icon": "/icons/ui/phone.svg",
+                "pages": [
+                  "api-reference/intake/webhooks-voice"
+                ]
+              },
+              {
+                "group": "Function Calls",
+                "icon": "/icons/ui/phone.svg",
+                "pages": [
+                  "api-reference/intake/function-calls"
+                ]
+              }
+            ]
           },
           {
             "group": "Therapy Sessions",
             "pages": [
-              "api-reference/therapy/start",
-              "api-reference/therapy/chunk",
-              "api-reference/therapy/stop",
-              "api-reference/therapy/analyze",
-              "api-reference/therapy/co-therapy-create"
-            ],
-            "icon": "brain"
+              {
+                "group": "Start",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "api-reference/therapy/start"
+                ]
+              },
+              {
+                "group": "Chunk",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "api-reference/therapy/chunk"
+                ]
+              },
+              {
+                "group": "Stop",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "api-reference/therapy/stop"
+                ]
+              },
+              {
+                "group": "Analyze",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "api-reference/therapy/analyze"
+                ]
+              },
+              {
+                "group": "Co Therapy Create",
+                "icon": "/icons/ui/brain.svg",
+                "pages": [
+                  "api-reference/therapy/co-therapy-create"
+                ]
+              }
+            ]
           },
           {
             "group": "Multimodal Analysis",
             "pages": [
-              "api-reference/multimodal/analyze-video",
-              "api-reference/multimodal/analyze-audio",
-              "api-reference/multimodal/rdoc-compute",
-              "api-reference/multimodal/realtime-stream"
-            ],
-            "icon": "audio-lines"
+              {
+                "group": "Analyze Video",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "api-reference/multimodal/analyze-video"
+                ]
+              },
+              {
+                "group": "Analyze Audio",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "api-reference/multimodal/analyze-audio"
+                ]
+              },
+              {
+                "group": "Rdoc Compute",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "api-reference/multimodal/rdoc-compute"
+                ]
+              },
+              {
+                "group": "Realtime Stream",
+                "icon": "/icons/ui/audio-lines.svg",
+                "pages": [
+                  "api-reference/multimodal/realtime-stream"
+                ]
+              }
+            ]
           },
           {
             "group": "Prior Authorization",
             "pages": [
-              "api-reference/pa/initiate",
-              "api-reference/pa/evaluate-criteria",
-              "api-reference/pa/generate-document",
-              "api-reference/pa/submit",
-              "api-reference/pa/status",
-              "api-reference/pa/appeal"
-            ],
-            "icon": "file-check-2"
+              {
+                "group": "Initiate",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "api-reference/pa/initiate"
+                ]
+              },
+              {
+                "group": "Evaluate Criteria",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "api-reference/pa/evaluate-criteria"
+                ]
+              },
+              {
+                "group": "Generate Document",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "api-reference/pa/generate-document"
+                ]
+              },
+              {
+                "group": "Submit",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "api-reference/pa/submit"
+                ]
+              },
+              {
+                "group": "Status",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "api-reference/pa/status"
+                ]
+              },
+              {
+                "group": "Appeal",
+                "icon": "/icons/ui/shield-check.svg",
+                "pages": [
+                  "api-reference/pa/appeal"
+                ]
+              }
+            ]
           },
           {
             "group": "Agent Workflows",
             "pages": [
-              "api-reference/workflows/create",
-              "api-reference/workflows/list",
-              "api-reference/workflows/get",
-              "api-reference/workflows/update",
-              "api-reference/workflows/publish",
-              "api-reference/workflows/execute",
-              "api-reference/workflows/executions"
-            ],
-            "icon": "workflow"
+              {
+                "group": "Create",
+                "icon": "/icons/ui/workflow.svg",
+                "pages": [
+                  "api-reference/workflows/create"
+                ]
+              },
+              {
+                "group": "List",
+                "icon": "/icons/ui/workflow.svg",
+                "pages": [
+                  "api-reference/workflows/list"
+                ]
+              },
+              {
+                "group": "Get",
+                "icon": "/icons/ui/workflow.svg",
+                "pages": [
+                  "api-reference/workflows/get"
+                ]
+              },
+              {
+                "group": "Update",
+                "icon": "/icons/ui/workflow.svg",
+                "pages": [
+                  "api-reference/workflows/update"
+                ]
+              },
+              {
+                "group": "Publish",
+                "icon": "/icons/ui/workflow.svg",
+                "pages": [
+                  "api-reference/workflows/publish"
+                ]
+              },
+              {
+                "group": "Execute",
+                "icon": "/icons/ui/workflow.svg",
+                "pages": [
+                  "api-reference/workflows/execute"
+                ]
+              },
+              {
+                "group": "Executions",
+                "icon": "/icons/ui/workflow.svg",
+                "pages": [
+                  "api-reference/workflows/executions"
+                ]
+              }
+            ]
           },
           {
             "group": "Clinical",
             "pages": [
-              "api-reference/clinical/notes-create",
-              "api-reference/clinical/notes-list",
-              "api-reference/clinical/orders",
-              "api-reference/clinical/prescriptions",
-              "api-reference/clinical/lab-results",
-              "api-reference/clinical/appointments",
-              "api-reference/clinical/templates"
-            ],
-            "icon": "clipboard-list"
+              {
+                "group": "Notes Create",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "api-reference/clinical/notes-create"
+                ]
+              },
+              {
+                "group": "Notes List",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "api-reference/clinical/notes-list"
+                ]
+              },
+              {
+                "group": "Orders",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "api-reference/clinical/orders"
+                ]
+              },
+              {
+                "group": "Prescriptions",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "api-reference/clinical/prescriptions"
+                ]
+              },
+              {
+                "group": "Lab Results",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "api-reference/clinical/lab-results"
+                ]
+              },
+              {
+                "group": "Appointments",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "api-reference/clinical/appointments"
+                ]
+              },
+              {
+                "group": "Templates",
+                "icon": "/icons/ui/clipboard-list.svg",
+                "pages": [
+                  "api-reference/clinical/templates"
+                ]
+              }
+            ]
           },
           {
             "group": "FHIR R4",
             "pages": [
-              "api-reference/fhir/overview",
-              "api-reference/fhir/patient",
-              "api-reference/fhir/encounter",
-              "api-reference/fhir/observation",
-              "api-reference/fhir/condition",
-              "api-reference/fhir/medication-request",
-              "api-reference/fhir/care-plan",
-              "api-reference/fhir/questionnaire-response"
-            ],
-            "icon": "link"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "api-reference/fhir/overview"
+                ]
+              },
+              {
+                "group": "Patient",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "api-reference/fhir/patient"
+                ]
+              },
+              {
+                "group": "Encounter",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "api-reference/fhir/encounter"
+                ]
+              },
+              {
+                "group": "Observation",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "api-reference/fhir/observation"
+                ]
+              },
+              {
+                "group": "Condition",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "api-reference/fhir/condition"
+                ]
+              },
+              {
+                "group": "Medication Request",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "api-reference/fhir/medication-request"
+                ]
+              },
+              {
+                "group": "Care Plan",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "api-reference/fhir/care-plan"
+                ]
+              },
+              {
+                "group": "Questionnaire Response",
+                "icon": "/icons/ui/link.svg",
+                "pages": [
+                  "api-reference/fhir/questionnaire-response"
+                ]
+              }
+            ]
           },
           {
             "group": "Billing",
             "pages": [
-              "api-reference/billing/subscriptions",
-              "api-reference/billing/usage",
-              "api-reference/billing/invoices",
-              "api-reference/billing/payment-methods"
-            ],
-            "icon": "credit-card"
+              {
+                "group": "Subscriptions",
+                "icon": "/icons/ui/credit-card.svg",
+                "pages": [
+                  "api-reference/billing/subscriptions"
+                ]
+              },
+              {
+                "group": "Usage",
+                "icon": "/icons/ui/credit-card.svg",
+                "pages": [
+                  "api-reference/billing/usage"
+                ]
+              },
+              {
+                "group": "Invoices",
+                "icon": "/icons/ui/credit-card.svg",
+                "pages": [
+                  "api-reference/billing/invoices"
+                ]
+              },
+              {
+                "group": "Payment Methods",
+                "icon": "/icons/ui/credit-card.svg",
+                "pages": [
+                  "api-reference/billing/payment-methods"
+                ]
+              }
+            ]
           },
           {
             "group": "Webhooks",
             "pages": [
-              "api-reference/webhooks/overview",
-              "api-reference/webhooks/events",
-              "api-reference/webhooks/signatures"
-            ],
-            "icon": "webhook"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/webhook.svg",
+                "pages": [
+                  "api-reference/webhooks/overview"
+                ]
+              },
+              {
+                "group": "Events",
+                "icon": "/icons/ui/webhook.svg",
+                "pages": [
+                  "api-reference/webhooks/events"
+                ]
+              },
+              {
+                "group": "Signatures",
+                "icon": "/icons/ui/webhook.svg",
+                "pages": [
+                  "api-reference/webhooks/signatures"
+                ]
+              }
+            ]
           },
           {
             "group": "Audit & Compliance",
             "pages": [
-              "api-reference/audit/access-logs",
-              "api-reference/audit/integrity-checkpoints",
-              "api-reference/audit/exports"
-            ],
-            "icon": "scroll"
+              {
+                "group": "Access Logs",
+                "icon": "/icons/ui/scroll.svg",
+                "pages": [
+                  "api-reference/audit/access-logs"
+                ]
+              },
+              {
+                "group": "Integrity Checkpoints",
+                "icon": "/icons/ui/scroll.svg",
+                "pages": [
+                  "api-reference/audit/integrity-checkpoints"
+                ]
+              },
+              {
+                "group": "Exports",
+                "icon": "/icons/ui/scroll.svg",
+                "pages": [
+                  "api-reference/audit/exports"
+                ]
+              }
+            ]
           },
           {
             "group": "EHR Integrations",
             "pages": [
-              "api-reference/integrations/overview",
-              "api-reference/integrations/epic",
-              "api-reference/integrations/cerner",
-              "api-reference/integrations/athenahealth",
-              "api-reference/integrations/allscripts",
-              "api-reference/integrations/surescripts",
-              "api-reference/integrations/waystar"
-            ],
-            "icon": "plug-2"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/plug-2.svg",
+                "pages": [
+                  "api-reference/integrations/overview"
+                ]
+              },
+              {
+                "group": "Epic",
+                "icon": "/icons/ui/plug-2.svg",
+                "pages": [
+                  "api-reference/integrations/epic"
+                ]
+              },
+              {
+                "group": "Cerner",
+                "icon": "/icons/ui/plug-2.svg",
+                "pages": [
+                  "api-reference/integrations/cerner"
+                ]
+              },
+              {
+                "group": "Athenahealth",
+                "icon": "/icons/ui/plug-2.svg",
+                "pages": [
+                  "api-reference/integrations/athenahealth"
+                ]
+              },
+              {
+                "group": "Allscripts",
+                "icon": "/icons/ui/plug-2.svg",
+                "pages": [
+                  "api-reference/integrations/allscripts"
+                ]
+              },
+              {
+                "group": "Surescripts",
+                "icon": "/icons/ui/plug-2.svg",
+                "pages": [
+                  "api-reference/integrations/surescripts"
+                ]
+              },
+              {
+                "group": "Waystar",
+                "icon": "/icons/ui/plug-2.svg",
+                "pages": [
+                  "api-reference/integrations/waystar"
+                ]
+              }
+            ]
           }
         ]
       },
       {
         "tab": "Release Notes",
-        "icon": "newspaper",
+        "icon": "/icons/ui/newspaper.svg",
         "groups": [
           {
             "group": "Releases",
             "pages": [
-              "release-notes/overview",
-              "release-notes/change-policy",
-              "release-notes/changelog-upcoming",
-              "release-notes/platform",
-              "release-notes/agentic",
-              "release-notes/multimodal",
-              "release-notes/textgen"
-            ],
-            "icon": "newspaper"
+              {
+                "group": "Overview",
+                "icon": "/icons/ui/newspaper.svg",
+                "pages": [
+                  "release-notes/overview"
+                ]
+              },
+              {
+                "group": "Change Policy",
+                "icon": "/icons/ui/file-text.svg",
+                "pages": [
+                  "release-notes/change-policy"
+                ]
+              },
+              {
+                "group": "Changelog Upcoming",
+                "icon": "/icons/ui/clock.svg",
+                "pages": [
+                  "release-notes/changelog-upcoming"
+                ]
+              },
+              {
+                "group": "Platform",
+                "icon": "/icons/ui/newspaper.svg",
+                "pages": [
+                  "release-notes/platform"
+                ]
+              },
+              {
+                "group": "Agentic",
+                "icon": "/icons/ui/newspaper.svg",
+                "pages": [
+                  "release-notes/agentic"
+                ]
+              },
+              {
+                "group": "Multimodal",
+                "icon": "/icons/ui/newspaper.svg",
+                "pages": [
+                  "release-notes/multimodal"
+                ]
+              },
+              {
+                "group": "Textgen",
+                "icon": "/icons/ui/newspaper.svg",
+                "pages": [
+                  "release-notes/textgen"
+                ]
+              }
+            ]
           }
         ]
       }
