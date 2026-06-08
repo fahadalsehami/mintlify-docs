@@ -13,24 +13,24 @@ description: "15 named neurobehavioral constructs across 5 domains."
 
 <CardGroup cols={2}>
 
-<Card title="Negative Valence" icon="cloud-rain" href="/multimodal/rdoc/negative-valence">
+<Card title="Negative Valence" icon="/icons/ui/cloud-rain.svg" href="/multimodal/rdoc/negative-valence">
 `acute_threat_fear` · `potential_threat_anxiety` · `sustained_threat`
 </Card>
 
-<Card title="Positive Valence" icon="sun" href="/multimodal/rdoc/positive-valence">
+<Card title="Positive Valence" icon="/icons/ui/sun.svg" href="/multimodal/rdoc/positive-valence">
 `reward_responsiveness` · `reward_anticipation` · `reward_satiation`
 </Card>
 
-<Card title="Cognitive Systems" icon="brain" href="/multimodal/rdoc/cognitive-systems">
+<Card title="Cognitive Systems" icon="/icons/ui/brain.svg" href="/multimodal/rdoc/cognitive-systems">
 `attention` · `working_memory` · `executive_function`
 </Card>
 
-<Card title="Social Processes" icon="users" href="/multimodal/rdoc/social-processes">
+<Card title="Social Processes" icon="/icons/ui/users.svg" href="/multimodal/rdoc/social-processes">
 `social_communication` · `affiliation_attachment`
 </Card>
 </CardGroup>
 
-<Card title="Arousal & Regulatory Systems" icon="activity" href="/multimodal/rdoc/arousal-regulatory">
+<Card title="Arousal & Regulatory Systems" icon="/icons/ui/activity.svg" href="/multimodal/rdoc/arousal-regulatory">
 `arousal` · `arousal_regulation` · `circadian_rhythms` · `sleep_wakefulness`
 </Card>
 
@@ -42,7 +42,7 @@ class ConstructActivation: name: str # e.g. "potential_threat_anxiety" score: fl
 
 | "moderate" | "high" |
 
-``` Severity bands:
+Severity bands:
 
 | Score | Severity |
 | :--- | :--- |
@@ -54,13 +54,12 @@ class ConstructActivation: name: str # e.g. "potential_threat_anxiety" score: fl
 { "constructs": [ { "name": "potential_threat_anxiety", "domain": "negative_valence", "score": 0.74, "confidence": 0.81, "severity": "high", "interpretation": "Elevated anxiety markers across vocal F0, jitter, and facial stress.", "contributors": [ {"feature": "f0_mean", "value": 218.0, "contribution": 0.31}, {"feature": "jitter", "value": 1.4, "contribution": 0.22}, {"feature": "vocal_anxiety_index", "value": 0.66, "contribution": 0.18}, {"feature": "stress_index", "value": 62.0, "contribution": 0.15}, {"feature": "hrv_lf_hf_ratio", "value": 2.1, "contribution": 0.14} ] } ]
 }
 
-```
 
 ## Endpoint ```
 
 POST /api/multimodal-therapy/analyze-session
 
-``` The neurobehavioral profile is included in the canonical payload at `payload.rdoc.constructs`.
+The neurobehavioral profile is included in the canonical payload at `payload.rdoc.constructs`.
 
 ---
 
@@ -68,19 +67,19 @@ POST /api/multimodal-therapy/analyze-session
 
 <CardGroup cols={2}>
 
-<Card title="Vocal Acoustic Engine" icon="waveform-lines" href="/multimodal/vocal/overview">
+<Card title="Vocal Acoustic Engine" icon="/icons/ui/waveform-lines.svg" href="/multimodal/vocal/overview">
 Vocal features that drive constructs.
 </Card>
 
-<Card title="Facial Physiological Engine" icon="eye" href="/multimodal/facial/overview">
+<Card title="Facial Physiological Engine" icon="/icons/ui/eye.svg" href="/multimodal/facial/overview">
 Facial features that drive constructs.
 </Card>
 
-<Card title="Architecture" icon="diagram-project" href="/multimodal/architecture">
+<Card title="Architecture" icon="/icons/ui/diagram-project.svg" href="/multimodal/architecture">
 Pipeline deep dive.
 </Card>
 
-<Card title="Co-Therapy Agent" icon="users" href="/agentic/agents/co-therapy">
+<Card title="Co-Therapy Agent" icon="/icons/ui/users.svg" href="/agentic/agents/co-therapy">
 Agent-level documentation.
 </Card>
 </CardGroup>

@@ -24,18 +24,27 @@ Medera Console account and a Developer API Key with `write:phi` and `execute:age
 <Steps>
 
 <Step title="Authenticate">
-Set your API key as an env variable. ```bash export MEDERA_API_KEY="<your-key>" ```
+Set your API key as an env variable.
+```bash
+export MEDERA_API_KEY="<your-key>" 
+```
 </Step>
 
 <Step title="Start the clinical session">
 Open a clinical session — this anchors the transcript, note, and code suggestions.
 
 <CodeGroup>
-```typescript JavaScript import { MederaClient } from '@medera/sdk'; const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY! }); const { session_id } = await client.clinical.start({ session_type: 'clinical_visit', patient_id: 'pat_abc', }); ```
+```typescript JavaScript
+import { MederaClient } from '@medera/sdk'; const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY! }); const { session_id } = await client.clinical.start({ session_type: 'clinical_visit', patient_id: 'pat_abc', }); 
+```
 
-```python Python from medera import MederaClient client = MederaClient(api_key=os.environ["MEDERA_API_KEY"]) session = client.clinical.start(session_type="clinical_visit", patient_id="pat_abc",) ```
+```python Python
+from medera import MederaClient client = MederaClient(api_key=os.environ["MEDERA_API_KEY"]) session = client.clinical.start(session_type="clinical_visit", patient_id="pat_abc",) 
+```
 
-```bash cURL curl -X POST https://api.medera.info/api/clinical/start \ -H "X-API-Key: $MEDERA_API_KEY" \ -H "Content-Type: application/json" \ -d '{ "session_type": "clinical_visit", "patient_id": "pat_abc" }' ```
+```bash
+cURL curl -X POST https://api.medera.info/api/clinical/start \ -H "X-API-Key: $MEDERA_API_KEY" \ -H "Content-Type: application/json" \ -d '{ "session_type": "clinical_visit", "patient_id": "pat_abc" }' 
+```
 </CodeGroup>
 
 </Step>
@@ -44,11 +53,17 @@ Open a clinical session — this anchors the transcript, note, and code suggesti
 Send PCM audio chunks (16 kHz 16-bit mono recommended) as the clinician speaks.
 
 <CodeGroup>
-```typescript JavaScript // Encode PCM as base64 const audio_data = btoa(String.fromCharCode(...pcmBuffer)); const { transcript } = await client.clinical.chunk({ session_id, audio_data, }); ```
+```typescript JavaScript
+// Encode PCM as base64 const audio_data = btoa(String.fromCharCode(...pcmBuffer)); const { transcript } = await client.clinical.chunk({ session_id, audio_data, }); 
+```
 
-```python Python import base64 audio_b64 = base64.b64encode(pcm_buffer).decode res = client.clinical.chunk(session_id=session.id, audio_data=audio_b64,) ```
+```python Python
+import base64 audio_b64 = base64.b64encode(pcm_buffer).decode res = client.clinical.chunk(session_id=session.id, audio_data=audio_b64,) 
+```
 
-```bash cURL curl -X POST https://api.medera.info/api/clinical/chunk \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_id": "ses_abc", "audio_data": "<base64 PCM>" }' ```
+```bash
+cURL curl -X POST https://api.medera.info/api/clinical/chunk \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_id": "ses_abc", "audio_data": "<base64 PCM>" }' 
+```
 </CodeGroup>
 
 Local Medera STT is the default with Medera STT as fallback. The response returns the accumulated transcript so far.
@@ -58,11 +73,17 @@ Local Medera STT is the default with Medera STT as fallback. The response return
 Finalize the transcript and trigger the initial clinical analysis.
 
 <CodeGroup>
-```typescript JavaScript const result = await client.clinical.stop({ session_id }); // result.transcription, result.clinical_data ```
+```typescript JavaScript
+const result = await client.clinical.stop({ session_id }); // result.transcription, result.clinical_data 
+```
 
-```python Python result = client.clinical.stop(session_id=session.id) ```
+```python Python
+result = client.clinical.stop(session_id=session.id) 
+```
 
-```bash cURL curl -X POST https://api.medera.info/api/clinical/stop \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_id": "ses_abc" }' ```
+```bash
+cURL curl -X POST https://api.medera.info/api/clinical/stop \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_id": "ses_abc" }' 
+```
 </CodeGroup>
 
 </Step>
@@ -71,18 +92,27 @@ Finalize the transcript and trigger the initial clinical analysis.
 Use the enhanced generator for specialty templates and inline code suggestions.
 
 <CodeGroup>
-```typescript JavaScript const note = await client.therapy.generateSoapNoteEnhanced({ session_data: { session_id }, specialty: 'psychiatry', template_config: { format_version: 'v3', include_assessments: true, include_billing_codes: true, }, }); ```
+```typescript JavaScript
+const note = await client.therapy.generateSoapNoteEnhanced({ session_data: { session_id }, specialty: 'psychiatry', template_config: { format_version: 'v3', include_assessments: true, include_billing_codes: true, }, }); 
+```
 
-```python Python note = client.therapy.generate_soap_note_enhanced(session_data={"session_id": session.id}, specialty="psychiatry", template_config={ "format_version": "v3", "include_assessments": True, "include_billing_codes": True, },) ```
+```python Python
+note = client.therapy.generate_soap_note_enhanced(session_data={"session_id": session.id}, specialty="psychiatry", template_config={ "format_version": "v3", "include_assessments": True, "include_billing_codes": True, },) 
+```
 
-```bash cURL curl -X POST https://api.medera.info/api/therapy/generate-soap-note-enhanced \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_data": { "session_id": "ses_abc" }, "specialty": "psychiatry", "template_config": { "include_billing_codes": true } }' ```
+```bash
+cURL curl -X POST https://api.medera.info/api/therapy/generate-soap-note-enhanced \ -H "X-API-Key: $MEDERA_API_KEY" \ -d '{ "session_data": { "session_id": "ses_abc" }, "specialty": "psychiatry", "template_config": { "include_billing_codes": true } }' 
+```
 </CodeGroup>
 
 The response includes the structured SOAP plus a list of suggested ICD-10 / CPT codes anchored to transcript spans.
 </Step>
 
 <Step title="Sign and post to the EHR">
-After clinician sign-off, finalize the note. Medera posts the signed note and code set to the configured EHR target via the integration adapter. ```bash curl -X POST https://api.medera.info/api/therapy/notes/{note_id}/finalize \ -H "X-API-Key: $MEDERA_API_KEY" ```
+After clinician sign-off, finalize the note. Medera posts the signed note and code set to the configured EHR target via the integration adapter.
+```bash
+curl -X POST https://api.medera.info/api/therapy/notes/{note_id}/finalize \ -H "X-API-Key: $MEDERA_API_KEY" 
+```
 </Step>
 </Steps>
 
@@ -104,19 +134,19 @@ Higher rates work but waste bandwidth.
 
 <CardGroup cols={2}>
 
-<Card title="Visit Scribe Agent" icon="stethoscope" href="/agentic/agents/visit-scribe">
+<Card title="Visit Scribe Agent" icon="/icons/ui/stethoscope.svg" href="/agentic/agents/visit-scribe">
 Agent-level documentation.
 </Card>
 
-<Card title="Encounter Coding" icon="code" href="/coding/encounter-coding">
+<Card title="Encounter Coding" icon="/icons/ui/code.svg" href="/coding/encounter-coding">
 How code suggestions work.
 </Card>
 
-<Card title="EHR Integrations" icon="link" href="/api-reference/integrations/overview">
+<Card title="EHR Integrations" icon="/icons/ui/link.svg" href="/api-reference/integrations/overview">
 Connect Epic, Cerner, athenahealth.
 </Card>
 
-<Card title="STT — best practices" icon="mic" href="/multimodal/stt/best-practices-recording">
+<Card title="STT — best practices" icon="/icons/ui/mic.svg" href="/multimodal/stt/best-practices-recording">
 Audio quality recommendations.
 </Card>
 </CardGroup>

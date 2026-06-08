@@ -7,15 +7,15 @@ Medera supports three credential types, each scoped to a tenant (organization) a
 
 <CardGroup cols={3}>
 
-<Card title="session JWT" icon="user" href="/authentication/quickstart">
+<Card title="session JWT" icon="/icons/ui/user.svg" href="/authentication/quickstart">
 End-user requests from a clinician or admin. Issued by the identity provider on sign-in. Header `Authorization: Bearer <jwt>`.
 </Card>
 
-<Card title="Developer API Key" icon="key" href="/authentication/creating-clients">
+<Card title="Developer API Key" icon="/icons/ui/key.svg" href="/authentication/creating-clients">
 Server-to-server, scoped to a project. Issued by the [Console](https://medera.info/contact). Header `X-API-Key: <key>`.
 </Card>
 
-<Card title="Internal service key" icon="server" href="/authentication/environments-tenants">
+<Card title="Internal service key" icon="/icons/ui/server.svg" href="/authentication/environments-tenants">
 AI Services ↔ Backend proxy. Header `X-Service-Key: <key>`. Internal use only.
 </Card>
 </CardGroup>
@@ -71,19 +71,19 @@ For agent / intake / therapy / copilot endpoints, the middleware stack also runs
 
 <CardGroup cols={2}>
 
-<Card title="Quickstart" icon="zap" href="/authentication/quickstart">
+<Card title="Quickstart" icon="/icons/ui/zap.svg" href="/authentication/quickstart">
 Get a token in 60 seconds.
 </Card>
 
-<Card title="Creating Clients" icon="key" href="/authentication/creating-clients">
+<Card title="Creating Clients" icon="/icons/ui/key.svg" href="/authentication/creating-clients">
 Generate Developer API Keys.
 </Card>
 
-<Card title="Environments & Tenants" icon="server" href="/authentication/environments-tenants">
+<Card title="Environments & Tenants" icon="/icons/ui/server.svg" href="/authentication/environments-tenants">
 Sandbox, staging, production.
 </Card>
 
-<Card title="Security Best Practices" icon="shield-check" href="/authentication/security-best-practices">
+<Card title="Security Best Practices" icon="/icons/ui/shield-check.svg" href="/authentication/security-best-practices">
 Five rules for credentials.
 </Card>
 </CardGroup>

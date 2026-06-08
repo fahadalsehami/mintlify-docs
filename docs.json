@@ -63,8 +63,7 @@
   "footer": {
     "socials": {
       "x": "https://x.com/medera_ai",
-      "linkedin": "https://linkedin.com/company/medera-ai",
-      "github": "https://github.com/medera-ai"
+      "linkedin": "https://linkedin.com/company/medera-ai"
     },
     "links": [
       {
@@ -102,10 +101,6 @@
           {
             "label": "Quickstarts",
             "href": "/quickstart/ambient-rt"
-          },
-          {
-            "label": "Examples",
-            "href": "https://github.com/medera-ai/examples"
           }
         ]
       },
@@ -200,7 +195,8 @@
               "multimodal/overview",
               "multimodal/architecture",
               "multimodal/quickstart"
-            ]
+            ],
+            "icon": "compass"
           },
           {
             "group": "Speech to Text",
@@ -223,7 +219,8 @@
               "multimodal/stt/evaluations",
               "multimodal/stt/dictation-web",
               "multimodal/stt/feedback"
-            ]
+            ],
+            "icon": "audio-lines"
           },
           {
             "group": "Facial Physiological Engine",
@@ -236,7 +233,8 @@
               "multimodal/facial/stress-index",
               "multimodal/facial/affect-emotion",
               "multimodal/facial/quality-requirements"
-            ]
+            ],
+            "icon": "user-square-2"
           },
           {
             "group": "Vocal Acoustic Engine",
@@ -247,7 +245,8 @@
               "multimodal/vocal/prosodics",
               "multimodal/vocal/spectral-features",
               "multimodal/vocal/clinical-markers"
-            ]
+            ],
+            "icon": "audio-waveform"
           },
           {
             "group": "Neurobehavioral Construct Computer",
@@ -258,7 +257,8 @@
               "multimodal/rdoc/cognitive-systems",
               "multimodal/rdoc/social-processes",
               "multimodal/rdoc/arousal-regulatory"
-            ]
+            ],
+            "icon": "brain"
           }
         ]
       },
@@ -271,7 +271,8 @@
             "pages": [
               "textgen/overview",
               "textgen/architecture"
-            ]
+            ],
+            "icon": "compass"
           },
           {
             "group": "Documents",
@@ -282,7 +283,8 @@
               "textgen/documents-docmode",
               "textgen/templates",
               "textgen/templates-standard"
-            ]
+            ],
+            "icon": "file-text"
           },
           {
             "group": "Facts & Reasoning",
@@ -291,7 +293,8 @@
               "textgen/extractfacts",
               "textgen/facts_realtime",
               "textgen/facts_async"
-            ]
+            ],
+            "icon": "search"
           },
           {
             "group": "Clinical RAG",
@@ -301,7 +304,8 @@
               "textgen/rag-ontologies",
               "textgen/rag-guidelines",
               "textgen/rag-citations"
-            ]
+            ],
+            "icon": "library"
           }
         ]
       },
@@ -323,7 +327,8 @@
               "agentic/mcp-authentication",
               "agentic/faq",
               "agentic/sdks-integrations"
-            ]
+            ],
+            "icon": "rocket"
           },
           {
             "group": "Agent Library \u2014 Clinical Operations",
@@ -334,7 +339,8 @@
               "agentic/agents/co-therapy",
               "agentic/agents/prior-authorization",
               "agentic/agents/care-coordinator"
-            ]
+            ],
+            "icon": "stethoscope"
           },
           {
             "group": "Agent Library \u2014 Documentation & Coding",
@@ -344,7 +350,8 @@
               "agentic/agents/note-completeness",
               "agentic/agents/referral-generator",
               "agentic/agents/discharge-summary"
-            ]
+            ],
+            "icon": "file-check-2"
           },
           {
             "group": "Agent Library \u2014 Patient-Facing",
@@ -353,7 +360,8 @@
               "agentic/agents/patient-education",
               "agentic/agents/crisis-response",
               "agentic/agents/outcomes-measurement"
-            ]
+            ],
+            "icon": "heart-handshake"
           },
           {
             "group": "Agent Library \u2014 Revenue Cycle & Ops",
@@ -362,7 +370,8 @@
               "agentic/agents/eligibility-verification",
               "agentic/agents/claims-review",
               "agentic/agents/quality-reporting"
-            ]
+            ],
+            "icon": "credit-card"
           },
           {
             "group": "Agent Library \u2014 Evidence & Safety",
@@ -372,7 +381,8 @@
               "agentic/agents/drug-interaction",
               "agentic/agents/risk-stratification",
               "agentic/agents/evidence-synthesis"
-            ]
+            ],
+            "icon": "shield-check"
           },
           {
             "group": "Experts Registry",
@@ -392,7 +402,8 @@
               "agentic/experts/clinicaltrials-gov",
               "agentic/experts/payer-policy",
               "agentic/experts/web-search"
-            ]
+            ],
+            "icon": "atom"
           },
           {
             "group": "Agent Builder Canvas",
@@ -403,7 +414,8 @@
               "agentic/canvas/versioning-deployment",
               "agentic/canvas/guardrails",
               "agentic/canvas/transforms-cel"
-            ]
+            ],
+            "icon": "layout-dashboard"
           }
         ]
       },
@@ -422,7 +434,8 @@
               "coding/encounter-coding",
               "coding/cdi",
               "coding/revenue-cycle"
-            ]
+            ],
+            "icon": "compass"
           },
           {
             "group": "Code Systems",
@@ -435,7 +448,8 @@
               "coding/snomed-ct",
               "coding/loinc",
               "coding/rxnorm"
-            ]
+            ],
+            "icon": "hash"
           }
         ]
       },
@@ -452,7 +466,8 @@
               "compliance/baa",
               "compliance/data-residency",
               "compliance/sub-processors"
-            ]
+            ],
+            "icon": "shield-check"
           },
           {
             "group": "Security Controls",
@@ -465,7 +480,8 @@
               "compliance/access-control",
               "compliance/mfa-sso",
               "compliance/incident-response"
-            ]
+            ],
+            "icon": "lock"
           }
         ]
       },
@@ -477,7 +493,8 @@
             "group": "Overview",
             "pages": [
               "sdks/overview"
-            ]
+            ],
+            "icon": "compass"
           },
           {
             "group": "JavaScript / TypeScript",
@@ -487,7 +504,8 @@
               "sdks/js/websockets",
               "sdks/js/proxy",
               "sdks/js/reference"
-            ]
+            ],
+            "icon": "square-code"
           },
           {
             "group": "Python",
@@ -496,21 +514,24 @@
               "sdks/python/authentication",
               "sdks/python/websockets",
               "sdks/python/reference"
-            ]
+            ],
+            "icon": "square-code"
           },
           {
             "group": "Web Components",
             "pages": [
               "sdks/dictation-component",
               "sdks/co-therapy-component"
-            ]
+            ],
+            "icon": "puzzle"
           },
           {
             "group": "Tools",
             "pages": [
               "sdks/postman",
               "sdks/cli"
-            ]
+            ],
+            "icon": "wrench"
           }
         ]
       },
@@ -526,7 +547,8 @@
               "api-reference/rate-limits",
               "api-reference/pagination",
               "api-reference/versioning"
-            ]
+            ],
+            "icon": "compass"
           },
           {
             "group": "Authentication",
@@ -536,7 +558,8 @@
               "api-reference/auth/register",
               "api-reference/auth/forgot-password",
               "api-reference/auth/webhooks-identity"
-            ]
+            ],
+            "icon": "key-round"
           },
           {
             "group": "Patients",
@@ -546,7 +569,8 @@
               "api-reference/patients/list",
               "api-reference/patients/update",
               "api-reference/patients/delete"
-            ]
+            ],
+            "icon": "user-round"
           },
           {
             "group": "Providers & Organizations",
@@ -557,7 +581,8 @@
               "api-reference/organizations/get",
               "api-reference/organizations/provision",
               "api-reference/organizations/usage"
-            ]
+            ],
+            "icon": "users-round"
           },
           {
             "group": "Sessions & Encounters",
@@ -568,7 +593,8 @@
               "api-reference/sessions/recordings",
               "api-reference/sessions/transcripts",
               "api-reference/sessions/annotations"
-            ]
+            ],
+            "icon": "calendar"
           },
           {
             "group": "Intake Calls (Voice)",
@@ -578,7 +604,8 @@
               "api-reference/intake/list-calls",
               "api-reference/intake/webhooks-voice",
               "api-reference/intake/function-calls"
-            ]
+            ],
+            "icon": "phone"
           },
           {
             "group": "Therapy Sessions",
@@ -588,7 +615,8 @@
               "api-reference/therapy/stop",
               "api-reference/therapy/analyze",
               "api-reference/therapy/co-therapy-create"
-            ]
+            ],
+            "icon": "brain"
           },
           {
             "group": "Multimodal Analysis",
@@ -597,7 +625,8 @@
               "api-reference/multimodal/analyze-audio",
               "api-reference/multimodal/rdoc-compute",
               "api-reference/multimodal/realtime-stream"
-            ]
+            ],
+            "icon": "audio-lines"
           },
           {
             "group": "Prior Authorization",
@@ -608,7 +637,8 @@
               "api-reference/pa/submit",
               "api-reference/pa/status",
               "api-reference/pa/appeal"
-            ]
+            ],
+            "icon": "file-check-2"
           },
           {
             "group": "Agent Workflows",
@@ -620,7 +650,8 @@
               "api-reference/workflows/publish",
               "api-reference/workflows/execute",
               "api-reference/workflows/executions"
-            ]
+            ],
+            "icon": "workflow"
           },
           {
             "group": "Clinical",
@@ -632,7 +663,8 @@
               "api-reference/clinical/lab-results",
               "api-reference/clinical/appointments",
               "api-reference/clinical/templates"
-            ]
+            ],
+            "icon": "clipboard-list"
           },
           {
             "group": "FHIR R4",
@@ -645,7 +677,8 @@
               "api-reference/fhir/medication-request",
               "api-reference/fhir/care-plan",
               "api-reference/fhir/questionnaire-response"
-            ]
+            ],
+            "icon": "link"
           },
           {
             "group": "Billing",
@@ -654,7 +687,8 @@
               "api-reference/billing/usage",
               "api-reference/billing/invoices",
               "api-reference/billing/payment-methods"
-            ]
+            ],
+            "icon": "credit-card"
           },
           {
             "group": "Webhooks",
@@ -662,7 +696,8 @@
               "api-reference/webhooks/overview",
               "api-reference/webhooks/events",
               "api-reference/webhooks/signatures"
-            ]
+            ],
+            "icon": "webhook"
           },
           {
             "group": "Audit & Compliance",
@@ -670,7 +705,8 @@
               "api-reference/audit/access-logs",
               "api-reference/audit/integrity-checkpoints",
               "api-reference/audit/exports"
-            ]
+            ],
+            "icon": "scroll"
           },
           {
             "group": "EHR Integrations",
@@ -682,7 +718,8 @@
               "api-reference/integrations/allscripts",
               "api-reference/integrations/surescripts",
               "api-reference/integrations/waystar"
-            ]
+            ],
+            "icon": "plug-2"
           }
         ]
       },
@@ -700,7 +737,8 @@
               "release-notes/agentic",
               "release-notes/multimodal",
               "release-notes/textgen"
-            ]
+            ],
+            "icon": "newspaper"
           }
         ]
       }

@@ -17,9 +17,13 @@ Completing this quickstart gets you a working code prediction response from the 
 Choose the SDK for your stack.
 
 <CodeGroup>
-```bash JavaScript npm install @medera/sdk # or pnpm add @medera/sdk ```
+```bash JavaScript
+npm install @medera/sdk # or pnpm add @medera/sdk 
+```
 
-```bash Python pip install medera ```
+```bash Python
+pip install medera 
+```
 </CodeGroup>
 
 </Step>
@@ -28,9 +32,13 @@ Choose the SDK for your stack.
 Replace the placeholders with values from your Console.
 
 <CodeGroup>
-```typescript JavaScript import { MederaClient } from "@medera/sdk"; const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY!, baseUrl: "https://api.medera.info", }); ```
+```typescript JavaScript
+import { MederaClient } from "@medera/sdk"; const client = new MederaClient({ apiKey: process.env.MEDERA_API_KEY!, baseUrl: "https://api.medera.info", }); 
+```
 
-```python Python from medera import MederaClient import os client = MederaClient(api_key=os.environ["MEDERA_API_KEY"]) ```
+```python Python
+from medera import MederaClient import os client = MederaClient(api_key=os.environ["MEDERA_API_KEY"]) 
+```
 </CodeGroup>
 
 The SDKs handle token acquisition, refresh, and retries automatically. There is no need to manage bearer tokens manually.
@@ -42,26 +50,39 @@ POST a clinical note (or a `documentId`) to `/api/therapy/suggest-codes`. The `c
 | Parameter | Type | Required | Description | | :--- | :--- | :--- | :--- | | `code_systems` | `string[]` | Yes | One or more coding systems. Recommended pairs in [Coding Systems](/coding/coding-systems). | | `context` | `object` | Yes | The clinical input: `{ "documentId": "doc_abc" }` or `{ "text": "..." }`. | | `min_confidence` | `number` | No | Filter out predictions below this threshold (default `0.5`). |
 
 <CodeGroup>
-```typescript JavaScript const response = await client.coding.suggestCodes({ code_systems: ["icd-10-cm", "cpt"], context: { documentId: "doc_abc" }, min_confidence: 0.7, }); ```
+```typescript JavaScript
+const response = await client.coding.suggestCodes({ code_systems: ["icd-10-cm", "cpt"], context: { documentId: "doc_abc" }, min_confidence: 0.7, }); 
+```
 
-```python Python response = client.coding.suggest_codes(code_systems=["icd-10-cm", "cpt"], context={"documentId": "doc_abc"}, min_confidence=0.7,) ```
+```python Python
+response = client.coding.suggest_codes(code_systems=["icd-10-cm", "cpt"], context={"documentId": "doc_abc"}, min_confidence=0.7,) 
+```
 
-```bash cURL curl -X POST https://api.medera.info/api/therapy/suggest-codes \ -H "X-API-Key: $MEDERA_API_KEY" \ -H "Content-Type: application/json" \ -d '{ "code_systems": ["icd-10-cm", "cpt"], "context": { "documentId": "doc_abc" }, "min_confidence": 0.7 }' ```
+```bash
+cURL curl -X POST https://api.medera.info/api/therapy/suggest-codes \ -H "X-API-Key: $MEDERA_API_KEY" \ -H "Content-Type: application/json" \ -d '{ "code_systems": ["icd-10-cm", "cpt"], "context": { "documentId": "doc_abc" }, "min_confidence": 0.7 }' 
+```
 </CodeGroup>
 
 </Step>
 
 <Step title="Read the response">
-A successful response returns three top-level fields: - **`codes`** — the model's high-confidence predictions. Each entry includes `code`, `display`, `confidence`, `anchor` (with `documentId`, `span`, and `quote`), and optional `severity_qualifier_suggestions`. - **`candidates`** — lower-confidence codes worth reviewing. - **`usageInfo`** — credits consumed for this request. ```json { "codes": [ { "system": "icd-10-cm", "code": "F32.1", "display": "Major depressive disorder, single episode, moderate", "confidence": 0.92, "anchor": { "documentId": "doc_abc", "span": { "start": 412, "end": 489 }, "quote": "Patient reports persistent low mood for 6 weeks..." }, "severity_qualifier_suggestions": ["severe"] }, { "system": "cpt", "code": "90834", "display": "Psychotherapy, 45 minutes", "confidence": 0.95, "anchor": { "documentId": "doc_abc", "span": { "start": 12, "end": 38 }, "quote": "45-minute individual psychotherapy" } } ], "candidates": [ { "system": "icd-10-cm", "code": "Z71.1", "display": "Person with feared complaint in whom no diagnosis is made", "confidence": 0.58 } ], "usageInfo": { "creditsConsumed": 1.0 } } ```
+A successful response returns three top-level fields: - **`codes`** — the model's high-confidence predictions. Each entry includes `code`, `display`, `confidence`, `anchor` (with `documentId`, `span`, and `quote`), and optional `severity_qualifier_suggestions`. - **`candidates`** — lower-confidence codes worth reviewing. - **`usageInfo`** — credits consumed for this request.
+```json
+{ "codes": [ { "system": "icd-10-cm", "code": "F32.1", "display": "Major depressive disorder, single episode, moderate", "confidence": 0.92, "anchor": { "documentId": "doc_abc", "span": { "start": 412, "end": 489 }, "quote": "Patient reports persistent low mood for 6 weeks..." }, "severity_qualifier_suggestions": ["severe"] }, { "system": "cpt", "code": "90834", "display": "Psychotherapy, 45 minutes", "confidence": 0.95, "anchor": { "documentId": "doc_abc", "span": { "start": 12, "end": 38 }, "quote": "45-minute individual psychotherapy" } } ], "candidates": [ { "system": "icd-10-cm", "code": "Z71.1", "display": "Person with feared complaint in whom no diagnosis is made", "confidence": 0.58 } ], "usageInfo": { "creditsConsumed": 1.0 } } 
+```
 </Step>
 
 <Step title="Combine coding systems">
 Most US encounters require more than one coding system. Pass multiple values in `code_systems` — for example, pairing ICD-10-CM with CPT for an outpatient visit. The response includes codes from all requested systems in the same `codes` array, each tagged with its `system`.
 
 <CodeGroup>
-```typescript JavaScript const response = await client.coding.suggestCodes({ code_systems: ["icd-10-cm", "cpt", "hcpcs"], context: { documentId: "doc_abc" }, }); ```
+```typescript JavaScript
+const response = await client.coding.suggestCodes({ code_systems: ["icd-10-cm", "cpt", "hcpcs"], context: { documentId: "doc_abc" }, }); 
+```
 
-```python Python response = client.coding.suggest_codes(code_systems=["icd-10-cm", "cpt", "hcpcs"], context={"documentId": "doc_abc"},) ```
+```python Python
+response = client.coding.suggest_codes(code_systems=["icd-10-cm", "cpt", "hcpcs"], context={"documentId": "doc_abc"},) 
+```
 </CodeGroup>
 
 See [Coding Systems](/coding/coding-systems) for recommended pairings by encounter type.
@@ -72,15 +93,15 @@ See [Coding Systems](/coding/coding-systems) for recommended pairings by encount
 
 <CardGroup cols={3}>
 
-<Card title="Code Prediction" icon="book" href="/coding/introduction">
+<Card title="Code Prediction" icon="/icons/ui/book.svg" href="/coding/introduction">
 Endpoint, supported features, coding system options.
 </Card>
 
-<Card title="How it works" icon="settings" href="/coding/how-it-works">
+<Card title="How it works" icon="/icons/ui/settings.svg" href="/coding/how-it-works">
 Request schema, response fields, evidence spans, filtering.
 </Card>
 
-<Card title="Use cases" icon="briefcase" href="/coding/encounter-coding">
+<Card title="Use cases" icon="/icons/ui/briefcase.svg" href="/coding/encounter-coding">
 Encounter coding, CDI review, revenue cycle.
 </Card>
 </CardGroup>

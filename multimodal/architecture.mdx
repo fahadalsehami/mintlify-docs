@@ -14,7 +14,7 @@ description: "Pipeline deep dive from raw signal to clinical payload"
 ## Vocal pipeline ```python
 engine = VocalAcousticEngine(sample_rate=16000, frame_length_ms=25, hop_length_ms=10, gender=None, # auto)
 features: VocalFeatures = engine.extract_features(audio, sr=16000)
-``` Engine internals:
+Engine internals:
 1. speech analysis library `Sound` object loaded
 2. F0 contour via Praat autocorrelation (gender-aware range)
 3. Voice quality (jitter, shimmer, HNR) via Praat point-process
@@ -39,7 +39,11 @@ signals: PhysiologicalSignals = engine.extract_features(frames, timestamps=None)
 ## neurobehavioral fusion ```python
 computer = NeurobehavioralConstructComputer
 profile: NeurobehavioralActivationProfile = computer.compute_all_constructs(facial_features=signals.to_dict, vocal_features=features.to_dict, assessments={"phq9": 14, "gad7": 11}, context={"chief_complaint": "..."},)
-``` For each of the 15 constructs, the computer returns a `ConstructActivation`: ```python
+```text
+For
+each of the 15 constructs, the computer returns a `ConstructActivation`: 
+```
+python
 @dataclass
 class ConstructActivation: name: str # e.g. "potential_threat_anxiety" score: float # 0–1 activation confidence: float # 0–1 calibrated contributors: list # [{feature, value, contribution}] interpretation: str # clinical text domain: str # neurobehavioral domain low_threshold: float = 0.3 high_threshold: float = 0.7 # get_severity → "low" | "moderate" | "high"
 ```
